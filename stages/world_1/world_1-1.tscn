@@ -11,11 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://djwe62jh83kf" path="res://engine/tilesets/overworld/hard_block.png" id="10_vj0s4"]
 [ext_resource type="PackedScene" uid="uid://ugxjxrdao5el" path="res://engine/components/hud/hud.tscn" id="11_78wva"]
 
-[sub_resource type="Gradient" id="Gradient_4mqjo"]
+[sub_resource type="Gradient" id="Gradient_l32ub"]
 colors = PackedColorArray(0.415686, 0.415686, 0.972549, 1, 0.952941, 0.952941, 0.952941, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8vs8l"]
-gradient = SubResource("Gradient_4mqjo")
+gradient = SubResource("Gradient_l32ub")
 width = 640
 height = 480
 fill_to = Vector2(0, 1)
