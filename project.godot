@@ -40,12 +40,12 @@ thunder_settings/tweaks/enable_blur_transitions=true
 thunder_settings/tweaks/progress_continue=true
 thunder_settings/tweaks/mouse_in_menus=true
 thunder_settings/tweaks/custom_mouse_cursor=false
-thunder_settings/custom_mouse_cursor_path="res://engine/components/ui/generic/textures/mouse_cursor.png"
 thunder_settings/tweaks/f3_keybind=false
 thunder_settings/tweaks/f4_keybind=false
 thunder_settings/tweaks/legacy_bullet_launcher_not_shooting_range=true
 thunder_settings/tweaks/revamp_item_shop=false
 thunder_settings/tweaks/load_save_from_world_start=false
+thunder_settings/custom_mouse_cursor_path=""
 
 [autoload]
 
@@ -63,6 +63,7 @@ SettingsManager="*res://engine/singletones/scripts/SettingsManager.gd"
 SkinsManager="*res://engine/singletones/scripts/SkinsManager.gd"
 Pause="*res://engine/components/pause/pause.tscn"
 GameOverContinue="*res://engine/components/game_over/game_over_continue.tscn"
+Editor="*res://modules/editor/classes/Editor.gd"
 
 [debug]
 
@@ -74,8 +75,8 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=480
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/subwindows/embed_subwindows=false
 
 [editor_plugins]
@@ -92,6 +93,10 @@ folder_colors={
 [filesystem]
 
 import/blender/enabled=false
+
+[gui]
+
+theme/custom="res://modules/editor/editor_theme.tres"
 
 [input]
 
@@ -199,6 +204,7 @@ a_tab={
 2d_physics/layer_6="block_for_enemies"
 2d_physics/layer_7="block_for_items"
 2d_physics/layer_8="fluid"
+2d_physics/layer_9="editor"
 
 [physics]
 

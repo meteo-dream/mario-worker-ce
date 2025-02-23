@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://duqho8luuabvd"]
+
+[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_kqgk6"]
+[ext_resource type="Texture2D" uid="uid://dwtn8cky8tb3l" path="res://engine/objects/enemies/goombas/textures/goomba.png" id="2_b7ara"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnl2o"]
+atlas = ExtResource("2_b7ara")
+region = Rect2(0, 0, 31, 32)
+margin = Rect2(0, 0, 1, 0)
+
+[node name="Goomba" type="Node2D"]
+script = ExtResource("1_kqgk6")
+scene_path = "res://engine/objects/enemies/goombas/goomba.tscn"
+category = "enemy"
+editor_icon = SubResource("AtlasTexture_cnl2o")

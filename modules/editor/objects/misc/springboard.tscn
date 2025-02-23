@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyie5ilg7rw6u"]
+
+[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_i7ygx"]
+[ext_resource type="Texture2D" uid="uid://dhbdb0vketv31" path="res://engine/objects/springboard/textures/springboard.png" id="2_0ymkx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnl2o"]
+atlas = ExtResource("2_0ymkx")
+region = Rect2(0, 0, 32, 48)
+margin = Rect2(8, 0, 16, 0)
+
+[node name="Springboard" type="Node2D"]
+script = ExtResource("1_i7ygx")
+scene_path = "res://engine/objects/springboard/springboard.tscn"
+category = "misc"
+editor_icon = SubResource("AtlasTexture_cnl2o")
+offset = Vector2(0, -16)

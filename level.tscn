@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=4 uid="uid://d2ob41dqvqp5l"]
+
+[ext_resource type="Script" path="res://engine/scripts/classes/level/level.gd" id="1_8cd04"]
+[ext_resource type="AudioStream" uid="uid://bqiy8kvcsy0rk" path="res://engine/scripts/classes/level/complete.ogg" id="2_33y0t"]
+[ext_resource type="PackedScene" uid="uid://d3srfe2r6fg2u" path="res://engine/objects/core/music_loader/music_loader.tscn" id="3_dhm08"]
+[ext_resource type="PackedScene" uid="uid://1do11cr84k7y" path="res://engine/objects/players/player.tscn" id="5_31utc"]
+[ext_resource type="Script" path="res://modules/editor/scripts/e_player.gd" id="5_84n3a"]
+[ext_resource type="Script" path="res://modules/editor/scripts/e_player_camera_2d.gd" id="5_ymv0b"]
+[ext_resource type="TileSet" uid="uid://duodk2nyl4k2h" path="res://engine/tilesets/overworld/overworld.tres" id="7_7o84o"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_8cd04")
+completion_music = ExtResource("2_33y0t")
+
+[node name="MusicLoader" parent="." instance=ExtResource("3_dhm08")]
+
+[node name="Player" parent="." instance=ExtResource("5_31utc")]
+position = Vector2(80, 400)
+script = ExtResource("5_84n3a")
+
+[node name="PlayerCamera2D" type="Camera2D" parent="."]
+enabled = false
+editor_draw_screen = false
+script = ExtResource("5_ymv0b")
+metadata/_edit_lock_ = true
+
+[node name="Blocks" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAALAA8AAAACAAIAAAALAA4AAAACAAEAAAALAA0AAAACAAAAAAAKAA8AAAABAAIAAAAKAA4AAAABAAEAAAAKAA0AAAABAAAAAAAJAA8AAAABAAIAAAAJAA4AAAABAAEAAAAJAA0AAAABAAAAAAAIAA8AAAABAAIAAAAIAA4AAAABAAEAAAAIAA0AAAABAAAAAAAHAA8AAAABAAIAAAAHAA4AAAABAAEAAAAHAA0AAAABAAAAAAAGAA8AAAABAAIAAAAGAA4AAAABAAEAAAAGAA0AAAABAAAAAAAFAA8AAAABAAIAAAAFAA4AAAABAAEAAAAFAA0AAAABAAAAAAAEAA8AAAABAAIAAAAEAA4AAAABAAEAAAAEAA0AAAABAAAAAAADAA8AAAABAAIAAAADAA4AAAABAAEAAAADAA0AAAABAAAAAAACAA8AAAABAAIAAAACAA4AAAABAAEAAAACAA0AAAABAAAAAAABAA8AAAABAAIAAAABAA4AAAABAAEAAAABAA0AAAABAAAAAAAAAA8AAAAAAAIAAAAAAA4AAAAAAAEAAAAAAA0AAAAAAAAAAAA=")
+tile_set = ExtResource("7_7o84o")
+metadata/_edit_lock_ = true
+
+[node name="Enemies" type="Node2D" parent="."]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://btximphxt6od6"]
+
+[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_mb4x7"]
+[ext_resource type="Texture2D" uid="uid://bd6t46hxy4085" path="res://engine/objects/enemies/koopas/textures/koopa_red.png" id="2_ccs5g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76amp"]
+atlas = ExtResource("2_ccs5g")
+region = Rect2(0, 0, 31, 48)
+margin = Rect2(9, 0, 17, 0)
+
+[node name="Koopa Red" type="Node2D"]
+script = ExtResource("1_mb4x7")
+scene_path = "res://engine/objects/enemies/koopas/koopa_red.tscn"
+category = "enemy"
+editor_icon = SubResource("AtlasTexture_76amp")
+offset = Vector2(0, -16)

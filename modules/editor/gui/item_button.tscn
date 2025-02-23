@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2htv4oupj7ea"]
+
+[ext_resource type="Script" path="res://modules/editor/gui/item_button.gd" id="1_1empv"]
+
+[node name="ItemButton" type="Button"]
+texture_filter = 2
+custom_minimum_size = Vector2(128, 32)
+theme_override_constants/h_separation = 5
+theme_override_constants/icon_max_width = 24
+theme_override_font_sizes/font_size = 14
+alignment = 0
+text_overrun_behavior = 3
+expand_icon = true
+script = ExtResource("1_1empv")

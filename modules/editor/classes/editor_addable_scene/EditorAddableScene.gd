@@ -1,0 +1,37 @@
+class_name EditorAddableObject
+extends Node2D
+
+@export_file("*.tscn", "*.scn") var scene_path: String
+@export_enum("enemy", "scenery", "bonus", "misc") var category: String
+@export var editor_icon: Texture2D
+@export var offset: Vector2
+
+@onready var scene: Resource = load(scene_path)
+
+func _prepare_editor() -> void:
+	add_to_group(&"editor_addable_object")
+	position += offset
+	reset_physics_interpolation()
+	var _texture = TextureRect.new()
+	if editor_icon is AtlasTexture && editor_icon.margin:
+		_texture.texture = editor_icon.duplicate()
+		_texture.texture.margin = Rect2()
+	else:
+		_texture.texture = editor_icon
+	_texture.position = -Vector2.ONE * 16
+	add_child(_texture)
+	var _area = Area2D.new()
+	_area.collision_layer = 0b100000000
+	_area.collision_mask = 0
+	add_child(_area)
+	var _col = CollisionShape2D.new()
+	var _shape = RectangleShape2D.new()
+	_col.shape = _shape
+	_shape.size = Vector2.ONE * 32
+	_col.position = -offset
+	_area.add_child(_col)
+	prints(name, global_position)
+
+func _prepare_save() -> void:
+	for i in get_children():
+		i.queue_free()

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4b3m1wqenu6m"]
+
+[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_hkwin"]
+[ext_resource type="Texture2D" uid="uid://6qj5oaum37od" path="res://engine/objects/bumping_blocks/question_block/textures/question_2.png" id="2_7o5by"]
+
+[node name="Question Block (Coin)" type="Node2D"]
+script = ExtResource("1_hkwin")
+scene_path = "res://engine/objects/bumping_blocks/question_block/templates/Coin Question Block.tscn"
+editor_icon = ExtResource("2_7o5by")
+category = "bonus"
