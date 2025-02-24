@@ -4,10 +4,12 @@ extends Node2D
 var grid_size: Vector2 = Vector2.ONE * 32.0 :
 	set(value):
 		grid_size = value
+		Editor.grid_size = value
 @export
 var grid_offset: Vector2:
 	set(value):
 		grid_offset = value
+		Editor.grid_offset = value
 
 @export
 var color: Color = Color.DIM_GRAY :
@@ -17,6 +19,8 @@ var color: Color = Color.DIM_GRAY :
 
 func _ready() -> void:
 	%GridButton.button_pressed = Editor.grid_shown
+	Editor.grid_size = grid_size
+	Editor.grid_offset = grid_offset
 	queue_redraw()
 	%GridButton.pressed.connect(_on_grid_button_pressed)
 	%GridOkBtn.pressed.connect(func():

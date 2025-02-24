@@ -31,35 +31,59 @@ func _input(event: InputEvent) -> void:
 			#elif event.position.x > rect.x:
 				#return _wrap_mouse(Vector2(rect_pos.x, get_viewport().get_mouse_position().y))
 			position -= event.relative / zoom
+			reset_physics_interpolation()
 				
 			#if event.screen_relative
 		
 	if event is InputEventMouseButton && event.is_pressed():
+		var ctrl = Input.is_action_pressed(&"a_ctrl")
+		var shift = Input.is_action_pressed(&"a_shift")
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			zoom_in()
+			if ctrl:
+				if !shift:
+					position.y -= 32 / zoom.y
+					reset_physics_interpolation()
+				else:
+					position.x -= 32 / zoom.x
+					reset_physics_interpolation()
+			elif !shift:
+				zoom_in()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			zoom_out()
+			if ctrl:
+				if !shift:
+					position.y += 32 / zoom.y
+					reset_physics_interpolation()
+				else:
+					position.x += 32 / zoom.x
+					reset_physics_interpolation()
+			elif !shift:
+				zoom_out()
 
 func _wrap_mouse(to: Vector2) -> void:
 	var last_pos: Vector2 = get_viewport().get_mouse_position()
 	_skip_scroll = true
 	Input.warp_mouse(to)
 	position -= (last_pos - to) / zoom
+	reset_physics_interpolation()
 	_skip_scroll = false
 
 
 func zoom_in() -> void:
-	var current_zoom_step: float = round(log(zoom.x) * 12.0 / log(2.0))
-	var new_zoom: float = pow(2.0, (current_zoom_step + ZOOM_INCREMENT) / 12.0)
+	var _alt = int(Input.is_action_pressed(&"a_alt")) + 1
+	var current_zoom_step: float = round(log(zoom.x) * (12.0 * _alt) / log(2.0))
+	var new_zoom: float = pow(2.0, (current_zoom_step + ZOOM_INCREMENT) / (12.0 * _alt))
 	var clamped_zoom = minf(new_zoom, zoom_max)
 	#print(new_zoom)
+	%ZoomLevelButton.text = %ZoomLevelButton.template % [clamped_zoom * 100.0]
 	update_zoom(zoom, clamped_zoom * Vector2.ONE)
 
 func zoom_out() -> void:
-	var current_zoom_step: float = round(log(zoom.x) * 12.0 / log(2.0))
-	var new_zoom: float = pow(2.0, (current_zoom_step - ZOOM_INCREMENT) / 12.0)
+	var _alt = int(Input.is_action_pressed(&"a_alt")) + 1
+	var current_zoom_step: float = round(log(zoom.x) * (12.0 * _alt) / log(2.0))
+	var new_zoom: float = pow(2.0, (current_zoom_step - ZOOM_INCREMENT) / (12.0 * _alt))
 	var clamped_zoom = maxf(new_zoom, zoom_min)
 	#print(new_zoom)
+	%ZoomLevelButton.text = %ZoomLevelButton.template % [clamped_zoom * 100.0]
 	update_zoom(zoom, clamped_zoom * Vector2.ONE)
 
 func update_zoom(old_zoom: Vector2, new_zoom: Vector2) -> void:
@@ -73,6 +97,8 @@ func update_zoom(old_zoom: Vector2, new_zoom: Vector2) -> void:
 	var side_ratio_y = (mouse_y - (screen_height / 2)) / screen_height
 	position.x += pixels_difference_x * side_ratio_x
 	position.y += pixels_difference_y * side_ratio_y
+	reset_physics_interpolation()
 	zoom = new_zoom
 	if position != get_screen_center_position():
 		position = get_screen_center_position()
+	reset_physics_interpolation()

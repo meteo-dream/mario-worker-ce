@@ -5,21 +5,29 @@ extends Node2D
 @export_enum("enemy", "scenery", "bonus", "misc") var category: String
 @export var editor_icon: Texture2D
 @export var offset: Vector2
+@export var properties: Array[Dictionary]
 
 @onready var scene: Resource = load(scene_path)
+var texture_corrected: Texture2D
+
+func _ready() -> void:
+	
+	if editor_icon is AtlasTexture && editor_icon.margin:
+		texture_corrected = editor_icon.duplicate()
+		texture_corrected.margin = Rect2()
+	else:
+		texture_corrected = editor_icon
+
 
 func _prepare_editor() -> void:
 	add_to_group(&"editor_addable_object")
 	position += offset
 	reset_physics_interpolation()
 	var _texture = TextureRect.new()
-	if editor_icon is AtlasTexture && editor_icon.margin:
-		_texture.texture = editor_icon.duplicate()
-		_texture.texture.margin = Rect2()
-	else:
-		_texture.texture = editor_icon
+	_texture.texture = texture_corrected
 	_texture.position = -Vector2.ONE * 16
 	add_child(_texture)
+	
 	var _area = Area2D.new()
 	_area.collision_layer = 0b100000000
 	_area.collision_mask = 0
@@ -30,6 +38,7 @@ func _prepare_editor() -> void:
 	_shape.size = Vector2.ONE * 32
 	_col.position = -offset
 	_area.add_child(_col)
+	
 	prints(name, global_position)
 
 func _prepare_save() -> void:

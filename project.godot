@@ -59,7 +59,7 @@ Scenes="*res://engine/singletones/scripts/Scenes.gd"
 Thunder="*res://engine/singletones/scripts/Thunder.gd"
 TransitionManager="*res://engine/singletones/scripts/TransitionManager.gd"
 ProfileManager="*res://engine/singletones/scripts/ProfileManager.gd"
-SettingsManager="*res://engine/singletones/scripts/SettingsManager.gd"
+SettingsManager="*res://modules/editor/classes/CustomSettingsManager.gd"
 SkinsManager="*res://engine/singletones/scripts/SkinsManager.gd"
 Pause="*res://engine/components/pause/pause.tscn"
 GameOverContinue="*res://engine/components/game_over/game_over_continue.tscn"
@@ -75,8 +75,10 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=640
+window/size/viewport_height=480
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/subwindows/embed_subwindows=false
 
 [editor_plugins]
@@ -193,6 +195,21 @@ a_tab={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":9,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+a_shift={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+a_ctrl={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194326,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+a_alt={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194328,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -217,6 +234,6 @@ common/enable_object_picking=false
 
 rendering_device/vsync/swapchain_image_count=2
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"
+renderer/rendering_method="mobile"
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true
