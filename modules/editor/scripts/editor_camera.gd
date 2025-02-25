@@ -34,7 +34,10 @@ func _input(event: InputEvent) -> void:
 			reset_physics_interpolation()
 				
 			#if event.screen_relative
-		
+	
+	if !Editor.scene.can_draw():
+		return
+	
 	if event is InputEventMouseButton && event.is_pressed():
 		var ctrl = Input.is_action_pressed(&"a_ctrl")
 		var shift = Input.is_action_pressed(&"a_shift")

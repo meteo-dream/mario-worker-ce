@@ -3,6 +3,10 @@ class_name LevelEditor
 
 const NOTIFICATION = preload("res://modules/editor/gui/notification.tscn")
 const PROP_CONTAINER = preload("res://modules/editor/gui/prop_container.tscn")
+const PROP_CAT_CONTAINER = preload("res://modules/editor/gui/prop_cat_container.tscn")
+const PROP_LINEEDIT = preload("res://modules/editor/gui/prop_lineedit.tscn")
+const PROP_CHECKBOX = preload("res://modules/editor/gui/prop_checkbox.tscn")
+const PROP_COLORPICKER = preload("res://modules/editor/gui/prop_colorpicker.tscn")
 
 enum TOOL_MODES {
 	SELECT,
@@ -109,6 +113,7 @@ func _input(event: InputEvent) -> void:
 				for i in selected:
 					i.queue_free()
 				selected = []
+				_on_selected_array_change()
 	
 	elif event is InputEventMouseButton:
 		if !Editor.is_window_active():
@@ -121,7 +126,7 @@ func _input(event: InputEvent) -> void:
 			return
 		match tool_mode:
 			TOOL_MODES.SELECT when (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
-				%SelectedObjTexture.global_position = get_pos_on_grid()
+				%SelectedObjSprite.global_position = get_pos_on_grid()
 				%ShapeCastPoint.force_shapecast_update()
 				var col: bool = %ShapeCastPoint.is_colliding()
 				if !Input.is_action_pressed(&"a_shift"):
@@ -139,26 +144,48 @@ func _input(event: InputEvent) -> void:
 				else:
 					selected.resize(0)
 					_on_selected_array_change()
-
-
-func _draw() -> void:
-	for i in selected:
-		for j in i.get_children():
-			if j is TextureRect:
-				draw_set_transform(j.global_position + Vector2.ONE * 16)
-				draw_rect(j.get_rect(), Color.CORAL, false, -2, true)
-				print(j.get_rect())
-		
+					return
+	if event is InputEventMouseMotion || (event is InputEventMouseButton && event.is_pressed()):
+		if !can_draw():
+			return
+		if tool_mode == TOOL_MODES.PAINT:
+			%SelectedObjSprite.global_position = get_pos_on_grid()
+			#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
+			%ShapeCast2D.force_shapecast_update()
+			if %ShapeCast2D.is_colliding():
+				%SelectedObjSprite.visible = false
+				
+				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object:
+					%ShapeCast2D.force_shapecast_update()
+					for i in %ShapeCast2D.get_collision_count():
+						var _col = %ShapeCast2D.get_collider(i)
+						if !_col || !_col.get_parent(): continue
+						_col = _col.get_parent()
+						if _col.get_meta(&"nameid") == selected_object.get_meta(&"nameid"):
+							_col.queue_free()
+							changes_after_save = true
+				return
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
+				var obj = selected_object.duplicate()
+				obj.global_position = %SelectedObjSprite.global_position
+				var _node_folder = obj.get_meta(&"categoryid", "enemy")
+				Editor.current_level.get_node(_node_folder).add_child(obj, true)
+				obj.owner = Editor.current_level
+				changes_after_save = true
+				#obj.set_meta(&"nameid", selected_object.get_meta(&"nameid"))
+				obj._prepare_editor()
 
 
 func get_pos_on_grid() -> Vector2:
-	var _offset: Vector2 = %SelectedObjTexture.size / 2.0
+	#var _offset: Vector2 = %SelectedObjTexture.size / 2.0
+	var _offset := Editor.grid_offset + Vector2.ONE * 16
 	var _grid_pos = Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
-	return _grid_pos if Editor.grid_shown else get_global_mouse_position().round()
+	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown else get_global_mouse_position().round() - Vector2.ONE * 16
 
 func can_draw() -> bool:
 	var dr2 = %DrawArea2.get_rect()
 	dr2.size -= 4 * Vector2.ONE
+	dr2 = dr2.abs()
 	return (
 		%DrawArea.get_rect().has_point(%DrawArea.get_local_mouse_position()) &&
 		dr2.has_point(%DrawArea2.get_local_mouse_position())
@@ -237,6 +264,20 @@ func save_level(path) -> void:
 	notify("Level saved!")
 
 
+func load_level(path) -> void:
+	var res: Resource = ResourceLoader.load(path, "Node2D", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
+	var new_level = res.instantiate()
+	if !res:
+		notify_error("Level could not be loaded.")
+		Editor.level_path = ""
+		return
+	Editor.current_level.queue_free()
+	add_child.call_deferred(new_level, false)
+	Editor.set_deferred(&"current_level", new_level)
+	Thunder.reorder_top(new_level)
+	notify("Level loaded!")
+
+
 func _on_button_group_pressed(button: BaseButton) -> void:
 	match button.name:
 		"SelectMode": tool_mode = TOOL_MODES.SELECT
@@ -256,49 +297,133 @@ func deselect_object(obj: Node2D) -> void:
 	_on_selected_array_change()
 
 func _on_selected_array_change() -> void:
-	queue_redraw()
+	%EditorGridSelection.queue_redraw()
 	if len(selected) > 1:
 		%ObjectName.text = "%d objects selected" % [selected.size()]
+		var first_meta = selected[0].get_meta(&"nameid")
+		for item in selected:
+			if item.get_meta(&"nameid") != first_meta:
+				for i in %PropListContainer.get_children():
+					i.queue_free()
+				break
 	elif len(selected) == 0:
 		%ObjectName.text = ""
 		for i in %PropListContainer.get_children():
 			i.queue_free()
 	elif len(selected) == 1:
+		for i in %PropListContainer.get_children():
+			i.queue_free()
 		%ObjectName.text = '"%s"' % selected[0].name
 		var prop_list: Array[Dictionary] = selected[0].get_property_list()
+		var wait_for: int = -1
+		#var _inst = load(selected[0].scene_path).instantiate()
+		#var instance_prop_list: Array[Dictionary] = _inst.get_property_list()
+		#for property in instance_prop_list:
+			#if !(property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE) || property.usage == 4096:
+				#continue
+			#if property.name == "sprite": continue
+			#print(property.usage)
+			#_add_prop(property, _inst)
+			
 		for property in prop_list:
 			var prop_name = property.name
-			var prop_type = property.type
-			var _prop_c = PROP_CONTAINER.instantiate()
-			_prop_c.get_child(0).text = prop_name
-			_prop_c.get_child(1).text = str(selected[0].get(prop_name))
-			%PropListContainer.add_child(_prop_c)
+			if prop_name != "modulate":
+				if wait_for != -1 && property.usage != wait_for:
+					continue
+				else:
+					wait_for = -1
+			if property.usage & PROPERTY_USAGE_CATEGORY && prop_name in ["Node", "CanvasItem"]:
+				wait_for = PROPERTY_USAGE_CATEGORY
+				print("Waiting")
+				if prop_name != "CanvasItem":
+					continue
+			if prop_name.begins_with("global_") || prop_name.begins_with("process_") || prop_name.begins_with("metadata") || property.name in [
+				"rotation", "transform", "script"
+			]:
+				continue
+			
+			if property.usage & PROPERTY_USAGE_INTERNAL || property.usage == 4102:
+				continue
+			if property.usage & PROPERTY_USAGE_CATEGORY:
+				prints("CAT:",property.usage, prop_name)
+				var _prop_cat = PROP_CAT_CONTAINER.instantiate()
+				_prop_cat.custom_minimum_size.y = 21
+				var label: Label = _prop_cat.get_child(0)
+				label.text = prop_name
+				label.add_theme_font_size_override("font_size", 15)
+				%PropListContainer.add_child(_prop_cat)
+				continue
+			if property.usage & PROPERTY_USAGE_GROUP:
+				if prop_name in ["Material", "Texture"]:
+					wait_for = PROPERTY_USAGE_GROUP
+					continue
+				
+				#var _prop_cat = PROP_CAT_CONTAINER.instantiate()
+				#var label: Label = _prop_cat.get_child(0)
+				#label.text = prop_name
+				#label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+				#label.add_theme_color_override("font_color", Color.WHITE)
+				#label.remove_theme_font_override(&"font")
+				#%PropListContainer.add_child(_prop_cat)
+				continue
+			
+			print(property.usage)
+			_add_prop(property, selected[0])
 
+func _add_prop(property: Dictionary, target) -> void:
+	var prop_value = target.get(property.name)
+	var _prop_c = PROP_CONTAINER.instantiate()
+	_prop_c.get_child(0).text = property.name
+	match property.type:
+		TYPE_BOOL:
+			var _checkbox = PROP_CHECKBOX.instantiate()
+			_prop_c.add_child(_checkbox)
+			_checkbox.button_pressed = prop_value
+		TYPE_COLOR:
+			var _colorpick = PROP_COLORPICKER.instantiate()
+			_prop_c.add_child(_colorpick)
+			_colorpick.color = prop_value
+		_:
+			var _lineedit = PROP_LINEEDIT.instantiate()
+			_prop_c.add_child(_lineedit)
+			_lineedit.text = str(prop_value)
+	%PropListContainer.add_child(_prop_c)
+	
 
 ## -Select tool ready functions-
 func _tool_select() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%SelectMode.button_pressed = true
 	%SelectedObjTexture.texture = null
+	%SelectedObjSprite.texture = null
 	selected_object = null
 
 func _tool_pan() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_DRAG)
 	%PanMode.button_pressed = true
 	%SelectedObjTexture.texture = null
+	%SelectedObjSprite.texture = null
 
 func _tool_list() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_HELP)
 	%ListMode.button_pressed = true
 	%SelectedObjTexture.texture = null
+	%SelectedObjSprite.texture = null
 
 func _tool_paint() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
 	%PaintMode.button_pressed = true
-	if is_instance_valid(selected_object):
-		%SelectedObjTexture.texture = selected_object.editor_icon
-		%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
+	var _sel_obj = selected_object if is_instance_valid(selected_object) else selected[0] if len(selected) == 1 else null
+	if _sel_obj:
+		%SelectedObjSprite.texture = _sel_obj.editor_icon
+		#var texsize = %SelectedObjSprite.texture.get_size()
+		#%SelectedObjSprite.offset.x = texsize.x / 2
+		#var size_y = (texsize.y / 2) if texsize.y <= 32 else 16
+		if !is_instance_valid(selected_object) && len(selected) == 1:
+			selected_object = selected[0]
+		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
 	else:
+		%SelectedObjSprite.texture = null
 		%SelectedObjTexture.texture = null
 
 func _tool_pick() -> void:
@@ -309,9 +434,10 @@ func _tool_rect() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
 	%RectMode.button_pressed = true
 	if is_instance_valid(selected_object):
-		%SelectedObjTexture.texture = selected_object.editor_icon
-		%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
+		%SelectedObjSprite.texture = selected_object.editor_icon
+		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
 	else:
+		%SelectedObjSprite.texture = null
 		%SelectedObjTexture.texture = null
 
 func _tool_erase() -> void:
@@ -321,7 +447,7 @@ func _tool_erase() -> void:
 
 ## -Select tool process functions-
 func _tool_select_process() -> void:
-	%SelectedObjTexture.global_position = get_pos_on_grid()
+	%SelectedObjSprite.global_position = get_pos_on_grid()
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		return
 	%ShapeCastPoint.force_shapecast_update()
@@ -335,34 +461,13 @@ func _tool_list_process() -> void:
 	pass
 
 func _tool_paint_process() -> void:
-	%SelectedObjTexture.visible = can_draw()
+	%SelectedObjSprite.visible = can_draw()
 	
 	if !can_draw():
 		return
-	%SelectedObjTexture.global_position = get_pos_on_grid()
-	#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
-	%ShapeCast2D.force_shapecast_update()
-	if %ShapeCast2D.is_colliding():
-		%SelectedObjTexture.visible = false
-		
-		if is_processing_input() && Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object:
-			%ShapeCast2D.force_shapecast_update()
-			for i in %ShapeCast2D.get_collision_count():
-				var _col = %ShapeCast2D.get_collider(i)
-				if !_col || !_col.get_parent(): continue
-				_col = _col.get_parent()
-				if _col.get_meta(&"nameid") == selected_object.get_meta(&"nameid"):
-					_col.queue_free()
-					changes_after_save = true
-		return
-	if is_processing_input() && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
-		var obj = selected_object.duplicate()
-		obj.global_position = %SelectedObjTexture.global_position + Vector2.ONE * 16
-		Editor.current_level.get_node("Enemies").add_child(obj, true)
-		obj.owner = Editor.current_level
-		changes_after_save = true
-		#obj.set_meta(&"nameid", selected_object.get_meta(&"nameid"))
-		obj._prepare_editor()
+	%SelectedObjSprite.global_position = get_pos_on_grid()
+	%SelectedObjSprite.offset = selected_object.offset
+	%SelectedObjSprite.reset_physics_interpolation()
 
 func _tool_pick_process() -> void:
 	pass
@@ -371,8 +476,10 @@ func _tool_rect_process() -> void:
 	pass
 
 func _tool_erase_process() -> void:
+	%SelectedObjSprite.visible = false
 	%SelectedObjTexture.visible = false
-	%SelectedObjTexture.global_position = get_pos_on_grid()
+	%SelectedObjSprite.global_position = get_pos_on_grid()
+	%SelectedObjSprite.reset_physics_interpolation()
 	%ShapeCast2D.force_shapecast_update()
 	var _col = %ShapeCast2D.is_colliding()
 	control.set_default_cursor_shape(Control.CURSOR_FORBIDDEN if _col else Control.CURSOR_ARROW)

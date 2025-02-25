@@ -6,11 +6,10 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_38bhd"]
 atlas = ExtResource("2_aapmj")
 region = Rect2(0, 0, 32, 48)
-margin = Rect2(8, 0, 16, 0)
 
 [node name="Koopa Green" type="Node2D"]
 script = ExtResource("1_uvyyy")
 scene_path = "res://engine/objects/enemies/koopas/koopa_green.tscn"
 category = "enemy"
 editor_icon = SubResource("AtlasTexture_38bhd")
-offset = Vector2(0, -16)
+offset = Vector2(0, -8)

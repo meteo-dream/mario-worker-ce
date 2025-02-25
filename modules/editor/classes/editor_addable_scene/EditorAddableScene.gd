@@ -8,28 +8,27 @@ extends Node2D
 @export var properties: Array[Dictionary]
 
 @onready var scene: Resource = load(scene_path)
-var texture_corrected: Texture2D
+@onready var texture_corrected: Texture2D = editor_icon
 
 func _ready() -> void:
-	
-	if editor_icon is AtlasTexture && editor_icon.margin:
-		texture_corrected = editor_icon.duplicate()
-		texture_corrected.margin = Rect2()
-	else:
-		texture_corrected = editor_icon
-
+	if Editor.current_level && Editor.current_level.is_ancestor_of(self):
+		add_to_group(&"editor_addable_object")
+		#if Editor.mode != 1:
+			#_prepare_gameplay()
+		#else:
+			#_prepare_editor()
 
 func _prepare_editor() -> void:
-	add_to_group(&"editor_addable_object")
+	add_to_group(&"editor_addable_" + category)
 	position += offset
 	reset_physics_interpolation()
-	var _texture = TextureRect.new()
-	_texture.texture = texture_corrected
-	_texture.position = -Vector2.ONE * 16
+	var _texture = Sprite2D.new()
+	_texture.texture = editor_icon
+	#_texture.position = -Vector2.ONE * 16
 	add_child(_texture)
 	
 	var _area = Area2D.new()
-	_area.collision_layer = 0b100000000
+	_area.collision_layer = 1 << 8
 	_area.collision_mask = 0
 	add_child(_area)
 	var _col = CollisionShape2D.new()
@@ -41,6 +40,9 @@ func _prepare_editor() -> void:
 	
 	prints(name, global_position)
 
-func _prepare_save() -> void:
-	for i in get_children():
-		i.queue_free()
+func _prepare_gameplay() -> void:
+	var instance: Node = scene.instantiate()
+	if "position" in instance:
+		instance.position = position
+	add_sibling(instance)
+	queue_free()

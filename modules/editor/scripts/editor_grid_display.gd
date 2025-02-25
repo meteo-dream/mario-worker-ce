@@ -8,8 +8,15 @@ var grid_size: Vector2 = Vector2.ONE * 32.0 :
 @export
 var grid_offset: Vector2:
 	set(value):
-		grid_offset = value
-		Editor.grid_offset = value
+		var remainder := Vector2i(
+			roundi(value.x) % roundi(grid_size.x),
+			roundi(value.y) % roundi(grid_size.y)
+		)
+		if remainder.x < 0: remainder.x += roundi(grid_size.x)
+		if remainder.y < 0: remainder.y += roundi(grid_size.y)
+		prints("Grid offset:", remainder)
+		grid_offset = remainder
+		Editor.grid_offset = remainder
 
 @export
 var color: Color = Color.DIM_GRAY :
@@ -46,24 +53,24 @@ func _ready() -> void:
 
 func _draw():
 	if !Editor.camera: return
-	var vp_size: = get_viewport_rect().size
-	var cam_pos: = Editor.camera.get_screen_center_position()
-	var vp_right: = vp_size.x + cam_pos.x
-	var vp_bottom: = vp_size.y + cam_pos.y
+	var vp_size: = Vector2.ONE * 16000#get_viewport_rect().size
+	#var cam_pos: = Editor.camera.get_screen_center_position()
+	var vp_right: = vp_size.x# + cam_pos.x + Editor.grid_offset.x
+	var vp_bottom: = vp_size.y# + cam_pos.y + Editor.grid_offset.y
 	
 	if Editor.grid_shown:
-		var leftmost: = -vp_right + cam_pos.x
-		var topmost: = -vp_bottom# + cam_pos.y
+		var leftmost: = -vp_right # + cam_pos.x
+		var topmost: = -vp_bottom # + cam_pos.y
 		
-		var left: float = ceil(leftmost / grid_size.x) * grid_size.x
-		var bottommost: = vp_size.y + cam_pos.y
-		for x in range(0, (vp_right / grid_size.x) * 2 + 1):
+		var left: float = Editor.grid_offset.x + ceil(leftmost / grid_size.x) * grid_size.x
+		var bottommost: = vp_size.y# + cam_pos.y
+		for x in range(0, (vp_right / grid_size.x) * 2 + 1 + Editor.grid_offset.x):
 			draw_line(Vector2(left, topmost), Vector2(left, bottommost), color)
 			left += grid_size.x
 	#
-		var top: float = ceil(topmost / grid_size.y) * grid_size.y
-		var rightmost: = vp_right + cam_pos.x
-		for y in range(0, (vp_bottom / grid_size.y) * 2 + 1):
+		var top: float = Editor.grid_offset.y + ceil(topmost / grid_size.y) * grid_size.y
+		var rightmost: = vp_right# + cam_pos.x
+		for y in range(0, (vp_bottom / grid_size.y) * 2 + 1 + Editor.grid_offset.y):
 			draw_line(Vector2(leftmost, top), Vector2(rightmost, top), color)
 			top += grid_size.y
 	

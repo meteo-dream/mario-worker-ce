@@ -30,6 +30,15 @@ func get_group_property(group_name: StringName, property: StringName) -> bool:
 		if i.get(property): res = true
 	return res
 
+func find_child_by_type(parent: Node, type) -> Node:
+	for child in parent.get_children():
+		if is_instance_of(child, type):
+			return child
+		var grandchild = find_child_by_type(child, type)
+		if grandchild != null:
+			return grandchild
+	return null
+
 func is_window_active() -> bool:
 	var res: bool = true
 	var _win = DisplayServer.window_get_active_popup()
