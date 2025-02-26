@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6b608jm04h4t"]
+
+[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_4u5k6"]
+
+[node name="Coin" type="Node2D"]
+script = ExtResource("1_4u5k6")
+scene_path = "res://engine/objects/items/coin/coin.tscn"
+category = "bonus"

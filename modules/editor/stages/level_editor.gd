@@ -107,8 +107,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventAction && event.is_pressed():
-		if event.is_action(&"a_delete"):
+	if event is InputEventAction:
+		if event.is_action(&"a_ctrl"):
+			Thunder._current_player
+		elif event.is_action(&"a_delete") && event.is_pressed():
 			if tool_mode == TOOL_MODES.SELECT && len(selected) > 0:
 				for i in selected:
 					i.queue_free()
@@ -180,7 +182,7 @@ func get_pos_on_grid() -> Vector2:
 	#var _offset: Vector2 = %SelectedObjTexture.size / 2.0
 	var _offset := Editor.grid_offset + Vector2.ONE * 16
 	var _grid_pos = Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
-	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown else get_global_mouse_position().round() - Vector2.ONE * 16
+	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown else get_global_mouse_position().round() #- Vector2.ONE * 16
 
 func can_draw() -> bool:
 	var dr2 = %DrawArea2.get_rect()
@@ -461,7 +463,7 @@ func _tool_list_process() -> void:
 	pass
 
 func _tool_paint_process() -> void:
-	%SelectedObjSprite.visible = can_draw()
+	%SelectedObjSprite.visible = can_draw() && !%ShapeCast2D.is_colliding()
 	
 	if !can_draw():
 		return
@@ -501,8 +503,8 @@ func _on_h_split_container_dragged(_offset: int) -> void:
 func _on_window_resized() -> void:
 	var size_x = %HSplitContainer.size.x
 	%HSplitContainer.split_offset -= window_old_size.x - get_tree().root.size.x
-	if %HSplitContainer.split_offset > size_x - 112:
-		%HSplitContainer.split_offset = size_x - 112
+	if %HSplitContainer.split_offset > size_x - 144:
+		%HSplitContainer.split_offset = size_x - 144
 	if %HSplitContainer.split_offset < (size_x / 3):
 		%HSplitContainer.split_offset = (size_x / 3)
 	_on_v_split_container_dragged(0)

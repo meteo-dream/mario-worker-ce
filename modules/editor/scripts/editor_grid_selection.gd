@@ -13,8 +13,8 @@ func _draw() -> void:
 	if Editor.scene == null: return
 	
 	for i in Editor.scene.selected:
-		for j in i.get_children():
-			if j is Sprite2D:
-				draw_set_transform(j.global_position)
-				draw_rect(j.get_rect(), Color.CORAL, false, -1, false)
-				print(j.get_rect())
+		var j = Editor.find_child_by_type(i, CollisionShape2D)
+		if !j: continue
+		draw_set_transform(j.global_position)
+		draw_rect(j.shape.get_rect(), Color.CORAL, false, -1, false)
+		print(j.shape.get_rect())

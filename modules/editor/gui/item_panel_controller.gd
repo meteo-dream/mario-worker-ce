@@ -13,11 +13,11 @@ func _ready() -> void:
 		return
 	var scenes: PackedStringArray = DirAccess.get_files_at(SCENES_PATH + category_name)
 	for i in scenes:
-		print(i)
+		#print(i)
 		var btn = ITEM_BUTTON.instantiate()
 		var cached_scene = load(SCENES_PATH + category_name + "/" + i).instantiate()
-		btn.icon = cached_scene.editor_icon
+		grid_cont.add_child.call_deferred(btn)
+		btn.add_child.call_deferred(cached_scene)
 		btn.tooltip_text = cached_scene.name
 		cached_scene.set_meta(&"nameid", cached_scene.name)
-		grid_cont.add_child(btn)
-		btn.add_child(cached_scene)
+		#btn.set_deferred("icon", cached_scene.editor_icon)
