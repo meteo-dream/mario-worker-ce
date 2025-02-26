@@ -5,24 +5,21 @@ extends Node2D
 @export_enum("enemy", "scenery", "bonus", "misc") var category: String
 @export var editor_icon: Texture2D
 @export var offset: Vector2
-@export var properties: Array[Dictionary]
+#@export var properties: Array[Dictionary]
 
 @onready var scene: PackedScene = load(scene_path)
 @onready var texture_corrected: Texture2D = editor_icon
 
 func _ready() -> void:
-	if Editor.current_level && Editor.current_level.is_ancestor_of(self):
+	if Editor.current_level && !get_parent() is Button:
 		add_to_group(&"editor_addable_object")
 	if Editor.mode == 1:
-		#scene.get_state().get_node_instance()
 		_install_icon()
-		#print(get_parent())
 		if get_parent() is Button:
 			get_parent().icon = editor_icon
-			#print(get_parent().icon)
-			#_prepare_gameplay()
-		#else:
-			#_prepare_editor()
+	elif Editor.mode == 2:
+		_prepare_gameplay()
+
 
 func _install_icon() -> void:
 	var state = scene.get_state()
@@ -33,7 +30,7 @@ func _install_icon() -> void:
 	var specific_anim: String
 	for i in state.get_node_count():
 		if specific_node != null && specific_index == -1:
-			prints(specific_node, str(state.get_node_path(i, false)).right(-2))
+			#prints(specific_node, str(state.get_node_path(i, false)).right(-2))
 			if specific_node == str(state.get_node_path(i, false)).right(-2):
 				specific_index = i
 		if specific_index != -1 && i != specific_index:
@@ -58,9 +55,10 @@ func _install_icon() -> void:
 					editor_icon = prop.get_frame_texture(anim, 0)
 					return
 
-func _prepare_editor() -> void:
+func _prepare_editor(is_new: bool = true) -> void:
 	add_to_group(&"editor_addable_" + category)
-	position += offset
+	if is_new:
+		position += offset
 	reset_physics_interpolation()
 	var _texture = Sprite2D.new()
 	_texture.texture = editor_icon
@@ -84,5 +82,6 @@ func _prepare_gameplay() -> void:
 	var instance: Node = scene.instantiate()
 	if "position" in instance:
 		instance.position = position
-	add_sibling(instance)
+	add_sibling.call_deferred(instance)
+	prints("Game:", instance.name, position)
 	queue_free()

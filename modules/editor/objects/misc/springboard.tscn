@@ -5,12 +5,10 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnl2o"]
 atlas = ExtResource("2_0ymkx")
-region = Rect2(0, 0, 32, 48)
-margin = Rect2(8, 0, 16, 0)
+region = Rect2(0, 64, 32, 32)
 
 [node name="Springboard" type="Node2D"]
 script = ExtResource("1_i7ygx")
 scene_path = "res://engine/objects/springboard/springboard.tscn"
 category = "misc"
 editor_icon = SubResource("AtlasTexture_cnl2o")
-offset = Vector2(0, -8)

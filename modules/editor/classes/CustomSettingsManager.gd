@@ -25,3 +25,10 @@ func _window_scale_logic(force_update: bool = false) -> void:
 		GlobalViewport._update_view()
 
 	old_scale = settings.scale
+
+
+func hide_mouse() -> void:
+	if Editor.mode == 1:
+		return
+	else:
+		super()

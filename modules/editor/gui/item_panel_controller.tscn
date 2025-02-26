@@ -15,6 +15,7 @@ theme_override_constants/margin_bottom = 4
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
+follow_focus = true
 
 [node name="FlowContainer" type="FlowContainer" parent="MarginContainer/ScrollContainer"]
 layout_mode = 2

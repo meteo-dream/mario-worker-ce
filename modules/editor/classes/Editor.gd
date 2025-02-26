@@ -9,8 +9,15 @@ var scene: LevelEditor:
 		if is_instance_valid(scene): return scene
 		return null
 var current_level: Level:
+	set(to):
+		current_level = to
+		#Scenes.current_scene = to
 	get():
 		if is_instance_valid(current_level): return current_level
+		return null
+var gui: Control:
+	get():
+		if is_instance_valid(gui): return gui
 		return null
 
 var mode: int

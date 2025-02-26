@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d205dl0a4jcv6"]
+
+[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_d17ex"]
+
+[node name="Koopa Yellow" type="Node2D"]
+script = ExtResource("1_d17ex")
+scene_path = "res://engine/objects/enemies/koopas/koopa_yellow.tscn"
+category = "enemy"
+offset = Vector2(0, -8)

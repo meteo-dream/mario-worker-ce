@@ -1,6 +1,7 @@
-[gd_scene load_steps=46 format=3 uid="uid://ct3gjwv0cs6p"]
+[gd_scene load_steps=49 format=3 uid="uid://ct3gjwv0cs6p"]
 
 [ext_resource type="Script" path="res://modules/editor/stages/level_editor.gd" id="1_mqqp7"]
+[ext_resource type="Script" path="res://modules/editor/scripts/editor_gui.gd" id="3_7ryt0"]
 [ext_resource type="Script" path="res://modules/editor/scripts/editor_camera.gd" id="3_vg31g"]
 [ext_resource type="Texture2D" uid="uid://ddw2q8jqs2kl0" path="res://modules/editor/icons/ToolSelect.svg" id="4_ecd51"]
 [ext_resource type="ButtonGroup" uid="uid://geygiwoij6fd" path="res://modules/editor/gui/button_group_1.tres" id="4_rv8e0"]
@@ -19,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://qls5l10cbaf5" path="res://modules/editor/icons/PlayScene.svg" id="15_875c2"]
 [ext_resource type="Texture2D" uid="uid://cw52qsclc4dmb" path="res://modules/editor/icons/MainPlay.svg" id="16_04k3a"]
 [ext_resource type="Texture2D" uid="uid://bgatdoljs02tp" path="res://modules/editor/icons/Save.svg" id="18_efige"]
+[ext_resource type="Texture2D" uid="uid://b30fcc4tqkm8m" path="res://modules/editor/icons/Stop.svg" id="18_wl423"]
 [ext_resource type="Texture2D" uid="uid://cuuid1uqqx8k7" path="res://modules/editor/icons/GuiClose.svg" id="19_b8vnf"]
 [ext_resource type="Texture2D" uid="uid://ctqtklttr4yw0" path="res://modules/editor/icons/Load.svg" id="19_xlbnm"]
 [ext_resource type="Script" path="res://modules/editor/gui/zoom_level_button.gd" id="20_fqhjp"]
@@ -26,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://dxwm7h502tkba" path="res://modules/editor/gui/prop_container.tscn" id="22_m6va2"]
 [ext_resource type="Script" path="res://modules/editor/scripts/editor_grid_selection.gd" id="25_3f3hp"]
 [ext_resource type="Texture2D" uid="uid://dwtn8cky8tb3l" path="res://engine/objects/enemies/goombas/textures/goomba.png" id="26_kscub"]
+[ext_resource type="Script" path="res://modules/editor/scripts/editor_grid_extra.gd" id="27_bu24i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_67k7q"]
 
@@ -110,12 +113,12 @@ mouse_filter = 1
 script = ExtResource("1_mqqp7")
 metadata/_edit_lock_ = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=["editor_internal_object"]]
 position = Vector2(448, 224)
 process_callback = 0
 script = ExtResource("3_vg31g")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." groups=["editor_internal_object"]]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -125,6 +128,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("3_7ryt0")
 metadata/_edit_lock_ = true
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="CanvasLayer/Control"]
@@ -418,11 +422,21 @@ text = "Target: %s"
 layout_mode = 2
 
 [node name="PlayButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Save level and play through editor"
 focus_mode = 1
 icon = ExtResource("16_04k3a")
 
+[node name="StopButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 1
+disabled = true
+icon = ExtResource("18_wl423")
+
 [node name="PlayLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
 icon = ExtResource("15_875c2")
@@ -431,6 +445,7 @@ icon = ExtResource("15_875c2")
 layout_mode = 2
 
 [node name="LoadLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
 icon = ExtResource("19_xlbnm")
@@ -449,6 +464,7 @@ access = 1
 filters = PackedStringArray("*.tscn;Level scenes")
 
 [node name="SaveLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
 shortcut = SubResource("Shortcut_jeruh")
@@ -561,6 +577,12 @@ layout_mode = 2
 category_name = "misc"
 metadata/_tab_index = 4
 
+[node name="Special" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/Panel/TabContainer" instance=ExtResource("21_ho4cg")]
+visible = false
+layout_mode = 2
+category_name = "misc"
+metadata/_tab_index = 5
+
 [node name="Panel" type="Panel" parent="CanvasLayer/Control/HSplitContainer"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -592,16 +614,27 @@ autowrap_mode = 3
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="ScrollTileContainer" type="ScrollContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PropListContainer" type="VBoxContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="FlowContainer" type="FlowContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollTileContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+
+[node name="ScrollPropContainer" type="ScrollContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PropListContainer" type="VBoxContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollPropContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PropContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/PropListContainer" instance=ExtResource("22_m6va2")]
+[node name="PropContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollPropContainer/PropListContainer" instance=ExtResource("22_m6va2")]
 layout_mode = 2
 
 [node name="NotificationBox" type="VBoxContainer" parent="CanvasLayer/Control"]
@@ -642,18 +675,20 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_fsewq")
 text = "%.1f %%"
 script = ExtResource("20_fqhjp")
 
-[node name="EditorGridDisplay" type="Node2D" parent="."]
+[node name="EditorNodes" type="Node2D" parent="." groups=["editor_internal_object"]]
+
+[node name="EditorGridDisplay" type="Node2D" parent="EditorNodes"]
 script = ExtResource("4_w7m60")
 color = Color(0.411765, 0.411765, 0.411765, 0.403922)
 
-[node name="EditorGridExtra" type="Node2D" parent="."]
-script = ExtResource("25_3f3hp")
+[node name="EditorGridExtra" type="Node2D" parent="EditorNodes"]
+script = ExtResource("27_bu24i")
 
-[node name="EditorGridSelection" type="Node2D" parent="."]
+[node name="EditorGridSelection" type="Node2D" parent="EditorNodes"]
 unique_name_in_owner = true
 script = ExtResource("25_3f3hp")
 
-[node name="SelectedObjSprite" type="Sprite2D" parent="."]
+[node name="SelectedObjSprite" type="Sprite2D" parent="." groups=["editor_internal_object"]]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
 self_modulate = Color(1, 1, 1, 0.501961)
@@ -695,8 +730,12 @@ collide_with_bodies = false
 
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton" to="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow" method="show"]
 [connection signal="close_requested" from="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow" to="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow" method="hide"]
-[connection signal="item_selected" from="CanvasLayer/Control/PanelContainer/TopBox/EditingMenuButton" to="." method="_on_menu_button_item_selected"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/SaveLevelButton" to="." method="_on_save_level_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/CloseEditorButton" to="." method="_on_close_editor_button_pressed"]
-[connection signal="dragged" from="CanvasLayer/Control/HSplitContainer" to="." method="_on_h_split_container_dragged"]
-[connection signal="dragged" from="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer" to="." method="_on_v_split_container_dragged"]
+[connection signal="item_selected" from="CanvasLayer/Control/PanelContainer/TopBox/EditingMenuButton" to="CanvasLayer/Control" method="_on_menu_button_item_selected"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/PlayButton" to="CanvasLayer/Control" method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/StopButton" to="CanvasLayer/Control" method="_on_stop_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/PlayLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LoadLevelButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/SaveLevelButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/CloseEditorButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]
+[connection signal="dragged" from="CanvasLayer/Control/HSplitContainer" to="CanvasLayer/Control" method="_on_h_split_container_dragged"]
+[connection signal="dragged" from="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer" to="CanvasLayer/Control" method="_on_v_split_container_dragged"]

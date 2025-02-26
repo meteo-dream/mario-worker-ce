@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv156ppaaa51"]
+
+[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_kk1jp"]
+
+[node name="Cheep Cheep (Yellow)" type="Node2D"]
+script = ExtResource("1_kk1jp")
+scene_path = "res://engine/objects/enemies/cheeps/cheep_yellow.tscn"
+category = "enemy"

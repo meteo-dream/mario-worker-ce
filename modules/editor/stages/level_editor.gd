@@ -52,8 +52,20 @@ var editing_sel: int = EDIT_SEL.NONE:
 		%EditingMenuButton.select(editing_sel)
 		if editing_sel == EDIT_SEL.NONE:
 			tool_mode = TOOL_MODES.SELECT
+		%ScrollPropContainer.visible = !editing_sel in [EDIT_SEL.TILE]
+		%ScrollTileContainer.visible = editing_sel in [EDIT_SEL.TILE, EDIT_SEL.SCENERY]
+		if to == EDIT_SEL.TILE:
+			%SelectedObjSprite.visible = false
+			selected_object = null
+			selected = []
+			_on_selected_array_change()
 
-var selected_object: Node2D = null
+
+var selected_object: Node2D = null:
+	get():
+		if is_instance_valid(selected_object):
+			return selected_object
+		return null
 var changes_after_save: bool = false
 var mouse_blocked: bool
 
@@ -77,12 +89,7 @@ func _ready() -> void:
 	Input.set_custom_mouse_cursor(preload("res://engine/components/ui/generic/textures/mouse_cursor.png"), Input.CURSOR_BUSY)
 	Input.set_default_cursor_shape(Input.CURSOR_BUSY)
 	
-	%SelectMode.button_group.pressed.connect(_on_button_group_pressed)
 	editing_sel = EDIT_SEL.NONE
-	resized.connect(_on_window_resized, CONNECT_DEFERRED)
-	%CloseConfirmationDialog.add_button("Don't Save", false, "dontsave")
-	Thunder._connect(%CloseConfirmationDialog.confirmed, _on_save_level_button_pressed.bind(true))
-	Thunder._connect(%CloseConfirmationDialog.custom_action, _on_dontsave)
 
 
 func _physics_process(delta: float) -> void:
@@ -109,7 +116,7 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventAction:
 		if event.is_action(&"a_ctrl"):
-			Thunder._current_player
+			Thunder._current_player.completed = event.is_pressed()
 		elif event.is_action(&"a_delete") && event.is_pressed():
 			if tool_mode == TOOL_MODES.SELECT && len(selected) > 0:
 				for i in selected:
@@ -151,12 +158,18 @@ func _input(event: InputEvent) -> void:
 		if !can_draw():
 			return
 		if tool_mode == TOOL_MODES.PAINT:
+			if editing_sel == EDIT_SEL.TILE:
+				var tilemap: TileMapLayer = Editor.current_level.get_node("Blocks")
+				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+					tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
+				elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+					tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, 0)
+				return
 			%SelectedObjSprite.global_position = get_pos_on_grid()
-			#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 			%ShapeCast2D.force_shapecast_update()
+			#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 			if %ShapeCast2D.is_colliding():
 				%SelectedObjSprite.visible = false
-				
 				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object:
 					%ShapeCast2D.force_shapecast_update()
 					for i in %ShapeCast2D.get_collision_count():
@@ -171,6 +184,10 @@ func _input(event: InputEvent) -> void:
 				var obj = selected_object.duplicate()
 				obj.global_position = %SelectedObjSprite.global_position
 				var _node_folder = obj.get_meta(&"categoryid", "enemy")
+				if !Editor.current_level.has_node(_node_folder):
+					var new_node = Node2D.new()
+					new_node.name = _node_folder
+					Editor.current_level.add_child(new_node)
 				Editor.current_level.get_node(_node_folder).add_child(obj, true)
 				obj.owner = Editor.current_level
 				changes_after_save = true
@@ -178,11 +195,11 @@ func _input(event: InputEvent) -> void:
 				obj._prepare_editor()
 
 
-func get_pos_on_grid() -> Vector2:
+func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
 	#var _offset: Vector2 = %SelectedObjTexture.size / 2.0
 	var _offset := Editor.grid_offset + Vector2.ONE * 16
 	var _grid_pos = Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
-	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown else get_global_mouse_position().round() #- Vector2.ONE * 16
+	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown || forced_grid else get_global_mouse_position().round() #- Vector2.ONE * 16
 
 func can_draw() -> bool:
 	var dr2 = %DrawArea2.get_rect()
@@ -218,32 +235,25 @@ func notify_warn(text: String) -> void:
 	notify(text, Color.YELLOW)
 
 
-func _on_save_level_button_pressed(exit_after_save: bool = false) -> void:
-	if !Editor.current_level:
-		notify_error("Save failed.")
-		return
+func save_level(path) -> bool:
 	if Editor.level_path.is_empty() || Input.is_action_pressed(&"a_shift"):
-		Thunder._connect(%SaveFileDialog.file_selected, _on_save_dialog_confirmed)
 		%SaveFileDialog.deselect_all()
+		if %SaveFileDialog.current_file.is_empty():
+			%SaveFileDialog.current_file = "MyLevel"
 		%SaveFileDialog.show()
-		return
-	save_level(Editor.level_path)
-	if exit_after_save:
-		mouse_blocked = true
-		set_process_input(false)
-		await get_tree().create_timer(0.4, false, false, true).timeout
-		set_process_input(true)
-		_on_exit()
+		await %SaveFileDialog.visibility_changed
+		if %SaveFileDialog.current_path:
+			path = %SaveFileDialog.current_path
+		else:
+			notify_warn("Level was not saved.")
+			return false
 
-func _on_save_dialog_confirmed(path: String) -> void:
-	#%SaveFileDialog.hide()
-	#if %SaveFileDialog.close_requested
-	save_level(path)
-
-
-func save_level(path) -> void:
 	var to_save := PackedScene.new()
 	var _lvl = Editor.current_level
+	if !_lvl:
+		notify_error("Failed to save level.")
+		Editor.level_path = ""
+		return false
 	
 	## TODO: Idk this doesn't seem to work?
 	for i in _lvl.get_children():
@@ -260,35 +270,48 @@ func save_level(path) -> void:
 	if er != OK:
 		notify_error(error_string(er))
 		Editor.level_path = ""
-		return
+		return false
 	changes_after_save = false
 	Editor.level_path = path
 	notify("Level saved!")
+	return true
 
 
-func load_level(path) -> void:
-	var res: Resource = ResourceLoader.load(path, "Node2D", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
+func load_level(path) -> bool:
+	var res = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
+	#var res = load(path)
+	if !res:
+		notify_error("Failed to load level.")
+		Editor.level_path = ""
+		return false
 	var new_level = res.instantiate()
 	if !res:
-		notify_error("Level could not be loaded.")
+		notify_error("Failed to load level.")
 		Editor.level_path = ""
-		return
-	Editor.current_level.queue_free()
-	add_child.call_deferred(new_level, false)
-	Editor.set_deferred(&"current_level", new_level)
+		return false
+	# We do not need duplicating players
+	if Thunder._current_player:
+		Thunder._current_player.queue_free()
+	# Removing unnecessary garbage scenes resulting from live-testing in editor
+	for i in get_children():
+		if i.is_in_group(&"editor_internal_object"): continue
+		i.queue_free()
+	add_child(new_level, false)
+	# Forcefully removing old level and immediately assigning a new one
+	if Editor.current_level:
+		Editor.current_level.free()
+	Editor.current_level = new_level
 	Thunder.reorder_top(new_level)
-	notify("Level loaded!")
+	#add_child.call_deferred(new_level, false)
+	#Editor.set_deferred(&"current_level", new_level)
+	#Thunder.reorder_top.call_deferred(new_level)
+	if Editor.mode == 1:
+		get_tree().call_group_flags(SceneTree.GROUP_CALL_DEFERRED,
+			&"editor_addable_object", &"_prepare_editor", false
+		)
+	notify.call_deferred("Level loaded with %d objects!" % get_tree().get_node_count_in_group(&"editor_addable_object"))
+	return true
 
-
-func _on_button_group_pressed(button: BaseButton) -> void:
-	match button.name:
-		"SelectMode": tool_mode = TOOL_MODES.SELECT
-		"PanMode": tool_mode = TOOL_MODES.PAN
-		"ListMode": tool_mode = TOOL_MODES.LIST
-		"PaintMode": tool_mode = TOOL_MODES.PAINT
-		"PickMode": tool_mode = TOOL_MODES.PICKER
-		"RectMode": tool_mode = TOOL_MODES.RECT
-		"EraseMode": tool_mode = TOOL_MODES.ERASE
 
 func select_object(obj: Node2D) -> void:
 	selected.append(obj)
@@ -463,12 +486,14 @@ func _tool_list_process() -> void:
 	pass
 
 func _tool_paint_process() -> void:
-	%SelectedObjSprite.visible = can_draw() && !%ShapeCast2D.is_colliding()
+	if editing_sel != EDIT_SEL.TILE:
+		%SelectedObjSprite.visible = can_draw() && !%ShapeCast2D.is_colliding()
 	
 	if !can_draw():
 		return
 	%SelectedObjSprite.global_position = get_pos_on_grid()
-	%SelectedObjSprite.offset = selected_object.offset
+	if is_instance_valid(selected_object):
+		%SelectedObjSprite.offset = selected_object.offset
 	%SelectedObjSprite.reset_physics_interpolation()
 
 func _tool_pick_process() -> void:
@@ -482,54 +507,10 @@ func _tool_erase_process() -> void:
 	%SelectedObjTexture.visible = false
 	%SelectedObjSprite.global_position = get_pos_on_grid()
 	%SelectedObjSprite.reset_physics_interpolation()
-	%ShapeCast2D.force_shapecast_update()
-	var _col = %ShapeCast2D.is_colliding()
+	%ShapeCastPoint.force_shapecast_update()
+	var _col = %ShapeCastPoint.is_colliding()
 	control.set_default_cursor_shape(Control.CURSOR_FORBIDDEN if _col else Control.CURSOR_ARROW)
 	if is_processing_input() && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		for i in %ShapeCast2D.get_collision_count():
-			var _sele = %ShapeCast2D.get_collider(i)
+		for i in %ShapeCastPoint.get_collision_count():
+			var _sele = %ShapeCastPoint.get_collider(i)
 			if _sele && _sele.get_parent(): _sele.get_parent().queue_free()
-
-
-func _on_menu_button_item_selected(index: int) -> void:
-	editing_sel = index
-
-
-var window_old_size: Vector2i
-func _on_h_split_container_dragged(_offset: int) -> void:
-	window_old_size = get_tree().root.size
-	_on_window_resized()
-
-func _on_window_resized() -> void:
-	var size_x = %HSplitContainer.size.x
-	%HSplitContainer.split_offset -= window_old_size.x - get_tree().root.size.x
-	if %HSplitContainer.split_offset > size_x - 144:
-		%HSplitContainer.split_offset = size_x - 144
-	if %HSplitContainer.split_offset < (size_x / 3):
-		%HSplitContainer.split_offset = (size_x / 3)
-	_on_v_split_container_dragged(0)
-	%VSplitContainer.split_offset -= window_old_size.y - get_tree().root.size.y
-
-
-func _on_v_split_container_dragged(offset: int) -> void:
-	var size_y = %VSplitContainer.size.y
-	if %VSplitContainer.split_offset > size_y - 84:
-		%VSplitContainer.split_offset = size_y - 84
-		return
-	var maxsize = maxi(size_y / 6, 80)
-	if %VSplitContainer.split_offset < maxsize:
-		%VSplitContainer.split_offset = maxsize
-
-
-func _on_close_editor_button_pressed() -> void:
-	if changes_after_save:
-		%CloseConfirmationDialog.show()
-	else:
-		_on_exit()
-
-func _on_dontsave(action: StringName) -> void:
-	if action == &"dontsave": _on_exit()
-
-func _on_exit() -> void:
-	queue_free()
-	Scenes.goto_scene(ProjectSettings.get_setting("application/thunder_settings/main_menu_path"))
