@@ -3,6 +3,7 @@ extends Control
 @onready var dislaimer: TextureRect = $CenterContainer/Disclaimer
 
 func _ready() -> void:
+	reparent.call_deferred(get_tree().root, true)
 	var tw = dislaimer.create_tween()
 	tw.tween_property(dislaimer, "modulate:a", 1.0, 0.8)
 	tw.tween_interval(2.2)
@@ -12,7 +13,8 @@ func _ready() -> void:
 
 func transition() -> void:
 	var _crossfade: bool = SettingsManager.get_tweak("replace_circle_transitions_with_fades", false)
-	var mainmenu = ProjectSettings.get_setting("application/thunder_settings/main_menu_path")
+	#var mainmenu = ProjectSettings.get_setting("application/thunder_settings/main_menu_path")
+	var mainmenu = "res://modules/editor/stages/level_editor.tscn"
 	if !_crossfade:
 		TransitionManager.accept_transition(
 			load("res://engine/components/transitions/circle_transition/circle_transition.tscn")

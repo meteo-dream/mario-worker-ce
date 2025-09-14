@@ -2,7 +2,7 @@ class_name EditorAddableObject
 extends Node2D
 
 @export_file("*.tscn", "*.scn") var scene_path: String
-@export_enum("enemy", "scenery", "bonus", "misc") var category: String
+@export_enum("enemy", "scenery", "bonus", "misc", "special") var category: String
 @export var editor_icon: Texture2D
 @export var offset: Vector2
 #@export var properties: Array[Dictionary]
@@ -13,11 +13,11 @@ extends Node2D
 func _ready() -> void:
 	if Editor.current_level && !get_parent() is Button:
 		add_to_group(&"editor_addable_object")
-	if Editor.mode == 1:
+	if Editor.mode == Editor.MODE.EDITOR:
 		_install_icon()
 		if get_parent() is Button:
 			get_parent().icon = editor_icon
-	elif Editor.mode == 2:
+	elif Editor.mode > Editor.MODE.EDITOR:
 		_prepare_gameplay()
 
 

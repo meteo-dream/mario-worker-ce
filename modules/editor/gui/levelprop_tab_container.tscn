@@ -1,0 +1,274 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqdfwljyhchom"]
+
+[ext_resource type="Script" uid="uid://cctw8cl7me5or" path="res://modules/editor/gui/levelprop_tab_container.gd" id="1_3dgca"]
+[ext_resource type="FontFile" uid="uid://dp5kktxwel3a5" path="res://engine/components/hud/hud_font_mono.fnt" id="1_d43nb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvs6x"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.17, 0.17, 0.17, 1)
+corner_detail = 1
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_d43nb"]
+
+[sub_resource type="Gradient" id="Gradient_4mqjo"]
+colors = PackedColorArray(0.354, 0.24, 1, 1, 0.952941, 0.952941, 0.952941, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3dgca"]
+gradient = SubResource("Gradient_4mqjo")
+width = 100
+height = 100
+fill_to = Vector2(0, 1)
+
+[node name="PropertiesTabs" type="TabContainer"]
+custom_minimum_size = Vector2(56, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+tab_focus_mode = 1
+script = ExtResource("1_3dgca")
+
+[node name="Main" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvs6x")
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Time Limit:"
+
+[node name="TimeLimit" type="SpinBox" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+min_value = -1.0
+max_value = 99999.0
+value = 360.0
+rounded = true
+
+[node name="Label2" type="Label" parent="Main/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Display Name:"
+
+[node name="PanelContainer" type="PanelContainer" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DisplayName1" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../DisplayName2")
+focus_next = NodePath("../DisplayName2")
+focus_mode = 1
+theme_override_colors/font_color = Color(0.99, 0.99, 0.99, 1)
+theme_override_fonts/font = ExtResource("1_d43nb")
+text = "WORLD"
+placeholder_text = "LINE 1"
+alignment = 1
+max_length = 15
+emoji_menu_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+
+[node name="DisplayName2" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../DisplayName1")
+focus_previous = NodePath("../DisplayName1")
+focus_mode = 1
+theme_override_colors/font_color = Color(0.99, 0.99, 0.99, 1)
+theme_override_fonts/font = ExtResource("1_d43nb")
+text = "1-1"
+placeholder_text = "LINE 2"
+alignment = 1
+max_length = 15
+flat = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label2" type="Label" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Level Name:"
+
+[node name="LevelName" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+text = "New Level"
+emoji_menu_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Label" type="Label" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Description:"
+
+[node name="LevelDescription" type="TextEdit" parent="Main/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+focus_mode = 1
+text = "The newest best level?"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label3" type="Label" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Level Author:"
+
+[node name="LevelAuthor" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+text = "You"
+emoji_menu_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label3" type="Label" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Author E-mail:"
+
+[node name="AuthorEmail" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+emoji_menu_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label3" type="Label" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Author Website:"
+
+[node name="AuthorWebsite" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer5"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+emoji_menu_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Background" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvs6x")
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Section:"
+
+[node name="Section1" type="CheckBox" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+button_pressed = true
+button_group = SubResource("ButtonGroup_d43nb")
+text = "1"
+
+[node name="Section2" type="CheckBox" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_d43nb")
+text = "2"
+
+[node name="Section3" type="CheckBox" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_d43nb")
+text = "3"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="GradientTop" type="ColorPickerButton" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = " "
+color = Color(0.352941, 0.239216, 1, 1)
+edit_alpha = false
+
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer/GradientTop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+text = "Top"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GradientBottom" type="ColorPickerButton" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = " "
+color = Color(0.952941, 0.952941, 0.952941, 1)
+edit_alpha = false
+
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer/GradientBottom"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+text = "Bottom"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Background/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_3dgca")
+stretch_mode = 2

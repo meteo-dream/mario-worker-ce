@@ -5,7 +5,7 @@ func _ready() -> void:
 		Thunder._current_player = self
 		super()
 		return
-	if Editor.mode == 0 || !Thunder._current_player:
+	if Editor.mode == Editor.MODE.NONE || !Thunder._current_player:
 		super()
 		return
 

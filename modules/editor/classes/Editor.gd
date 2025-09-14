@@ -1,5 +1,11 @@
 extends Node
 
+enum MODE {
+	NONE,
+	EDITOR,
+	TESTING
+}
+
 var camera: Camera2D:
 	get():
 		if is_instance_valid(camera): return camera
@@ -15,12 +21,18 @@ var current_level: Level:
 	get():
 		if is_instance_valid(current_level): return current_level
 		return null
+var current_level_properties: LevelProperties:
+	get():
+		if !is_instance_valid(current_level) || !current_level_properties:
+			current_level_properties = LevelProperties.new()
+			return current_level_properties
+		return current_level_properties
 var gui: Control:
 	get():
 		if is_instance_valid(gui): return gui
 		return null
 
-var mode: int
+var mode: int = MODE.NONE
 
 var grid_shown: bool = true
 var grid_size: Vector2

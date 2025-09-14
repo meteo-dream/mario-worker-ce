@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://coqe7vbqhwd14"]
 
-[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_jw1sa"]
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_jw1sa"]
 
 [node name="Buzzy Beetle" type="Node2D"]
 script = ExtResource("1_jw1sa")

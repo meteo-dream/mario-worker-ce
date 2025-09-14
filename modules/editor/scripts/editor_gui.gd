@@ -1,5 +1,7 @@
 extends Control
 
+@onready var properties_tabs: TabContainer = %PropertiesTabs
+
 func _ready() -> void:
 	Editor.gui = self
 	%SelectMode.button_group.pressed.connect(_on_button_group_pressed)
@@ -112,7 +114,7 @@ func _on_play_button_pressed() -> void:
 	var has_saved = await Editor.scene.save_level(Editor.level_path)
 	if has_saved:
 		await get_tree().create_timer(0.4, false, false, true).timeout
-		Editor.mode = 2
+		Editor.mode = Editor.MODE.TESTING
 		Editor.scene.load_level.call_deferred(Editor.level_path)
 		#%LoadFileDialog.show()
 		%StopButton.disabled = false
@@ -134,8 +136,8 @@ func _on_load_level_button_pressed() -> void:
 
 
 func _on_stop_button_pressed() -> void:
-	if Editor.mode == 2:
-		Editor.mode = 1
+	if Editor.mode == Editor.MODE.TESTING:
+		Editor.mode = Editor.MODE.EDITOR
 		Editor.scene.load_level.call_deferred(Editor.level_path)
 		
 	%StopButton.disabled = true
@@ -148,3 +150,24 @@ func _on_stop_button_pressed() -> void:
 	%RotateRight.disabled = false
 	%LoadLevelButton.disabled = false
 	%SaveLevelButton.disabled = false
+
+
+func _on_level_properties_button_pressed() -> void:
+	%LevelProperties.show()
+
+
+func _on_level_prop_apply_pressed() -> void:
+	Editor.current_level.time = properties_tabs.time_limit.value
+	Editor.current_level_properties.level_name = properties_tabs.level_name.text
+	Editor.current_level_properties.level_display_name_1 = properties_tabs.display_name_1.text
+	Editor.current_level_properties.level_display_name_2 = properties_tabs.display_name_2.text
+	Editor.current_level_properties.level_description = properties_tabs.level_description.text
+	Editor.current_level_properties.level_author = properties_tabs.level_author.text
+	Editor.current_level_properties.level_author_email = properties_tabs.author_email.text
+	Editor.current_level_properties.level_author_website = properties_tabs.author_website.text
+	%LevelProperties.hide()
+
+
+func _on_level_prop_cancel_pressed() -> void:
+	%LevelProperties.hide()
+	properties_tabs.update_input_values()

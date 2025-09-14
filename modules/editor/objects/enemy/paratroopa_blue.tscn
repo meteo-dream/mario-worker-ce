@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4tn60awcwr5r"]
+[gd_scene load_steps=3 format=3 uid="uid://b4tn60awcwr5r"]
 
-[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_lovjm"]
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_lovjm"]
+[ext_resource type="Texture2D" uid="uid://blkiger5hr0me" path="res://modules/editor/gfx/object/paratroopa_blue.png" id="2_yxhig"]
 
 [node name="Koopa Paratroopa Blue" type="Node2D"]
 script = ExtResource("1_lovjm")
 scene_path = "res://engine/objects/enemies/paratroopas/paratroopa_blue.tscn"
 category = "enemy"
+editor_icon = ExtResource("2_yxhig")
 offset = Vector2(0, -8)

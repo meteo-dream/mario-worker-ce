@@ -76,7 +76,7 @@ func _ready() -> void:
 	#if DisplayServer.window_get_mode(0) == DisplayServer.WINDOW_MODE_WINDOWED:
 	#	DisplayServer.window_set_size(Vector2i(1280, 720))
 	Editor.scene = self
-	Editor.mode = 1
+	Editor.mode = Editor.MODE.EDITOR
 	var loaded_level
 	if Editor.current_level == null:
 		loaded_level = preload("res://modules/editor/stages/base_level.tscn")
@@ -159,7 +159,9 @@ func _input(event: InputEvent) -> void:
 			return
 		if tool_mode == TOOL_MODES.PAINT:
 			if editing_sel == EDIT_SEL.TILE:
-				var tilemap: TileMapLayer = Editor.current_level.get_node("Blocks")
+				# WORK IN PROGRESS: Simple tile editing
+				var tilemap: TileMapLayer = Editor.current_level.get_node_or_null("tile/Blocks")
+				if !tilemap: return
 				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 					tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
 				elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -247,7 +249,7 @@ func save_level(path) -> bool:
 		else:
 			notify_warn("Level was not saved.")
 			return false
-
+	
 	var to_save := PackedScene.new()
 	var _lvl = Editor.current_level
 	if !_lvl:
@@ -255,12 +257,28 @@ func save_level(path) -> bool:
 		Editor.level_path = ""
 		return false
 	
+	# saving level properties
+	var _level_props = Editor.current_level.get_node_or_null("LevelProperties")
+	if !_level_props:
+		Editor.current_level_properties.name = "LevelProperties"
+		Editor.current_level.add_child(Editor.current_level_properties, true)
+	
+	_level_props.player_position = Editor.current_level_properties.player_position
+	_level_props.level_display_name_1 = Editor.current_level_properties.level_display_name_1
+	_level_props.level_display_name_2 = Editor.current_level_properties.level_display_name_2
+	_level_props.level_name = Editor.current_level_properties.level_name
+	_level_props.level_description = Editor.current_level_properties.level_description
+	_level_props.level_author = Editor.current_level_properties.level_author
+	_level_props.level_author_email = Editor.current_level_properties.level_author_email
+	_level_props.level_author_website = Editor.current_level_properties.level_author_website
+	
 	## TODO: Idk this doesn't seem to work?
 	for i in _lvl.get_children():
 		i.owner = _lvl
 	if Thunder._current_player:
 		Thunder._current_player.set_process(false)
 		Thunder._current_player.suit = null
+		Thunder._current_player.global_position = Editor.current_level_properties.player_position
 	to_save.pack(_lvl)
 	#if path.get_extension().is_empty():
 	#	path += ".tscn"
@@ -278,17 +296,18 @@ func save_level(path) -> bool:
 
 
 func load_level(path) -> bool:
-	var res = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
+	var res: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
 	#var res = load(path)
 	if !res:
 		notify_error("Failed to load level.")
 		Editor.level_path = ""
 		return false
-	var new_level = res.instantiate()
-	if !res:
+	var new_level := res.instantiate()
+	if !new_level:
 		notify_error("Failed to load level.")
 		Editor.level_path = ""
 		return false
+	
 	# We do not need duplicating players
 	if Thunder._current_player:
 		Thunder._current_player.queue_free()
@@ -305,7 +324,13 @@ func load_level(path) -> bool:
 	#add_child.call_deferred(new_level, false)
 	#Editor.set_deferred(&"current_level", new_level)
 	#Thunder.reorder_top.call_deferred(new_level)
-	if Editor.mode == 1:
+	
+	var _level_props = Editor.current_level.get_node_or_null("LevelProperties")
+	Editor.current_level_properties = _level_props.duplicate() if _level_props else null
+	
+	%PropertiesTabs.update_input_values()
+	
+	if Editor.mode == Editor.MODE.EDITOR:
 		get_tree().call_group_flags(SceneTree.GROUP_CALL_DEFERRED,
 			&"editor_addable_object", &"_prepare_editor", false
 		)
@@ -513,4 +538,5 @@ func _tool_erase_process() -> void:
 	if is_processing_input() && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		for i in %ShapeCastPoint.get_collision_count():
 			var _sele = %ShapeCastPoint.get_collider(i)
-			if _sele && _sele.get_parent(): _sele.get_parent().queue_free()
+			if _sele && _sele.has_node(".."):
+				_sele.get_parent().queue_free()

@@ -21,7 +21,7 @@ func _ready() -> void:
 		btn.add_child.call_deferred(cached_scene)
 		btn.tooltip_text = cached_scene.name
 		if cached_scene is EditorAddableObject:
-			btn.pressed.connect(btn._on_pressed_add_object, CONNECT_DEFERRED)
+			btn.pressed.connect(btn._on_pressed_add_object.bind(category_name), CONNECT_DEFERRED)
 		elif cached_scene is TileSet:
 			btn.pressed.connect(btn._on_pressed_add_tileset, CONNECT_DEFERRED)
 		cached_scene.set_meta(&"nameid", cached_scene.name)
