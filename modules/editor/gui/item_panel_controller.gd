@@ -12,10 +12,11 @@ func _ready() -> void:
 	if category_name.is_empty():
 		return
 	var scenes: PackedStringArray = DirAccess.get_files_at(SCENES_PATH + category_name)
+	#load_from_file
 	for i in scenes:
 		#print(i)
 		var btn = ITEM_BUTTON.instantiate()
-		var cached_scene = load(SCENES_PATH + category_name + "/" + i).instantiate()
+		var cached_scene = load(SCENES_PATH + category_name + "/" + i.replace(".remap", "")).instantiate()
 		grid_cont.add_child.call_deferred(btn)
 		btn.add_child.call_deferred(cached_scene)
 		btn.tooltip_text = cached_scene.name

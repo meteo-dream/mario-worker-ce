@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d2325vsr1ng0u"]
 
-[ext_resource type="Script" path="res://modules/editor/gui/item_panel_controller.gd" id="1_r5esq"]
+[ext_resource type="Script" uid="uid://cu2e755j53cd5" path="res://modules/editor/gui/item_panel_controller.gd" id="1_r5esq"]
 
 [node name="Enemy" type="PanelContainer"]
 script = ExtResource("1_r5esq")

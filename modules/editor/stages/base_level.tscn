@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=4 uid="uid://d2ob41dqvqp5l"]
 
-[ext_resource type="Script" path="res://engine/scripts/classes/level/level.gd" id="1_8cd04"]
+[ext_resource type="Script" uid="uid://dh7ob1sbo8lx7" path="res://engine/scripts/classes/level/level.gd" id="1_8cd04"]
 [ext_resource type="AudioStream" uid="uid://bqiy8kvcsy0rk" path="res://engine/scripts/classes/level/complete.ogg" id="2_33y0t"]
 [ext_resource type="PackedScene" uid="uid://d3srfe2r6fg2u" path="res://engine/objects/core/music_loader/music_loader.tscn" id="3_dhm08"]
-[ext_resource type="Script" path="res://modules/editor/scripts/e_music_loader.gd" id="4_hbxjl"]
+[ext_resource type="Script" uid="uid://2u2sk5f00n27" path="res://modules/editor/scripts/e_music_loader.gd" id="4_hbxjl"]
 [ext_resource type="PackedScene" uid="uid://1do11cr84k7y" path="res://engine/objects/players/player.tscn" id="5_31utc"]
-[ext_resource type="Script" path="res://modules/editor/scripts/e_player.gd" id="5_84n3a"]
-[ext_resource type="Script" path="res://modules/editor/scripts/e_player_camera_2d.gd" id="5_ymv0b"]
+[ext_resource type="Script" uid="uid://ct6u5vgw67xd6" path="res://modules/editor/scripts/e_player.gd" id="5_84n3a"]
+[ext_resource type="Script" uid="uid://cxamgphsmf25s" path="res://modules/editor/scripts/e_player_camera_2d.gd" id="5_ymv0b"]
 [ext_resource type="TileSet" uid="uid://duodk2nyl4k2h" path="res://engine/tilesets/overworld/overworld.tres" id="7_7o84o"]
 
 [node name="Level" type="Node2D"]

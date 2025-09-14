@@ -2,3 +2,5 @@
 .godot/
 *.TMP
 ~libgdmpt-*.dll
+.build/
+icons/

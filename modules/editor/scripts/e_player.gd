@@ -10,7 +10,7 @@ func _ready() -> void:
 		return
 
 
-func die(tags: Dictionary = {}) -> void:
+func die(tags: Dictionary = {}, override_behavior: Callable = Callable()) -> void:
 	global_position.y = 0
 	reset_physics_interpolation()
 	speed.y = 0
