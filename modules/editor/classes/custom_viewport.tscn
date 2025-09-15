@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbm7sepyy8kr7"]
+[gd_scene load_steps=4 format=3 uid="uid://bbm7sepyy8kr7"]
 
 [ext_resource type="Script" uid="uid://t6vaug3ffdbx" path="res://modules/editor/classes/custom_viewport_window.gd" id="1_1dw8t"]
-[ext_resource type="Script" uid="uid://cq5ehm8ukqur8" path="res://engine/singletones/nodes/viewport/viewport.gd" id="1_784i6"]
 [ext_resource type="Shader" uid="uid://dytbek5y8fuye" path="res://engine/singletones/nodes/viewport/bilinear_scaling.gdshader" id="2_1dw8t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aijpq"]
@@ -26,7 +25,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_784i6")
 
 [node name="ColorRect" type="ColorRect" parent="VPControl"]
 layout_mode = 1

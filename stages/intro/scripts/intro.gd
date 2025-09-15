@@ -13,8 +13,8 @@ func _ready() -> void:
 
 func transition() -> void:
 	var _crossfade: bool = SettingsManager.get_tweak("replace_circle_transitions_with_fades", false)
-	#var mainmenu = ProjectSettings.get_setting("application/thunder_settings/main_menu_path")
-	var mainmenu = "res://modules/editor/stages/level_editor.tscn"
+	var mainmenu = ProjectSettings.get_setting("application/thunder_settings/main_menu_path")
+	#var mainmenu = "res://modules/editor/stages/level_editor.tscn"
 	if !_crossfade:
 		TransitionManager.accept_transition(
 			load("res://engine/components/transitions/circle_transition/circle_transition.tscn")

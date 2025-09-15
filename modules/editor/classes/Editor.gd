@@ -23,9 +23,10 @@ var current_level: Level:
 		return null
 var current_level_properties: LevelProperties:
 	get():
-		if !is_instance_valid(current_level) || !current_level_properties:
+		if !is_instance_valid(current_level):
+			return null
+		if !current_level_properties:
 			current_level_properties = LevelProperties.new()
-			return current_level_properties
 		return current_level_properties
 var gui: Control:
 	get():

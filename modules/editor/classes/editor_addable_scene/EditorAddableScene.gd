@@ -17,7 +17,7 @@ func _ready() -> void:
 		_install_icon()
 		if get_parent() is Button:
 			get_parent().icon = editor_icon
-	elif Editor.mode > Editor.MODE.EDITOR:
+	else:
 		_prepare_gameplay()
 
 

@@ -14,6 +14,8 @@ func _ready() -> void:
 	var scenes: PackedStringArray = DirAccess.get_files_at(SCENES_PATH + category_name)
 	#load_from_file
 	for i in scenes:
+		if !(i.ends_with(".tscn") || i.ends_with(".remap")):
+			continue
 		#print(i)
 		var btn = ITEM_BUTTON.instantiate()
 		var cached_scene = load(SCENES_PATH + category_name + "/" + i.replace(".remap", "")).instantiate()

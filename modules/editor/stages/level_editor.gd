@@ -540,3 +540,14 @@ func _tool_erase_process() -> void:
 			var _sele = %ShapeCastPoint.get_collider(i)
 			if _sele && _sele.has_node(".."):
 				_sele.get_parent().queue_free()
+
+func _edit_sel_to_enum(edit_sel_string: String) -> EDIT_SEL:
+	match edit_sel_string:
+		"none": return EDIT_SEL.NONE
+		"tile": return EDIT_SEL.TILE
+		"scenery": return EDIT_SEL.SCENERY
+		"enemy": return EDIT_SEL.ENEMY
+		"item": return EDIT_SEL.BONUS
+		"misc": return EDIT_SEL.MISC
+		"special": return EDIT_SEL.MISC
+	return EDIT_SEL.MISC
