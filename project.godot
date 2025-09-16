@@ -15,7 +15,7 @@ config/tags=PackedStringArray("game", "mario_forever")
 run/main_scene="res://stages/intro/intro.tscn"
 config/custom_user_dir_name="MeteoDream/Mario Worker Community Edition"
 config/project_settings_override="user://boot.thss"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.5", "Mobile")
 boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/fullsize=false
 boot_splash/image="res://icon.png"
@@ -47,6 +47,15 @@ thunder_settings/tweaks/legacy_bullet_launcher_not_shooting_range=true
 thunder_settings/tweaks/revamp_item_shop=false
 thunder_settings/tweaks/load_save_from_world_start=false
 thunder_settings/custom_mouse_cursor_path=""
+thunder_settings/tweaks/autorun=false
+thunder_settings/tweaks/coyote_time=true
+thunder_settings/player/gameover_continues=-1
+thunder_settings/tweaks/retro_damage_system=false
+thunder_settings/tweaks/super_jump_bug=false
+thunder_settings/tweaks/crouch_jumping=true
+thunder_settings/allow_overriding_default_suit_tweaks_by_user=true
+thunder_settings/tweaks/mouse_select_sound=true
+thunder_settings/tweaks/no_audio_effects=false
 
 [autoload]
 
