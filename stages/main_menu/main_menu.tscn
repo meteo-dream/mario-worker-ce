@@ -22,6 +22,7 @@ offset_left = -70.5
 offset_right = 70.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Gotoleveleditor" type="Button" parent="VBoxContainer"]
@@ -31,6 +32,10 @@ text = "Go to level editor"
 [node name="Testlevel" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Test a level"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+text = "Enable editor sounds"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1

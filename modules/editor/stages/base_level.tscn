@@ -1,14 +1,25 @@
-[gd_scene load_steps=12 format=4 uid="uid://d2ob41dqvqp5l"]
+[gd_scene load_steps=16 format=4 uid="uid://d2ob41dqvqp5l"]
 
 [ext_resource type="Script" uid="uid://6p7per48a8l2" path="res://modules/editor/scripts/e_level.gd" id="1_j2fth"]
 [ext_resource type="AudioStream" uid="uid://bqiy8kvcsy0rk" path="res://engine/scripts/classes/level/complete.ogg" id="2_33y0t"]
 [ext_resource type="PackedScene" uid="uid://d3srfe2r6fg2u" path="res://engine/objects/core/music_loader/music_loader.tscn" id="3_dhm08"]
+[ext_resource type="Script" uid="uid://bbim6vyaqnsvh" path="res://modules/editor/classes/resources/LevelProperties.gd" id="4_dj13d"]
 [ext_resource type="Script" uid="uid://2u2sk5f00n27" path="res://modules/editor/scripts/e_music_loader.gd" id="4_hbxjl"]
 [ext_resource type="PackedScene" uid="uid://1do11cr84k7y" path="res://engine/objects/players/player.tscn" id="5_31utc"]
+[ext_resource type="Script" uid="uid://bes0uboqshv1l" path="res://modules/editor/classes/resources/SectionProperties.gd" id="5_46p0d"]
 [ext_resource type="Script" uid="uid://ct6u5vgw67xd6" path="res://modules/editor/scripts/e_player.gd" id="5_84n3a"]
 [ext_resource type="Script" uid="uid://cuj30d6nnmpec" path="res://modules/editor/scripts/level_properties.gd" id="5_j2fth"]
 [ext_resource type="Script" uid="uid://cxamgphsmf25s" path="res://modules/editor/scripts/e_player_camera_2d.gd" id="5_ymv0b"]
 [ext_resource type="TileSet" uid="uid://duodk2nyl4k2h" path="res://engine/tilesets/overworld/overworld.tres" id="7_7o84o"]
+
+[sub_resource type="Resource" id="Resource_ijj66"]
+script = ExtResource("5_46p0d")
+metadata/_custom_type_script = "uid://bes0uboqshv1l"
+
+[sub_resource type="Resource" id="Resource_008ua"]
+script = ExtResource("4_dj13d")
+sections = Array[ExtResource("5_46p0d")]([SubResource("Resource_ijj66")])
+metadata/_custom_type_script = "uid://bbim6vyaqnsvh"
 
 [sub_resource type="Gradient" id="Gradient_4mqjo"]
 colors = PackedColorArray(0.354, 0.24, 1, 1, 0.952941, 0.952941, 0.952941, 1)
@@ -25,10 +36,7 @@ completion_music = ExtResource("2_33y0t")
 
 [node name="LevelProperties" type="Node" parent="."]
 script = ExtResource("5_j2fth")
-player_position = Vector2(80, 400)
-level_name = "MY LEVEL"
-level_description = "The newest best level?"
-level_author = "You"
+properties = SubResource("Resource_008ua")
 
 [node name="MusicLoader" parent="." instance=ExtResource("3_dhm08")]
 script = ExtResource("4_hbxjl")
@@ -45,43 +53,32 @@ editor_draw_screen = false
 script = ExtResource("5_ymv0b")
 metadata/_edit_lock_ = true
 
-[node name="ParallaxBackground" type="CanvasLayer" parent="."]
-layer = -100
-follow_viewport_enabled = true
+[node name="Section1" type="Node2D" parent="."]
 
-[node name="Section1" type="Node2D" parent="ParallaxBackground"]
+[node name="Background" type="Node2D" parent="Section1"]
+z_index = -100
 
-[node name="GradientLayer" type="Parallax2D" parent="ParallaxBackground/Section1"]
+[node name="GradientLayer" type="Parallax2D" parent="Section1/Background"]
 repeat_size = Vector2(640, 0)
 repeat_times = 10
 
-[node name="Gradient" type="Sprite2D" parent="ParallaxBackground/Section1/GradientLayer"]
+[node name="Gradient" type="Sprite2D" parent="Section1/Background/GradientLayer"]
 texture = SubResource("GradientTexture2D_j2fth")
 centered = false
 
-[node name="ParallaxLayer" type="Parallax2D" parent="ParallaxBackground/Section1"]
+[node name="tile" type="Node2D" parent="Section1"]
 
-[node name="Section2" type="Node2D" parent="ParallaxBackground"]
-
-[node name="ParallaxLayer" type="Parallax2D" parent="ParallaxBackground/Section2"]
-
-[node name="Section3" type="Node2D" parent="ParallaxBackground"]
-
-[node name="ParallaxLayer" type="Parallax2D" parent="ParallaxBackground/Section3"]
-
-[node name="tile" type="Node2D" parent="."]
-
-[node name="Blocks" type="TileMapLayer" parent="tile"]
+[node name="Blocks" type="TileMapLayer" parent="Section1/tile"]
 tile_map_data = PackedByteArray("AAALAA8AAAACAAIAAAALAA4AAAACAAEAAAALAA0AAAACAAAAAAAKAA8AAAABAAIAAAAKAA4AAAABAAEAAAAKAA0AAAABAAAAAAAJAA8AAAABAAIAAAAJAA4AAAABAAEAAAAJAA0AAAABAAAAAAAIAA8AAAABAAIAAAAIAA4AAAABAAEAAAAIAA0AAAABAAAAAAAHAA8AAAABAAIAAAAHAA4AAAABAAEAAAAHAA0AAAABAAAAAAAGAA8AAAABAAIAAAAGAA4AAAABAAEAAAAGAA0AAAABAAAAAAAFAA8AAAABAAIAAAAFAA4AAAABAAEAAAAFAA0AAAABAAAAAAAEAA8AAAABAAIAAAAEAA4AAAABAAEAAAAEAA0AAAABAAAAAAADAA8AAAABAAIAAAADAA4AAAABAAEAAAADAA0AAAABAAAAAAACAA8AAAABAAIAAAACAA4AAAABAAEAAAACAA0AAAABAAAAAAABAA8AAAABAAIAAAABAA4AAAABAAEAAAABAA0AAAABAAAAAAAAAA8AAAAAAAIAAAAAAA4AAAAAAAEAAAAAAA0AAAAAAAAAAAASAA4AAAACAAIAAAASAA0AAAACAAEAAAASAAwAAAACAAAAAAARAA4AAAABAAIAAAARAA0AAAABAAEAAAARAAwAAAABAAAAAAAQAA4AAAABAAIAAAAQAA0AAAABAAEAAAAQAAwAAAABAAAAAAAPAA4AAAABAAIAAAAPAA0AAAABAAEAAAAPAAwAAAABAAAAAAAOAA4AAAAAAAIAAAAOAA0AAAAAAAEAAAAOAAwAAAAAAAAAAAAWAAsAAAABAAIAAAAWAAoAAAABAAEAAAAWAAkAAAABAAAAAAAVAAsAAAABAAIAAAAVAAoAAAABAAEAAAAVAAkAAAABAAAAAAAUAAsAAAAAAAIAAAAUAAoAAAAAAAEAAAAUAAkAAAAAAAAAAAAXAAsAAAACAAIAAAAXAAoAAAACAAEAAAAXAAkAAAACAAAAAAA=")
 tile_set = ExtResource("7_7o84o")
-metadata/_edit_lock_ = true
+navigation_enabled = false
 
-[node name="scenery" type="Node2D" parent="."]
+[node name="scenery" type="Node2D" parent="Section1"]
 
-[node name="enemy" type="Node2D" parent="."]
+[node name="enemy" type="Node2D" parent="Section1"]
 
-[node name="bonus" type="Node2D" parent="."]
+[node name="bonus" type="Node2D" parent="Section1"]
 
-[node name="misc" type="Node2D" parent="."]
+[node name="misc" type="Node2D" parent="Section1"]
 
-[node name="special" type="Node2D" parent="."]
+[node name="special" type="Node2D" parent="Section1"]

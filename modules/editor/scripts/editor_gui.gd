@@ -64,6 +64,7 @@ func _on_dontsave(action: StringName) -> void:
 func _on_exit() -> void:
 	Editor.scene.queue_free()
 	Scenes.goto_scene(ProjectSettings.get_setting("application/thunder_settings/main_menu_path"))
+	DisplayServer.window_set_title(ProjectSettings.get_setting("application/config/name"))
 
 
 func _on_save_level_button_pressed(exit_after_save: bool = false) -> void:
@@ -94,7 +95,7 @@ func _on_load_dialog_confirmed(path: String) -> void:
 	Editor.scene.load_level.call_deferred(path)
 
 func _on_play_level_button_pressed() -> void:
-	pass # Replace with function body.
+	OS.alert("This button is unimplemented for now, use 'Test Level' from the main menu")
 
 
 func _on_play_button_pressed() -> void:
@@ -166,6 +167,7 @@ func _on_level_prop_apply_pressed() -> void:
 	Editor.current_level_properties.level_author_email = properties_tabs.author_email.text
 	Editor.current_level_properties.level_author_website = properties_tabs.author_website.text
 	%LevelProperties.hide()
+	Editor.scene.changes_after_save = true
 
 
 func _on_level_prop_cancel_pressed() -> void:

@@ -14,7 +14,7 @@ var scene: LevelEditor:
 	get():
 		if is_instance_valid(scene): return scene
 		return null
-var current_level: Level:
+var current_level: LevelEdited:
 	set(to):
 		current_level = to
 		#Scenes.current_scene = to

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://rpakjtu42jei"]
 
-[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_nirtk"]
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_nirtk"]
 [ext_resource type="Texture2D" uid="uid://guuwpwktqi32" path="res://modules/editor/gfx/object/paratroopa_red.png" id="2_bij3m"]
 
 [node name="Koopa Paratroopa Red" type="Node2D"]

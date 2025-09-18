@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ct3gjwv0cs6p"]
+[gd_scene load_steps=56 format=3 uid="uid://ct3gjwv0cs6p"]
 
 [ext_resource type="Script" uid="uid://4nevngh00vtd" path="res://modules/editor/stages/level_editor.gd" id="1_mqqp7"]
 [ext_resource type="Script" uid="uid://cwrgji2fg1e83" path="res://modules/editor/scripts/editor_gui.gd" id="3_7ryt0"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://ci3vrg26vbf1u" path="res://modules/editor/scripts/editor_grid_selection.gd" id="25_3f3hp"]
 [ext_resource type="Texture2D" uid="uid://dwtn8cky8tb3l" path="res://engine/objects/enemies/goombas/textures/goomba.png" id="26_kscub"]
 [ext_resource type="Script" uid="uid://dn2ks33ok6x2d" path="res://modules/editor/scripts/editor_grid_extra.gd" id="27_bu24i"]
+[ext_resource type="AudioStream" uid="uid://bsqliwe1f8tmx" path="res://modules/editor/sfx/block_erase.wav" id="31_abl8s"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_67k7q"]
 
@@ -50,6 +51,22 @@ unicode = 103
 
 [sub_resource type="Shortcut" id="Shortcut_305fs"]
 events = [SubResource("InputEventKey_02tfp")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_abl8s"]
+device = -1
+keycode = 80
+unicode = 112
+
+[sub_resource type="Shortcut" id="Shortcut_ahe48"]
+events = [SubResource("InputEventKey_abl8s")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_fr2b1"]
+device = -1
+keycode = 69
+unicode = 101
+
+[sub_resource type="Shortcut" id="Shortcut_lq0bh"]
+events = [SubResource("InputEventKey_fr2b1")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_a8mvi"]
 device = -1
@@ -206,6 +223,7 @@ tooltip_text = "Pain Tool"
 focus_mode = 1
 toggle_mode = true
 button_group = ExtResource("4_rv8e0")
+shortcut = SubResource("Shortcut_ahe48")
 icon = ExtResource("7_siqy4")
 
 [node name="PickMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
@@ -235,6 +253,7 @@ tooltip_text = "Erase Tool"
 focus_mode = 1
 toggle_mode = true
 button_group = ExtResource("4_rv8e0")
+shortcut = SubResource("Shortcut_lq0bh")
 icon = ExtResource("10_wali5")
 
 [node name="VSeparator2" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox"]
@@ -280,6 +299,7 @@ icon = ExtResource("14_j2gld")
 [node name="ConfigureSnapWindow" type="Window" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton"]
 unique_name_in_owner = true
 disable_3d = true
+oversampling_override = 1.0
 title = "Configure Snap"
 initial_position = 2
 size = Vector2i(320, 128)
@@ -303,6 +323,10 @@ color = Color(0.16, 0.16, 0.16, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -463,10 +487,12 @@ icon = ExtResource("20_5pur8")
 [node name="LevelProperties" type="Window" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton"]
 unique_name_in_owner = true
 disable_3d = true
+oversampling_override = 1.0
 title = "Level Properties"
 initial_position = 1
-size = Vector2i(512, 480)
+size = Vector2i(512, 512)
 visible = false
+min_size = Vector2i(400, 512)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties"]
 anchors_preset = 15
@@ -531,7 +557,7 @@ filters = PackedStringArray("*.tscn;Level scenes")
 [node name="SaveLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Save level"
+tooltip_text = "Save level. Click with Shift to save elsewhere"
 focus_mode = 1
 shortcut = SubResource("Shortcut_jeruh")
 icon = ExtResource("18_efige")
@@ -546,7 +572,7 @@ filters = PackedStringArray("*.tscn;Level scenes")
 
 [node name="CloseEditorButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 layout_mode = 2
-tooltip_text = "Close editor"
+tooltip_text = "Close editor and exit to main menu"
 focus_mode = 1
 icon = ExtResource("19_b8vnf")
 
@@ -558,7 +584,7 @@ size = Vector2i(320, 128)
 min_size = Vector2i(200, 100)
 ok_button_text = "Save"
 dialog_text = "Warning: You have unsaved changes.
-What would you like to do?"
+Save before quitting?"
 
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 layout_mode = 2
@@ -724,7 +750,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 4.0
 offset_top = 36.0
 offset_right = 100.0
@@ -735,8 +761,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 focus_mode = 1
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 0.878431)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxEmpty_fsewq")
@@ -755,6 +781,11 @@ script = ExtResource("27_bu24i")
 [node name="EditorGridSelection" type="Node2D" parent="EditorNodes"]
 unique_name_in_owner = true
 script = ExtResource("25_3f3hp")
+
+[node name="AudioBlockErase" type="AudioStreamPlayer" parent="EditorNodes"]
+unique_name_in_owner = true
+stream = ExtResource("31_abl8s")
+bus = &"Editor"
 
 [node name="SelectedObjSprite" type="Sprite2D" parent="." groups=["editor_internal_object"]]
 unique_name_in_owner = true

@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4b3m1wqenu6m"]
 
-[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_hkwin"]
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_hkwin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sw8rg"]
 size = Vector2(32, 32)
 
-[node name="Question Block (Coin)" type="Node2D"]
+[node name="Question Block" type="Node2D"]
 script = ExtResource("1_hkwin")
 scene_path = "res://engine/objects/bumping_blocks/question_block/question_block.tscn"
 category = "bonus"

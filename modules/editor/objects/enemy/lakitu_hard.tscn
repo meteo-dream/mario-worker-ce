@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3apa44figjd1"]
 
-[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_22kdv"]
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_22kdv"]
 [ext_resource type="Texture2D" uid="uid://b4wbjvprni38v" path="res://engine/objects/enemies/lakitus/textures/lakitu.png" id="2_0u1rx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_40sfs"]

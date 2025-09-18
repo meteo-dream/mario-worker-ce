@@ -22,7 +22,7 @@ func _ready() -> void:
 		grid_cont.add_child.call_deferred(btn)
 		btn.add_child.call_deferred(cached_scene)
 		btn.tooltip_text = cached_scene.name
-		if cached_scene is EditorAddableObject:
+		if cached_scene is EditorAddableNode2D:
 			btn.pressed.connect(btn._on_pressed_add_object.bind(category_name), CONNECT_DEFERRED)
 		elif cached_scene is TileSet:
 			btn.pressed.connect(btn._on_pressed_add_tileset, CONNECT_DEFERRED)

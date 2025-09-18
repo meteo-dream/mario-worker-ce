@@ -1,11 +1,16 @@
 extends Control
 
+@onready var check_box: CheckBox = $VBoxContainer/CheckBox
+
 func _ready() -> void:
 	reparent.call_deferred(get_tree().root, true)
 	SettingsManager.show_mouse()
+	Editor.current_level_properties = null
+	Editor.current_level = null
 
 
 func _on_button_pressed() -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(&"Editor"), check_box.button_pressed)
 	Scenes.goto_scene("res://modules/editor/stages/level_editor.tscn")
 
 

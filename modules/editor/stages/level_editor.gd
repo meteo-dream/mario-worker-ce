@@ -8,6 +8,9 @@ const PROP_LINEEDIT = preload("res://modules/editor/gui/prop_lineedit.tscn")
 const PROP_CHECKBOX = preload("res://modules/editor/gui/prop_checkbox.tscn")
 const PROP_COLORPICKER = preload("res://modules/editor/gui/prop_colorpicker.tscn")
 
+const BLOCK_PLACE = preload("uid://bk2fn1h2y7tx5")
+const BLOCK_ERASE = preload("uid://bsqliwe1f8tmx")
+
 enum TOOL_MODES {
 	SELECT,
 	PAN,
@@ -15,7 +18,7 @@ enum TOOL_MODES {
 	PAINT,
 	PICKER,
 	RECT,
-	ERASE
+	ERASE,
 }
 
 enum EDIT_SEL {
@@ -24,7 +27,7 @@ enum EDIT_SEL {
 	SCENERY,
 	ENEMY,
 	BONUS,
-	MISC
+	MISC,
 }
 
 @onready var control: Control = %DrawArea2
@@ -66,10 +69,15 @@ var selected_object: Node2D = null:
 		if is_instance_valid(selected_object):
 			return selected_object
 		return null
-var changes_after_save: bool = false
+var changes_after_save: bool = false:
+	set(to):
+		changes_after_save = to
+		var _end: String = " (*)" if changes_after_save else ""
+		DisplayServer.window_set_title(ProjectSettings.get_setting("application/config/name") + _end)
 var mouse_blocked: bool
 
 var selected: Array[Node2D]
+var section: int = 1
 
 
 func _ready() -> void:
@@ -88,6 +96,7 @@ func _ready() -> void:
 	SettingsManager.show_mouse()
 	Input.set_custom_mouse_cursor(preload("res://engine/components/ui/generic/textures/mouse_cursor.png"), Input.CURSOR_BUSY)
 	Input.set_default_cursor_shape(Input.CURSOR_BUSY)
+	changes_after_save = false
 	
 	editing_sel = EDIT_SEL.NONE
 
@@ -114,15 +123,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventAction:
-		if event.is_action(&"a_ctrl"):
-			Thunder._current_player.completed = event.is_pressed()
-		elif event.is_action(&"a_delete") && event.is_pressed():
-			if tool_mode == TOOL_MODES.SELECT && len(selected) > 0:
-				for i in selected:
-					i.queue_free()
-				selected = []
-				_on_selected_array_change()
+	if event.is_action(&"a_ctrl") && Thunder._current_player:
+		Thunder._current_player.completed = event.is_pressed()
+	elif event.is_action(&"a_delete") && event.is_pressed():
+		if tool_mode == TOOL_MODES.SELECT && len(selected) > 0:
+			for i in selected:
+				i.queue_free()
+			selected = []
+			_on_selected_array_change()
 	
 	elif event is InputEventMouseButton:
 		if !Editor.is_window_active():
@@ -160,7 +168,11 @@ func _input(event: InputEvent) -> void:
 		if tool_mode == TOOL_MODES.PAINT:
 			if editing_sel == EDIT_SEL.TILE:
 				# WORK IN PROGRESS: Simple tile editing
-				var tilemap: TileMapLayer = Editor.current_level.get_node_or_null("tile/Blocks")
+				var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
+				if !tile_parent:
+					push_warning("Invalid NodePath: Section%d/tile" % section)
+					return
+				var tilemap: TileMapLayer = tile_parent.get_node_or_null("Blocks")
 				if !tilemap: return
 				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 					tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
@@ -172,27 +184,35 @@ func _input(event: InputEvent) -> void:
 			#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 			if %ShapeCast2D.is_colliding():
 				%SelectedObjSprite.visible = false
+				# Erasing the object by RMB
 				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object:
 					%ShapeCast2D.force_shapecast_update()
 					for i in %ShapeCast2D.get_collision_count():
 						var _col = %ShapeCast2D.get_collider(i)
 						if !_col || !_col.get_parent(): continue
 						_col = _col.get_parent()
+						# Check if found object is of the same type as the selected object
 						if _col.get_meta(&"nameid") == selected_object.get_meta(&"nameid"):
-							_col.queue_free()
-							changes_after_save = true
+							if _col.get("properties"):
+								# TODO: Properties menu
+								OS.alert("This will open up the properties menu...")
+							#_col.queue_free()
+							#%AudioBlockErase.play()
+							#changes_after_save = true
 				return
+			# Painting the object to the level
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
 				var obj = selected_object.duplicate()
 				obj.global_position = %SelectedObjSprite.global_position
 				var _node_folder = obj.get_meta(&"categoryid", "enemy")
-				if !Editor.current_level.has_node(_node_folder):
+				if !Editor.current_level.get_section(section).has_node(_node_folder):
 					var new_node = Node2D.new()
 					new_node.name = _node_folder
-					Editor.current_level.add_child(new_node)
-				Editor.current_level.get_node(_node_folder).add_child(obj, true)
+					Editor.current_level.get_section(section).add_child(new_node)
+				Editor.current_level.get_section(section).get_node(_node_folder).add_child(obj, true)
 				obj.owner = Editor.current_level
 				changes_after_save = true
+				Audio.play_1d_sound(BLOCK_PLACE, false, { bus = "Editor" })
 				#obj.set_meta(&"nameid", selected_object.get_meta(&"nameid"))
 				obj._prepare_editor()
 
@@ -260,17 +280,13 @@ func save_level(path) -> bool:
 	# saving level properties
 	var _level_props = Editor.current_level.get_node_or_null("LevelProperties")
 	if !_level_props:
-		Editor.current_level_properties.name = "LevelProperties"
-		Editor.current_level.add_child(Editor.current_level_properties, true)
+		var _new_node = Node.new()
+		_new_node.name = "LevelProperties"
+		_new_node.set_script(preload("uid://cuj30d6nnmpec"))
+		Editor.current_level.add_child(_new_node, true)
+		_level_props = _new_node
 	
-	_level_props.player_position = Editor.current_level_properties.player_position
-	_level_props.level_display_name_1 = Editor.current_level_properties.level_display_name_1
-	_level_props.level_display_name_2 = Editor.current_level_properties.level_display_name_2
-	_level_props.level_name = Editor.current_level_properties.level_name
-	_level_props.level_description = Editor.current_level_properties.level_description
-	_level_props.level_author = Editor.current_level_properties.level_author
-	_level_props.level_author_email = Editor.current_level_properties.level_author_email
-	_level_props.level_author_website = Editor.current_level_properties.level_author_website
+	_level_props.properties = Editor.current_level_properties.duplicate(true)
 	
 	## TODO: Idk this doesn't seem to work?
 	for i in _lvl.get_children():
@@ -279,14 +295,18 @@ func save_level(path) -> bool:
 		Thunder._current_player.set_process(false)
 		Thunder._current_player.suit = null
 		Thunder._current_player.global_position = Editor.current_level_properties.player_position
-	to_save.pack(_lvl)
+	var err = to_save.pack(_lvl)
+	if err != OK:
+		notify_error("Save failed: " + error_string(err))
+		Editor.level_path = ""
+		return false
 	#if path.get_extension().is_empty():
 	#	path += ".tscn"
 	print(path)
 	var er = ResourceSaver.save(to_save, path, ResourceSaver.FLAG_COMPRESS)
 	Thunder._current_player.suit = CharacterManager.get_suit(Thunder._current_player_state.name)
 	if er != OK:
-		notify_error(error_string(er))
+		notify_error("Save failed: " + error_string(er))
 		Editor.level_path = ""
 		return false
 	changes_after_save = false
@@ -299,23 +319,43 @@ func load_level(path) -> bool:
 	var res: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
 	#var res = load(path)
 	if !res:
-		notify_error("Failed to load level.")
+		notify_error("Failed to load level: Data is corrupted")
 		Editor.level_path = ""
 		return false
 	var new_level := res.instantiate()
 	if !new_level:
-		notify_error("Failed to load level.")
+		notify_error("Failed to load level: Scene is corrupted")
 		Editor.level_path = ""
 		return false
+	if !new_level is LevelEdited:
+		notify_error("This is not a valid level.")
+		Editor.level_path = ""
+		new_level.free.call_deferred()
+		return false
 	
-	# We do not need duplicating players
-	if Thunder._current_player:
-		Thunder._current_player.queue_free()
 	# Removing unnecessary garbage scenes resulting from live-testing in editor
 	for i in get_children():
 		if i.is_in_group(&"editor_internal_object"): continue
 		i.queue_free()
 	add_child(new_level, false)
+	
+	var _level_props = new_level.get_node_or_null("LevelProperties")
+	if _level_props && "properties" in _level_props:
+		if _level_props.properties.get("level_version", -1000) < ProjectSettings.get_setting("application/thunder_settings/version", -999):
+			notify_error("Failed to load level: Incompatible Version")
+			Editor.level_path = ""
+			new_level.free.call_deferred()
+		Editor.current_level_properties = _level_props.properties.duplicate(true)
+	else:
+		notify_error("Failed to load level: Missing LevelProperties")
+		Editor.level_path = ""
+		new_level.free.call_deferred()
+		return false
+	
+	# We do not need duplicating players
+	if Thunder._current_player:
+		Thunder._current_player.queue_free()
+	
 	# Forcefully removing old level and immediately assigning a new one
 	if Editor.current_level:
 		Editor.current_level.free()
@@ -324,9 +364,6 @@ func load_level(path) -> bool:
 	#add_child.call_deferred(new_level, false)
 	#Editor.set_deferred(&"current_level", new_level)
 	#Thunder.reorder_top.call_deferred(new_level)
-	
-	var _level_props = Editor.current_level.get_node_or_null("LevelProperties")
-	Editor.current_level_properties = _level_props.duplicate() if _level_props else null
 	
 	%PropertiesTabs.update_input_values()
 	
@@ -438,9 +475,13 @@ func _add_prop(property: Dictionary, target) -> void:
 			_prop_c.add_child(_lineedit)
 			_lineedit.text = str(prop_value)
 	%PropListContainer.add_child(_prop_c)
-	
 
-## -Select tool ready functions-
+
+func object_to_paint_selected(from_menu: bool = false) -> void:
+	pass
+
+
+## -- Select tool ready functions --
 func _tool_select() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%SelectMode.button_pressed = true
@@ -475,10 +516,14 @@ func _tool_paint() -> void:
 	else:
 		%SelectedObjSprite.texture = null
 		%SelectedObjTexture.texture = null
+		selected = []
+		_on_selected_array_change()
 
 func _tool_pick() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
 	%PickMode.button_pressed = true
+	selected = []
+	_on_selected_array_change()
 
 func _tool_rect() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
@@ -493,9 +538,11 @@ func _tool_rect() -> void:
 func _tool_erase() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%EraseMode.button_pressed = true
+	selected = []
+	_on_selected_array_change()
 
 
-## -Select tool process functions-
+## -- Select tool process functions --
 func _tool_select_process() -> void:
 	%SelectedObjSprite.global_position = get_pos_on_grid()
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -540,14 +587,17 @@ func _tool_erase_process() -> void:
 			var _sele = %ShapeCastPoint.get_collider(i)
 			if _sele && _sele.has_node(".."):
 				_sele.get_parent().queue_free()
+				%AudioBlockErase.play()
+				changes_after_save = true
 
-func _edit_sel_to_enum(edit_sel_string: String) -> EDIT_SEL:
+
+static func _edit_sel_to_enum(edit_sel_string: String) -> EDIT_SEL:
 	match edit_sel_string:
 		"none": return EDIT_SEL.NONE
 		"tile": return EDIT_SEL.TILE
 		"scenery": return EDIT_SEL.SCENERY
 		"enemy": return EDIT_SEL.ENEMY
-		"item": return EDIT_SEL.BONUS
+		"bonus": return EDIT_SEL.BONUS
 		"misc": return EDIT_SEL.MISC
 		"special": return EDIT_SEL.MISC
 	return EDIT_SEL.MISC

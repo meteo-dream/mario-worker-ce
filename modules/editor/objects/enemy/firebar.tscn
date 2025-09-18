@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://8kl2tls4ciyu"]
 
-[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_ujp8j"]
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_ujp8j"]
 [ext_resource type="Texture2D" uid="uid://d3rdj54y64ywl" path="res://modules/editor/gfx/object/firebar.png" id="2_gyogf"]
 
 [node name="Firebar" type="Node2D"]

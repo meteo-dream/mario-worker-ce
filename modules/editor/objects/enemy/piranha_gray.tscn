@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqcaqhbk0108l"]
 
-[ext_resource type="Script" path="res://modules/editor/classes/editor_addable_scene/EditorAddableScene.gd" id="1_45oqn"]
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_45oqn"]
 
 [node name="Piranha Plant (Gray)" type="Node2D"]
 script = ExtResource("1_45oqn")
