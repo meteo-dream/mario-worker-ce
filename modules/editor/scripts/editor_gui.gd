@@ -11,6 +11,49 @@ func _ready() -> void:
 	Thunder._connect(%CloseConfirmationDialog.custom_action, _on_dontsave)
 
 
+func disable_toolbar_buttons() -> void:
+	%PlayButton.disabled = true
+	%SelectMode.disabled = true
+	%ListMode.disabled = true
+	%PickMode.disabled = true
+	%RotateLeft.disabled = true
+	%RotateRight.disabled = true
+	%LoadLevelButton.disabled = true
+	%SaveLevelButton.disabled = true
+
+func enable_toolbar_buttons() -> void:
+	%PlayButton.disabled = false
+	%SelectMode.disabled = false
+	%ListMode.disabled = false
+	%PickMode.disabled = false
+	%RotateLeft.disabled = false
+	%RotateRight.disabled = false
+	%LoadLevelButton.disabled = false
+	%SaveLevelButton.disabled = false
+
+
+func show_one_dialog(dialog: Window) -> void:
+	if dialog.visible:
+		if dialog.mode == Window.MODE_MINIMIZED:
+			dialog.mode = Window.MODE_WINDOWED
+		dialog.grab_focus()
+		return
+	dialog.show()
+
+
+func apply_level_properties() -> void:
+	if !Editor.current_level_properties:
+		Editor.current_level_properties = LevelProperties.new()
+	Editor.current_level.time = properties_tabs.time_limit.value
+	Editor.current_level_properties.level_name = properties_tabs.level_name.text
+	Editor.current_level_properties.level_display_name_1 = properties_tabs.display_name_1.text
+	Editor.current_level_properties.level_display_name_2 = properties_tabs.display_name_2.text
+	Editor.current_level_properties.level_description = properties_tabs.level_description.text
+	Editor.current_level_properties.level_author = properties_tabs.level_author.text
+	Editor.current_level_properties.level_author_email = properties_tabs.author_email.text
+	Editor.current_level_properties.level_author_website = properties_tabs.author_website.text
+
+
 func _on_button_group_pressed(button: BaseButton) -> void:
 	match button.name:
 		"SelectMode": Editor.scene.tool_mode = LevelEditor.TOOL_MODES.SELECT
@@ -54,7 +97,7 @@ func _on_v_split_container_dragged(offset: int) -> void:
 
 func _on_close_editor_button_pressed() -> void:
 	if Editor.scene.changes_after_save:
-		%CloseConfirmationDialog.show()
+		show_one_dialog(%CloseConfirmationDialog)
 	else:
 		_on_exit()
 
@@ -62,12 +105,12 @@ func _on_dontsave(action: StringName) -> void:
 	if action == &"dontsave": _on_exit()
 
 func _on_exit() -> void:
-	Editor.scene.queue_free()
+	#Editor.scene.queue_free()
 	Scenes.goto_scene(ProjectSettings.get_setting("application/thunder_settings/main_menu_path"))
 	DisplayServer.window_set_title(ProjectSettings.get_setting("application/config/name"))
 
 
-func _on_save_level_button_pressed(exit_after_save: bool = false) -> void:
+func _on_save_level_button_pressed(exit_after_save: bool = false, forced_dialog: bool = false) -> void:
 	if !Editor.current_level:
 		Editor.scene.notify_error("Save failed.")
 		return
@@ -76,7 +119,7 @@ func _on_save_level_button_pressed(exit_after_save: bool = false) -> void:
 	#	%SaveFileDialog.deselect_all()
 	#	%SaveFileDialog.show()
 	#	return
-	var has_saved = await Editor.scene.save_level(Editor.level_path)
+	var has_saved = await Editor.scene.save_level(Editor.level_path, forced_dialog)
 	if exit_after_save && has_saved:
 		Editor.scene.mouse_blocked = true
 		Editor.scene.set_process_input(false)
@@ -95,7 +138,7 @@ func _on_load_dialog_confirmed(path: String) -> void:
 	Editor.scene.load_level.call_deferred(path)
 
 func _on_play_level_button_pressed() -> void:
-	OS.alert("This button is unimplemented for now, use 'Test Level' from the main menu")
+	OS.alert("This button is unimplemented for now, use 'Play Level' from the title screen")
 
 
 func _on_play_button_pressed() -> void:
@@ -104,14 +147,8 @@ func _on_play_button_pressed() -> void:
 		#%SaveFileDialog.deselect_all()
 		#%SaveFileDialog.show()
 		#return
-	%PlayButton.disabled = true
-	%SelectMode.disabled = true
-	%ListMode.disabled = true
-	%PickMode.disabled = true
-	%RotateLeft.disabled = true
-	%RotateRight.disabled = true
-	%LoadLevelButton.disabled = true
-	%SaveLevelButton.disabled = true
+	disable_toolbar_buttons()
+	
 	var has_saved = await Editor.scene.save_level(Editor.level_path)
 	if has_saved:
 		await get_tree().create_timer(0.4, false, false, true).timeout
@@ -121,19 +158,12 @@ func _on_play_button_pressed() -> void:
 		%StopButton.disabled = false
 		#Editor.current_level.duplicate()
 	else:
-		%PlayButton.disabled = false
-		%SelectMode.disabled = false
-		%ListMode.disabled = false
-		%PickMode.disabled = false
-		%RotateLeft.disabled = false
-		%RotateRight.disabled = false
-		%LoadLevelButton.disabled = false
-		%SaveLevelButton.disabled = false
+		enable_toolbar_buttons()
 
 
 func _on_load_level_button_pressed() -> void:
 	Thunder._connect(%LoadFileDialog.file_selected, _on_load_dialog_confirmed)
-	%LoadFileDialog.show()
+	show_one_dialog(%LoadFileDialog)
 
 
 func _on_stop_button_pressed() -> void:
@@ -143,29 +173,15 @@ func _on_stop_button_pressed() -> void:
 		
 	%StopButton.disabled = true
 	
-	%PlayButton.disabled = false
-	%SelectMode.disabled = false
-	%ListMode.disabled = false
-	%PickMode.disabled = false
-	%RotateLeft.disabled = false
-	%RotateRight.disabled = false
-	%LoadLevelButton.disabled = false
-	%SaveLevelButton.disabled = false
+	enable_toolbar_buttons()
 
 
 func _on_level_properties_button_pressed() -> void:
-	%LevelProperties.show()
+	show_one_dialog(%LevelProperties)
 
 
 func _on_level_prop_apply_pressed() -> void:
-	Editor.current_level.time = properties_tabs.time_limit.value
-	Editor.current_level_properties.level_name = properties_tabs.level_name.text
-	Editor.current_level_properties.level_display_name_1 = properties_tabs.display_name_1.text
-	Editor.current_level_properties.level_display_name_2 = properties_tabs.display_name_2.text
-	Editor.current_level_properties.level_description = properties_tabs.level_description.text
-	Editor.current_level_properties.level_author = properties_tabs.level_author.text
-	Editor.current_level_properties.level_author_email = properties_tabs.author_email.text
-	Editor.current_level_properties.level_author_website = properties_tabs.author_website.text
+	apply_level_properties()
 	%LevelProperties.hide()
 	Editor.scene.changes_after_save = true
 

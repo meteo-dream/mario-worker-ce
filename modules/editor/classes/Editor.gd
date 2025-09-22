@@ -22,12 +22,11 @@ var current_level: LevelEdited:
 		if is_instance_valid(current_level): return current_level
 		return null
 var current_level_properties: LevelProperties:
-	get():
-		if !is_instance_valid(current_level):
-			return null
-		if !current_level_properties:
+	set(to):
+		if !to:
 			current_level_properties = LevelProperties.new()
-		return current_level_properties
+			return
+		current_level_properties = to
 var gui: Control:
 	get():
 		if is_instance_valid(gui): return gui
@@ -40,6 +39,7 @@ var grid_size: Vector2
 var grid_offset: Vector2
 
 var level_path: String
+var is_loading: bool = false
 
 func _ready() -> void:
 	get_window().min_size = Vector2(800, 480)

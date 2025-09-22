@@ -7,6 +7,7 @@ func _window_scale_logic(force_update: bool = false) -> void:
 	if settings.scale == 0: return
 	if old_scale == settings.scale && !force_update: return
 	
+	print(DisplayServer.get_window_list())
 	return
 
 	var current_screen: int = DisplayServer.window_get_current_screen()

@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	AudioServer.set_bus_mute(AudioServer.get_bus_index(&"Editor"), check_box.button_pressed)
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(&"Editor"), !check_box.button_pressed)
 	Scenes.goto_scene("res://modules/editor/stages/level_editor.tscn")
 
 
@@ -21,30 +21,45 @@ func _on_test_level_pressed() -> void:
 func _on_load_file_dialog_file_selected(path: String) -> bool:
 	if !path: return false
 	
+	Editor.is_loading = true
 	var res: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
 	#var res = load(path)
 	if !res:
-		OS.alert("Failed to load level.")
-		Editor.level_path = ""
+		_throw_error_on_load("Failed to load: Data is corrupted")
 		return false
 	var new_level := res.instantiate()
 	if !new_level:
-		OS.alert("Failed to load level.")
-		Editor.level_path = ""
+		_throw_error_on_load("Failed to load: Scene is corrupted")
+		return false
+	if !new_level is LevelEdited:
+		_throw_error_on_load("This is not a valid level. See logs at
+
+" + OS.get_user_data_dir().path_join("logs"))
+		new_level.free.call_deferred()
+		return false
+	
+	var _level_props = new_level.get_node_or_null("LevelProperties")
+	if _level_props && "properties" in _level_props:
+		if _level_props.properties.get("level_major_version") < ProjectSettings.get_setting("application/thunder_settings/major_version", 1):
+			_throw_error_on_load("Failed to load: Incompatible Version")
+			new_level.free.call_deferred()
+			return false
+		Editor.current_level_properties = _level_props.properties.duplicate(true)
+	else:
+		_throw_error_on_load("Failed to load: Missing LevelProperties")
+		new_level.free.call_deferred()
 		return false
 	
 	# We do not need duplicating players
 	if Thunder._current_player:
 		Thunder._current_player.queue_free()
-	# Removing unnecessary garbage scenes resulting from live-testing in editor
-	#for i in get_children():
-	#	if i.is_in_group(&"editor_internal_object"): continue
-	#	i.queue_free()
 	
 	GlobalViewport.show()
 	GlobalViewport.connect(&"close_requested", func():
 		GlobalViewport.hide()
-		Scenes.current_scene.queue_free()
+		get_window().show()
+		if Scenes.current_scene:
+			Scenes.current_scene.queue_free()
 		#Editor.mode = Editor.MODE.NONE
 		Editor.current_level = null
 		Editor.current_level_properties = null
@@ -65,13 +80,18 @@ func _on_load_file_dialog_file_selected(path: String) -> bool:
 	#Editor.set_deferred(&"current_level", new_level)
 	#Thunder.reorder_top.call_deferred(new_level)
 	
-	var _level_props = Editor.current_level.get_node_or_null("LevelProperties")
-	Editor.current_level_properties = _level_props if _level_props else null
+	Editor.current_level_properties = _level_props.properties
 	
 	Scenes.current_scene = new_level
+	GlobalViewport.grab_focus()
 	
 	#get_tree().call_group_flags(SceneTree.GROUP_CALL_DEFAULT,
 		#&"editor_addable_object", &"_prepare_gameplay", false
 	#)
 	#notify.call_deferred("Level loaded with %d objects!" % get_tree().get_node_count_in_group(&"editor_addable_object"))
 	return true
+
+func _throw_error_on_load(text: String) -> void:
+	OS.alert(text)
+	Editor.level_path = ""
+	Editor.is_loading = false

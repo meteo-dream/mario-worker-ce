@@ -9,7 +9,11 @@ const PROP_CHECKBOX = preload("res://modules/editor/gui/prop_checkbox.tscn")
 const PROP_COLORPICKER = preload("res://modules/editor/gui/prop_colorpicker.tscn")
 
 const BLOCK_PLACE = preload("uid://bk2fn1h2y7tx5")
-const BLOCK_ERASE = preload("uid://bsqliwe1f8tmx")
+const MENU_CLOSE = preload("uid://d0yeo4ib83isd")
+const MENU_HOVER = preload("uid://cbfl4ck7cximi")
+const MENU_OPEN = preload("uid://c6571aesyyyky")
+
+const E_PLAYER = preload("uid://dmljul85ysxlp")
 
 enum TOOL_MODES {
 	SELECT,
@@ -56,7 +60,7 @@ var editing_sel: int = EDIT_SEL.NONE:
 		if editing_sel == EDIT_SEL.NONE:
 			tool_mode = TOOL_MODES.SELECT
 		%ScrollPropContainer.visible = !editing_sel in [EDIT_SEL.TILE]
-		%ScrollTileContainer.visible = editing_sel in [EDIT_SEL.TILE, EDIT_SEL.SCENERY]
+		%TilePanel.visible = editing_sel in [EDIT_SEL.TILE, EDIT_SEL.SCENERY]
 		if to == EDIT_SEL.TILE:
 			%SelectedObjSprite.visible = false
 			selected_object = null
@@ -78,6 +82,9 @@ var mouse_blocked: bool
 
 var selected: Array[Node2D]
 var section: int = 1
+var editor_options: Dictionary = {
+	erase_with_rmb = false
+}
 
 
 func _ready() -> void:
@@ -88,9 +95,10 @@ func _ready() -> void:
 	var loaded_level
 	if Editor.current_level == null:
 		loaded_level = preload("res://modules/editor/stages/base_level.tscn")
-	Editor.current_level = loaded_level.instantiate()
+		Editor.current_level = loaded_level.instantiate()
 	add_child(Editor.current_level)
 	Thunder.reorder_top(Editor.current_level)
+	Editor.gui.apply_level_properties()
 	
 	reparent.call_deferred(get_tree().root, true)
 	SettingsManager.show_mouse()
@@ -99,6 +107,7 @@ func _ready() -> void:
 	changes_after_save = false
 	
 	editing_sel = EDIT_SEL.NONE
+	%ObjectPickMenu.show()
 
 
 func _physics_process(delta: float) -> void:
@@ -120,17 +129,25 @@ func _physics_process(delta: float) -> void:
 		TOOL_MODES.ERASE: _tool_erase_process()
 	
 	%TargetLabel.text = "Target: %s" % get_global_mouse_position().round()
+	%CountLabel.text = " Objects: %d" % get_tree().get_node_count_in_group(&"editor_addable_object")
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action(&"a_ctrl") && Thunder._current_player:
+	if event.is_action(&"a_ctrl") && Thunder._current_player && !event.is_echo():
 		Thunder._current_player.completed = event.is_pressed()
-	elif event.is_action(&"a_delete") && event.is_pressed():
+	elif event.is_action(&"a_delete") && event.is_pressed() && !event.is_echo():
 		if tool_mode == TOOL_MODES.SELECT && len(selected) > 0:
 			for i in selected:
 				i.queue_free()
 			selected = []
 			_on_selected_array_change()
+	elif event.is_action(&"ui_menu_toggle") && event.is_pressed() && !event.is_echo():
+		if %ObjectPickMenu.visible:
+			object_pick_menu_close()
+		else:
+			%ObjectPickMenu.show()
+			Audio.play_1d_sound(MENU_OPEN, false, { bus = "Editor" })
+		
 	
 	elif event is InputEventMouseButton:
 		if !Editor.is_window_active():
@@ -191,14 +208,17 @@ func _input(event: InputEvent) -> void:
 						var _col = %ShapeCast2D.get_collider(i)
 						if !_col || !_col.get_parent(): continue
 						_col = _col.get_parent()
+						if _col.get("properties") && !editor_options.erase_with_rmb:
+							# TODO: Properties menu
+							OS.alert("This will open up the properties menu...")
+							break
 						# Check if found object is of the same type as the selected object
-						if _col.get_meta(&"nameid") == selected_object.get_meta(&"nameid"):
-							if _col.get("properties"):
-								# TODO: Properties menu
-								OS.alert("This will open up the properties menu...")
-							#_col.queue_free()
-							#%AudioBlockErase.play()
-							#changes_after_save = true
+						if editor_options.erase_with_rmb && (
+							_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid")
+						):
+							_col.queue_free()
+							%AudioBlockErase.play()
+							changes_after_save = true
 				return
 			# Painting the object to the level
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
@@ -219,11 +239,13 @@ func _input(event: InputEvent) -> void:
 
 func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
 	#var _offset: Vector2 = %SelectedObjTexture.size / 2.0
-	var _offset := Editor.grid_offset + Vector2.ONE * 16
+	var _offset: Vector2 = Editor.grid_offset + Vector2.ONE * 16
 	var _grid_pos = Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
 	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown || forced_grid else get_global_mouse_position().round() #- Vector2.ONE * 16
 
 func can_draw() -> bool:
+	if %ObjectPickMenu.visible:
+		return false
 	var dr2 = %DrawArea2.get_rect()
 	dr2.size -= 4 * Vector2.ONE
 	dr2 = dr2.abs()
@@ -257,8 +279,16 @@ func notify_warn(text: String) -> void:
 	notify(text, Color.YELLOW)
 
 
-func save_level(path) -> bool:
-	if Editor.level_path.is_empty() || Input.is_action_pressed(&"a_shift"):
+func object_pick_menu_close() -> void:
+	if !%ObjectPickMenu.visible:
+		return
+	%ObjectPickMenu.hide()
+	Audio.play_1d_sound(MENU_CLOSE, false, { bus = "Editor" })
+	editor_options.erase_with_rmb = %EraseWithRMB.button_pressed
+
+
+func save_level(path: String, forced_dialog: bool = false) -> bool:
+	if Editor.level_path.is_empty() || Input.is_action_pressed(&"a_shift") || forced_dialog:
 		%SaveFileDialog.deselect_all()
 		if %SaveFileDialog.current_file.is_empty():
 			%SaveFileDialog.current_file = "MyLevel"
@@ -271,7 +301,7 @@ func save_level(path) -> bool:
 			return false
 	
 	var to_save := PackedScene.new()
-	var _lvl = Editor.current_level
+	var _lvl: LevelEdited = Editor.current_level
 	if !_lvl:
 		notify_error("Failed to save level.")
 		Editor.level_path = ""
@@ -288,23 +318,35 @@ func save_level(path) -> bool:
 	
 	_level_props.properties = Editor.current_level_properties.duplicate(true)
 	
+	var _editor_player
+	if Thunder._current_player:
+		Thunder._current_player.reparent(self)
+		_editor_player = Thunder._current_player
+	var player = E_PLAYER.instantiate()
+	_lvl.add_child(player, true)
+	Thunder.reorder_top(player)
+	player.global_position = Editor.current_level_properties.player_position
+	
 	## TODO: Idk this doesn't seem to work?
 	for i in _lvl.get_children():
 		i.owner = _lvl
-	if Thunder._current_player:
-		Thunder._current_player.set_process(false)
-		Thunder._current_player.suit = null
-		Thunder._current_player.global_position = Editor.current_level_properties.player_position
+	
 	var err = to_save.pack(_lvl)
 	if err != OK:
 		notify_error("Save failed: " + error_string(err))
+		player.free()
+		_editor_player.reparent(_lvl)
+		Thunder._current_player = _editor_player
 		Editor.level_path = ""
 		return false
 	#if path.get_extension().is_empty():
 	#	path += ".tscn"
 	print(path)
 	var er = ResourceSaver.save(to_save, path, ResourceSaver.FLAG_COMPRESS)
-	Thunder._current_player.suit = CharacterManager.get_suit(Thunder._current_player_state.name)
+	player.free()
+	_editor_player.reparent(_lvl)
+	Thunder._current_player = _editor_player
+	#Thunder._current_player.suit = CharacterManager.get_suit(Thunder._current_player_state.name)
 	if er != OK:
 		notify_error("Save failed: " + error_string(er))
 		Editor.level_path = ""
@@ -316,20 +358,29 @@ func save_level(path) -> bool:
 
 
 func load_level(path) -> bool:
+	Editor.is_loading = true
 	var res: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
 	#var res = load(path)
 	if !res:
-		notify_error("Failed to load level: Data is corrupted")
+		notify_error("Failed to load: Data is corrupted")
 		Editor.level_path = ""
+		Editor.is_loading = false
 		return false
+	
+	var _editor_player = Thunder._current_player
+	if _editor_player:
+		_editor_player.queue_free()
+	
 	var new_level := res.instantiate()
 	if !new_level:
-		notify_error("Failed to load level: Scene is corrupted")
+		notify_error("Failed to load: Scene is corrupted")
 		Editor.level_path = ""
+		Editor.is_loading = false
 		return false
 	if !new_level is LevelEdited:
 		notify_error("This is not a valid level.")
 		Editor.level_path = ""
+		Editor.is_loading = false
 		new_level.free.call_deferred()
 		return false
 	
@@ -341,20 +392,19 @@ func load_level(path) -> bool:
 	
 	var _level_props = new_level.get_node_or_null("LevelProperties")
 	if _level_props && "properties" in _level_props:
-		if _level_props.properties.get("level_version", -1000) < ProjectSettings.get_setting("application/thunder_settings/version", -999):
-			notify_error("Failed to load level: Incompatible Version")
+		if _level_props.properties.get("level_major_version") < ProjectSettings.get_setting("application/thunder_settings/major_version", 1):
+			notify_error("Failed to load: Incompatible Version")
 			Editor.level_path = ""
+			Editor.is_loading = false
 			new_level.free.call_deferred()
+			return false
 		Editor.current_level_properties = _level_props.properties.duplicate(true)
 	else:
-		notify_error("Failed to load level: Missing LevelProperties")
+		notify_error("Failed to load: Missing LevelProperties")
 		Editor.level_path = ""
+		Editor.is_loading = false
 		new_level.free.call_deferred()
 		return false
-	
-	# We do not need duplicating players
-	if Thunder._current_player:
-		Thunder._current_player.queue_free()
 	
 	# Forcefully removing old level and immediately assigning a new one
 	if Editor.current_level:
@@ -371,6 +421,7 @@ func load_level(path) -> bool:
 		get_tree().call_group_flags(SceneTree.GROUP_CALL_DEFERRED,
 			&"editor_addable_object", &"_prepare_editor", false
 		)
+	Editor.is_loading = false
 	notify.call_deferred("Level loaded with %d objects!" % get_tree().get_node_count_in_group(&"editor_addable_object"))
 	return true
 
@@ -478,7 +529,8 @@ func _add_prop(property: Dictionary, target) -> void:
 
 
 func object_to_paint_selected(from_menu: bool = false) -> void:
-	pass
+	if from_menu:
+		object_pick_menu_close()
 
 
 ## -- Select tool ready functions --

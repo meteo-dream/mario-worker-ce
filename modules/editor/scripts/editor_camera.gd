@@ -38,10 +38,10 @@ func _input(event: InputEvent) -> void:
 	if !Editor.scene.can_draw():
 		return
 	
-	if event is InputEventMouseButton && event.is_pressed():
+	if event.is_pressed():
 		var ctrl = Input.is_action_pressed(&"a_ctrl")
 		var shift = Input.is_action_pressed(&"a_shift")
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		if event.is_action(&"ui_zoom_in"):
 			if ctrl:
 				if !shift:
 					position.y -= 32 / zoom.y
@@ -51,7 +51,7 @@ func _input(event: InputEvent) -> void:
 					reset_physics_interpolation()
 			elif !shift:
 				zoom_in()
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		elif event.is_action(&"ui_zoom_out"):
 			if ctrl:
 				if !shift:
 					position.y += 32 / zoom.y
@@ -62,13 +62,13 @@ func _input(event: InputEvent) -> void:
 			elif !shift:
 				zoom_out()
 
-func _wrap_mouse(to: Vector2) -> void:
-	var last_pos: Vector2 = get_viewport().get_mouse_position()
-	_skip_scroll = true
-	Input.warp_mouse(to)
-	position -= (last_pos - to) / zoom
-	reset_physics_interpolation()
-	_skip_scroll = false
+#func _wrap_mouse(to: Vector2) -> void:
+	#var last_pos: Vector2 = get_viewport().get_mouse_position()
+	#_skip_scroll = true
+	#Input.warp_mouse(to)
+	#position -= (last_pos - to) / zoom
+	#reset_physics_interpolation()
+	#_skip_scroll = false
 
 
 func zoom_in() -> void:

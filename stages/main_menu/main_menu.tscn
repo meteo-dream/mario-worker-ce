@@ -31,10 +31,11 @@ text = "Go to level editor"
 
 [node name="Testlevel" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Test a level"
+text = "Play level"
 
 [node name="CheckBox" type="CheckBox" parent="VBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "Enable editor sounds"
 
 [node name="Label" type="Label" parent="."]
@@ -59,8 +60,11 @@ popup_window = true
 ok_button_text = "Open"
 dialog_autowrap = true
 file_mode = 0
+display_mode = 1
 access = 1
 filters = PackedStringArray("*.tscn;Level scenes")
+favorites_enabled = false
+recent_list_enabled = false
 
 [connection signal="pressed" from="VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Testlevel" to="." method="_on_test_level_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ct3gjwv0cs6p"]
+[gd_scene load_steps=58 format=3 uid="uid://ct3gjwv0cs6p"]
 
 [ext_resource type="Script" uid="uid://4nevngh00vtd" path="res://modules/editor/stages/level_editor.gd" id="1_mqqp7"]
 [ext_resource type="Script" uid="uid://cwrgji2fg1e83" path="res://modules/editor/scripts/editor_gui.gd" id="3_7ryt0"]
@@ -108,6 +108,30 @@ gradient = SubResource("Gradient_qnnlw")
 width = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fsewq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahe48"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.27, 0.27, 0.27, 0.45882353)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abl8s"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.4, 0.4, 0.4, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnl2o"]
 atlas = ExtResource("26_kscub")
@@ -445,6 +469,12 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 4
 alignment = 2
 
+[node name="CountLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = " Objects:"
+
 [node name="TargetLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -551,6 +581,7 @@ popup_window = true
 ok_button_text = "Open"
 dialog_autowrap = true
 file_mode = 0
+display_mode = 1
 access = 1
 filters = PackedStringArray("*.tscn;Level scenes")
 
@@ -567,6 +598,7 @@ unique_name_in_owner = true
 initial_position = 2
 size = Vector2i(540, 420)
 dialog_autowrap = true
+display_mode = 1
 access = 1
 filters = PackedStringArray("*.tscn;Level scenes")
 
@@ -626,56 +658,21 @@ split_offset = 450
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer"]
+[node name="TilePanel" type="Panel" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 84)
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/Panel"]
-custom_minimum_size = Vector2(56, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 14
-current_tab = 2
-tabs_position = 1
-tab_focus_mode = 1
-deselect_enabled = true
+[node name="ScrollTileContainer" type="ScrollContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/TilePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 110.0
 
-[node name="Tile" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/Panel/TabContainer" instance=ExtResource("21_ho4cg")]
-visible = false
+[node name="FlowContainer" type="FlowContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/TilePanel/ScrollTileContainer"]
 layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Scenery" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/Panel/TabContainer" instance=ExtResource("21_ho4cg")]
-visible = false
-layout_mode = 2
-category_name = "scenery"
-metadata/_tab_index = 1
-
-[node name="Enemy" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/Panel/TabContainer" instance=ExtResource("21_ho4cg")]
-layout_mode = 2
-category_name = "enemy"
-
-[node name="Item" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/Panel/TabContainer" instance=ExtResource("21_ho4cg")]
-visible = false
-layout_mode = 2
-category_name = "bonus"
-metadata/_tab_index = 3
-
-[node name="Misc" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/Panel/TabContainer" instance=ExtResource("21_ho4cg")]
-visible = false
-layout_mode = 2
-category_name = "misc"
-metadata/_tab_index = 4
-
-[node name="Special" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/Panel/TabContainer" instance=ExtResource("21_ho4cg")]
-visible = false
-layout_mode = 2
-category_name = "special"
-metadata/_tab_index = 5
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
 
 [node name="Panel" type="Panel" parent="CanvasLayer/Control/HSplitContainer"]
 custom_minimum_size = Vector2(128, 0)
@@ -708,16 +705,6 @@ autowrap_mode = 3
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScrollTileContainer" type="ScrollContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="FlowContainer" type="FlowContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollTileContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 2
-theme_override_constants/v_separation = 2
-
 [node name="ScrollPropContainer" type="ScrollContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -730,24 +717,6 @@ size_flags_horizontal = 3
 
 [node name="PropContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollPropContainer/PropListContainer" instance=ExtResource("22_m6va2")]
 layout_mode = 2
-
-[node name="NotificationBox" type="VBoxContainer" parent="CanvasLayer/Control"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -192.0
-offset_top = 64.0
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Control" type="Control" parent="CanvasLayer/Control/NotificationBox"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
@@ -768,6 +737,141 @@ theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxEmpty_fsewq")
 text = "%.1f %%"
 script = ExtResource("20_fqhjp")
+
+[node name="ObjectPickMenu" type="PanelContainer" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/ObjectPickMenu"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ahe48")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Editor Settings:"
+horizontal_alignment = 1
+
+[node name="EraseWithRMB" type="CheckBox" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "If enabled, right click erases objects from the level.
+If disabled, right click opens up properties of the object, when available."
+text = "Erase objects
+with right click"
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_abl8s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+alignment = 2
+
+[node name="SaveButton" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="SaveAsButton" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save As..."
+
+[node name="LevelPropertiesButton" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level Properties"
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TestLevelButton" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Level"
+
+[node name="LoadButton" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load Level"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+current_tab = 2
+tab_focus_mode = 1
+deselect_enabled = true
+
+[node name="Tile" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Scenery" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+visible = false
+layout_mode = 2
+category_name = "scenery"
+metadata/_tab_index = 1
+
+[node name="Enemy" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+layout_mode = 2
+category_name = "enemy"
+
+[node name="Item" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+visible = false
+layout_mode = 2
+category_name = "bonus"
+metadata/_tab_index = 3
+
+[node name="Misc" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+visible = false
+layout_mode = 2
+category_name = "misc"
+metadata/_tab_index = 4
+
+[node name="Special" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+visible = false
+layout_mode = 2
+category_name = "special"
+metadata/_tab_index = 5
+
+[node name="NotificationBox" type="VBoxContainer" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = 64.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/NotificationBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="EditorNodes" type="Node2D" parent="." groups=["editor_internal_object"]]
 
@@ -842,3 +946,9 @@ collide_with_bodies = false
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/CloseEditorButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]
 [connection signal="dragged" from="CanvasLayer/Control/HSplitContainer" to="CanvasLayer/Control" method="_on_h_split_container_dragged"]
 [connection signal="dragged" from="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer" to="CanvasLayer/Control" method="_on_v_split_container_dragged"]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/SaveButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/SaveAsButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed" binds= [false, true]]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/LevelPropertiesButton" to="CanvasLayer/Control" method="_on_level_properties_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/TestLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/LoadButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/ExitButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]

@@ -113,19 +113,23 @@ max_value = 99999.0
 value = 360.0
 rounded = true
 
-[node name="Label2" type="Label" parent="Main/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer6"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Display Name:"
 
-[node name="PanelContainer" type="PanelContainer" parent="Main/HBoxContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer6/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="DisplayName1" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="DisplayName1" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer6/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
@@ -142,7 +146,7 @@ emoji_menu_enabled = false
 drag_and_drop_selection_enabled = false
 flat = true
 
-[node name="DisplayName2" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="DisplayName2" type="LineEdit" parent="Main/HBoxContainer/VBoxContainer/HBoxContainer6/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2

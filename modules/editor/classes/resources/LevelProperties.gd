@@ -10,6 +10,11 @@ class_name LevelProperties
 @export var level_author := "You"
 @export var level_author_email: String
 @export var level_author_website: String
-@export var level_version: int = -90
+@export var level_version: int
+@export var level_major_version: int
 
 @export var sections: Array[SectionProperties]
+
+func _init() -> void:
+	level_version = ProjectSettings.get_setting("application/thunder_settings/version")
+	level_major_version = ProjectSettings.get_setting("application/thunder_settings/major_version")

@@ -5,12 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://d3srfe2r6fg2u" path="res://engine/objects/core/music_loader/music_loader.tscn" id="3_dhm08"]
 [ext_resource type="Script" uid="uid://bbim6vyaqnsvh" path="res://modules/editor/classes/resources/LevelProperties.gd" id="4_dj13d"]
 [ext_resource type="Script" uid="uid://2u2sk5f00n27" path="res://modules/editor/scripts/e_music_loader.gd" id="4_hbxjl"]
-[ext_resource type="PackedScene" uid="uid://1do11cr84k7y" path="res://engine/objects/players/player.tscn" id="5_31utc"]
 [ext_resource type="Script" uid="uid://bes0uboqshv1l" path="res://modules/editor/classes/resources/SectionProperties.gd" id="5_46p0d"]
-[ext_resource type="Script" uid="uid://ct6u5vgw67xd6" path="res://modules/editor/scripts/e_player.gd" id="5_84n3a"]
 [ext_resource type="Script" uid="uid://cuj30d6nnmpec" path="res://modules/editor/scripts/level_properties.gd" id="5_j2fth"]
 [ext_resource type="Script" uid="uid://cxamgphsmf25s" path="res://modules/editor/scripts/e_player_camera_2d.gd" id="5_ymv0b"]
 [ext_resource type="TileSet" uid="uid://duodk2nyl4k2h" path="res://engine/tilesets/overworld/overworld.tres" id="7_7o84o"]
+[ext_resource type="PackedScene" uid="uid://dmljul85ysxlp" path="res://modules/editor/objects/editor-friendly/e_player.tscn" id="8_dj13d"]
+[ext_resource type="PackedScene" uid="uid://yqftjpfskche" path="res://engine/components/cam_area/cam_area.tscn" id="11_46p0d"]
 
 [sub_resource type="Resource" id="Resource_ijj66"]
 script = ExtResource("5_46p0d")
@@ -43,9 +43,8 @@ script = ExtResource("4_hbxjl")
 volume_db = Array[float]([0.0])
 start_from_sec = Array[float]([0.0])
 
-[node name="Player" parent="." instance=ExtResource("5_31utc")]
+[node name="Player" parent="." instance=ExtResource("8_dj13d")]
 position = Vector2(80, 400)
-script = ExtResource("5_84n3a")
 
 [node name="PlayerCamera2D" type="Camera2D" parent="."]
 enabled = false
@@ -82,3 +81,9 @@ navigation_enabled = false
 [node name="misc" type="Node2D" parent="Section1"]
 
 [node name="special" type="Node2D" parent="Section1"]
+
+[node name="CamAreas" type="Node2D" parent="Section1"]
+
+[node name="CamArea" parent="Section1/CamAreas" instance=ExtResource("11_46p0d")]
+offset_right = 11008.0
+offset_bottom = 480.0
