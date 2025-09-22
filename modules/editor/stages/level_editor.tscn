@@ -952,3 +952,4 @@ collide_with_bodies = false
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/TestLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/LoadButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/ExitButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]
+[connection signal="tab_clicked" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" to="CanvasLayer/Control" method="_on_tab_container_tab_clicked"]

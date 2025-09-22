@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://h3w4fkr20gkx"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_mthw0"]
+
+[node name="Electric Coral" type="Node2D"]
+script = ExtResource("1_mthw0")
+scene_path = "uid://cdfqlkg8w5yc8"
+category = "enemy"

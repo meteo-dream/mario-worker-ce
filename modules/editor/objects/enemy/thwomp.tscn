@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqb01ifhm8u3x"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_xn3um"]
+[ext_resource type="Texture2D" uid="uid://chcnsi17bk4x2" path="res://engine/objects/enemies/thwomp/textures/thwomp.png" id="2_ambky"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wn7p7"]
+atlas = ExtResource("2_ambky")
+region = Rect2(0, 0, 64, 68)
+filter_clip = true
+
+[node name="Thwomp" type="Node2D"]
+script = ExtResource("1_xn3um")
+scene_path = "uid://d4c73hrd34dyo"
+category = "enemy"
+offset = Vector2(16, 16)
+editor_icon = SubResource("AtlasTexture_wn7p7")

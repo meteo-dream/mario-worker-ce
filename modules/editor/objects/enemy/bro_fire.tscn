@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx18tcyvqbbfo"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_7r114"]
+
+[node name="Fire Bros" type="Node2D"]
+script = ExtResource("1_7r114")
+scene_path = "uid://diu2ipea3k8qy"
+category = "enemy"
+offset = Vector2(0, -8)

@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if Editor.scene.tool_mode in [LevelEditor.TOOL_MODES.PAINT] && Editor.scene.editing_sel in [LevelEditor.EDIT_SEL.TILE]:
 		var size = Editor.grid_size
-		var mouse_cursor := get_global_mouse_position()
+		#var mouse_cursor := get_global_mouse_position()
 		var pos = Editor.scene.get_pos_on_grid(true)
 		draw_rect(Rect2(pos - Vector2.ONE * 16, size), Color.ORANGE, false)
 	
@@ -20,6 +20,6 @@ func _draw() -> void:
 	
 	if Editor.scene.tool_mode == LevelEditor.TOOL_MODES.ERASE:
 		var size = Editor.grid_size
-		var mouse_cursor := get_global_mouse_position()
+		#var mouse_cursor := get_global_mouse_position()
 		var pos = Editor.scene.get_pos_on_grid()
 		draw_rect(Rect2(pos - Vector2.ONE * 16, size), Color.RED, false)

@@ -57,6 +57,8 @@ func _on_load_file_dialog_file_selected(path: String) -> bool:
 	GlobalViewport.show()
 	GlobalViewport.connect(&"close_requested", func():
 		GlobalViewport.hide()
+		if Scenes.custom_scenes.pause.opened:
+			Scenes.custom_scenes.pause.toggle(false, true)
 		get_window().show()
 		if Scenes.current_scene:
 			Scenes.current_scene.queue_free()

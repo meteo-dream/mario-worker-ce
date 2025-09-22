@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwylqd17j8woh"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_6mr5p"]
+
+[node name="Piranha Plant (Blue)" type="Node2D"]
+script = ExtResource("1_6mr5p")
+scene_path = "uid://chl763u8ojfs2"
+category = "enemy"
+offset = Vector2(16, -8)

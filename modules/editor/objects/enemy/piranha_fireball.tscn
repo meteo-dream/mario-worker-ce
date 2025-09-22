@@ -6,4 +6,4 @@
 script = ExtResource("1_hy3l7")
 scene_path = "res://engine/objects/enemies/piranha_plants/piranha_pink.tscn"
 category = "enemy"
-offset = Vector2(0, -8)
+offset = Vector2(16, -8)

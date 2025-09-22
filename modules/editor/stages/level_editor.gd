@@ -32,6 +32,7 @@ enum EDIT_SEL {
 	ENEMY,
 	BONUS,
 	MISC,
+	SPECIAL,
 }
 
 @onready var control: Control = %DrawArea2
@@ -141,6 +142,7 @@ func _input(event: InputEvent) -> void:
 				i.queue_free()
 			selected = []
 			_on_selected_array_change()
+			changes_after_save = true
 	elif event.is_action(&"ui_menu_toggle") && event.is_pressed() && !event.is_echo():
 		if %ObjectPickMenu.visible:
 			object_pick_menu_close()
@@ -193,8 +195,10 @@ func _input(event: InputEvent) -> void:
 				if !tilemap: return
 				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 					tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
+					changes_after_save = true
 				elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 					tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, 0)
+					changes_after_save = true
 				return
 			%SelectedObjSprite.global_position = get_pos_on_grid()
 			%ShapeCast2D.force_shapecast_update()
@@ -359,6 +363,9 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 
 func load_level(path) -> bool:
 	Editor.is_loading = true
+	selected = []
+	_on_selected_array_change()
+	editing_sel = EDIT_SEL.NONE
 	var res: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
 	#var res = load(path)
 	if !res:
@@ -422,6 +429,8 @@ func load_level(path) -> bool:
 			&"editor_addable_object", &"_prepare_editor", false
 		)
 	Editor.is_loading = false
+	Editor.level_path = path
+	changes_after_save = false
 	notify.call_deferred("Level loaded with %d objects!" % get_tree().get_node_count_in_group(&"editor_addable_object"))
 	return true
 
@@ -651,5 +660,9 @@ static func _edit_sel_to_enum(edit_sel_string: String) -> EDIT_SEL:
 		"enemy": return EDIT_SEL.ENEMY
 		"bonus": return EDIT_SEL.BONUS
 		"misc": return EDIT_SEL.MISC
-		"special": return EDIT_SEL.MISC
+		"special": return EDIT_SEL.SPECIAL
 	return EDIT_SEL.MISC
+
+
+func restart() -> void:
+	pass

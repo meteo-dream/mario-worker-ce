@@ -189,3 +189,7 @@ func _on_level_prop_apply_pressed() -> void:
 func _on_level_prop_cancel_pressed() -> void:
 	%LevelProperties.hide()
 	properties_tabs.update_input_values()
+
+
+func _on_tab_container_tab_clicked(tab: int) -> void:
+	pass # Replace with function body.

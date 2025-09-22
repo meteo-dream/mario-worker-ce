@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4c73hrd34dyo"]
+
+[ext_resource type="PackedScene" uid="uid://bcgt87mbq40gx" path="res://engine/objects/enemies/thwomp/thwomp.tscn" id="1_msfo5"]
+[ext_resource type="Script" uid="uid://cqmjlwtd13xb4" path="res://objects/thwomp/thwomp.gd" id="2_bq2ln"]
+
+[node name="Thwomp" instance=ExtResource("1_msfo5")]
+script = ExtResource("2_bq2ln")
