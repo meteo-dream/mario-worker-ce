@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg21ubacsmyiw"]
+
+[ext_resource type="PackedScene" uid="uid://yqftjpfskche" path="res://engine/components/cam_area/cam_area.tscn" id="1_wfnox"]
+[ext_resource type="Script" uid="uid://cy3nybe3g7nbl" path="res://modules/editor/scripts/e_cam_area.gd" id="2_sexgv"]
+
+[node name="CamArea" instance=ExtResource("1_wfnox")]
+offset_right = 11008.0
+offset_bottom = 480.0
+script = ExtResource("2_sexgv")

@@ -3,12 +3,14 @@ class_name EditorAddableNode2D
 extends Node2D
 
 @export_enum("tile", "scenery", "enemy", "bonus", "misc", "special") var category: String
+@export var subcategory: String = "Other"
 @export var offset: Vector2
 @export var editor_icon: Texture2D
 
 
 func _ready() -> void:
 	setup_object()
+
 
 func setup_object() -> Node:
 	if Editor.current_level && !get_parent() is Button:

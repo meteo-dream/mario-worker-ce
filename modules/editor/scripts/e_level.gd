@@ -4,6 +4,7 @@ class_name LevelEdited
 
 const HUD = preload("res://modules/editor/objects/editor-friendly/level_hud.tscn")
 const SECTION_POS_Y_VALUE: float = 24000
+const E_CAM_AREA = preload("uid://dg21ubacsmyiw")
 
 func _ready() -> void:
 	super()
@@ -46,7 +47,8 @@ func get_section(section_index: int) -> Node2D:
 		var _new_folder = _folder.duplicate()
 		_new_folder.name = _cat
 		_new_node.add_child(_new_folder)
-	var cam_area = preload("uid://yqftjpfskche").instantiate()
+	
+	var cam_area = E_CAM_AREA.instantiate()
 	cam_area.size = Vector2(11008, 480)
 	section.size = cam_area.size
 	_new_node.get_node("CamAreas").add_child(cam_area)

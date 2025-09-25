@@ -159,6 +159,8 @@ metadata/_edit_lock_ = true
 [node name="Camera2D" type="Camera2D" parent="." groups=["editor_internal_object"]]
 position = Vector2(448, 224)
 process_callback = 0
+limit_left = -640
+limit_top = -480
 script = ExtResource("3_vg31g")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." groups=["editor_internal_object"]]
@@ -742,7 +744,6 @@ script = ExtResource("20_fqhjp")
 
 [node name="ObjectPickMenu" type="PanelContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

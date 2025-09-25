@@ -9,6 +9,7 @@ size = Vector2(32, 32)
 script = ExtResource("1_hkwin")
 scene_path = "res://engine/objects/bumping_blocks/question_block/question_block.tscn"
 category = "bonus"
+subcategory = "Containers"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 16

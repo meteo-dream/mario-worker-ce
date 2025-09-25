@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dhjqv7n6lq15x"]
+
+[node name="FoldableContainer" type="FoldableContainer"]
+
+[node name="FlowContainer" type="FlowContainer" parent="."]
+layout_mode = 2

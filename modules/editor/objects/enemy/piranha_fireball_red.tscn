@@ -6,4 +6,5 @@
 script = ExtResource("1_sf6tl")
 scene_path = "uid://cegkk6ckcrphl"
 category = "enemy"
+subcategory = "Piranha Plants"
 offset = Vector2(16, -8)

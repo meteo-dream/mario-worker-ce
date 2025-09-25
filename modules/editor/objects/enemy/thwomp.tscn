@@ -12,5 +12,6 @@ filter_clip = true
 script = ExtResource("1_xn3um")
 scene_path = "uid://d4c73hrd34dyo"
 category = "enemy"
+subcategory = "Hazard"
 offset = Vector2(16, 16)
 editor_icon = SubResource("AtlasTexture_wn7p7")

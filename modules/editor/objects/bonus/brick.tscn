@@ -9,6 +9,7 @@ size = Vector2(32, 32)
 script = ExtResource("1_0coqq")
 scene_path = "uid://2yepdgrhpmj3"
 category = "bonus"
+subcategory = "Containers"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 16

@@ -4,3 +4,4 @@
 ~libgdmpt-*.dll
 .build/
 icons/
+.icons/
