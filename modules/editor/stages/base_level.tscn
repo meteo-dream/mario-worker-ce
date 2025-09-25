@@ -13,13 +13,15 @@
 [ext_resource type="Script" uid="uid://bntvvhyag28nb" path="res://modules/editor/scripts/e_parallax_2d.gd" id="10_46p0d"]
 [ext_resource type="PackedScene" uid="uid://yqftjpfskche" path="res://engine/components/cam_area/cam_area.tscn" id="11_46p0d"]
 
-[sub_resource type="Resource" id="Resource_ijj66"]
+[sub_resource type="Resource" id="Resource_46p0d"]
 script = ExtResource("5_46p0d")
 metadata/_custom_type_script = "uid://bes0uboqshv1l"
 
 [sub_resource type="Resource" id="Resource_008ua"]
 script = ExtResource("4_dj13d")
-sections = Array[ExtResource("5_46p0d")]([SubResource("Resource_ijj66")])
+sections = Dictionary[int, ExtResource("5_46p0d")]({
+1: SubResource("Resource_46p0d")
+})
 metadata/_custom_type_script = "uid://bbim6vyaqnsvh"
 
 [sub_resource type="Gradient" id="Gradient_4mqjo"]

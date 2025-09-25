@@ -14,26 +14,48 @@ script = ExtResource("1_phs36")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
-anchors_preset = 13
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -70.5
-offset_right = 70.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -54.5
+offset_right = 100.0
+offset_bottom = 54.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Gotoleveleditor" type="Button" parent="VBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "this is a public unfinished preview version of the level editor.
+everything is subject to change. this is not final!
+levels created in this build will not load in other versions."
+horizontal_alignment = 1
+vertical_alignment = 2
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Gotoleveleditor" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Go to level editor"
 
-[node name="Testlevel" type="Button" parent="VBoxContainer"]
+[node name="Testlevel" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Play level"
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer"]
+[node name="EditorSounds" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true
 text = "Enable editor sounds"
@@ -46,8 +68,8 @@ offset_top = 16.0
 offset_bottom = 39.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 20
-text = "Mario Worker Community Edition
-PRE-ALPHA PROTOTYPE v0.0.1"
+text = "Mario Worker: Community Edition
+PRE-ALPHA PROTOTYPE Build 1"
 horizontal_alignment = 1
 
 [node name="LoadFileDialog" type="FileDialog" parent="."]
@@ -66,7 +88,7 @@ filters = PackedStringArray("*.tscn;Level scenes")
 favorites_enabled = false
 recent_list_enabled = false
 
-[connection signal="pressed" from="VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/Testlevel" to="." method="_on_test_level_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Testlevel" to="." method="_on_test_level_pressed"]
 [connection signal="canceled" from="LoadFileDialog" to="LoadFileDialog" method="hide"]
 [connection signal="file_selected" from="LoadFileDialog" to="." method="_on_load_file_dialog_file_selected"]

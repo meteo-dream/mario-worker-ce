@@ -1,6 +1,6 @@
 extends Control
 
-@onready var check_box: CheckBox = $VBoxContainer/CheckBox
+@onready var check_box: CheckBox = %EditorSounds
 
 func _ready() -> void:
 	reparent.call_deferred(get_tree().root, true)

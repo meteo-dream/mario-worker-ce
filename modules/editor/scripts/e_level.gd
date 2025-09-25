@@ -15,7 +15,6 @@ func _ready() -> void:
 	if !has_node("LevelProperties"):
 		push_error("No level properties found!")
 		return
-	Editor.current_level_properties = $LevelProperties.properties
 
 	var hud = HUD.instantiate()
 	add_child(hud)
@@ -26,11 +25,20 @@ func _ready() -> void:
 func get_section(section_index: int) -> Node2D:
 	if has_node("Section%d" % section_index):
 		return get_node("Section%d" % section_index)
+	if !Editor.current_level_properties:
+		printerr("no current level properties")
+		return
 	
 	var _new_node := Node2D.new()
 	_new_node.name = "Section%d" % section_index
+	_new_node.position.y = (section_index - 1) * SECTION_POS_Y_VALUE
 	add_child(_new_node)
-	_new_node.position.y = section_index * SECTION_POS_Y_VALUE
+	
+	var section: SectionProperties = Editor.current_level_properties.sections.get_or_add(
+		section_index, SectionProperties.new()
+	)
+	section.position.y = _new_node.global_position.y
+	
 	var _folder := Node2D.new()
 	_folder.name = "Background"
 	_new_node.add_child(_folder)
@@ -40,6 +48,7 @@ func get_section(section_index: int) -> Node2D:
 		_new_node.add_child(_new_folder)
 	var cam_area = preload("uid://yqftjpfskche").instantiate()
 	cam_area.size = Vector2(11008, 480)
+	section.size = cam_area.size
 	_new_node.get_node("CamAreas").add_child(cam_area)
 	return _new_node
 	

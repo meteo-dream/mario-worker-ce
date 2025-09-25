@@ -58,6 +58,8 @@ var editing_sel: int = EDIT_SEL.NONE:
 		%RotateLeft.disabled = editing_sel == EDIT_SEL.NONE
 		%RotateRight.disabled = editing_sel == EDIT_SEL.NONE
 		%EditingMenuButton.select(editing_sel)
+		%EraseWithRMB.disabled = editing_sel == EDIT_SEL.TILE
+		%UseTileTerrains.disabled = editing_sel != EDIT_SEL.TILE
 		if editing_sel == EDIT_SEL.NONE:
 			tool_mode = TOOL_MODES.SELECT
 		%ScrollPropContainer.visible = !editing_sel in [EDIT_SEL.TILE]
@@ -158,87 +160,98 @@ func _input(event: InputEvent) -> void:
 			return
 		mouse_blocked = event.is_pressed() && !can_draw()
 		
-		if !can_draw():
-			return
-		match tool_mode:
-			TOOL_MODES.SELECT when (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
-				%SelectedObjSprite.global_position = get_pos_on_grid()
-				%ShapeCastPoint.force_shapecast_update()
-				var col: bool = %ShapeCastPoint.is_colliding()
-				if !Input.is_action_pressed(&"a_shift"):
-					selected.resize(0)
-				if col:
-					for i in %ShapeCastPoint.get_collision_count():
-						var _col = %ShapeCastPoint.get_collider(i)
-						if !_col || !_col.get_parent(): continue
-						_col = _col.get_parent()
-						if _col in selected:
-							deselect_object(_col)
-						else:
-							select_object(_col)
-						break
-				else:
-					selected.resize(0)
-					_on_selected_array_change()
-					return
+		if can_draw():
+			_input_mouse_click(event)
+		
 	if event is InputEventMouseMotion || (event is InputEventMouseButton && event.is_pressed()):
-		if !can_draw():
+		if can_draw():
+			_input_mouse_hold(event)
+
+
+func _input_mouse_click(event: InputEventMouseButton) -> void:
+	if tool_mode == TOOL_MODES.SELECT && (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
+		%SelectedObjSprite.global_position = get_pos_on_grid()
+		%ShapeCastPoint.force_shapecast_update()
+		var col: bool = %ShapeCastPoint.is_colliding()
+		if !Input.is_action_pressed(&"a_shift"):
+			selected.resize(0)
+		if !col:
+			selected.resize(0)
+			_on_selected_array_change()
 			return
-		if tool_mode == TOOL_MODES.PAINT:
-			if editing_sel == EDIT_SEL.TILE:
-				# WORK IN PROGRESS: Simple tile editing
-				var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
-				if !tile_parent:
-					push_warning("Invalid NodePath: Section%d/tile" % section)
-					return
-				var tilemap: TileMapLayer = tile_parent.get_node_or_null("Blocks")
-				if !tilemap: return
-				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-					tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
-					changes_after_save = true
-				elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-					tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, 0)
-					changes_after_save = true
+		
+		for i in %ShapeCastPoint.get_collision_count():
+			var _col = %ShapeCastPoint.get_collider(i)
+			if !_col || !_col.get_parent(): continue
+			_col = _col.get_parent()
+			if _col in selected:
+				deselect_object(_col)
+			else:
+				select_object(_col)
+			break
+
+
+func _input_mouse_hold(event: InputEvent) -> void:
+	if tool_mode == TOOL_MODES.PAINT:
+		if editing_sel == EDIT_SEL.TILE:
+			# WORK IN PROGRESS: Simple tile editing
+			var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
+			if !tile_parent:
+				push_warning("Invalid NodePath: Section%d/tile" % section)
 				return
-			%SelectedObjSprite.global_position = get_pos_on_grid()
-			%ShapeCast2D.force_shapecast_update()
-			#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
-			if %ShapeCast2D.is_colliding():
-				%SelectedObjSprite.visible = false
-				# Erasing the object by RMB
-				if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object:
-					%ShapeCast2D.force_shapecast_update()
-					for i in %ShapeCast2D.get_collision_count():
-						var _col = %ShapeCast2D.get_collider(i)
-						if !_col || !_col.get_parent(): continue
-						_col = _col.get_parent()
-						if _col.get("properties") && !editor_options.erase_with_rmb:
-							# TODO: Properties menu
-							OS.alert("This will open up the properties menu...")
-							break
-						# Check if found object is of the same type as the selected object
-						if editor_options.erase_with_rmb && (
-							_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid")
-						):
-							_col.queue_free()
-							%AudioBlockErase.play()
-							changes_after_save = true
-				return
-			# Painting the object to the level
-			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
-				var obj = selected_object.duplicate()
-				obj.global_position = %SelectedObjSprite.global_position
-				var _node_folder = obj.get_meta(&"categoryid", "enemy")
-				if !Editor.current_level.get_section(section).has_node(_node_folder):
-					var new_node = Node2D.new()
-					new_node.name = _node_folder
-					Editor.current_level.get_section(section).add_child(new_node)
-				Editor.current_level.get_section(section).get_node(_node_folder).add_child(obj, true)
-				obj.owner = Editor.current_level
+			var tilemap: TileMapLayer = tile_parent.get_node_or_null("Blocks")
+			if !tilemap: return
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+				tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
 				changes_after_save = true
-				Audio.play_1d_sound(BLOCK_PLACE, false, { bus = "Editor" })
-				#obj.set_meta(&"nameid", selected_object.get_meta(&"nameid"))
-				obj._prepare_editor()
+			elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+				tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, 0)
+				changes_after_save = true
+			return
+		%SelectedObjSprite.global_position = get_pos_on_grid()
+		%ShapeCast2D.force_shapecast_update()
+		#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
+		if %ShapeCast2D.is_colliding():
+			%SelectedObjSprite.visible = false
+			# Erasing the object by RMB
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object:
+				%ShapeCast2D.force_shapecast_update()
+				for i in %ShapeCast2D.get_collision_count():
+					var _col = %ShapeCast2D.get_collider(i)
+					if !_col || !_col.get_parent(): continue
+					_col = _col.get_parent()
+					if _col.get("properties") && !editor_options.erase_with_rmb:
+						# TODO: Properties menu
+						OS.alert("This will open up the properties menu...")
+						break
+					# Check if found object is of the same type as the selected object
+					if editor_options.erase_with_rmb && (
+						_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid")
+					):
+						_col.queue_free()
+						%AudioBlockErase.play()
+						changes_after_save = true
+			return
+		# Painting the object to the level
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
+			if !selected_object is EditorAddableNode2D:
+				printerr("Selected object is invalid")
+				return
+			#if selected_object
+			var obj = selected_object.duplicate()
+			obj.process_mode = Node.PROCESS_MODE_INHERIT
+			obj.global_position = %SelectedObjSprite.global_position
+			var _node_folder = obj.category
+			if !Editor.current_level.get_section(section).has_node(_node_folder):
+				var new_node = Node2D.new()
+				new_node.name = _node_folder
+				Editor.current_level.get_section(section).add_child(new_node)
+			Editor.current_level.get_section(section).get_node(_node_folder).add_child(obj, true)
+			obj.owner = Editor.current_level
+			changes_after_save = true
+			Audio.play_1d_sound(BLOCK_PLACE, false, { bus = "Editor" })
+			#obj.set_meta(&"nameid", selected_object.get_meta(&"nameid"))
+			obj._prepare_editor()
 
 
 func get_pos_on_grid(forced_grid: bool = false) -> Vector2:

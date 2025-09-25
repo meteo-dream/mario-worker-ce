@@ -13,7 +13,7 @@ class_name LevelProperties
 @export var level_version: int
 @export var level_major_version: int
 
-@export var sections: Array[SectionProperties]
+@export var sections: Dictionary[int, SectionProperties]
 
 func _init() -> void:
 	level_version = ProjectSettings.get_setting("application/thunder_settings/version")

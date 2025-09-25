@@ -449,12 +449,12 @@ size_flags_vertical = 4
 focus_mode = 1
 theme_override_font_sizes/font_size = 14
 selected = 0
-item_count = 6
+item_count = 7
 popup/item_0/text = "None"
 popup/item_0/id = 0
 popup/item_1/text = "Tiles"
 popup/item_1/id = 1
-popup/item_2/text = "Scenery"
+popup/item_2/text = "Decoration"
 popup/item_2/id = 2
 popup/item_3/text = "Enemies"
 popup/item_3/id = 3
@@ -462,6 +462,8 @@ popup/item_4/text = "Items"
 popup/item_4/id = 4
 popup/item_5/text = "Misc."
 popup/item_5/id = 5
+popup/item_6/text = "Special"
+popup/item_6/id = 6
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox"]
 layout_mode = 2
@@ -740,6 +742,7 @@ script = ExtResource("20_fqhjp")
 
 [node name="ObjectPickMenu" type="PanelContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -775,8 +778,17 @@ unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "If enabled, right click erases objects from the level.
 If disabled, right click opens up properties of the object, when available."
+button_pressed = true
 text = "Erase objects
 with right click"
+
+[node name="UseTileTerrains" type="CheckBox" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "If enabled, right click erases objects from the level.
+If disabled, right click opens up properties of the object, when available."
+button_pressed = true
+text = "Use Tile Terrains"
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -816,6 +828,7 @@ layout_mode = 2
 text = "Exit"
 
 [node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 current_tab = 2
@@ -825,9 +838,10 @@ deselect_enabled = true
 [node name="Tile" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
 visible = false
 layout_mode = 2
+category_name = "tile"
 metadata/_tab_index = 0
 
-[node name="Scenery" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+[node name="Decoration" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
 visible = false
 layout_mode = 2
 category_name = "scenery"
@@ -952,4 +966,4 @@ collide_with_bodies = false
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/TestLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/LoadButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/ExitButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]
-[connection signal="tab_clicked" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" to="CanvasLayer/Control" method="_on_tab_container_tab_clicked"]
+[connection signal="tab_selected" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" to="CanvasLayer/Control" method="_on_tab_container_tab_selected"]

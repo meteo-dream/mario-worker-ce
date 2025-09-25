@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2htv4oupj7ea"]
-
-[ext_resource type="Script" uid="uid://cxgmvlyasix6o" path="res://modules/editor/gui/item_button.gd" id="1_1empv"]
+[gd_scene load_steps=2 format=3 uid="uid://c2htv4oupj7ea"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gagge"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -24,4 +22,3 @@ alignment = 0
 text_overrun_behavior = 3
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("1_1empv")

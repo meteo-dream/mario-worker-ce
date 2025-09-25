@@ -9,6 +9,7 @@ func _ready() -> void:
 	%CloseConfirmationDialog.add_button("Don't Save", false, "dontsave")
 	Thunder._connect(%CloseConfirmationDialog.confirmed, _on_save_level_button_pressed.bind(true))
 	Thunder._connect(%CloseConfirmationDialog.custom_action, _on_dontsave)
+	_on_tab_container_tab_selected(%TabContainer.current_tab)
 
 
 func disable_toolbar_buttons() -> void:
@@ -191,5 +192,9 @@ func _on_level_prop_cancel_pressed() -> void:
 	properties_tabs.update_input_values()
 
 
-func _on_tab_container_tab_clicked(tab: int) -> void:
-	pass # Replace with function body.
+func _on_tab_container_tab_selected(tab: int) -> void:
+	tab += 1
+	(func():
+		Audio.play_1d_sound(Editor.scene.MENU_HOVER, true, { bus = "Editor" })
+		Editor.scene.editing_sel = tab
+	).call_deferred()

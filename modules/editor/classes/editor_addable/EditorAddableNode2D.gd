@@ -2,7 +2,7 @@
 class_name EditorAddableNode2D
 extends Node2D
 
-@export_enum("enemy", "scenery", "bonus", "misc", "special") var category: String
+@export_enum("tile", "scenery", "enemy", "bonus", "misc", "special") var category: String
 @export var offset: Vector2
 @export var editor_icon: Texture2D
 
@@ -17,11 +17,20 @@ func setup_object() -> Node:
 		_install_icon()
 		if get_parent() is Button:
 			get_parent().icon = editor_icon
+			process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		return _prepare_gameplay()
 	return null
 
 @abstract func _install_icon() -> void
+
+func _on_editor_object_selected(category_name: String) -> void:
+	Editor.scene.selected_object = self
+	Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
+	Editor.scene.editing_sel = LevelEditor._edit_sel_to_enum(category_name)
+	Editor.scene.selected = []
+	Editor.scene._on_selected_array_change()
+	Editor.scene.object_to_paint_selected(true)
 
 func _prepare_editor(is_new: bool = true) -> void:
 	add_to_group(&"editor_addable_" + category)
