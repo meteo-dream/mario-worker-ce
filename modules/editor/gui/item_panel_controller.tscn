@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2325vsr1ng0u"]
+[gd_scene load_steps=3 format=3 uid="uid://d2325vsr1ng0u"]
 
 [ext_resource type="Script" uid="uid://cu2e755j53cd5" path="res://modules/editor/gui/item_panel_controller.gd" id="1_r5esq"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5r80x"]
+
 [node name="Enemy" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5r80x")
 script = ExtResource("1_r5esq")
 metadata/_tab_index = 2
 

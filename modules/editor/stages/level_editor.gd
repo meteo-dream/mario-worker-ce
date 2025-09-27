@@ -76,6 +76,9 @@ var selected_object: Node2D = null:
 		if is_instance_valid(selected_object):
 			return selected_object
 		return null
+var selected_tileset: Dictionary
+var selected_tile_source_id: int
+var selected_tile_id: Vector2i
 var changes_after_save: bool = false:
 	set(to):
 		changes_after_save = to
@@ -86,7 +89,8 @@ var mouse_blocked: bool
 var selected: Array[Node2D]
 var section: int = 1
 var editor_options: Dictionary = {
-	erase_with_rmb = false
+	erase_with_rmb = false,
+	use_tile_terrains = true,
 }
 
 
@@ -302,6 +306,7 @@ func object_pick_menu_close() -> void:
 	%ObjectPickMenu.hide()
 	Audio.play_1d_sound(MENU_CLOSE, false, { bus = "Editor" })
 	editor_options.erase_with_rmb = %EraseWithRMB.button_pressed
+	editor_options.use_tile_terrains = %UseTileTerrains.button_pressed
 
 
 func save_level(path: String, forced_dialog: bool = false) -> bool:

@@ -40,7 +40,7 @@ thunder_settings/default_character_setting="Mario"
 thunder_settings/tweaks/enable_smooth_cam_transitions=true
 thunder_settings/tweaks/enable_blur_transitions=true
 thunder_settings/tweaks/progress_continue=true
-thunder_settings/tweaks/mouse_in_menus=true
+thunder_settings/tweaks/mouse_in_menus=false
 thunder_settings/tweaks/custom_mouse_cursor=false
 thunder_settings/tweaks/f3_keybind=false
 thunder_settings/tweaks/f4_keybind=false
@@ -81,6 +81,7 @@ Editor="*res://modules/editor/classes/Editor.gd"
 
 [debug]
 
+settings/gdscript/always_track_call_stacks=true
 gdscript/warnings/unassigned_variable=0
 gdscript/warnings/unused_local_constant=0
 gdscript/warnings/unused_private_class_variable=0

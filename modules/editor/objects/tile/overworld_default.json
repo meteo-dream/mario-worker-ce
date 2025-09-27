@@ -1,0 +1,6 @@
+{
+	"name": "Overworld Default",
+	"source_names": [
+		"Ground", "Hard Block", "Green Pipe", "Ground Slopes"
+	],
+}

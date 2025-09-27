@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c50tm0roloflh"]
-
-[ext_resource type="Script" uid="uid://d0mdjvgpuggy4" path="res://modules/editor/classes/editor_addable/EditorAddableTileset.gd" id="1_0rt5g"]
-
-[node name="OverworldDefault" type="Node2D"]
-script = ExtResource("1_0rt5g")
-scene_path = "uid://c50tm0roloflh"
-category = "tile"

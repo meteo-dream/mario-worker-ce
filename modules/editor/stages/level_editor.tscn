@@ -840,6 +840,7 @@ deselect_enabled = true
 visible = false
 layout_mode = 2
 category_name = "tile"
+json_mode = true
 metadata/_tab_index = 0
 
 [node name="Decoration" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]

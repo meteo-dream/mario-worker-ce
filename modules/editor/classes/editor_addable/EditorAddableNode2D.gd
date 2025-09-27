@@ -7,6 +7,8 @@ extends Node2D
 @export var offset: Vector2
 @export var editor_icon: Texture2D
 
+var _editor_icon: Texture2D
+
 
 func _ready() -> void:
 	setup_object()
@@ -33,6 +35,7 @@ func _on_editor_object_selected(category_name: String) -> void:
 	Editor.scene.selected = []
 	Editor.scene._on_selected_array_change()
 	Editor.scene.object_to_paint_selected(true)
+
 
 func _prepare_editor(is_new: bool = true) -> void:
 	add_to_group(&"editor_addable_" + category)
