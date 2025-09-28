@@ -1,4 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpj7u7irn0jsk"]
+[gd_scene load_steps=5 format=3 uid="uid://bpj7u7irn0jsk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsftl"]
+bg_color = Color(0.1, 0.1, 0.1, 0.49803922)
+corner_detail = 1
+anti_aliasing = false
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nsftl"]
 
@@ -13,6 +18,7 @@ focus_mode = 1
 theme_override_constants/h_separation = 5
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_nsftl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_nsftl")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_kx3iy")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_uvw1c")

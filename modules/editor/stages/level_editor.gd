@@ -64,6 +64,8 @@ var editing_sel: int = EDIT_SEL.NONE:
 			tool_mode = TOOL_MODES.SELECT
 		%ScrollPropContainer.visible = !editing_sel in [EDIT_SEL.TILE]
 		%TilePanel.visible = editing_sel in [EDIT_SEL.TILE]
+		%ShapeCast2D.collision_mask = 1 << 7 << to
+		%ShapeCastPoint.collision_mask = 1 << 7 << to
 		get_tree().call_group(&"editor_addable_object", &"queue_redraw")
 		if to == EDIT_SEL.TILE:
 			%SelectedObjSprite.visible = false

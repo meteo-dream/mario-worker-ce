@@ -152,7 +152,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 				var color := (
 					Color(0, 0, 0, 0.2) if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) else Color(1, 1, 1, 0.2)
 				)
-				tile_btn.draw_rect(Rect2(Vector2.ONE, tile_btn.get_rect().size), color, true)
+				tile_btn.draw_rect(Rect2(-Vector2.ONE, tile_btn.get_rect().size + Vector2.ONE), color, true)
 
 		)
 		#tile_btn.icon = tile_source.get_runtime_tile_texture_region()

@@ -49,7 +49,7 @@ func _prepare_editor(is_new: bool = true) -> void:
 	add_child(_texture)
 	
 	var _area = Area2D.new()
-	_area.collision_layer = 1 << 8#7 << LevelEditor._edit_sel_to_enum(category)
+	_area.collision_layer = 1 << 7 << LevelEditor._edit_sel_to_enum(category)
 	_area.collision_mask = 0
 	add_child(_area)
 	var _col = CollisionShape2D.new()
