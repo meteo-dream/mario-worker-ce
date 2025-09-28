@@ -285,7 +285,12 @@ ui_zoom_out={
 2d_physics/layer_6="block_for_enemies"
 2d_physics/layer_7="block_for_items"
 2d_physics/layer_8="fluid"
-2d_physics/layer_9="editor"
+2d_physics/layer_9="editor_tile"
+2d_physics/layer_10="editor_scenery"
+2d_physics/layer_11="editor_enemy"
+2d_physics/layer_12="editor_bonus"
+2d_physics/layer_13="editor_misc"
+2d_physics/layer_14="editor_special"
 
 [physics]
 

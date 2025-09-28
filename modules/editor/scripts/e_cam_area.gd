@@ -12,5 +12,5 @@ func _draw() -> void:
 	if !Engine.is_editor_hint() && Editor.mode != Editor.MODE.EDITOR:
 		return
 	draw_set_transform(-global_position, rotation, Vector2.ONE)
-	var color = Color.DARK_CYAN if len(_det_areas) > 0 else Color.AQUA
+	var color = Color.DARK_CYAN if len(_det_areas) > 0 else Color.AQUA - Color(0,0,0,0.3)
 	draw_rect(get_global_rect().grow(2).abs(), color, false, 4)

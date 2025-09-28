@@ -8,7 +8,8 @@ extends Node2D
 @export var editor_icon: Texture2D
 
 var _editor_icon: Texture2D
-
+var _editor_ready: bool
+var _shape: Shape2D
 
 func _ready() -> void:
 	setup_object()
@@ -48,16 +49,30 @@ func _prepare_editor(is_new: bool = true) -> void:
 	add_child(_texture)
 	
 	var _area = Area2D.new()
-	_area.collision_layer = 1 << 8
+	_area.collision_layer = 1 << 8#7 << LevelEditor._edit_sel_to_enum(category)
 	_area.collision_mask = 0
 	add_child(_area)
 	var _col = CollisionShape2D.new()
-	var _shape = RectangleShape2D.new()
+	_shape = RectangleShape2D.new()
 	_col.shape = _shape
 	_shape.size = Vector2.ONE * 32
 	_col.position = -offset
 	_area.add_child(_col)
 	
+	_editor_ready = true
+	_area.mouse_entered.connect(func():
+		queue_redraw()
+	)
+	queue_redraw()
+	
 	prints(name, global_position)
 
 @abstract func _prepare_gameplay() -> Node
+
+func _draw() -> void:
+	if Editor.mode != Editor.MODE.EDITOR || !_editor_ready: return
+	if Editor.scene.editing_sel != LevelEditor._edit_sel_to_enum(category):
+		return
+	var _rect: Rect2 = _shape.get_rect()
+	_rect.position -= offset
+	draw_rect(_rect, Color.RED - Color(0, 0, 0, 0.5))

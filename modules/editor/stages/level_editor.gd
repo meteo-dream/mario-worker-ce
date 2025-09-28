@@ -63,7 +63,8 @@ var editing_sel: int = EDIT_SEL.NONE:
 		if editing_sel == EDIT_SEL.NONE:
 			tool_mode = TOOL_MODES.SELECT
 		%ScrollPropContainer.visible = !editing_sel in [EDIT_SEL.TILE]
-		%TilePanel.visible = editing_sel in [EDIT_SEL.TILE, EDIT_SEL.SCENERY]
+		%TilePanel.visible = editing_sel in [EDIT_SEL.TILE]
+		get_tree().call_group(&"editor_addable_object", &"queue_redraw")
 		if to == EDIT_SEL.TILE:
 			%SelectedObjSprite.visible = false
 			selected_object = null
@@ -135,7 +136,7 @@ func _physics_process(delta: float) -> void:
 		TOOL_MODES.RECT: _tool_rect_process()
 		TOOL_MODES.ERASE: _tool_erase_process()
 	
-	%TargetLabel.text = "Target: %s" % get_global_mouse_position().round()
+	%TargetLabel.text = "Target: %.v" % get_global_mouse_position().round()
 	%CountLabel.text = " Objects: %d" % get_tree().get_node_count_in_group(&"editor_addable_object")
 
 
@@ -168,7 +169,7 @@ func _input(event: InputEvent) -> void:
 			_input_mouse_click(event)
 		
 	if event is InputEventMouseMotion || (event is InputEventMouseButton && event.is_pressed()):
-		if can_draw():
+		if can_draw_not_blocked():
 			_input_mouse_hold(event)
 
 
@@ -272,8 +273,12 @@ func can_draw() -> bool:
 	dr2 = dr2.abs()
 	return (
 		%DrawArea.get_rect().has_point(%DrawArea.get_local_mouse_position()) &&
-		dr2.has_point(%DrawArea2.get_local_mouse_position())
+		dr2.has_point(%DrawArea2.get_local_mouse_position()) &&
+		!%ZoomLevelButton.get_rect().has_point(%ZoomLevelButton.get_local_mouse_position())
 	)
+
+func can_draw_not_blocked() -> bool:
+	return can_draw() && !mouse_blocked
 
 
 func notify(text: String, outline_color: Color = Color(0.505, 1, 0.34)) -> void:

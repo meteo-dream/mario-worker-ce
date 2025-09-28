@@ -1,6 +1,7 @@
 extends PanelContainer
 
 const ITEM_BUTTON = preload("res://modules/editor/gui/item_button.tscn")
+const ITEM_TILE_BUTTON = preload("uid://bpj7u7irn0jsk")
 const SCENES_PATH := "res://modules/editor/objects/"
 const ITEM_FOLDABLE_CONTAINER = preload("uid://dhjqv7n6lq15x")
 
@@ -106,23 +107,63 @@ func load_tileset_items(items: PackedStringArray) -> void:
 			dict.sources.append(source_id)
 			var btn: Button = ITEM_BUTTON.instantiate()
 			btn.custom_minimum_size = buttons_size * Vector2.ONE
+			btn.add_theme_constant_override(&"icon_max_width", buttons_size - 8)
 			btn.tooltip_text = source_name
 			
 			btn.icon = source.texture
-			btn.pressed.connect(_on_editor_tileset_selected.bind(source_id, _fold), CONNECT_DEFERRED)
+			btn.pressed.connect.call_deferred(
+				_on_editor_tileset_selected.bind(source_id, _fold.get_meta(&"editor_tileset", dict))
+			, CONNECT_DEFERRED)
 			_fold.get_child(0).add_child.call_deferred(btn)
-		
+			
 		_fold.set_meta(&"editor_tileset", dict)
 
-func _on_editor_tileset_selected(source_id: int, subcat: FoldableContainer) -> void:
+func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> void:
 	Editor.scene.selected_object = null
-	var tileset: Dictionary = subcat.get_meta(&"editor_tileset")
-	if !tileset: return
-	Editor.scene.selected_tileset = tileset
+	if !tileset_dict: return
+	Editor.scene.selected_tileset = tileset_dict
 	Editor.scene.selected_tile_source_id = source_id
-	Editor.scene.selected_tile_id = tileset.tileset.get_source(source_id).get_tile_id(0)
+	var tile_source: TileSetAtlasSource = tileset_dict.tileset.get_source(source_id)
+	Editor.scene.selected_tile_id = tile_source.get_tile_id(0)
+	
+	for i in %ScrollTileContainer.get_child(0).get_children():
+		i.queue_free()
+	
+	var _tile_btn_base: Button = ITEM_TILE_BUTTON.instantiate()
+	var tile_btn: Button
+	for i in tile_source.get_tiles_count():
+		tile_btn = _tile_btn_base.duplicate() if i < tile_source.get_tiles_count() - 1 else _tile_btn_base
+		
+		var tile_id: Vector2i = tile_source.get_tile_id(i)
+		var tile_texture_region = tile_source.get_tile_texture_region(tile_id)
+		tile_btn.custom_minimum_size = Vector2(tile_texture_region.size) + (Vector2.ONE * 2)
+		tile_btn.set_meta(&"tile_id", tile_id)
+		
+		tile_btn.pressed.connect(func():
+			Editor.scene.selected_tile_source_id = source_id
+			Editor.scene.selected_tile_id = tile_btn.get_meta(&"tile_id", 0)
+			select_paint(false)
+		)
+		tile_btn.draw.connect(func():
+			tile_btn.draw_texture_rect_region(
+				tile_source.texture, Rect2(Vector2.ONE, tile_texture_region.size), tile_texture_region
+			)
+			if tile_btn.is_hovered():
+				var color := (
+					Color(0, 0, 0, 0.2) if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) else Color(1, 1, 1, 0.2)
+				)
+				tile_btn.draw_rect(Rect2(Vector2.ONE, tile_btn.get_rect().size), color, true)
+
+		)
+		#tile_btn.icon = tile_source.get_runtime_tile_texture_region()
+		
+		%ScrollTileContainer.get_child(0).add_child(tile_btn)
+	
+	select_paint(true)
+
+func select_paint(from_menu: bool = true) -> void:
 	Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
 	Editor.scene.editing_sel = LevelEditor._edit_sel_to_enum(category_name)
 	Editor.scene.selected = []
 	Editor.scene._on_selected_array_change()
-	Editor.scene.object_to_paint_selected(true)
+	Editor.scene.object_to_paint_selected(from_menu)

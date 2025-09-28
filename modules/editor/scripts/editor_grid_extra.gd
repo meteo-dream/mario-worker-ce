@@ -1,16 +1,23 @@
 extends Node2D
 
 var last_pos: Vector2
+var could_draw: bool
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var pos = Editor.scene.get_pos_on_grid()
 	if !Editor.is_window_active(): return
-	if pos != last_pos:
+	var can_draw: bool = Editor.scene.can_draw_not_blocked()
+	if pos != last_pos || can_draw:
+		could_draw = can_draw
 		queue_redraw()
 		last_pos = pos
 
 func _draw() -> void:
-	if Editor.scene.tool_mode in [LevelEditor.TOOL_MODES.PAINT] && Editor.scene.editing_sel in [LevelEditor.EDIT_SEL.TILE]:
+	if (
+		could_draw &&
+		Editor.scene.tool_mode in [LevelEditor.TOOL_MODES.PAINT] &&
+		Editor.scene.editing_sel in [LevelEditor.EDIT_SEL.TILE]
+	):
 		var size = Editor.grid_size
 		#var mouse_cursor := get_global_mouse_position()
 		var pos = Editor.scene.get_pos_on_grid(true)
