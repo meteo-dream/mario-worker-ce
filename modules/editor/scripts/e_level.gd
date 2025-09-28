@@ -43,7 +43,7 @@ func get_section(section_index: int) -> Node2D:
 	var _folder := Node2D.new()
 	_folder.name = "Background"
 	_new_node.add_child(_folder)
-	for _cat in ["tile", "scenery", "enemy", "bonus", "misc", "special", "CamAreas"]:
+	for _cat in ["tile", "scenery", "bonus", "misc", "enemy", "special", "CamAreas"]:
 		var _new_folder = _folder.duplicate()
 		_new_folder.name = _cat
 		_new_node.add_child(_new_folder)

@@ -78,11 +78,11 @@ navigation_enabled = false
 
 [node name="scenery" type="Node2D" parent="Section1"]
 
-[node name="enemy" type="Node2D" parent="Section1"]
-
 [node name="bonus" type="Node2D" parent="Section1"]
 
 [node name="misc" type="Node2D" parent="Section1"]
+
+[node name="enemy" type="Node2D" parent="Section1"]
 
 [node name="special" type="Node2D" parent="Section1"]
 
