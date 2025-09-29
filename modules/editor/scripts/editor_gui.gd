@@ -167,6 +167,8 @@ func _on_play_button_pressed() -> void:
 
 func _on_load_level_button_pressed() -> void:
 	Thunder._connect(%LoadFileDialog.file_selected, _on_load_dialog_confirmed)
+	if %LoadFileDialog.current_dir == "user://":
+		%LoadFileDialog.current_dir = "user://User Data/Levels"
 	show_one_dialog(%LoadFileDialog)
 
 

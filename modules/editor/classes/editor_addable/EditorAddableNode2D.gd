@@ -5,6 +5,7 @@ extends Node2D
 @export_enum("tile", "scenery", "enemy", "bonus", "misc", "special") var category: String
 @export var subcategory: String = "Other"
 @export var offset: Vector2
+@export var instance_offset: Vector2
 @export var editor_icon: Texture2D
 
 var _editor_icon: Texture2D

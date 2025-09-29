@@ -426,6 +426,8 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 		%SaveFileDialog.deselect_all()
 		if %SaveFileDialog.current_file.is_empty():
 			%SaveFileDialog.current_file = "MyLevel"
+		if %SaveFileDialog.current_dir == "user://":
+			%SaveFileDialog.current_dir = "user://User Data/Levels"
 		%SaveFileDialog.show()
 		await %SaveFileDialog.visibility_changed
 		if %SaveFileDialog.current_path:

@@ -43,6 +43,8 @@ var is_loading: bool = false
 
 func _ready() -> void:
 	get_window().min_size = Vector2(800, 480)
+	if !DirAccess.dir_exists_absolute("user://User Data/Levels"):
+		DirAccess.make_dir_recursive_absolute("user://User Data/Levels")
 
 func get_group_property(group_name: StringName, property: StringName) -> bool:
 	var res: bool

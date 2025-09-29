@@ -15,6 +15,8 @@ func _on_button_pressed() -> void:
 
 
 func _on_test_level_pressed() -> void:
+	if $LoadFileDialog.current_dir == "user://":
+		$LoadFileDialog.current_dir = "user://User Data/Levels"
 	$LoadFileDialog.show()
 
 
@@ -97,3 +99,7 @@ func _throw_error_on_load(text: String) -> void:
 	OS.alert(text)
 	Editor.level_path = ""
 	Editor.is_loading = false
+
+
+func _on_browse_files_pressed() -> void:
+	OS.shell_open("user://User Data/Levels")

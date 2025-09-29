@@ -8,3 +8,4 @@ scene_path = "uid://jh88p5626p10"
 category = "enemy"
 subcategory = "Piranha Plants"
 offset = Vector2(16, -8)
+instance_offset = Vector2(0, 24)

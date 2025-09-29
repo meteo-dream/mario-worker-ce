@@ -54,6 +54,10 @@ text = "Go to level editor"
 layout_mode = 2
 text = "Play level"
 
+[node name="BrowseFiles" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Browse level files"
+
 [node name="EditorSounds" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -90,5 +94,6 @@ recent_list_enabled = false
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Testlevel" to="." method="_on_test_level_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/BrowseFiles" to="." method="_on_browse_files_pressed"]
 [connection signal="canceled" from="LoadFileDialog" to="LoadFileDialog" method="hide"]
 [connection signal="file_selected" from="LoadFileDialog" to="." method="_on_load_file_dialog_file_selected"]
