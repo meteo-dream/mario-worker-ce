@@ -201,3 +201,13 @@ func _on_tab_container_tab_selected(tab: int) -> void:
 		Audio.play_1d_sound(Editor.scene.MENU_HOVER, true, { bus = "Editor" })
 		Editor.scene.editing_sel = tab
 	).call_deferred()
+
+
+func _on_object_picker_button_pressed() -> void:
+	%ObjectPickMenu.show()
+	Audio.play_1d_sound(Editor.scene.MENU_OPEN, false, { bus = "Editor" })
+
+
+func _on_center_level_button_pressed() -> void:
+	var section_y: int = Editor.current_level.SECTION_POS_Y_VALUE * (Editor.scene.section - 1)
+	Editor.camera.position = Vector2(448, section_y + 224)

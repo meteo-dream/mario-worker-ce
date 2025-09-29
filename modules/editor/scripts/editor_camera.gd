@@ -43,25 +43,27 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_pressed():
 		var ctrl = Input.is_action_pressed(&"a_ctrl")
+		var alt = Input.is_action_pressed(&"a_alt")
 		var shift = Input.is_action_pressed(&"a_shift")
 		if event.is_action(&"ui_zoom_in"):
-			if ctrl:
+			if alt:
+				zoom_in()
+			elif ctrl:
 				if !shift:
 					position.y -= 32 / zoom.y
 				else:
 					position.x -= 32 / zoom.x
 				reset_physics_interpolation()
-			elif !shift:
-				zoom_in()
+				
 		elif event.is_action(&"ui_zoom_out"):
-			if ctrl:
+			if alt:
+				zoom_out()
+			elif ctrl:
 				if !shift:
 					position.y += 32 / zoom.y
 				else:
 					position.x += 32 / zoom.x
 				reset_physics_interpolation()
-			elif !shift:
-				zoom_out()
 
 #func _wrap_mouse(to: Vector2) -> void:
 	#var last_pos: Vector2 = get_viewport().get_mouse_position()
@@ -73,7 +75,7 @@ func _input(event: InputEvent) -> void:
 
 
 func zoom_in() -> void:
-	var _alt = int(Input.is_action_pressed(&"a_alt")) + 1
+	var _alt = int(Input.is_action_pressed(&"a_ctrl")) + 1
 	var current_zoom_step: float = round(log(zoom.x) * (12.0 * _alt) / log(2.0))
 	var new_zoom: float = pow(2.0, (current_zoom_step + ZOOM_INCREMENT) / (12.0 * _alt))
 	var clamped_zoom = minf(new_zoom, zoom_max)
@@ -82,7 +84,7 @@ func zoom_in() -> void:
 	update_zoom(zoom, clamped_zoom * Vector2.ONE)
 
 func zoom_out() -> void:
-	var _alt = int(Input.is_action_pressed(&"a_alt")) + 1
+	var _alt = int(Input.is_action_pressed(&"a_ctrl")) + 1
 	var current_zoom_step: float = round(log(zoom.x) * (12.0 * _alt) / log(2.0))
 	var new_zoom: float = pow(2.0, (current_zoom_step - ZOOM_INCREMENT) / (12.0 * _alt))
 	var clamped_zoom = maxf(new_zoom, zoom_min)

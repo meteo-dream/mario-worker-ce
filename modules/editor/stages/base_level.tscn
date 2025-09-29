@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d2ob41dqvqp5l"]
+[gd_scene load_steps=18 format=3 uid="uid://d2ob41dqvqp5l"]
 
 [ext_resource type="Script" uid="uid://6p7per48a8l2" path="res://modules/editor/scripts/e_level.gd" id="1_j2fth"]
 [ext_resource type="AudioStream" uid="uid://bqiy8kvcsy0rk" path="res://engine/scripts/classes/level/complete.ogg" id="2_33y0t"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dmljul85ysxlp" path="res://modules/editor/objects/editor-friendly/e_player.tscn" id="8_dj13d"]
 [ext_resource type="Script" uid="uid://bntvvhyag28nb" path="res://modules/editor/scripts/e_parallax_2d.gd" id="10_46p0d"]
 [ext_resource type="TileSet" uid="uid://egdtsph4hncq" path="res://modules/editor/objects/tile/overworld_default.tres" id="11_46p0d"]
+[ext_resource type="PackedScene" uid="uid://cpkmy1ccyuval" path="res://modules/editor/objects/editor-friendly/e_tilemap.tscn" id="11_ijj66"]
 [ext_resource type="PackedScene" uid="uid://dg21ubacsmyiw" path="res://modules/editor/objects/editor-friendly/e_cam_area.tscn" id="12_46p0d"]
 
 [sub_resource type="Resource" id="Resource_46p0d"]
@@ -71,10 +72,9 @@ centered = false
 
 [node name="tile" type="Node2D" parent="Section1"]
 
-[node name="overworld_default" type="TileMapLayer" parent="Section1/tile"]
+[node name="overworld_default" parent="Section1/tile" instance=ExtResource("11_ijj66")]
 tile_map_data = PackedByteArray(0, 0, 2, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 tile_set = ExtResource("11_46p0d")
-navigation_enabled = false
 
 [node name="scenery" type="Node2D" parent="Section1"]
 

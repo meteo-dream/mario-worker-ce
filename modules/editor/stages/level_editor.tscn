@@ -23,12 +23,12 @@
 [ext_resource type="Texture2D" uid="uid://b30fcc4tqkm8m" path="res://modules/editor/icons/Stop.svg" id="18_wl423"]
 [ext_resource type="Texture2D" uid="uid://cuuid1uqqx8k7" path="res://modules/editor/icons/GuiClose.svg" id="19_b8vnf"]
 [ext_resource type="Texture2D" uid="uid://ctqtklttr4yw0" path="res://modules/editor/icons/Load.svg" id="19_xlbnm"]
-[ext_resource type="Texture2D" uid="uid://bvts74vba11ua" path="res://modules/editor/icons/Tools.svg" id="20_5pur8"]
 [ext_resource type="Script" uid="uid://c2kmmw04ah4pg" path="res://modules/editor/gui/zoom_level_button.gd" id="20_fqhjp"]
 [ext_resource type="PackedScene" uid="uid://d2325vsr1ng0u" path="res://modules/editor/gui/item_panel_controller.tscn" id="21_ho4cg"]
 [ext_resource type="PackedScene" uid="uid://cqdfwljyhchom" path="res://modules/editor/gui/levelprop_tab_container.tscn" id="21_iskyl"]
 [ext_resource type="PackedScene" uid="uid://dxwm7h502tkba" path="res://modules/editor/gui/prop_container.tscn" id="22_m6va2"]
 [ext_resource type="Script" uid="uid://ci3vrg26vbf1u" path="res://modules/editor/scripts/editor_grid_selection.gd" id="25_3f3hp"]
+[ext_resource type="Texture2D" uid="uid://bv0fkrj5htkny" path="res://modules/editor/icons/CenterView.svg" id="26_ahe48"]
 [ext_resource type="Texture2D" uid="uid://dwtn8cky8tb3l" path="res://engine/objects/enemies/goombas/textures/goomba.png" id="26_kscub"]
 [ext_resource type="Script" uid="uid://dotfc1vccwoef" path="res://engine/objects/signs/sign_help_key_formatter.gd" id="27_ahe48"]
 [ext_resource type="Script" uid="uid://dn2ks33ok6x2d" path="res://modules/editor/scripts/editor_grid_extra.gd" id="27_bu24i"]
@@ -108,6 +108,11 @@ colors = PackedColorArray(0.5, 0.5, 0.5, 0.784314)
 gradient = SubResource("Gradient_qnnlw")
 width = 1
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnl2o"]
+atlas = ExtResource("26_kscub")
+region = Rect2(0, 0, 31, 32)
+margin = Rect2(0, 0, 1, 0)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fsewq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahe48"]
@@ -142,11 +147,6 @@ bg_color = Color(0.32, 0.32, 0.32, 0.8627451)
 anti_aliasing = false
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_abl8s"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cnl2o"]
-atlas = ExtResource("26_kscub")
-region = Rect2(0, 0, 31, 32)
-margin = Rect2(0, 0, 1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y3rum"]
 size = Vector2(30, 30)
@@ -223,7 +223,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_67k7q")
 [node name="SelectMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Select Mode"
+tooltip_text = "Selection Tool"
 focus_mode = 1
 toggle_mode = true
 button_pressed = true
@@ -234,7 +234,7 @@ icon = ExtResource("4_ecd51")
 [node name="PanMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Pan Mode"
+tooltip_text = "Pan Tool"
 focus_mode = 1
 toggle_mode = true
 button_group = ExtResource("4_rv8e0")
@@ -264,16 +264,6 @@ button_group = ExtResource("4_rv8e0")
 shortcut = SubResource("Shortcut_ahe48")
 icon = ExtResource("7_siqy4")
 
-[node name="PickMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-tooltip_text = "Picker Tool"
-focus_mode = 1
-toggle_mode = true
-button_group = ExtResource("4_rv8e0")
-icon = ExtResource("8_xb7r7")
-
 [node name="RectMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
 unique_name_in_owner = true
 visible = false
@@ -284,10 +274,22 @@ toggle_mode = true
 button_group = ExtResource("4_rv8e0")
 icon = ExtResource("9_h7q7v")
 
+[node name="VSeparator6" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+layout_mode = 2
+
+[node name="PickMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Picker Tool"
+focus_mode = 1
+toggle_mode = true
+button_group = ExtResource("4_rv8e0")
+icon = ExtResource("8_xb7r7")
+
 [node name="EraseMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Erase Tool"
+tooltip_text = "Eraser Tool"
 focus_mode = 1
 toggle_mode = true
 button_group = ExtResource("4_rv8e0")
@@ -523,14 +525,13 @@ icon = ExtResource("15_875c2")
 [node name="VSeparator4" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 layout_mode = 2
 
-[node name="LevelPropertiesButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
-unique_name_in_owner = true
+[node name="ObjectPickerButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 layout_mode = 2
-tooltip_text = "Open level properties window"
+tooltip_text = "Open object picker and level properties"
 focus_mode = 1
-icon = ExtResource("20_5pur8")
+icon = ExtResource("6_0pm15")
 
-[node name="LevelProperties" type="Window" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton"]
+[node name="LevelProperties" type="Window" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 unique_name_in_owner = true
 disable_3d = true
 oversampling_override = 1.0
@@ -540,7 +541,7 @@ size = Vector2i(512, 512)
 visible = false
 min_size = Vector2i(400, 512)
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -549,11 +550,11 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.24, 0.24, 0.24, 1)
 
-[node name="PropertiesTabs" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties" instance=ExtResource("21_iskyl")]
+[node name="PropertiesTabs" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties" instance=ExtResource("21_iskyl")]
 unique_name_in_owner = true
 offset_bottom = -40.0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -564,7 +565,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 10
 
-[node name="LevelPropApply" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties/HBoxContainer3"]
+[node name="LevelPropApply" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -572,7 +573,7 @@ size_flags_vertical = 10
 shortcut = SubResource("Shortcut_s3imp")
 text = "Apply"
 
-[node name="LevelPropCancel" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties/HBoxContainer3"]
+[node name="LevelPropCancel" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -582,12 +583,13 @@ text = "Cancel"
 
 [node name="LoadLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 tooltip_text = "Load level"
 focus_mode = 1
 icon = ExtResource("19_xlbnm")
 
-[node name="LoadFileDialog" type="FileDialog" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LoadLevelButton"]
+[node name="LoadFileDialog" type="FileDialog" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Open a File"
@@ -674,6 +676,73 @@ split_offset = 450
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="SelectedObjLabel" type="Label" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_right = -4.0
+offset_bottom = 64.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 0.878431)
+theme_override_constants/line_spacing = -1
+theme_override_font_sizes/font_size = 14
+text = "Middle mouse button: Pan
+Alt+Scroll wheel: Zoom
+(Shift+)Ctrl+Scroll wheel: Scroll
+Or use - and + keys"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -74.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 8
+
+[node name="SelectedObjControl" type="Control" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="SelectedObjDisplay" type="TextureRect" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer/SelectedObjControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_cnl2o")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SelectedObjLabel" type="Label" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 0.878431)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.69803923)
+theme_override_constants/line_spacing = -1
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "Text"
+vertical_alignment = 2
+autowrap_mode = 3
+
 [node name="TilePanel" type="Panel" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 84)
@@ -742,14 +811,27 @@ size_flags_horizontal = 3
 [node name="PropContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollPropContainer/PropListContainer" instance=ExtResource("22_m6va2")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+[node name="ZoomContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 4.0
 offset_top = 36.0
 offset_right = 100.0
 offset_bottom = 64.0
 
-[node name="ZoomLevelButton" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="CenterLevelButton" type="Button" parent="CanvasLayer/Control/ZoomContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Center View"
+focus_mode = 1
+theme_override_colors/icon_normal_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fsewq")
+icon = ExtResource("26_ahe48")
+icon_alignment = 1
+
+[node name="ZoomLevelButton" type="Button" parent="CanvasLayer/Control/ZoomContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -1032,15 +1114,16 @@ collide_with_bodies = false
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/PlayButton" to="CanvasLayer/Control" method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/StopButton" to="CanvasLayer/Control" method="_on_stop_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/PlayLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton" to="CanvasLayer/Control" method="_on_level_properties_button_pressed"]
-[connection signal="close_requested" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties" to="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties" method="hide"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties/HBoxContainer3/LevelPropApply" to="CanvasLayer/Control" method="_on_level_prop_apply_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelPropertiesButton/LevelProperties/HBoxContainer3/LevelPropCancel" to="CanvasLayer/Control" method="_on_level_prop_cancel_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/ObjectPickerButton" to="CanvasLayer/Control" method="_on_object_picker_button_pressed"]
+[connection signal="close_requested" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties" to="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties" method="hide"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties/HBoxContainer3/LevelPropApply" to="CanvasLayer/Control" method="_on_level_prop_apply_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties/HBoxContainer3/LevelPropCancel" to="CanvasLayer/Control" method="_on_level_prop_cancel_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LoadLevelButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/SaveLevelButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/CloseEditorButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]
 [connection signal="dragged" from="CanvasLayer/Control/HSplitContainer" to="CanvasLayer/Control" method="_on_h_split_container_dragged"]
 [connection signal="dragged" from="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer" to="CanvasLayer/Control" method="_on_v_split_container_dragged"]
+[connection signal="pressed" from="CanvasLayer/Control/ZoomContainer/CenterLevelButton" to="CanvasLayer/Control" method="_on_center_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/SaveButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/SaveAsButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed" binds= [false, true]]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/LevelPropertiesButton" to="CanvasLayer/Control" method="_on_level_properties_button_pressed"]

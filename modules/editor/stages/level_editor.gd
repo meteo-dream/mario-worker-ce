@@ -17,6 +17,7 @@ const MENU_OPEN = preload("uid://c6571aesyyyky")
 const KICK = preload("uid://be3uvqev2c1p6")
 
 const E_PLAYER = preload("uid://dmljul85ysxlp")
+const E_TILEMAP = preload("uid://cpkmy1ccyuval")
 
 enum TOOL_MODES {
 	SELECT,
@@ -143,7 +144,10 @@ func _physics_process(delta: float) -> void:
 		TOOL_MODES.ERASE: _tool_erase_process()
 	
 	%TargetLabel.text = "Target: %.v" % get_global_mouse_position().round()
-	%CountLabel.text = " Objects: %d" % get_tree().get_node_count_in_group(&"editor_addable_object")
+	%CountLabel.text = " Objects: %d, Tilemaps: %d" % [
+		get_tree().get_node_count_in_group(&"editor_addable_object"),
+		get_tree().get_node_count_in_group(&"editor_addable_tilemap"),
+	]
 
 
 func _input(event: InputEvent) -> void:
@@ -207,8 +211,7 @@ func _input_mouse_click(event: InputEventMouseButton) -> void:
 func _input_mouse_hold(event: InputEvent) -> void:
 	if tool_mode == TOOL_MODES.PAINT:
 		if editing_sel == EDIT_SEL.TILE:
-			# WORK IN PROGRESS: Simple tile editing
-			_input_paint_tile()
+			_input_paint_tile(event)
 			return
 		%SelectedObjSprite.global_position = get_pos_on_grid()
 		%ShapeCast2D.force_shapecast_update()
@@ -223,33 +226,34 @@ func _input_mouse_hold(event: InputEvent) -> void:
 			_input_paint_object()
 
 
-func _input_paint_tile() -> void:
+func _input_paint_tile(event: InputEvent) -> void:
 	#var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
-	if !selected_tile_holder:
-		push_warning("Invalid Tile Holder: Section%d/tile" % section)
-		return
+	if !selected_tile_holder: return
 	var tilemap: TileMapLayer = selected_tile_holder.tilemap
 	if !tilemap: return
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	var _section_node = Editor.current_level.get_section(section)
+	var local_pos: Vector2i = _section_node.to_local(tilemap.local_to_map(get_pos_on_grid()))
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && tilemap.get_cell_tile_data(local_pos):
 		if selected_tile_holder.terrain > -1:
 			tilemap.set_cells_terrain_connect(
-				[tilemap.local_to_map(get_pos_on_grid())],
+				[local_pos],
 				selected_tile_holder.terrain_set,
 				-1
 			)
 		else:
-			tilemap.erase_cell(tilemap.local_to_map(get_pos_on_grid()))
+			tilemap.erase_cell(local_pos)
+		%AudioBlockErase.play()
 		changes_after_save = true
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if event is InputEventMouseButton && event.is_pressed():
+			Audio.play_1d_sound(BLOCK_PLACE, false, { bus = "Editor" })
 		if selected_tile_holder.terrain > -1:
-			tilemap.set_cells_terrain_connect(
-				[tilemap.local_to_map(get_pos_on_grid())],
+			tilemap.set_cells_terrain_connect([local_pos],
 				selected_tile_holder.terrain_set,
 				selected_tile_holder.terrain
 			)
 		else:
-			tilemap.set_cell(
-				tilemap.local_to_map(get_pos_on_grid()),
+			tilemap.set_cell(local_pos,
 				selected_tile_holder.source_id,
 				selected_tile_holder.id,
 				selected_tile_holder.alt_tile
@@ -303,11 +307,15 @@ func _input_paint_object() -> void:
 func tileset_selected() -> void:
 	var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
 	var _tilemap = tile_parent.get_node_or_null(selected_tileset.name_id)
+	for i in get_tree().get_nodes_in_group(&"editor_addable_tilemap"):
+		if i == _tilemap: continue
+		if i is TileMapLayer:
+			if len(i.get_used_cells()) == 0:
+				i.queue_free()
 	if _tilemap:
 		selected_tile_holder.tilemap = _tilemap
 		return
-	_tilemap = TileMapLayer.new()
-	_tilemap.navigation_enabled = false
+	_tilemap = E_TILEMAP.instantiate()
 	_tilemap.tile_set = selected_tileset.tileset
 	_tilemap.name = selected_tileset.name_id
 	tile_parent.add_child(_tilemap)
@@ -342,7 +350,7 @@ func can_draw() -> bool:
 	return (
 		%DrawArea.get_rect().has_point(%DrawArea.get_local_mouse_position()) &&
 		dr2.has_point(control.get_local_mouse_position()) &&
-		!%ZoomLevelButton.get_rect().has_point(%ZoomLevelButton.get_local_mouse_position())
+		!%ZoomContainer.get_rect().has_point(%ZoomContainer.get_global_mouse_position())
 	)
 
 func can_draw_not_blocked() -> bool:
@@ -637,21 +645,27 @@ func object_to_paint_selected(from_menu: bool = false) -> void:
 func _tool_select() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%SelectMode.button_pressed = true
-	%SelectedObjTexture.texture = null
+	#%SelectedObjTexture.texture = null
 	%SelectedObjSprite.texture = null
+	%SelectedObjControl.visible = false
 	selected_object = null
+	%SelectedObjLabel.text = "Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple."
 
 func _tool_pan() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_DRAG)
 	%PanMode.button_pressed = true
-	%SelectedObjTexture.texture = null
+	#%SelectedObjTexture.texture = null
 	%SelectedObjSprite.texture = null
+	%SelectedObjControl.visible = false
+	%SelectedObjLabel.text = "Panning mode"
 
 func _tool_list() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_HELP)
 	%ListMode.button_pressed = true
-	%SelectedObjTexture.texture = null
+	#%SelectedObjTexture.texture = null
 	%SelectedObjSprite.texture = null
+	%SelectedObjControl.visible = false
+	%SelectedObjLabel.text = "List mode"
 
 func _tool_paint() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
@@ -659,21 +673,45 @@ func _tool_paint() -> void:
 	var _sel_obj = selected_object if is_instance_valid(selected_object) else selected[0] if len(selected) == 1 else null
 	if _sel_obj:
 		%SelectedObjSprite.texture = _sel_obj.editor_icon
+		%SelectedObjDisplay.texture = _sel_obj.editor_icon
+		%SelectedObjControl.visible = true
+		%SelectedObjLabel.text = _sel_obj.name
 		#var texsize = %SelectedObjSprite.texture.get_size()
 		#%SelectedObjSprite.offset.x = texsize.x / 2
 		#var size_y = (texsize.y / 2) if texsize.y <= 32 else 16
 		if !is_instance_valid(selected_object) && len(selected) == 1:
 			selected_object = selected[0]
 		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
+	elif selected_tile_holder && selected_tileset:
+		%SelectedObjControl.visible = true
+		%SelectedObjLabel.text = "Tileset: %s" % [selected_tileset.name]
+		var tile_source: TileSetAtlasSource = selected_tileset.tileset.get_source(selected_tile_holder.source_id)
+		var atlas_texture := AtlasTexture.new()
+		atlas_texture.atlas = tile_source.texture
+		if selected_tile_holder.id.x > -1:
+			atlas_texture.region = tile_source.get_tile_texture_region(selected_tile_holder.id)
+		%SelectedObjDisplay.texture = atlas_texture
+		
 	else:
 		%SelectedObjSprite.texture = null
-		%SelectedObjTexture.texture = null
+		%SelectedObjDisplay.texture = null
+		%SelectedObjControl.visible = false
+		var _event: String = "Space"
+		for i in InputMap.action_get_events(&"ui_menu_toggle"):
+			if i is InputEventKey:
+				_event = i.as_text().get_slice(' (', 0)
+				break
+		%SelectedObjLabel.text = "Nothing to paint. Press %s to pick an object" % [_event.to_upper()]
+		
+		#%SelectedObjTexture.texture = null
 		selected = []
 		_on_selected_array_change()
 
 func _tool_pick() -> void:
-	control.set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
+	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%PickMode.button_pressed = true
+	%SelectedObjControl.visible = false
+	%SelectedObjLabel.text = "Pick a tile to clone"
 	selected = []
 	_on_selected_array_change()
 
@@ -682,14 +720,22 @@ func _tool_rect() -> void:
 	%RectMode.button_pressed = true
 	if is_instance_valid(selected_object):
 		%SelectedObjSprite.texture = selected_object.editor_icon
+		%SelectedObjDisplay.texture = selected_object.editor_icon
+		%SelectedObjControl.visible = true
+		%SelectedObjLabel.text = selected_object.name
 		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
 	else:
 		%SelectedObjSprite.texture = null
-		%SelectedObjTexture.texture = null
+		%SelectedObjDisplay.texture = null
+		%SelectedObjControl.visible = false
+		%SelectedObjLabel.text = ""
+		#%SelectedObjTexture.texture = null
 
 func _tool_erase() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%EraseMode.button_pressed = true
+	%SelectedObjControl.visible = false
+	%SelectedObjLabel.text = "Erasing tiles"
 	selected = []
 	_on_selected_array_change()
 

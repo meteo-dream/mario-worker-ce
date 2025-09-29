@@ -151,6 +151,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 		tile_btn.set_meta(&"tile_id", tile_id)
 		var tile_data: TileData = tile_source.get_tile_data(tile_id, 0)
 		if _terrain == -1 && tile_data.terrain > -1:
+			tile_holder.id = Vector2i(-1, -1)
 			_terrain = tile_data.terrain
 			_terrain_set = tile_data.terrain_set
 		

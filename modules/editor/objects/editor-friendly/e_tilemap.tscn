@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cpkmy1ccyuval"]
+
+[node name="TileMapLayer" type="TileMapLayer" groups=["editor_addable_tilemap"]]
+navigation_enabled = false

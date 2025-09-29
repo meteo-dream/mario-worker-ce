@@ -24,6 +24,13 @@ var color: Color = Color.DIM_GRAY :
 		queue_redraw()
 		color = value
 
+@export
+var screen_color: Color = Color.DARK_ORANGE :
+	set(value):
+		queue_redraw()
+		screen_color = value
+
+
 func _ready() -> void:
 	%GridButton.button_pressed = Editor.grid_shown
 	Editor.grid_size = grid_size
@@ -57,15 +64,17 @@ func _process(delta: float) -> void:
 
 func _draw():
 	if !Editor.camera: return
-	var vp_size: = get_viewport_rect().size / Editor.camera.zoom / 2
-	var cam_pos: = Editor.camera.get_screen_center_position() + Editor.grid_offset
-	var vp_center = Vector2.ZERO
+	var vp_size := get_viewport_rect().size / Editor.camera.zoom / 2
+	var cam_pos := Editor.camera.get_screen_center_position() + Editor.grid_offset
+	var vp_center := Vector2.ZERO
 	if Editor.current_level_properties.sections[Editor.scene.section].position:
 		vp_center = Editor.current_level_properties.sections[Editor.scene.section].position
-	var vp_right: = vp_size.x# + cam_pos.x + Editor.grid_offset.x
-	var vp_bottom: = vp_size.y# + cam_pos.y + Editor.grid_offset.y
+	var vp_right := vp_size.x
+	var vp_bottom := vp_size.y
+	var screen_size := Vector2i(640, 480)
 	
 	if Editor.grid_shown:
+		# Generic grid
 		for x in range(
 			int((cam_pos.x - vp_size.x) / grid_size.x) - 1,
 			int((vp_size.x + cam_pos.x) / grid_size.x) + 1
@@ -82,21 +91,24 @@ func _draw():
 				Vector2(cam_pos.x + vp_size.x + 1, y * grid_size.y),
 				Vector2(cam_pos.x - vp_size.x - 1, y * grid_size.y), color
 			)
-		#return
-		#var leftmost: = -vp_right # + cam_pos.x
-		#var topmost: = -vp_bottom # + cam_pos.y
-		#
-		#var left: float = Editor.grid_offset.x + ceil(leftmost / grid_size.x) * grid_size.x
-		#var bottommost: = vp_size.y# + cam_pos.y
-		#for x in range(0, (vp_right / grid_size.x) * 2 + 1 + Editor.grid_offset.x):
-			#draw_line(Vector2(left, topmost), Vector2(left, bottommost), color)
-			#left += grid_size.x
-	
-		#var top: float = Editor.grid_offset.y + ceil(topmost / grid_size.y) * grid_size.y
-		#var rightmost: = vp_right# + cam_pos.x
-		#for y in range(0, (vp_bottom / grid_size.y) * 2 + 1 + Editor.grid_offset.y):
-			#draw_line(Vector2(leftmost, top), Vector2(rightmost, top), color)
-			#top += grid_size.y
+		
+		# Screen size lines
+		for x in range(
+			int((cam_pos.x - vp_size.x) / screen_size.x) - 1,
+			int((vp_size.x + cam_pos.x) / screen_size.x) + 1
+		):
+			draw_line(
+				Vector2(x * screen_size.x, cam_pos.y + vp_size.y + 1),
+				Vector2(x * screen_size.x, cam_pos.y - vp_size.y - 1), Color(screen_color, 0.4)
+			)
+		for y in range(
+			int((cam_pos.y - vp_size.y) / screen_size.y) - 1,
+			int((vp_size.y + cam_pos.y) / screen_size.y) + 1
+		):
+			draw_line(
+				Vector2(cam_pos.x + vp_size.x + 1, y * screen_size.y),
+				Vector2(cam_pos.x - vp_size.x - 1, y * screen_size.y), Color(screen_color, 0.4)
+			)
 	
 	var rect := Rect2(Vector2.ZERO, vp_size).abs()
 	if rect.has_point(Vector2(cam_pos.abs().x, vp_center.y)):
