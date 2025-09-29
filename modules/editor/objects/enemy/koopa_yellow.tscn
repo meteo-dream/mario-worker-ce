@@ -6,4 +6,5 @@
 script = ExtResource("1_d17ex")
 scene_path = "res://engine/objects/enemies/koopas/koopa_yellow.tscn"
 category = "enemy"
+subcategory = "Koopa Troopas"
 offset = Vector2(0, -8)

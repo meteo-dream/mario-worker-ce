@@ -6,3 +6,4 @@
 script = ExtResource("1_u31cl")
 scene_path = "res://engine/objects/enemies/cheeps/cheep_green.tscn"
 category = "enemy"
+subcategory = "Underwater"

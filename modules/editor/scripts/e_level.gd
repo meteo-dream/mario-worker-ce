@@ -34,6 +34,7 @@ func get_section(section_index: int) -> Node2D:
 	_new_node.name = "Section%d" % section_index
 	_new_node.position.y = (section_index - 1) * SECTION_POS_Y_VALUE
 	add_child(_new_node)
+	_new_node.owner = Editor.current_level
 	
 	var section: SectionProperties = Editor.current_level_properties.sections.get_or_add(
 		section_index, SectionProperties.new()

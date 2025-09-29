@@ -72,7 +72,7 @@ var editing_sel: int = EDIT_SEL.NONE:
 		%ShapeCastPoint.collision_mask = 1 << 7 << to
 		get_tree().call_group(&"editor_addable_object", &"queue_redraw")
 		if to == EDIT_SEL.TILE:
-			%SelectedObjSprite.visible = false
+			%SelectedObjSprite.visible = selected_tile_holder != null && can_draw()
 			selected_object = null
 			selected = []
 			_on_selected_array_change()
@@ -301,6 +301,7 @@ func _input_paint_object() -> void:
 		var new_node = Node2D.new()
 		new_node.name = _node_folder
 		_section_node.add_child(new_node)
+		new_node.owner = Editor.current_level
 	_section_node.get_node(_node_folder).add_child(obj, true)
 	obj.owner = Editor.current_level
 	changes_after_save = true
@@ -324,6 +325,7 @@ func tileset_selected() -> void:
 	_tilemap.tile_set = selected_tileset.tileset
 	_tilemap.name = selected_tileset.name_id
 	tile_parent.add_child(_tilemap)
+	_tilemap.owner = Editor.current_level
 	selected_tile_holder.tilemap = _tilemap
 
 
@@ -459,7 +461,6 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 	Thunder.reorder_top(player)
 	player.global_position = Editor.current_level_properties.player_position
 	
-	## TODO: Idk this doesn't seem to work?
 	for i in _lvl.get_children():
 		i.owner = _lvl
 	
@@ -705,6 +706,7 @@ func _tool_paint() -> void:
 		%SelectedObjDisplay.texture = _sel_obj.editor_icon
 		%SelectedObjControl.visible = true
 		%SelectedObjLabel.text = _sel_obj.name
+		%SelectedObjSprite.offset = Vector2.ZERO
 		#var texsize = %SelectedObjSprite.texture.get_size()
 		#%SelectedObjSprite.offset.x = texsize.x / 2
 		#var size_y = (texsize.y / 2) if texsize.y <= 32 else 16
@@ -720,14 +722,19 @@ func _tool_paint() -> void:
 		if selected_tile_holder.id.x > -1:
 			atlas_texture.region = tile_source.get_tile_texture_region(selected_tile_holder.id)
 			%SelectedObjSprite.texture = atlas_texture
+			%SelectedObjSprite.offset = -Vector2(
+				tile_source.get_tile_data(selected_tile_holder.id, 0).texture_origin
+			)
 		else:
 			%SelectedObjSprite.texture = preload("uid://dxx5wntq6ggux")
+			%SelectedObjSprite.offset = Vector2.ZERO
 		%SelectedObjDisplay.texture = atlas_texture
 		
 	else:
 		%SelectedObjSprite.texture = null
 		%SelectedObjDisplay.texture = null
 		%SelectedObjControl.visible = false
+		%SelectedObjSprite.offset = Vector2.ZERO
 		var _event: String = "Space"
 		for i in InputMap.action_get_events(&"ui_menu_toggle"):
 			if i is InputEventKey:
