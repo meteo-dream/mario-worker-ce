@@ -149,6 +149,8 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 		var tile_texture_region = tile_source.get_tile_texture_region(tile_id)
 		tile_btn.custom_minimum_size = Vector2(tile_texture_region.size) + (Vector2.ONE * 2)
 		tile_btn.set_meta(&"tile_id", tile_id)
+		tile_holder.tiles.append(tile_id)
+		
 		var tile_data: TileData = tile_source.get_tile_data(tile_id, 0)
 		if _terrain == -1 && tile_data.terrain > -1:
 			tile_holder.id = Vector2i(-1, -1)
@@ -160,7 +162,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 			tile_holder.id = tile_btn.get_meta(&"tile_id", 0)
 			tile_holder.terrain = -1
 			tile_holder.terrain_set = -1
-			select_paint(false)
+			Editor.scene.select_paint(category_name, false)
 		)
 		tile_btn.draw.connect(func():
 			tile_btn.draw_texture_rect_region(
@@ -187,7 +189,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 			tile_holder.id = Vector2i(-1, -1)
 			tile_holder.terrain = _terrain
 			tile_holder.terrain_set = _terrain_set
-			select_paint(false)
+			Editor.scene.select_paint(category_name, false)
 		)
 		
 		%ScrollTileContainer.get_child(0).add_child(terrain_btn)
@@ -199,14 +201,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 	
 	Editor.scene.tileset_selected()
 	
-	select_paint(true)
-
-func select_paint(from_menu: bool = true) -> void:
-	Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
-	Editor.scene.editing_sel = LevelEditor._edit_sel_to_enum(category_name)
-	Editor.scene.selected = []
-	Editor.scene._on_selected_array_change()
-	Editor.scene.object_to_paint_selected(from_menu)
+	Editor.scene.select_paint(category_name, true)
 
 
 func _on_grid_container_resized() -> void:

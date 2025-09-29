@@ -166,7 +166,12 @@ func _input(event: InputEvent) -> void:
 		else:
 			%ObjectPickMenu.show()
 			Audio.play_1d_sound(MENU_OPEN, false, { bus = "Editor" })
-		
+	elif event.is_action(&"ui_zoom_in") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
+		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT]:
+			switch_tile_by(-1)
+	elif event.is_action(&"ui_zoom_out") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
+		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT]:
+			switch_tile_by(1)
 	
 	elif event is InputEventMouseButton:
 		if !Editor.is_window_active():
@@ -320,6 +325,30 @@ func tileset_selected() -> void:
 	_tilemap.name = selected_tileset.name_id
 	tile_parent.add_child(_tilemap)
 	selected_tile_holder.tilemap = _tilemap
+
+
+func select_paint(category_name: String, from_menu: bool = true) -> void:
+	tool_mode = TOOL_MODES.PAINT
+	editing_sel = _edit_sel_to_enum(category_name)
+	selected = []
+	_on_selected_array_change()
+	object_to_paint_selected(from_menu)
+
+
+func switch_tile_by(amount: int) -> void:
+	var play_sound: bool
+	match editing_sel:
+		EDIT_SEL.TILE:
+			var tile_index: int = selected_tile_holder.tiles.find(selected_tile_holder.id)
+			var old_index = tile_index
+			tile_index = clampi(tile_index + amount, 0, len(selected_tile_holder.tiles) - 1)
+			if old_index != tile_index:
+				selected_tile_holder.id = selected_tile_holder.tiles[tile_index]
+				play_sound = true
+	
+	if play_sound:
+		Audio.play_1d_sound(preload("uid://daeraa544o204"), false, { bus = "Editor" })
+		tool_mode = TOOL_MODES.PAINT
 
 
 func section_switched(to: int) -> void:
@@ -690,6 +719,9 @@ func _tool_paint() -> void:
 		atlas_texture.atlas = tile_source.texture
 		if selected_tile_holder.id.x > -1:
 			atlas_texture.region = tile_source.get_tile_texture_region(selected_tile_holder.id)
+			%SelectedObjSprite.texture = atlas_texture
+		else:
+			%SelectedObjSprite.texture = preload("uid://dxx5wntq6ggux")
 		%SelectedObjDisplay.texture = atlas_texture
 		
 	else:
@@ -756,14 +788,25 @@ func _tool_list_process() -> void:
 	pass
 
 func _tool_paint_process() -> void:
-	if editing_sel != EDIT_SEL.TILE:
-		%SelectedObjSprite.visible = can_draw() && !%ShapeCast2D.is_colliding()
+	%SelectedObjSprite.visible = can_draw() && !%ShapeCast2D.is_colliding()
+	
+	if Input.is_action_just_pressed(&"ui_editor_1"):
+		switch_tile_by(-1)
+	if Input.is_action_just_pressed(&"ui_editor_2"):
+		switch_tile_by(1)
+	if Input.is_action_just_pressed(&"ui_editor_3"):
+		switch_tile_by(-10)
+	if Input.is_action_just_pressed(&"ui_editor_4"):
+		switch_tile_by(10)
 	
 	if !can_draw():
 		return
 	%SelectedObjSprite.global_position = get_pos_on_grid()
-	if is_instance_valid(selected_object):
+	if editing_sel != EDIT_SEL.TILE && is_instance_valid(selected_object):
 		%SelectedObjSprite.offset = selected_object.offset
+	elif editing_sel == EDIT_SEL.TILE && selected_tile_holder:
+		%SelectedObjSprite.global_position = get_pos_on_grid(true)
+			
 	%SelectedObjSprite.reset_physics_interpolation()
 
 func _tool_pick_process() -> void:
@@ -812,6 +855,7 @@ class TileHolder:
 	var terrain: int = -1
 	var terrain_set: int = -1
 	var alt_tile: int = 0
+	var tiles: Array[Vector2i]
 	var tilemap: TileMapLayer
 
 ## Used to store editor-specific cache data for the current session.
