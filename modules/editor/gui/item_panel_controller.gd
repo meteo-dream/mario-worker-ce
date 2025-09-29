@@ -90,7 +90,7 @@ func load_tileset_items(items: PackedStringArray) -> void:
 		
 		var tileset: TileSet = load(_path.replace(".json", ".tres"))
 		dict.tileset = tileset
-		dict.name_id = i
+		dict.name_id = i.replace(".json", "")
 		dict.sources = []
 		
 		var _fold: FoldableContainer = ITEM_FOLDABLE_CONTAINER.instantiate()

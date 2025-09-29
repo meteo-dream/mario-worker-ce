@@ -224,17 +224,36 @@ func _input_mouse_hold(event: InputEvent) -> void:
 
 
 func _input_paint_tile() -> void:
-	var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
-	if !tile_parent:
-		push_warning("Invalid NodePath: Section%d/tile" % section)
+	#var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
+	if !selected_tile_holder:
+		push_warning("Invalid Tile Holder: Section%d/tile" % section)
 		return
-	var tilemap: TileMapLayer = tile_parent.get_node_or_null("Blocks")
+	var tilemap: TileMapLayer = selected_tile_holder.tilemap
 	if !tilemap: return
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
+		if selected_tile_holder.terrain > -1:
+			tilemap.set_cells_terrain_connect(
+				[tilemap.local_to_map(get_pos_on_grid())],
+				selected_tile_holder.terrain_set,
+				-1
+			)
+		else:
+			tilemap.erase_cell(tilemap.local_to_map(get_pos_on_grid()))
 		changes_after_save = true
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, 0)
+		if selected_tile_holder.terrain > -1:
+			tilemap.set_cells_terrain_connect(
+				[tilemap.local_to_map(get_pos_on_grid())],
+				selected_tile_holder.terrain_set,
+				selected_tile_holder.terrain
+			)
+		else:
+			tilemap.set_cell(
+				tilemap.local_to_map(get_pos_on_grid()),
+				selected_tile_holder.source_id,
+				selected_tile_holder.id,
+				selected_tile_holder.alt_tile
+			)
 		changes_after_save = true
 
 
@@ -292,6 +311,7 @@ func tileset_selected() -> void:
 	_tilemap.tile_set = selected_tileset.tileset
 	_tilemap.name = selected_tileset.name_id
 	tile_parent.add_child(_tilemap)
+	selected_tile_holder.tilemap = _tilemap
 
 
 func section_switched(to: int) -> void:
@@ -745,6 +765,7 @@ class TileHolder:
 	var id: Vector2i
 	var terrain: int = -1
 	var terrain_set: int = -1
+	var alt_tile: int = 0
 	var tilemap: TileMapLayer
 
 ## Used to store editor-specific cache data for the current session.
