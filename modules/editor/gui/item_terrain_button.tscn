@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpm1i7x7lh6i1"]
+
+[ext_resource type="PackedScene" uid="uid://bpj7u7irn0jsk" path="res://modules/editor/gui/item_tile_button.tscn" id="1_xysg5"]
+[ext_resource type="Texture2D" uid="uid://ddt805kpmqy1b" path="res://modules/editor/icons/TerrainConnect.svg" id="2_ayvcd"]
+
+[node name="ItemTerrainButton" instance=ExtResource("1_xysg5")]
+icon = ExtResource("2_ayvcd")
+expand_icon = false

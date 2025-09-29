@@ -6,7 +6,9 @@ func _ready() -> void:
 	Editor.gui = self
 	%SelectMode.button_group.pressed.connect(_on_button_group_pressed)
 	resized.connect(_on_window_resized, CONNECT_DEFERRED)
-	%CloseConfirmationDialog.add_button("Don't Save", false, "dontsave")
+	%CloseConfirmationDialog.add_button("Don't Save", true, "dontsave")
+	Thunder.reorder_bottom(%CloseConfirmationDialog.get_cancel_button())
+	Thunder.reorder_bottom(%CloseConfirmationDialog.get_cancel_button().get_parent().get_child(3))
 	Thunder._connect(%CloseConfirmationDialog.confirmed, _on_save_level_button_pressed.bind(true))
 	Thunder._connect(%CloseConfirmationDialog.custom_action, _on_dontsave)
 	_on_tab_container_tab_selected(%TabContainer.current_tab)
@@ -68,6 +70,7 @@ func _on_button_group_pressed(button: BaseButton) -> void:
 
 func _on_menu_button_item_selected(index: int) -> void:
 	Editor.scene.editing_sel = index
+	Audio.play_1d_sound(Editor.scene.MENU_HOVER, false, { bus = "Editor" })
 
 
 var window_old_size: Vector2i

@@ -1,6 +1,8 @@
 extends Control
 class_name LevelEditor
 
+signal section_switched_to(section_index: int)
+
 const NOTIFICATION = preload("res://modules/editor/gui/notification.tscn")
 const PROP_CONTAINER = preload("res://modules/editor/gui/prop_container.tscn")
 const PROP_CAT_CONTAINER = preload("res://modules/editor/gui/prop_cat_container.tscn")
@@ -12,6 +14,7 @@ const BLOCK_PLACE = preload("uid://bk2fn1h2y7tx5")
 const MENU_CLOSE = preload("uid://d0yeo4ib83isd")
 const MENU_HOVER = preload("uid://cbfl4ck7cximi")
 const MENU_OPEN = preload("uid://c6571aesyyyky")
+const KICK = preload("uid://be3uvqev2c1p6")
 
 const E_PLAYER = preload("uid://dmljul85ysxlp")
 
@@ -80,21 +83,21 @@ var selected_object: Node2D = null:
 			return selected_object
 		return null
 var selected_tileset: Dictionary
-var selected_tile_source_id: int
-var selected_tile_id: Vector2i
+var selected_tile_holder: TileHolder
+var selected: Array[Node2D]
+var section: int = 1
+
 var changes_after_save: bool = false:
 	set(to):
 		changes_after_save = to
 		var _end: String = " (*)" if changes_after_save else ""
 		DisplayServer.window_set_title(ProjectSettings.get_setting("application/config/name") + _end)
 var mouse_blocked: bool
-
-var selected: Array[Node2D]
-var section: int = 1
 var editor_options: Dictionary = {
 	erase_with_rmb = false,
 	use_tile_terrains = true,
 }
+var editor_cache := EditorCacheData.new()
 
 
 func _ready() -> void:
@@ -118,6 +121,7 @@ func _ready() -> void:
 	
 	editing_sel = EDIT_SEL.NONE
 	%ObjectPickMenu.show()
+	section_switched_to.connect(Editor.camera._on_section_switched)
 
 
 func _physics_process(delta: float) -> void:
@@ -169,7 +173,9 @@ func _input(event: InputEvent) -> void:
 		
 		if can_draw():
 			_input_mouse_click(event)
-		
+	
+	if !Editor.current_level:
+		return
 	if event is InputEventMouseMotion || (event is InputEventMouseButton && event.is_pressed()):
 		if can_draw_not_blocked():
 			_input_mouse_hold(event)
@@ -202,18 +208,7 @@ func _input_mouse_hold(event: InputEvent) -> void:
 	if tool_mode == TOOL_MODES.PAINT:
 		if editing_sel == EDIT_SEL.TILE:
 			# WORK IN PROGRESS: Simple tile editing
-			var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
-			if !tile_parent:
-				push_warning("Invalid NodePath: Section%d/tile" % section)
-				return
-			var tilemap: TileMapLayer = tile_parent.get_node_or_null("Blocks")
-			if !tilemap: return
-			if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-				tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
-				changes_after_save = true
-			elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, 0)
-				changes_after_save = true
+			_input_paint_tile()
 			return
 		%SelectedObjSprite.global_position = get_pos_on_grid()
 		%ShapeCast2D.force_shapecast_update()
@@ -221,44 +216,95 @@ func _input_mouse_hold(event: InputEvent) -> void:
 		if %ShapeCast2D.is_colliding():
 			%SelectedObjSprite.visible = false
 			# Erasing the object by RMB
-			if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object:
-				%ShapeCast2D.force_shapecast_update()
-				for i in %ShapeCast2D.get_collision_count():
-					var _col = %ShapeCast2D.get_collider(i)
-					if !_col || !_col.get_parent(): continue
-					_col = _col.get_parent()
-					if _col.get("properties") && !editor_options.erase_with_rmb:
-						# TODO: Properties menu
-						OS.alert("This will open up the properties menu...")
-						break
-					# Check if found object is of the same type as the selected object
-					if editor_options.erase_with_rmb && (
-						_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid")
-					):
-						_col.queue_free()
-						%AudioBlockErase.play()
-						changes_after_save = true
+			_input_paint_object_rmb()
 			return
 		# Painting the object to the level
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
-			if !selected_object is EditorAddableNode2D:
-				printerr("Selected object is invalid")
-				return
-			#if selected_object
-			var obj = selected_object.duplicate()
-			obj.process_mode = Node.PROCESS_MODE_INHERIT
-			obj.global_position = %SelectedObjSprite.global_position
-			var _node_folder = obj.category
-			if !Editor.current_level.get_section(section).has_node(_node_folder):
-				var new_node = Node2D.new()
-				new_node.name = _node_folder
-				Editor.current_level.get_section(section).add_child(new_node)
-			Editor.current_level.get_section(section).get_node(_node_folder).add_child(obj, true)
-			obj.owner = Editor.current_level
+			_input_paint_object()
+
+
+func _input_paint_tile() -> void:
+	var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
+	if !tile_parent:
+		push_warning("Invalid NodePath: Section%d/tile" % section)
+		return
+	var tilemap: TileMapLayer = tile_parent.get_node_or_null("Blocks")
+	if !tilemap: return
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, -1)
+		changes_after_save = true
+	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		tilemap.set_cells_terrain_connect([tilemap.local_to_map(get_pos_on_grid())], 0, 0)
+		changes_after_save = true
+
+
+func _input_paint_object_rmb() -> void:
+	if !(Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object):
+		return
+	%ShapeCast2D.force_shapecast_update()
+	for i in %ShapeCast2D.get_collision_count():
+		var _col = %ShapeCast2D.get_collider(i)
+		if !_col || !_col.get_parent(): continue
+		_col = _col.get_parent()
+		if _col.get("properties") && !editor_options.erase_with_rmb:
+			# TODO: Properties menu
+			OS.alert("This will open up the properties menu...")
+			break
+		# Check if found object is of the same type as the selected object
+		if editor_options.erase_with_rmb && (
+			_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid")
+		):
+			_col.queue_free()
+			%AudioBlockErase.play()
 			changes_after_save = true
-			Audio.play_1d_sound(BLOCK_PLACE, false, { bus = "Editor" })
-			#obj.set_meta(&"nameid", selected_object.get_meta(&"nameid"))
-			obj._prepare_editor()
+
+
+func _input_paint_object() -> void:
+	if !selected_object is EditorAddableNode2D:
+		printerr("Selected object is invalid")
+		return
+	#if selected_object
+	var _section_node = Editor.current_level.get_section(section)
+	var obj = selected_object.duplicate()
+	obj.process_mode = Node.PROCESS_MODE_INHERIT
+	obj.position = %SelectedObjSprite.global_position - _section_node.global_position
+	var _node_folder = obj.category
+	if !_section_node.has_node(_node_folder):
+		var new_node = Node2D.new()
+		new_node.name = _node_folder
+		_section_node.add_child(new_node)
+	_section_node.get_node(_node_folder).add_child(obj, true)
+	obj.owner = Editor.current_level
+	changes_after_save = true
+	Audio.play_1d_sound(BLOCK_PLACE, false, { bus = "Editor" })
+	#obj.set_meta(&"nameid", selected_object.get_meta(&"nameid"))
+	obj._prepare_editor()
+
+
+func tileset_selected() -> void:
+	var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
+	var _tilemap = tile_parent.get_node_or_null(selected_tileset.name_id)
+	if _tilemap:
+		selected_tile_holder.tilemap = _tilemap
+		return
+	_tilemap = TileMapLayer.new()
+	_tilemap.navigation_enabled = false
+	_tilemap.tile_set = selected_tileset.tileset
+	_tilemap.name = selected_tileset.name_id
+	tile_parent.add_child(_tilemap)
+
+
+func section_switched(to: int) -> void:
+	if to < 1 || to > 10: return
+	Audio.play_1d_sound(KICK, true, { bus = "Editor" })
+	editor_cache.section_camera_pos[section] = Editor.camera.global_position
+	section = to
+	var section_node = Editor.current_level.get_section(to)
+	section_switched_to.emit(to)
+	if editor_cache.section_camera_pos.has(to):
+		Editor.camera.global_position = editor_cache.section_camera_pos[to]
+	else:
+		Editor.camera.global_position = section_node.global_position + Vector2(448, 224)
 
 
 func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
@@ -270,12 +316,12 @@ func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
 func can_draw() -> bool:
 	if %ObjectPickMenu.visible:
 		return false
-	var dr2 = %DrawArea2.get_rect()
+	var dr2 = control.get_rect()
 	dr2.size -= 4 * Vector2.ONE
 	dr2 = dr2.abs()
 	return (
 		%DrawArea.get_rect().has_point(%DrawArea.get_local_mouse_position()) &&
-		dr2.has_point(%DrawArea2.get_local_mouse_position()) &&
+		dr2.has_point(control.get_local_mouse_position()) &&
 		!%ZoomLevelButton.get_rect().has_point(%ZoomLevelButton.get_local_mouse_position())
 	)
 
@@ -673,7 +719,7 @@ func _tool_erase_process() -> void:
 			var _sele = %ShapeCastPoint.get_collider(i)
 			if _sele && _sele.has_node(".."):
 				_sele.get_parent().queue_free()
-				%AudioBlockErase.play()
+				Audio.play_1d_sound(KICK, true, { bus = "Editor" })
 				changes_after_save = true
 
 
@@ -691,3 +737,16 @@ static func _edit_sel_to_enum(edit_sel_string: String) -> EDIT_SEL:
 
 func restart() -> void:
 	pass
+
+
+## Used to store what tile is currently selected to draw.
+class TileHolder:
+	var source_id: int
+	var id: Vector2i
+	var terrain: int = -1
+	var terrain_set: int = -1
+	var tilemap: TileMapLayer
+
+## Used to store editor-specific cache data for the current session.
+class EditorCacheData:
+	var section_camera_pos: Dictionary[int, Vector2]

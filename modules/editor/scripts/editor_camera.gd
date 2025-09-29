@@ -1,7 +1,7 @@
 extends Camera2D
 
 var zoom_min := 0.5
-var zoom_max := 4.0
+var zoom_max := 8.0
 const ZOOM_INCREMENT: float = 6
 #const ZOOM_RATE: float = 8.0
 var zoom_speed := 0.1
@@ -14,26 +14,29 @@ var _skip_scroll: bool
 func _ready() -> void:
 	Editor.camera = self
 	make_current()
+	
+
+func _on_section_switched(to) -> void:
+	var section_y: int = Editor.current_level.SECTION_POS_Y_VALUE * (to - 1)
+	limit_left = -640
+	limit_right = 48640
+	limit_top = section_y - 480
+	limit_bottom = section_y + 24480
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if (event.button_mask == MOUSE_BUTTON_MASK_MIDDLE) || (
 			Editor.scene.tool_mode == LevelEditor.TOOL_MODES.PAN && event.button_mask == MOUSE_BUTTON_LEFT
-		): #&& !_skip_scroll:
-			#var rect: Vector2 = get_viewport_rect().size
-			#var rect_pos: Vector2 = get_viewport_rect().position
-			#if event.position.y < 0:
-				#return _wrap_mouse(Vector2(get_viewport().get_mouse_position().x, rect.y))
-			#elif event.position.x < 0:
-				#return _wrap_mouse(Vector2(rect.x, get_viewport().get_mouse_position().y))
-			#elif event.position.y > rect.y:
-				#return _wrap_mouse(Vector2(get_viewport().get_mouse_position().x, rect_pos.y))
-			#elif event.position.x > rect.x:
-				#return _wrap_mouse(Vector2(rect_pos.x, get_viewport().get_mouse_position().y))
+		):
+			position = get_screen_center_position()
 			position -= event.relative / zoom
+			#var center_neg := get_screen_center_position() + Vector2(limit_left, limit_top)
+			#var center_pos := get_screen_center_position()# + Vector2(limit_right, limit_bottom)
+			#position.x = clampf(position.x, limit_left + center_neg.x, limit_right - center_pos.x)
+			#position.y = clampf(position.y, limit_top - center_neg.y, limit_bottom + center_pos.y)
 			reset_physics_interpolation()
-				
-			#if event.screen_relative
+			
 	
 	if !Editor.scene.can_draw():
 		return
@@ -45,20 +48,18 @@ func _input(event: InputEvent) -> void:
 			if ctrl:
 				if !shift:
 					position.y -= 32 / zoom.y
-					reset_physics_interpolation()
 				else:
 					position.x -= 32 / zoom.x
-					reset_physics_interpolation()
+				reset_physics_interpolation()
 			elif !shift:
 				zoom_in()
 		elif event.is_action(&"ui_zoom_out"):
 			if ctrl:
 				if !shift:
 					position.y += 32 / zoom.y
-					reset_physics_interpolation()
 				else:
 					position.x += 32 / zoom.x
-					reset_physics_interpolation()
+				reset_physics_interpolation()
 			elif !shift:
 				zoom_out()
 

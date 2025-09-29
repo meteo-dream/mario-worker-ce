@@ -50,32 +50,67 @@ func _ready() -> void:
 		%ConfigureSnapWindow.hide()
 	)
 
+func _process(delta: float) -> void:
+	queue_redraw()
+	#Editor.camera.draw.connect(queue_redraw)
+
 
 func _draw():
 	if !Editor.camera: return
-	var vp_size: = Vector2.ONE * 16000#get_viewport_rect().size
-	#var cam_pos: = Editor.camera.get_screen_center_position()
+	var vp_size: = get_viewport_rect().size / Editor.camera.zoom / 2
+	var cam_pos: = Editor.camera.get_screen_center_position() + Editor.grid_offset
+	var vp_center = Vector2.ZERO
+	if Editor.current_level_properties.sections[Editor.scene.section].position:
+		vp_center = Editor.current_level_properties.sections[Editor.scene.section].position
 	var vp_right: = vp_size.x# + cam_pos.x + Editor.grid_offset.x
 	var vp_bottom: = vp_size.y# + cam_pos.y + Editor.grid_offset.y
 	
 	if Editor.grid_shown:
-		var leftmost: = -vp_right # + cam_pos.x
-		var topmost: = -vp_bottom # + cam_pos.y
-		
-		var left: float = Editor.grid_offset.x + ceil(leftmost / grid_size.x) * grid_size.x
-		var bottommost: = vp_size.y# + cam_pos.y
-		for x in range(0, (vp_right / grid_size.x) * 2 + 1 + Editor.grid_offset.x):
-			draw_line(Vector2(left, topmost), Vector2(left, bottommost), color)
-			left += grid_size.x
-	#
-		var top: float = Editor.grid_offset.y + ceil(topmost / grid_size.y) * grid_size.y
-		var rightmost: = vp_right# + cam_pos.x
-		for y in range(0, (vp_bottom / grid_size.y) * 2 + 1 + Editor.grid_offset.y):
-			draw_line(Vector2(leftmost, top), Vector2(rightmost, top), color)
-			top += grid_size.y
+		for x in range(
+			int((cam_pos.x - vp_size.x) / grid_size.x) - 1,
+			int((vp_size.x + cam_pos.x) / grid_size.x) + 1
+		):
+			draw_line(
+				Vector2(x * grid_size.x, cam_pos.y + vp_size.y + 1),
+				Vector2(x * grid_size.x, cam_pos.y - vp_size.y - 1), color
+			)
+		for y in range(
+			int((cam_pos.y - vp_size.y) / grid_size.y) - 1,
+			int((vp_size.y + cam_pos.y) / grid_size.y) + 1
+		):
+			draw_line(
+				Vector2(cam_pos.x + vp_size.x + 1, y * grid_size.y),
+				Vector2(cam_pos.x - vp_size.x - 1, y * grid_size.y), color
+			)
+		#return
+		#var leftmost: = -vp_right # + cam_pos.x
+		#var topmost: = -vp_bottom # + cam_pos.y
+		#
+		#var left: float = Editor.grid_offset.x + ceil(leftmost / grid_size.x) * grid_size.x
+		#var bottommost: = vp_size.y# + cam_pos.y
+		#for x in range(0, (vp_right / grid_size.x) * 2 + 1 + Editor.grid_offset.x):
+			#draw_line(Vector2(left, topmost), Vector2(left, bottommost), color)
+			#left += grid_size.x
 	
-	draw_line(Vector2(0, vp_bottom),Vector2(0, -vp_bottom), Color.GREEN - Color(Color.BLACK, 0.2))
-	draw_line(Vector2(vp_right, 0),Vector2(-vp_right, 0), Color.RED - Color(Color.BLACK, 0.2))
+		#var top: float = Editor.grid_offset.y + ceil(topmost / grid_size.y) * grid_size.y
+		#var rightmost: = vp_right# + cam_pos.x
+		#for y in range(0, (vp_bottom / grid_size.y) * 2 + 1 + Editor.grid_offset.y):
+			#draw_line(Vector2(leftmost, top), Vector2(rightmost, top), color)
+			#top += grid_size.y
+	
+	var rect := Rect2(Vector2.ZERO, vp_size).abs()
+	if rect.has_point(Vector2(cam_pos.abs().x, vp_center.y)):
+		draw_line(
+			Vector2(vp_center.x, cam_pos.y + vp_bottom),
+			Vector2(vp_center.x, cam_pos.y - vp_bottom),
+			Color.GREEN - Color(Color.BLACK, 0.2)
+		)
+	if rect.has_point(Vector2(vp_center.x, cam_pos.abs().y)):
+		draw_line(
+			Vector2(cam_pos.x + vp_right, vp_center.y),
+			Vector2(cam_pos.x - vp_right, vp_center.y),
+			Color.RED - Color(Color.BLACK, 0.2)
+		)
 
 
 func _on_grid_button_pressed() -> void:

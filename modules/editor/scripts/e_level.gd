@@ -3,7 +3,7 @@ extends Level
 class_name LevelEdited
 
 const HUD = preload("res://modules/editor/objects/editor-friendly/level_hud.tscn")
-const SECTION_POS_Y_VALUE: float = 24000
+const SECTION_POS_Y_VALUE: int = 32768
 const E_CAM_AREA = preload("uid://dg21ubacsmyiw")
 
 func _ready() -> void:

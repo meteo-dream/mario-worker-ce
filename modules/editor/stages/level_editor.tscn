@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://ct3gjwv0cs6p"]
+[gd_scene load_steps=61 format=3 uid="uid://ct3gjwv0cs6p"]
 
 [ext_resource type="Script" uid="uid://4nevngh00vtd" path="res://modules/editor/stages/level_editor.gd" id="1_mqqp7"]
 [ext_resource type="Script" uid="uid://cwrgji2fg1e83" path="res://modules/editor/scripts/editor_gui.gd" id="3_7ryt0"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://dxwm7h502tkba" path="res://modules/editor/gui/prop_container.tscn" id="22_m6va2"]
 [ext_resource type="Script" uid="uid://ci3vrg26vbf1u" path="res://modules/editor/scripts/editor_grid_selection.gd" id="25_3f3hp"]
 [ext_resource type="Texture2D" uid="uid://dwtn8cky8tb3l" path="res://engine/objects/enemies/goombas/textures/goomba.png" id="26_kscub"]
+[ext_resource type="Script" uid="uid://dotfc1vccwoef" path="res://engine/objects/signs/sign_help_key_formatter.gd" id="27_ahe48"]
 [ext_resource type="Script" uid="uid://dn2ks33ok6x2d" path="res://modules/editor/scripts/editor_grid_extra.gd" id="27_bu24i"]
 [ext_resource type="AudioStream" uid="uid://bsqliwe1f8tmx" path="res://modules/editor/sfx/block_erase.wav" id="31_abl8s"]
 
@@ -133,6 +134,15 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr2b1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.32, 0.32, 0.32, 0.8627451)
+anti_aliasing = false
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_abl8s"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnl2o"]
 atlas = ExtResource("26_kscub")
 region = Rect2(0, 0, 31, 32)
@@ -161,6 +171,8 @@ position = Vector2(448, 224)
 process_callback = 0
 limit_left = -640
 limit_top = -480
+limit_right = 48640
+limit_bottom = 24480
 script = ExtResource("3_vg31g")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." groups=["editor_internal_object"]]
@@ -752,6 +764,7 @@ script = ExtResource("20_fqhjp")
 
 [node name="ObjectPickMenu" type="PanelContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -766,9 +779,13 @@ theme_override_constants/separation = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
+[node name="Control" type="Label" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Category:"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -793,15 +810,27 @@ with right click"
 
 [node name="UseTileTerrains" type="CheckBox" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 tooltip_text = "If enabled, right click erases objects from the level.
 If disabled, right click opens up properties of the object, when available."
 button_pressed = true
 text = "Use Tile Terrains"
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
+[node name="Control2" type="Label" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "%s
+to toggle this menu"
+horizontal_alignment = 1
+vertical_alignment = 2
+script = ExtResource("27_ahe48")
+action = "ui_menu_toggle"
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_abl8s")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer"]
@@ -848,7 +877,7 @@ deselect_enabled = true
 visible = false
 layout_mode = 2
 category_name = "tile"
-buttons_size = 64
+buttons_size = 56
 json_mode = true
 metadata/_tab_index = 0
 
@@ -879,6 +908,47 @@ visible = false
 layout_mode = 2
 category_name = "special"
 metadata/_tab_index = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fr2b1")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/PanelContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
+text = "Level
+Section"
+horizontal_alignment = 1
+
+[node name="SetSection1" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/PanelContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_abl8s")
+text = "1"
+
+[node name="SetSection2" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/PanelContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+toggle_mode = true
+button_group = SubResource("ButtonGroup_abl8s")
+text = "2"
+
+[node name="SetSection3" type="Button" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/PanelContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+toggle_mode = true
+button_group = SubResource("ButtonGroup_abl8s")
+text = "3"
 
 [node name="NotificationBox" type="VBoxContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
@@ -978,3 +1048,6 @@ collide_with_bodies = false
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/LoadButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/ExitButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]
 [connection signal="tab_selected" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" to="CanvasLayer/Control" method="_on_tab_container_tab_selected"]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/PanelContainer/VBoxContainer2/SetSection1" to="." method="section_switched" binds= [1]]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/PanelContainer/VBoxContainer2/SetSection2" to="." method="section_switched" binds= [2]]
+[connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/PanelContainer/VBoxContainer2/SetSection3" to="." method="section_switched" binds= [3]]

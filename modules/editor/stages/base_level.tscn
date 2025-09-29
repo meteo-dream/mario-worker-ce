@@ -8,9 +8,9 @@
 [ext_resource type="Script" uid="uid://bes0uboqshv1l" path="res://modules/editor/classes/resources/SectionProperties.gd" id="5_46p0d"]
 [ext_resource type="Script" uid="uid://cuj30d6nnmpec" path="res://modules/editor/scripts/level_properties.gd" id="5_j2fth"]
 [ext_resource type="Script" uid="uid://cxamgphsmf25s" path="res://modules/editor/scripts/e_player_camera_2d.gd" id="5_ymv0b"]
-[ext_resource type="TileSet" uid="uid://duodk2nyl4k2h" path="res://engine/tilesets/overworld/overworld.tres" id="7_7o84o"]
 [ext_resource type="PackedScene" uid="uid://dmljul85ysxlp" path="res://modules/editor/objects/editor-friendly/e_player.tscn" id="8_dj13d"]
 [ext_resource type="Script" uid="uid://bntvvhyag28nb" path="res://modules/editor/scripts/e_parallax_2d.gd" id="10_46p0d"]
+[ext_resource type="TileSet" uid="uid://egdtsph4hncq" path="res://modules/editor/objects/tile/overworld_default.tres" id="11_46p0d"]
 [ext_resource type="PackedScene" uid="uid://dg21ubacsmyiw" path="res://modules/editor/objects/editor-friendly/e_cam_area.tscn" id="12_46p0d"]
 
 [sub_resource type="Resource" id="Resource_46p0d"]
@@ -71,9 +71,9 @@ centered = false
 
 [node name="tile" type="Node2D" parent="Section1"]
 
-[node name="Blocks" type="TileMapLayer" parent="Section1/tile"]
-tile_map_data = PackedByteArray(0, 0, 2, 0, 13, 0, 0, 0, 3, 0, 3, 0, 0, 0)
-tile_set = ExtResource("7_7o84o")
+[node name="overworld_default" type="TileMapLayer" parent="Section1/tile"]
+tile_map_data = PackedByteArray(0, 0, 2, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("11_46p0d")
 navigation_enabled = false
 
 [node name="scenery" type="Node2D" parent="Section1"]

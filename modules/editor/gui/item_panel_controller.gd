@@ -2,6 +2,7 @@ extends PanelContainer
 
 const ITEM_BUTTON = preload("res://modules/editor/gui/item_button.tscn")
 const ITEM_TILE_BUTTON = preload("uid://bpj7u7irn0jsk")
+const ITEM_TERRAIN_BUTTON = preload("uid://dpm1i7x7lh6i1")
 const SCENES_PATH := "res://modules/editor/objects/"
 const ITEM_FOLDABLE_CONTAINER = preload("uid://dhjqv7n6lq15x")
 
@@ -9,7 +10,7 @@ const ITEM_FOLDABLE_CONTAINER = preload("uid://dhjqv7n6lq15x")
 @export var buttons_size: int = 48
 @export var json_mode: bool = false
 
-@onready var container: VBoxContainer = %VBoxContainer
+@onready var container: GridContainer = %VBoxContainer
 var subcategories: Array[Container]
 
 func _ready() -> void:
@@ -28,7 +29,11 @@ func _ready() -> void:
 			return a.title.naturalnocasecmp_to(b.title) < 0
 		)
 		for i in subcategories:
+			i.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			container.add_child(i)
+		
+		_on_grid_container_resized()
+		container.resized.connect(_on_grid_container_resized)
 
 
 func load_scene_items(items: PackedStringArray):
@@ -122,15 +127,21 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 	Editor.scene.selected_object = null
 	if !tileset_dict: return
 	Editor.scene.selected_tileset = tileset_dict
-	Editor.scene.selected_tile_source_id = source_id
-	var tile_source: TileSetAtlasSource = tileset_dict.tileset.get_source(source_id)
-	Editor.scene.selected_tile_id = tile_source.get_tile_id(0)
+	
+	# Tile Holder to know what tile user selected
+	var tile_holder := LevelEditor.TileHolder.new()
+	tile_holder.source_id = source_id
+	Editor.scene.selected_tile_holder = tile_holder
 	
 	for i in %ScrollTileContainer.get_child(0).get_children():
 		i.queue_free()
 	
 	var _tile_btn_base: Button = ITEM_TILE_BUTTON.instantiate()
 	var tile_btn: Button
+	
+	var _terrain: int = -1
+	var _terrain_set: int = -1
+	var tile_source: TileSetAtlasSource = tileset_dict.tileset.get_source(source_id)
 	for i in tile_source.get_tiles_count():
 		tile_btn = _tile_btn_base.duplicate() if i < tile_source.get_tiles_count() - 1 else _tile_btn_base
 		
@@ -138,10 +149,16 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 		var tile_texture_region = tile_source.get_tile_texture_region(tile_id)
 		tile_btn.custom_minimum_size = Vector2(tile_texture_region.size) + (Vector2.ONE * 2)
 		tile_btn.set_meta(&"tile_id", tile_id)
+		var tile_data: TileData = tile_source.get_tile_data(tile_id, 0)
+		if _terrain == -1 && tile_data.terrain > -1:
+			_terrain = tile_data.terrain
+			_terrain_set = tile_data.terrain_set
 		
 		tile_btn.pressed.connect(func():
-			Editor.scene.selected_tile_source_id = source_id
-			Editor.scene.selected_tile_id = tile_btn.get_meta(&"tile_id", 0)
+			tile_holder.source_id = source_id
+			tile_holder.id = tile_btn.get_meta(&"tile_id", 0)
+			tile_holder.terrain = -1
+			tile_holder.terrain_set = -1
 			select_paint(false)
 		)
 		tile_btn.draw.connect(func():
@@ -159,6 +176,28 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 		
 		%ScrollTileContainer.get_child(0).add_child(tile_btn)
 	
+	if _terrain > -1:
+		tile_holder.terrain = _terrain
+		tile_holder.terrain_set = _terrain_set
+		
+		var terrain_btn: Button = ITEM_TERRAIN_BUTTON.instantiate()
+		terrain_btn.pressed.connect(func():
+			tile_holder.source_id = source_id
+			tile_holder.id = Vector2i(-1, -1)
+			tile_holder.terrain = _terrain
+			tile_holder.terrain_set = _terrain_set
+			select_paint(false)
+		)
+		
+		%ScrollTileContainer.get_child(0).add_child(terrain_btn)
+		Thunder.reorder_top(terrain_btn)
+	else:
+		tile_holder.id = tile_source.get_tile_id(0)
+		tile_holder.terrain = -1
+		tile_holder.terrain_set = -1
+	
+	Editor.scene.tileset_selected()
+	
 	select_paint(true)
 
 func select_paint(from_menu: bool = true) -> void:
@@ -167,3 +206,7 @@ func select_paint(from_menu: bool = true) -> void:
 	Editor.scene.selected = []
 	Editor.scene._on_selected_array_change()
 	Editor.scene.object_to_paint_selected(from_menu)
+
+
+func _on_grid_container_resized() -> void:
+	container.columns = 1 + floori(container.size.x / 768)
