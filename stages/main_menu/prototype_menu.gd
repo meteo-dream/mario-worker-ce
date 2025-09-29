@@ -102,4 +102,4 @@ func _throw_error_on_load(text: String) -> void:
 
 
 func _on_browse_files_pressed() -> void:
-	OS.shell_open("user://User Data/Levels")
+	OS.shell_open(ProjectSettings.globalize_path("user://User Data/Levels"))
