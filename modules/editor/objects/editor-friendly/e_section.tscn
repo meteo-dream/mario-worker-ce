@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://dguegm6pi350a"]
+
+[ext_resource type="Script" uid="uid://bntvvhyag28nb" path="res://modules/editor/scripts/e_parallax_2d.gd" id="1_ewoqm"]
+[ext_resource type="PackedScene" uid="uid://dg21ubacsmyiw" path="res://modules/editor/objects/editor-friendly/e_cam_area.tscn" id="4_t8gt6"]
+
+[sub_resource type="Gradient" id="Gradient_4mqjo"]
+colors = PackedColorArray(0.354, 0.24, 1, 1, 0.952941, 0.952941, 0.952941, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j2fth"]
+gradient = SubResource("Gradient_4mqjo")
+width = 640
+height = 480
+fill_to = Vector2(0, 1)
+
+[node name="Section" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -100
+
+[node name="GradientLayer" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(640, 0)
+repeat_times = 10
+script = ExtResource("1_ewoqm")
+
+[node name="Gradient" type="Sprite2D" parent="Background/GradientLayer"]
+texture = SubResource("GradientTexture2D_j2fth")
+centered = false
+
+[node name="tile" type="Node2D" parent="."]
+
+[node name="scenery" type="Node2D" parent="."]
+
+[node name="bonus" type="Node2D" parent="."]
+
+[node name="misc" type="Node2D" parent="."]
+
+[node name="enemy" type="Node2D" parent="."]
+
+[node name="special" type="Node2D" parent="."]
+
+[node name="CamAreas" type="Node2D" parent="."]
+
+[node name="CamArea" parent="CamAreas" instance=ExtResource("4_t8gt6")]

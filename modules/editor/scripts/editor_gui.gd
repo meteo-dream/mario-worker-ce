@@ -6,7 +6,7 @@ func _ready() -> void:
 	Editor.gui = self
 	%SelectMode.button_group.pressed.connect(_on_button_group_pressed)
 	resized.connect(_on_window_resized, CONNECT_DEFERRED)
-	%CloseConfirmationDialog.add_button("Don't Save", true, "dontsave")
+	%CloseConfirmationDialog.add_button(tr("Don't Save", &"Close confirmation dialog"), true, "dontsave")
 	Thunder.reorder_bottom(%CloseConfirmationDialog.get_cancel_button())
 	Thunder.reorder_bottom(%CloseConfirmationDialog.get_cancel_button().get_parent().get_child(3))
 	Thunder._connect(%CloseConfirmationDialog.confirmed, _on_save_level_button_pressed.bind(true))
@@ -116,7 +116,7 @@ func _on_exit() -> void:
 
 func _on_save_level_button_pressed(exit_after_save: bool = false, forced_dialog: bool = false) -> void:
 	if !Editor.current_level:
-		Editor.scene.notify_error("Save failed.")
+		Editor.scene.notify_error(tr("Save failed."))
 		return
 	#if Editor.level_path.is_empty() || Input.is_action_pressed(&"a_shift"):
 	#	Thunder._connect(%SaveFileDialog.file_selected, _on_save_dialog_confirmed)
@@ -213,3 +213,7 @@ func _on_object_picker_button_pressed() -> void:
 func _on_center_level_button_pressed() -> void:
 	var section_y: int = Editor.current_level.SECTION_POS_Y_VALUE * (Editor.scene.section - 1)
 	Editor.camera.position = Vector2(448, section_y + 224)
+
+
+func _on_erase_with_rmb_toggled(toggled_on: bool) -> void:
+	%EraseSpecificObject.disabled = !toggled_on

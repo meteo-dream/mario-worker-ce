@@ -13,20 +13,32 @@ func _physics_process(delta: float) -> void:
 		last_pos = pos
 
 func _draw() -> void:
+	var tile_picking: bool = (
+		Editor.scene.is_paint_tool() && Input.is_action_pressed(&"a_ctrl")
+	) || Editor.scene.tool_mode == LevelEditor.TOOL_MODES.PICKER
+	var color := Color.ORANGE if !tile_picking else Color.MAGENTA
+	var is_paint_tool: bool = (
+		Editor.scene.is_paint_tool() ||
+		Editor.scene.tool_mode == LevelEditor.TOOL_MODES.PICKER
+	)
 	if (
-		could_draw &&
-		Editor.scene.tool_mode in [LevelEditor.TOOL_MODES.PAINT] &&
+		could_draw && is_paint_tool &&
 		Editor.scene.editing_sel in [LevelEditor.EDIT_SEL.TILE]
 	):
 		var size = Editor.grid_size
 		#var mouse_cursor := get_global_mouse_position()
-		var pos = Editor.scene.get_pos_on_grid(true)
-		draw_rect(Rect2(pos - Vector2.ONE * 16, size), Color.ORANGE, false)
+		var pos = Editor.scene.get_tile_pos_on_grid()
+		draw_rect(Rect2(pos - Vector2.ONE * 16, size), color, false)
+		return
 	
 	if !Editor.grid_shown: return
 	
 	if Editor.scene.tool_mode == LevelEditor.TOOL_MODES.ERASE:
 		var size = Editor.grid_size
 		#var mouse_cursor := get_global_mouse_position()
-		var pos = Editor.scene.get_pos_on_grid()
+		var pos: Vector2
+		if Editor.scene.editing_sel != LevelEditor.EDIT_SEL.TILE:
+			pos = Editor.scene.get_pos_on_grid()
+		else:
+			pos = Editor.scene.get_tile_pos_on_grid()
 		draw_rect(Rect2(pos - Vector2.ONE * 16, size), Color.RED, false)

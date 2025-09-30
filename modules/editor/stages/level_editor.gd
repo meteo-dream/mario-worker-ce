@@ -27,6 +27,7 @@ enum TOOL_MODES {
 	PICKER,
 	RECT,
 	ERASE,
+	LINE,
 }
 
 enum EDIT_SEL {
@@ -63,6 +64,7 @@ var editing_sel: int = EDIT_SEL.NONE:
 		%RotateRight.disabled = editing_sel == EDIT_SEL.NONE
 		%EditingMenuButton.select(editing_sel)
 		%EraseWithRMB.disabled = editing_sel == EDIT_SEL.TILE
+		%EraseSpecificObject.disabled = editing_sel == EDIT_SEL.TILE || !%EraseWithRMB.button_pressed
 		%UseTileTerrains.disabled = editing_sel != EDIT_SEL.TILE
 		if editing_sel == EDIT_SEL.NONE:
 			tool_mode = TOOL_MODES.SELECT
@@ -96,6 +98,7 @@ var changes_after_save: bool = false:
 var mouse_blocked: bool
 var editor_options: Dictionary = {
 	erase_with_rmb = false,
+	erase_specific_object = true,
 	use_tile_terrains = true,
 }
 var editor_cache := EditorCacheData.new()
@@ -143,11 +146,11 @@ func _physics_process(delta: float) -> void:
 		TOOL_MODES.RECT: _tool_rect_process()
 		TOOL_MODES.ERASE: _tool_erase_process()
 	
-	%TargetLabel.text = "Target: %.v" % get_global_mouse_position().round()
-	%CountLabel.text = " Objects: %d, Tilemaps: %d" % [
+	%TargetLabel.text = tr("Target: %.v" % get_global_mouse_position().round())
+	%CountLabel.text = tr(" Objects: %d, Tilemaps: %d" % [
 		get_tree().get_node_count_in_group(&"editor_addable_object"),
 		get_tree().get_node_count_in_group(&"editor_addable_tilemap"),
-	]
+	])
 
 
 func _input(event: InputEvent) -> void:
@@ -159,6 +162,7 @@ func _input(event: InputEvent) -> void:
 				i.queue_free()
 			selected = []
 			_on_selected_array_change()
+			Audio.play_1d_sound(KICK, true, { bus = "Editor" })
 			changes_after_save = true
 	elif event.is_action(&"ui_menu_toggle") && event.is_pressed() && !event.is_echo():
 		if %ObjectPickMenu.visible:
@@ -191,7 +195,14 @@ func _input(event: InputEvent) -> void:
 
 
 func _input_mouse_click(event: InputEventMouseButton) -> void:
-	if tool_mode == TOOL_MODES.SELECT && (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
+	if (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT) && (
+		tool_mode == TOOL_MODES.PICKER || Input.is_action_pressed(&"a_ctrl") && !Input.is_action_pressed(&"a_shift")
+	):
+		var picked: bool = pick_block()
+		if picked:
+			tool_mode = TOOL_MODES.PAINT
+			Audio.play_1d_sound(preload("uid://daeraa544o204"), false, { bus = "Editor" })
+	elif tool_mode == TOOL_MODES.SELECT && (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
 		%SelectedObjSprite.global_position = get_pos_on_grid()
 		%ShapeCastPoint.force_shapecast_update()
 		var col: bool = %ShapeCastPoint.is_colliding()
@@ -214,7 +225,7 @@ func _input_mouse_click(event: InputEventMouseButton) -> void:
 
 
 func _input_mouse_hold(event: InputEvent) -> void:
-	if tool_mode == TOOL_MODES.PAINT:
+	if tool_mode == TOOL_MODES.PAINT && !Input.is_action_pressed(&"a_ctrl"):
 		if editing_sel == EDIT_SEL.TILE:
 			_input_paint_tile(event)
 			return
@@ -280,7 +291,10 @@ func _input_paint_object_rmb() -> void:
 			break
 		# Check if found object is of the same type as the selected object
 		if editor_options.erase_with_rmb && (
-			_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid")
+			(
+				_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid") &&
+				editor_options.erase_specific_object
+			) || !editor_options.erase_specific_object
 		):
 			_col.queue_free()
 			%AudioBlockErase.play()
@@ -318,15 +332,24 @@ func tileset_selected() -> void:
 		if i is TileMapLayer:
 			if len(i.get_used_cells()) == 0:
 				i.queue_free()
-	if _tilemap:
+	if _tilemap && _tilemap.has_meta(&"editor_tileset"):
 		selected_tile_holder.tilemap = _tilemap
 		return
-	_tilemap = E_TILEMAP.instantiate()
-	_tilemap.tile_set = selected_tileset.tileset
-	_tilemap.name = selected_tileset.name_id
-	tile_parent.add_child(_tilemap)
-	_tilemap.owner = Editor.current_level
-	selected_tile_holder.tilemap = _tilemap
+	var old_tiles: PackedByteArray
+	if _tilemap && !_tilemap.has_meta(&"editor_tileset"):
+		old_tiles = _tilemap.tile_map_data
+		_tilemap.free.call_deferred()
+	var _new_tilemap = E_TILEMAP.instantiate()
+	_new_tilemap.tile_set = selected_tileset.tileset
+	_new_tilemap.name = selected_tileset.name_id
+	if old_tiles:
+		_new_tilemap.tile_map_data = old_tiles
+	tile_parent.add_child.call_deferred(_new_tilemap)
+	(func():
+		_new_tilemap.owner = Editor.current_level
+		_new_tilemap.set_meta(&"editor_tileset", Editor.scene.selected_tileset)
+		selected_tile_holder.tilemap = _new_tilemap
+	).call_deferred()
 
 
 func select_paint(category_name: String, from_menu: bool = true) -> void:
@@ -372,6 +395,16 @@ func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
 	var _grid_pos = Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
 	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown || forced_grid else get_global_mouse_position().round() #- Vector2.ONE * 16
 
+func get_tile_pos_on_grid() -> Vector2:
+	var tile_grid = 32
+	var _offset := (Vector2.ONE * 16) + get_sectioned_pos(Vector2.ZERO)
+	return _offset + Vector2(
+		(Editor.current_level.get_section(section).get_local_mouse_position().round() - _offset) / tile_grid
+	).round() * tile_grid
+
+func get_sectioned_pos(pos: Vector2) -> Vector2:
+	return Vector2(0, (section - 1) * LevelEdited.SECTION_POS_Y_VALUE) + pos
+
 func can_draw() -> bool:
 	if %ObjectPickMenu.visible:
 		return false
@@ -404,11 +437,11 @@ func notify(text: String, outline_color: Color = Color(0.505, 1, 0.34)) -> void:
 	__tw.tween_callback(notif.queue_free)
 
 func notify_error(text: String) -> void:
-	text = "Error: " + text
+	text = tr("Error: %s" + text)
 	notify(text, Color.FIREBRICK)
 	
 func notify_warn(text: String) -> void:
-	text = "Warning: " + text
+	text = tr("Warning: %s" % text)
 	notify(text, Color.YELLOW)
 
 
@@ -418,6 +451,7 @@ func object_pick_menu_close() -> void:
 	%ObjectPickMenu.hide()
 	Audio.play_1d_sound(MENU_CLOSE, false, { bus = "Editor" })
 	editor_options.erase_with_rmb = %EraseWithRMB.button_pressed
+	editor_options.erase_specific_object = %EraseSpecificObject.button_pressed
 	editor_options.use_tile_terrains = %UseTileTerrains.button_pressed
 
 
@@ -433,13 +467,13 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 		if %SaveFileDialog.current_path:
 			path = %SaveFileDialog.current_path
 		else:
-			notify_warn("Level was not saved.")
+			notify_warn(tr("Level was not saved."))
 			return false
 	
 	var to_save := PackedScene.new()
 	var _lvl: LevelEdited = Editor.current_level
 	if !_lvl:
-		notify_error("Failed to save level.")
+		notify_error(tr("Failed to save level."))
 		Editor.level_path = ""
 		return false
 	
@@ -468,7 +502,7 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 	
 	var err = to_save.pack(_lvl)
 	if err != OK:
-		notify_error("Save failed: " + error_string(err))
+		notify_error(tr("Save failed: %s" % error_string(err)))
 		player.free()
 		_editor_player.reparent(_lvl)
 		Thunder._current_player = _editor_player
@@ -483,12 +517,12 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 	Thunder._current_player = _editor_player
 	#Thunder._current_player.suit = CharacterManager.get_suit(Thunder._current_player_state.name)
 	if er != OK:
-		notify_error("Save failed: " + error_string(er))
+		notify_error(tr("Save failed: %s" % error_string(er)))
 		Editor.level_path = ""
 		return false
 	changes_after_save = false
 	Editor.level_path = path
-	notify("Level saved!")
+	notify(tr("Level saved!"))
 	return true
 
 
@@ -500,7 +534,7 @@ func load_level(path) -> bool:
 	var res: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
 	#var res = load(path)
 	if !res:
-		notify_error("Failed to load: Data is corrupted")
+		notify_error(tr("Failed to load: Data is corrupted"))
 		Editor.level_path = ""
 		Editor.is_loading = false
 		return false
@@ -511,12 +545,12 @@ func load_level(path) -> bool:
 	
 	var new_level := res.instantiate()
 	if !new_level:
-		notify_error("Failed to load: Scene is corrupted")
+		notify_error(tr("Failed to load: Scene is corrupted"))
 		Editor.level_path = ""
 		Editor.is_loading = false
 		return false
 	if !new_level is LevelEdited:
-		notify_error("This is not a valid level.")
+		notify_error(tr("This is not a valid level."))
 		Editor.level_path = ""
 		Editor.is_loading = false
 		new_level.free.call_deferred()
@@ -531,14 +565,14 @@ func load_level(path) -> bool:
 	var _level_props = new_level.get_node_or_null("LevelProperties")
 	if _level_props && "properties" in _level_props:
 		if _level_props.properties.get("level_major_version") < ProjectSettings.get_setting("application/thunder_settings/major_version", 1):
-			notify_error("Failed to load: Incompatible Version")
+			notify_error(tr("Failed to load: Incompatible Version"))
 			Editor.level_path = ""
 			Editor.is_loading = false
 			new_level.free.call_deferred()
 			return false
 		Editor.current_level_properties = _level_props.properties.duplicate(true)
 	else:
-		notify_error("Failed to load: Missing LevelProperties")
+		notify_error(tr("Failed to load: Missing LevelProperties"))
 		Editor.level_path = ""
 		Editor.is_loading = false
 		new_level.free.call_deferred()
@@ -562,7 +596,9 @@ func load_level(path) -> bool:
 	Editor.is_loading = false
 	Editor.level_path = path
 	changes_after_save = false
-	notify.call_deferred("Level loaded with %d objects!" % get_tree().get_node_count_in_group(&"editor_addable_object"))
+	notify.call_deferred(tr(
+		"Level loaded with %d objects!" % get_tree().get_node_count_in_group(&"editor_addable_object")
+	))
 	return true
 
 
@@ -577,7 +613,7 @@ func deselect_object(obj: Node2D) -> void:
 func _on_selected_array_change() -> void:
 	%EditorGridSelection.queue_redraw()
 	if len(selected) > 1:
-		%ObjectName.text = "%d objects selected" % [selected.size()]
+		%ObjectName.text = tr("%d objects selected" % [selected.size()])
 		var first_meta = selected[0].get_meta(&"nameid")
 		for item in selected:
 			if item.get_meta(&"nameid") != first_meta:
@@ -673,6 +709,51 @@ func object_to_paint_selected(from_menu: bool = false) -> void:
 		object_pick_menu_close()
 
 
+func pick_block() -> bool:
+	
+	if editing_sel != EDIT_SEL.TILE: return false
+	var _tile_pos: Vector2i = get_tile_pos_on_grid() / 32
+	if selected_tile_holder && is_instance_valid(selected_tile_holder.tilemap):
+		var _tile: int = selected_tile_holder.tilemap.get_cell_source_id(_tile_pos)
+		if _tile != -1:
+			selected_tile_holder.id = selected_tile_holder.tilemap.get_cell_atlas_coords(_tile_pos)
+			selected_tile_holder.source_id = _tile
+			selected_tile_holder.alt_tile = selected_tile_holder.tilemap.get_cell_alternative_tile(_tile_pos)
+			selected_tile_holder.terrain = -1
+			selected_tile_holder.terrain_set = -1
+			return true
+	for i in Editor.current_level.get_section(section).get_node("tile").get_children():
+		if !i.has_meta(&"editor_tileset"):
+			continue
+		if i is TileMapLayer && i.get_cell_source_id(_tile_pos) > -1:
+			%TabContainer.get_child(0)._on_editor_tileset_selected(
+				i.get_cell_source_id(_tile_pos), i.get_meta(&"editor_tileset")
+			)
+			#selected_tile_holder = TileHolder.new()
+			#selected_tile_holder.tilemap = i
+			selected_tile_holder.id = i.get_cell_atlas_coords(_tile_pos)
+			#selected_tile_holder.source_id = i.get_cell_source_id(_tile_pos)
+			selected_tile_holder.alt_tile = i.get_cell_alternative_tile(_tile_pos)
+			#selected_tile_holder.tiles = []
+			#var _tileset: TileSet = selected_tile_holder.tilemap.tile_set
+			#var _source = _tileset.get_source(selected_tile_holder.source_id)
+			# #if _tileset.get_terrain_sets_count() > 0:
+			# #	selected_tile_holder.tiles.append(Vector2(-1, -1))
+			#selected_tile_holder.tiles.resize(_source.get_tiles_count())
+			#for j in _source.get_tiles_count():
+				#selected_tile_holder.tiles[j] = _source.get_tile_id(j)
+			#selected_tileset = i.get_meta(&"editor_tileset")
+			return true
+	
+		
+	
+	return false
+
+
+func is_paint_tool() -> bool:
+	return tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT, TOOL_MODES.LINE]
+
+
 ## -- Select tool ready functions --
 func _tool_select() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
@@ -681,7 +762,9 @@ func _tool_select() -> void:
 	%SelectedObjSprite.texture = null
 	%SelectedObjControl.visible = false
 	selected_object = null
-	%SelectedObjLabel.text = "Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple."
+	%SelectedObjLabel.text = tr(
+		"Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple."
+	)
 
 func _tool_pan() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_DRAG)
@@ -689,7 +772,7 @@ func _tool_pan() -> void:
 	#%SelectedObjTexture.texture = null
 	%SelectedObjSprite.texture = null
 	%SelectedObjControl.visible = false
-	%SelectedObjLabel.text = "Panning mode"
+	%SelectedObjLabel.text = tr("Panning mode")
 
 func _tool_list() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_HELP)
@@ -697,7 +780,7 @@ func _tool_list() -> void:
 	#%SelectedObjTexture.texture = null
 	%SelectedObjSprite.texture = null
 	%SelectedObjControl.visible = false
-	%SelectedObjLabel.text = "List mode"
+	%SelectedObjLabel.text = tr("List mode")
 
 func _tool_paint() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
@@ -707,7 +790,7 @@ func _tool_paint() -> void:
 		%SelectedObjSprite.texture = _sel_obj.editor_icon
 		%SelectedObjDisplay.texture = _sel_obj.editor_icon
 		%SelectedObjControl.visible = true
-		%SelectedObjLabel.text = _sel_obj.name
+		%SelectedObjLabel.text = tr("Painting %s" % [_sel_obj.name])
 		%SelectedObjSprite.offset = Vector2.ZERO
 		#var texsize = %SelectedObjSprite.texture.get_size()
 		#%SelectedObjSprite.offset.x = texsize.x / 2
@@ -717,7 +800,7 @@ func _tool_paint() -> void:
 		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
 	elif selected_tile_holder && selected_tileset:
 		%SelectedObjControl.visible = true
-		%SelectedObjLabel.text = "Tileset: %s" % [selected_tileset.name]
+		%SelectedObjLabel.text = tr("Painting Tileset: %s" % [selected_tileset.name])
 		var tile_source: TileSetAtlasSource = selected_tileset.tileset.get_source(selected_tile_holder.source_id)
 		var atlas_texture := AtlasTexture.new()
 		atlas_texture.atlas = tile_source.texture
@@ -742,7 +825,7 @@ func _tool_paint() -> void:
 			if i is InputEventKey:
 				_event = i.as_text().get_slice(' (', 0)
 				break
-		%SelectedObjLabel.text = "Nothing to paint. Press %s to pick an object" % [_event.to_upper()]
+		%SelectedObjLabel.text = tr("Nothing to paint. Press %s to pick an object" % [_event.to_upper()])
 		
 		#%SelectedObjTexture.texture = null
 		selected = []
@@ -752,7 +835,7 @@ func _tool_pick() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%PickMode.button_pressed = true
 	%SelectedObjControl.visible = false
-	%SelectedObjLabel.text = "Pick a tile to clone"
+	%SelectedObjLabel.text = tr("Pick a tile/object to select for drawing")
 	selected = []
 	_on_selected_array_change()
 
@@ -776,7 +859,7 @@ func _tool_erase() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%EraseMode.button_pressed = true
 	%SelectedObjControl.visible = false
-	%SelectedObjLabel.text = "Erasing tiles"
+	%SelectedObjLabel.text = tr("Erase mode")
 	selected = []
 	_on_selected_array_change()
 
@@ -810,12 +893,13 @@ func _tool_paint_process() -> void:
 	
 	if !can_draw():
 		return
+	%SelectedObjSprite.self_modulate.a = 0.0 if Input.is_action_pressed(&"a_ctrl") else 0.5
 	%SelectedObjSprite.global_position = get_pos_on_grid()
 	if editing_sel != EDIT_SEL.TILE && is_instance_valid(selected_object):
 		%SelectedObjSprite.offset = selected_object.offset
 	elif editing_sel == EDIT_SEL.TILE && selected_tile_holder:
-		%SelectedObjSprite.global_position = get_pos_on_grid(true)
-			
+		%SelectedObjSprite.global_position = get_tile_pos_on_grid()
+	
 	%SelectedObjSprite.reset_physics_interpolation()
 
 func _tool_pick_process() -> void:
@@ -829,6 +913,8 @@ func _tool_erase_process() -> void:
 	%SelectedObjTexture.visible = false
 	%SelectedObjSprite.global_position = get_pos_on_grid()
 	%SelectedObjSprite.reset_physics_interpolation()
+	if editing_sel > EDIT_SEL.NONE:
+		%SelectedObjLabel.text = "Erasing: %s Category" % %EditingMenuButton.get_item_text(editing_sel)
 	%ShapeCastPoint.force_shapecast_update()
 	var _col = %ShapeCastPoint.is_colliding()
 	control.set_default_cursor_shape(Control.CURSOR_FORBIDDEN if _col else Control.CURSOR_ARROW)

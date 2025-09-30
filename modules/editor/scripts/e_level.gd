@@ -5,6 +5,7 @@ class_name LevelEdited
 const HUD = preload("res://modules/editor/objects/editor-friendly/level_hud.tscn")
 const SECTION_POS_Y_VALUE: int = 32768
 const E_CAM_AREA = preload("uid://dg21ubacsmyiw")
+const E_SECTION = preload("uid://dguegm6pi350a")
 
 func _ready() -> void:
 	super()
@@ -30,7 +31,7 @@ func get_section(section_index: int) -> Node2D:
 		printerr("no current level properties")
 		return
 	
-	var _new_node := Node2D.new()
+	var _new_node := E_SECTION.instantiate()
 	_new_node.name = "Section%d" % section_index
 	_new_node.position.y = (section_index - 1) * SECTION_POS_Y_VALUE
 	add_child(_new_node)
@@ -41,17 +42,16 @@ func get_section(section_index: int) -> Node2D:
 	)
 	section.position.y = _new_node.global_position.y
 	
-	var _folder := Node2D.new()
-	_folder.name = "Background"
-	_new_node.add_child(_folder)
-	for _cat in ["tile", "scenery", "bonus", "misc", "enemy", "special", "CamAreas"]:
-		var _new_folder = _folder.duplicate()
-		_new_folder.name = _cat
-		_new_node.add_child(_new_folder)
+	#var _folder := Node2D.new()
+	#_folder.name = "Background"
+	#_new_node.add_child(_folder)
+	#for _cat in ["tile", "scenery", "bonus", "misc", "enemy", "special", "CamAreas"]:
+		#var _new_folder = _folder.duplicate()
+		#_new_folder.name = _cat
+		#_new_node.add_child(_new_folder)
 	
-	var cam_area = E_CAM_AREA.instantiate()
-	cam_area.size = Vector2(11008, 480)
-	section.size = cam_area.size
-	_new_node.get_node("CamAreas").add_child(cam_area)
+	#var cam_area = E_CAM_AREA.instantiate()
+	#cam_area.size = Vector2(11008, 480)
+	#section.size = cam_area.size
+	#_new_node.get_node("CamAreas").add_child(cam_area)
 	return _new_node
-	

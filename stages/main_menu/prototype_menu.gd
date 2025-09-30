@@ -27,28 +27,28 @@ func _on_load_file_dialog_file_selected(path: String) -> bool:
 	var res: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
 	#var res = load(path)
 	if !res:
-		_throw_error_on_load("Failed to load: Data is corrupted")
+		_throw_error_on_load(tr("Failed to load: Data is corrupted"))
 		return false
 	var new_level := res.instantiate()
 	if !new_level:
-		_throw_error_on_load("Failed to load: Scene is corrupted")
+		_throw_error_on_load(tr("Failed to load: Scene is corrupted"))
 		return false
 	if !new_level is LevelEdited:
-		_throw_error_on_load("This is not a valid level. See logs at
+		_throw_error_on_load(tr("This is not a valid level. See logs at
 
-" + OS.get_user_data_dir().path_join("logs"))
+%s" % OS.get_user_data_dir().path_join("logs")))
 		new_level.free.call_deferred()
 		return false
 	
 	var _level_props = new_level.get_node_or_null("LevelProperties")
 	if _level_props && "properties" in _level_props:
 		if _level_props.properties.get("level_major_version") < ProjectSettings.get_setting("application/thunder_settings/major_version", 1):
-			_throw_error_on_load("Failed to load: Incompatible Version")
+			_throw_error_on_load(tr("Failed to load: Incompatible Version"))
 			new_level.free.call_deferred()
 			return false
 		Editor.current_level_properties = _level_props.properties.duplicate(true)
 	else:
-		_throw_error_on_load("Failed to load: Missing LevelProperties")
+		_throw_error_on_load(tr("Failed to load: Missing LevelProperties"))
 		new_level.free.call_deferred()
 		return false
 	
