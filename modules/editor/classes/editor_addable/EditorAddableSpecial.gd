@@ -7,6 +7,8 @@ enum PLACE_MODE {
 	ONE_PER_SECTION
 }
 
+var place_mode: PLACE_MODE
+
 
 func _install_icon() -> void:
 	if editor_icon != null: return

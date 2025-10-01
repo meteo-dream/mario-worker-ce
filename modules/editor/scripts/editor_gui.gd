@@ -47,6 +47,7 @@ func show_one_dialog(dialog: Window) -> void:
 func apply_level_properties() -> void:
 	if !Editor.current_level_properties:
 		Editor.current_level_properties = LevelProperties.new()
+	# Main
 	Editor.current_level.time = properties_tabs.time_limit.value
 	Editor.current_level_properties.level_name = properties_tabs.level_name.text
 	Editor.current_level_properties.level_display_name_1 = properties_tabs.display_name_1.text
@@ -55,6 +56,12 @@ func apply_level_properties() -> void:
 	Editor.current_level_properties.level_author = properties_tabs.level_author.text
 	Editor.current_level_properties.level_author_email = properties_tabs.author_email.text
 	Editor.current_level_properties.level_author_website = properties_tabs.author_website.text
+	
+	# Sections
+	var section = Editor.current_level.get_section(Editor.scene.section)
+	var gradient: Gradient = section.get_node("Background/GradientLayer/Gradient").texture.gradient
+	gradient.set_color(0, properties_tabs.gradient_top.color)
+	gradient.set_color(1, properties_tabs.gradient_bottom.color)
 
 
 func _on_button_group_pressed(button: BaseButton) -> void:
@@ -195,6 +202,7 @@ func _on_level_prop_apply_pressed() -> void:
 func _on_level_prop_cancel_pressed() -> void:
 	%LevelProperties.hide()
 	properties_tabs.update_input_values()
+	properties_tabs.update_section_values()
 
 
 func _on_tab_container_tab_selected(tab: int) -> void:

@@ -12,9 +12,11 @@ bg_color = Color(0.17, 0.17, 0.17, 1)
 corner_detail = 1
 
 [sub_resource type="Gradient" id="Gradient_4mqjo"]
+resource_local_to_scene = true
 colors = PackedColorArray(0.354, 0.24, 1, 1, 0.952941, 0.952941, 0.952941, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3dgca"]
+resource_local_to_scene = true
 gradient = SubResource("Gradient_4mqjo")
 width = 100
 height = 100
@@ -27,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 2
+current_tab = 1
 tab_focus_mode = 1
 script = ExtResource("1_3dgca")
 
@@ -195,7 +197,6 @@ emoji_menu_enabled = false
 drag_and_drop_selection_enabled = false
 
 [node name="Background" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rvs6x")
 metadata/_tab_index = 1
@@ -206,18 +207,61 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+[node name="PrimaryGradientContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="GradientTop" type="ColorPickerButton" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer"]
+layout_mode = 2
+text = "Primary
+Gradient"
+horizontal_alignment = 1
+
+[node name="GradientPreviewRect" type="TextureRect" parent="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("GradientTexture2D_3dgca")
+stretch_mode = 2
+
+[node name="GradientPresets" type="MenuButton" parent="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Presets..."
+flat = false
+item_count = 11
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+popup/item_1/text = "Cloudy (1 - 1)"
+popup/item_1/id = 1
+popup/item_2/text = "Cloudless (1 - 3)"
+popup/item_2/id = 2
+popup/item_3/text = " Morning (5 - 1)"
+popup/item_3/id = 3
+popup/item_4/text = "Afternoon (6 - 1)"
+popup/item_4/id = 4
+popup/item_5/text = "Tanks (8 - 2)"
+popup/item_5/id = 5
+popup/item_6/text = "Volcano (BTE 9 - 1)"
+popup/item_6/id = 6
+popup/item_7/text = "Sunset (Syzx 9 - 1)"
+popup/item_7/id = 7
+popup/item_8/text = "Snowland (Syzx 10 - 1)"
+popup/item_8/id = 8
+popup/item_9/text = "After rain (WoS)"
+popup/item_9/id = 9
+popup/item_10/text = "Dusk (Human Lab - 3)"
+popup/item_10/id = 10
+
+[node name="GradientTop" type="ColorPickerButton" parent="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = " "
 color = Color(0.352941, 0.239216, 1, 1)
 edit_alpha = false
 
-[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer/GradientTop"]
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer/GradientTop"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -229,14 +273,15 @@ text = "Top"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GradientBottom" type="ColorPickerButton" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="GradientBottom" type="ColorPickerButton" parent="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = " "
 color = Color(0.952941, 0.952941, 0.952941, 1)
 edit_alpha = false
 
-[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer/GradientBottom"]
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer/GradientBottom"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -248,12 +293,8 @@ text = "Bottom"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Background/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_3dgca")
-stretch_mode = 2
-
 [node name="Dummy" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rvs6x")
 metadata/_tab_index = 2
@@ -263,3 +304,6 @@ layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="Dummy/VBoxContainer"]
 layout_mode = 2
+
+[connection signal="color_changed" from="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer/GradientTop" to="." method="_on_gradient_top_color_changed"]
+[connection signal="color_changed" from="Background/VBoxContainer/HBoxContainer/PrimaryGradientContainer/GradientBottom" to="." method="_on_gradient_bottom_color_changed"]

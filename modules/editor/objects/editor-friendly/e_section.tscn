@@ -4,9 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://dg21ubacsmyiw" path="res://modules/editor/objects/editor-friendly/e_cam_area.tscn" id="4_t8gt6"]
 
 [sub_resource type="Gradient" id="Gradient_4mqjo"]
+resource_local_to_scene = true
 colors = PackedColorArray(0.354, 0.24, 1, 1, 0.952941, 0.952941, 0.952941, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_j2fth"]
+resource_local_to_scene = true
 gradient = SubResource("Gradient_4mqjo")
 width = 640
 height = 480

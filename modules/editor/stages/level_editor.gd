@@ -102,6 +102,7 @@ var changes_after_save: bool = false:
 		var _end: String = " (*)" if changes_after_save else ""
 		DisplayServer.window_set_title(ProjectSettings.get_setting("application/config/name") + _end)
 var mouse_blocked: bool
+var special_object_blocked: bool
 var editor_options: Dictionary = {
 	erase_with_rmb = false,
 	erase_specific_object = true,
@@ -141,6 +142,16 @@ func _physics_process(delta: float) -> void:
 		print("Input unblocked!")
 	#print(Editor.is_window_active())
 	if !Editor.is_window_active(): return
+	
+	%TargetLabel.text = tr("Target: %.v" % get_global_mouse_position().round())
+	%CountLabel.text = tr(" Objects: %d, Tilemaps: %d" % [
+		get_tree().get_node_count_in_group(&"editor_addable_object"),
+		get_tree().get_node_count_in_group(&"editor_addable_tilemap"),
+	])
+	if special_object_blocked:
+		if Input.is_action_just_pressed(&"ui_cancel"):
+			special_object_blocked = false
+	
 	if mouse_blocked: return
 	
 	match tool_mode:
@@ -151,12 +162,6 @@ func _physics_process(delta: float) -> void:
 		TOOL_MODES.PICKER: _tool_pick_process()
 		TOOL_MODES.RECT: _tool_rect_process()
 		TOOL_MODES.ERASE: _tool_erase_process()
-	
-	%TargetLabel.text = tr("Target: %.v" % get_global_mouse_position().round())
-	%CountLabel.text = tr(" Objects: %d, Tilemaps: %d" % [
-		get_tree().get_node_count_in_group(&"editor_addable_object"),
-		get_tree().get_node_count_in_group(&"editor_addable_tilemap"),
-	])
 
 
 func _input(event: InputEvent) -> void:
@@ -170,12 +175,12 @@ func _input(event: InputEvent) -> void:
 			_on_selected_array_change()
 			Audio.play_1d_sound(KICK, true, { bus = "Editor" })
 			changes_after_save = true
-	elif event.is_action(&"ui_menu_toggle") && event.is_pressed() && !event.is_echo():
+	elif event.is_action(&"ui_menu_toggle") && event.is_pressed() && !event.is_echo() && !special_object_blocked:
 		if %ObjectPickMenu.visible:
-			object_pick_menu_close()
+			object_pick_menu_close(false)
 		else:
 			%ObjectPickMenu.show()
-			Audio.play_1d_sound(MENU_OPEN, false, { bus = "Editor" })
+		Audio.play_1d_sound(MENU_OPEN, false, { bus = "Editor" })
 	elif event.is_action(&"ui_zoom_in") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
 		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT]:
 			switch_tile_by(-1)
@@ -400,6 +405,8 @@ func section_switched(to: int) -> void:
 		Editor.camera.global_position = editor_cache.section_camera_pos[to]
 	else:
 		Editor.camera.global_position = section_node.global_position + Vector2(448, 224)
+	Editor.camera.reset_physics_interpolation()
+	%PropertiesTabs.update_section_values()
 
 
 func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
@@ -458,11 +465,12 @@ func notify_warn(text: String) -> void:
 	notify(text, Color.YELLOW)
 
 
-func object_pick_menu_close() -> void:
+func object_pick_menu_close(play_sound: bool = true) -> void:
 	if !%ObjectPickMenu.visible:
 		return
 	%ObjectPickMenu.hide()
-	Audio.play_1d_sound(MENU_CLOSE, false, { bus = "Editor" })
+	if play_sound:
+		Audio.play_1d_sound(MENU_CLOSE, false, { bus = "Editor" })
 	editor_options.erase_with_rmb = %EraseWithRMB.button_pressed
 	editor_options.erase_specific_object = %EraseSpecificObject.button_pressed
 	editor_options.use_tile_terrains = %UseTileTerrains.button_pressed
@@ -601,6 +609,7 @@ func load_level(path) -> bool:
 	#Thunder.reorder_top.call_deferred(new_level)
 	
 	%PropertiesTabs.update_input_values()
+	%PropertiesTabs.update_section_values()
 	
 	if Editor.mode == Editor.MODE.EDITOR:
 		get_tree().call_group_flags(SceneTree.GROUP_CALL_DEFERRED,
