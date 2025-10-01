@@ -38,6 +38,7 @@ enum EDIT_SEL {
 	BONUS,
 	MISC,
 	SPECIAL,
+	MAX
 }
 
 @onready var control: Control = %DrawArea2
@@ -55,21 +56,26 @@ var tool_mode: int:
 			TOOL_MODES.ERASE: _tool_erase()
 var editing_sel: int = EDIT_SEL.NONE:
 	set(to):
+		if editing_sel != to:
+			editor_cache.stored_category_sel[to] = selected_object
+			if editing_sel == EDIT_SEL.TILE:
+				editor_cache.stored_category_tileset = selected_tileset
+				editor_cache.stored_category_tile_holder = selected_tile_holder
 		editing_sel = to
-		%PaintMode.disabled = editing_sel == EDIT_SEL.NONE
-		%PickMode.disabled = editing_sel == EDIT_SEL.NONE
-		%RectMode.disabled = editing_sel == EDIT_SEL.NONE
-		%EraseMode.disabled = editing_sel == EDIT_SEL.NONE
-		%RotateLeft.disabled = editing_sel == EDIT_SEL.NONE
-		%RotateRight.disabled = editing_sel == EDIT_SEL.NONE
-		%EditingMenuButton.select(editing_sel)
-		%EraseWithRMB.disabled = editing_sel == EDIT_SEL.TILE
-		%EraseSpecificObject.disabled = editing_sel == EDIT_SEL.TILE || !%EraseWithRMB.button_pressed
-		%UseTileTerrains.disabled = editing_sel != EDIT_SEL.TILE
-		if editing_sel == EDIT_SEL.NONE:
+		%PaintMode.disabled = to == EDIT_SEL.NONE
+		%PickMode.disabled = to == EDIT_SEL.NONE
+		%RectMode.disabled = to == EDIT_SEL.NONE
+		%EraseMode.disabled = to == EDIT_SEL.NONE
+		%RotateLeft.disabled = to == EDIT_SEL.NONE
+		%RotateRight.disabled = to == EDIT_SEL.NONE
+		%EditingMenuButton.select(to)
+		%EraseWithRMB.disabled = to == EDIT_SEL.TILE
+		%EraseSpecificObject.disabled = to == EDIT_SEL.TILE || !%EraseWithRMB.button_pressed
+		%UseTileTerrains.disabled = to != EDIT_SEL.TILE
+		if to == EDIT_SEL.NONE:
 			tool_mode = TOOL_MODES.SELECT
-		%ScrollPropContainer.visible = !editing_sel in [EDIT_SEL.TILE]
-		%TilePanel.visible = editing_sel in [EDIT_SEL.TILE]
+		%ScrollPropContainer.visible = !to in [EDIT_SEL.TILE]
+		%TilePanel.visible = to in [EDIT_SEL.TILE]
 		%ShapeCast2D.collision_mask = 1 << 7 << to
 		%ShapeCastPoint.collision_mask = 1 << 7 << to
 		get_tree().call_group(&"editor_addable_object", &"queue_redraw")
@@ -176,6 +182,13 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action(&"ui_zoom_out") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
 		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT]:
 			switch_tile_by(1)
+	if event.is_action_pressed(&"ui_drop_player") && Thunder._current_player:
+		var pl := Thunder._current_player
+		if !pl.test_move(
+			Transform2D(pl.transform.x / 2, pl.transform.y / 2, get_global_mouse_position()), Vector2.ZERO, null, 0.08, true
+		):
+			pl.global_position = get_global_mouse_position()
+			pl.reset_physics_interpolation()
 	
 	elif event is InputEventMouseButton:
 		if !Editor.is_window_active():
@@ -956,3 +969,9 @@ class TileHolder:
 ## Used to store editor-specific cache data for the current session.
 class EditorCacheData:
 	var section_camera_pos: Dictionary[int, Vector2]
+	var stored_category_sel: Array[Node2D]
+	var stored_category_tileset: Dictionary
+	var stored_category_tile_holder: TileHolder
+	
+	func _init() -> void:
+		stored_category_sel.resize(EDIT_SEL.MAX)

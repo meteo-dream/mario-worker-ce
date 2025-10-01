@@ -53,3 +53,14 @@ func _prepare_gameplay() -> Node:
 	prints("Game:", instance.name, position)
 	queue_free()
 	return instance
+
+func get_properties() -> PopupMenu:
+	if properties.is_empty(): return null
+	var popup := PopupMenu.new()
+	for key: String in properties.keys():
+		var value = properties[key]
+		if !key:
+			popup.add_separator(value)
+			continue
+		popup.add_item(value)
+	return popup

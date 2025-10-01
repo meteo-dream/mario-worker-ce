@@ -14,6 +14,6 @@ func die(tags: Dictionary = {}, override_behavior: Callable = Callable()) -> voi
 	if Editor.mode != Editor.MODE.EDITOR:
 		super(tags, override_behavior)
 		return
-	global_position.y = 0
+	global_position.y = -get_viewport_transform().origin.y
 	reset_physics_interpolation()
 	speed.y = 0

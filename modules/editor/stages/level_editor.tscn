@@ -693,7 +693,8 @@ theme_override_font_sizes/font_size = 14
 text = "Middle mouse button: Pan
 Alt+Scroll wheel: Zoom
 (Shift+)Ctrl+Scroll wheel: Scroll
-Or use - and + keys"
+...or use - and + keys
+H: drop player at mouse cursor"
 horizontal_alignment = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2"]
