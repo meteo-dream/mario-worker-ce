@@ -9,6 +9,7 @@ const ITEM_FOLDABLE_CONTAINER = preload("uid://dhjqv7n6lq15x")
 @export var category_name: String = ""
 @export var buttons_size: int = 48
 @export var json_mode: bool = false
+@export var descriptions: bool = false
 
 @onready var container: GridContainer = %VBoxContainer
 var subcategories: Array[Container]
@@ -37,6 +38,7 @@ func _ready() -> void:
 
 
 func load_scene_items(items: PackedStringArray):
+	var translated_titles := PackedStringArray(["[%s]" % category_name])
 	for i in items:
 		if !(i.ends_with(".tscn") || i.ends_with(".remap")):
 			continue
@@ -54,27 +56,44 @@ func load_scene_items(items: PackedStringArray):
 		btn.custom_minimum_size = buttons_size * Vector2.ONE
 		# Filtering subcategories
 		var _subcat: Container
+		var subcat_name: String = tr(cached_scene.subcategory)
 		var filtered_arr: Array[Container] = subcategories.filter(func(cont):
-			return cont && cont.title == cached_scene.subcategory
+			return cont && cont.title == subcat_name
 		)
 		if len(filtered_arr) == 0:
 			# Creating new subcategory if doesn't exist
 			var _fold: FoldableContainer = ITEM_FOLDABLE_CONTAINER.instantiate()
-			_fold.title = cached_scene.subcategory
+			_fold.title = subcat_name
+			if OS.is_debug_build():
+				translated_titles.append(cached_scene.subcategory)
 			_subcat = _fold
 			subcategories.append(_fold)
 		else:
 			_subcat = filtered_arr.front()
 		
+		var tooltip_name: String = tr(cached_scene.name)
+		if OS.is_debug_build():
+			translated_titles.append(cached_scene.name)
+		
 		# Adding button to the calculated subcategory
 		_subcat.get_child(0).add_child.call_deferred(btn)
 		btn.add_child.call_deferred(cached_scene)
-		btn.tooltip_text = cached_scene.name
+		btn.tooltip_text = tooltip_name
 		btn.pressed.connect(cached_scene._on_editor_object_selected.bind(category_name), CONNECT_DEFERRED)
 		cached_scene.set_meta(&"nameid", cached_scene.name)
+	
+	if OS.is_debug_build():
+		var file = FileAccess.open("res://locale/object_names_%s.ini" % category_name, FileAccess.WRITE)
+		for i in translated_titles:
+			file.store_string(i + "\n")
+		#for i in translated_source_names:
+		#	file.store_string(i + "\n")
+		file.close()
 
 
 func load_tileset_items(items: PackedStringArray) -> void:
+	var translated_tiles := PackedStringArray(["[%s]" % category_name])
+	var translated_source_names := PackedStringArray([])
 	for i in items:
 		if !i.ends_with(".json"):
 			continue
@@ -94,7 +113,12 @@ func load_tileset_items(items: PackedStringArray) -> void:
 		dict.sources = []
 		
 		var _fold: FoldableContainer = ITEM_FOLDABLE_CONTAINER.instantiate()
-		_fold.title = dict.get_or_add("name")
+		_fold.title = tr(dict.get_or_add("name"))
+		dict.translated_name = _fold.title
+		if OS.is_debug_build():
+			translated_tiles.append(dict.get("name"))
+			if dict.get("source_names"):
+				translated_source_names.append("[%s]" % dict.get("name"))
 		subcategories.append(_fold)
 		
 		for id in tileset.get_source_count():
@@ -107,7 +131,9 @@ func load_tileset_items(items: PackedStringArray) -> void:
 				continue
 			var source_name: String
 			if dict.get("source_names") && dict.source_names is Array && len(dict.source_names) >= id + 1:
-				source_name = dict.source_names[id]
+				source_name = tr(dict.source_names[id])
+				if OS.is_debug_build():
+					translated_source_names.append(dict.source_names[id])
 			
 			dict.sources.append(source_id)
 			var btn: Button = ITEM_BUTTON.instantiate()
@@ -122,6 +148,14 @@ func load_tileset_items(items: PackedStringArray) -> void:
 			_fold.get_child(0).add_child.call_deferred(btn)
 			
 		_fold.set_meta(&"editor_tileset", dict)
+	
+	if OS.is_debug_build():
+		var file = FileAccess.open("res://locale/tileset_names.ini", FileAccess.WRITE)
+		for i in translated_tiles:
+			file.store_string(i + "\n")
+		for i in translated_source_names:
+			file.store_string(i + "\n")
+		file.close()
 
 func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> void:
 	Editor.scene.selected_object = null

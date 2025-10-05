@@ -1,8 +1,9 @@
 [gd_resource type="Theme" format=3 uid="uid://dkk2doj8kmuco"]
 
 [resource]
-Button/colors/font_pressed_color = Color(0.341176, 0.627451, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.5445, 0.78209996, 0.99, 1)
+Button/colors/font_pressed_color = Color(0.3141378, 0.68088657, 0.97858423, 1)
 Button/colors/icon_hover_color = Color(1, 1, 1, 1)
 Button/colors/icon_hover_pressed_color = Color(0.42, 0.671333, 1, 1)
 Button/colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
-Button/colors/icon_pressed_color = Color(0.341176, 0.627451, 1, 1)
+Button/colors/icon_pressed_color = Color(0.44313726, 0.7372549, 0.9882353, 1)

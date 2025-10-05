@@ -7,6 +7,10 @@ func _ready() -> void:
 	SettingsManager.show_mouse()
 	Editor.current_level_properties = null
 	Editor.current_level = null
+	%LangEn.button_pressed = OS.get_locale_language() == "en"
+	%LangRu.button_pressed = OS.get_locale_language() == "ru"
+	%LangTr.button_pressed = OS.get_locale_language() == "tr"
+	%LangPl.button_pressed = OS.get_locale_language() == "pl"
 
 
 func _on_button_pressed() -> void:
@@ -103,3 +107,8 @@ func _throw_error_on_load(text: String) -> void:
 
 func _on_browse_files_pressed() -> void:
 	OS.shell_open(ProjectSettings.globalize_path("user://User Data/Levels"))
+
+
+func _on_lang_toggled(toggled_on: bool, lang_string: String) -> void:
+	if !toggled_on: return
+	TranslationServer.set_locale(lang_string)

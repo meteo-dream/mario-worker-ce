@@ -10,12 +10,6 @@ const PROP_LINEEDIT = preload("res://modules/editor/gui/prop_lineedit.tscn")
 const PROP_CHECKBOX = preload("res://modules/editor/gui/prop_checkbox.tscn")
 const PROP_COLORPICKER = preload("res://modules/editor/gui/prop_colorpicker.tscn")
 
-const BLOCK_PLACE = preload("uid://bk2fn1h2y7tx5")
-const MENU_CLOSE = preload("uid://d0yeo4ib83isd")
-const MENU_HOVER = preload("uid://cbfl4ck7cximi")
-const MENU_OPEN = preload("uid://c6571aesyyyky")
-const KICK = preload("uid://be3uvqev2c1p6")
-
 const E_PLAYER = preload("uid://dmljul85ysxlp")
 const E_TILEMAP = preload("uid://cpkmy1ccyuval")
 
@@ -42,6 +36,7 @@ enum EDIT_SEL {
 }
 
 @onready var control: Control = %DrawArea2
+@onready var selected_obj_sprite: Sprite2D = %SelectedObjSprite
 
 var tool_mode: int:
 	set(to):
@@ -80,7 +75,7 @@ var editing_sel: int = EDIT_SEL.NONE:
 		%ShapeCastPoint.collision_mask = 1 << 7 << to
 		get_tree().call_group(&"editor_addable_object", &"queue_redraw")
 		if to == EDIT_SEL.TILE:
-			%SelectedObjSprite.visible = selected_tile_holder != null && can_draw()
+			selected_obj_sprite.visible = selected_tile_holder != null && can_draw()
 			selected_object = null
 			selected = []
 			_on_selected_array_change()
@@ -109,6 +104,7 @@ var editor_options: Dictionary = {
 	use_tile_terrains = true,
 }
 var editor_cache := EditorCacheData.new()
+var mouse_clicked_once: bool
 
 
 func _ready() -> void:
@@ -140,14 +136,15 @@ func _physics_process(delta: float) -> void:
 	if (m_mask == MOUSE_BUTTON_MASK_LEFT & MOUSE_BUTTON_MASK_RIGHT) && mouse_blocked && Editor.is_window_active():
 		mouse_blocked = false
 		print("Input unblocked!")
+	mouse_clicked_once = false
 	#print(Editor.is_window_active())
 	if !Editor.is_window_active(): return
 	
-	%TargetLabel.text = tr("Target: %.v" % get_global_mouse_position().round())
-	%CountLabel.text = tr(" Objects: %d, Tilemaps: %d" % [
+	%TargetLabel.text = tr("Target: %.v") % get_global_mouse_position().round()
+	%CountLabel.text = tr(" Objects: %d, Tilemaps: %d") % [
 		get_tree().get_node_count_in_group(&"editor_addable_object"),
 		get_tree().get_node_count_in_group(&"editor_addable_tilemap"),
-	])
+	]
 	if special_object_blocked:
 		if Input.is_action_just_pressed(&"ui_cancel"):
 			special_object_blocked = false
@@ -170,17 +167,19 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action(&"a_delete") && event.is_pressed() && !event.is_echo():
 		if tool_mode == TOOL_MODES.SELECT && len(selected) > 0:
 			for i in selected:
+				if i is EditorAddableSpecial && !i.deletable:
+					continue
 				i.queue_free()
 			selected = []
 			_on_selected_array_change()
-			Audio.play_1d_sound(KICK, true, { bus = "Editor" })
+			EditorAudio.kick()
 			changes_after_save = true
 	elif event.is_action(&"ui_menu_toggle") && event.is_pressed() && !event.is_echo() && !special_object_blocked:
 		if %ObjectPickMenu.visible:
 			object_pick_menu_close(false)
 		else:
 			%ObjectPickMenu.show()
-		Audio.play_1d_sound(MENU_OPEN, false, { bus = "Editor" })
+		EditorAudio.menu_open()
 	elif event.is_action(&"ui_zoom_in") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
 		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT]:
 			switch_tile_by(-1)
@@ -201,6 +200,7 @@ func _input(event: InputEvent) -> void:
 			print("Input blocked!")
 			return
 		mouse_blocked = event.is_pressed() && !can_draw()
+		mouse_clicked_once = event.is_pressed()
 		
 		if can_draw():
 			_input_mouse_click(event)
@@ -219,9 +219,9 @@ func _input_mouse_click(event: InputEventMouseButton) -> void:
 		var picked: bool = pick_block()
 		if picked:
 			tool_mode = TOOL_MODES.PAINT
-			Audio.play_1d_sound(preload("uid://daeraa544o204"), false, { bus = "Editor" })
+			EditorAudio.menu_accept()
 	elif tool_mode == TOOL_MODES.SELECT && (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
-		%SelectedObjSprite.global_position = get_pos_on_grid()
+		selected_obj_sprite.global_position = get_pos_on_grid()
 		%ShapeCastPoint.force_shapecast_update()
 		var col: bool = %ShapeCastPoint.is_colliding()
 		if !Input.is_action_pressed(&"a_shift"):
@@ -247,11 +247,11 @@ func _input_mouse_hold(event: InputEvent) -> void:
 		if editing_sel == EDIT_SEL.TILE:
 			_input_paint_tile(event)
 			return
-		%SelectedObjSprite.global_position = get_pos_on_grid()
+		selected_obj_sprite.global_position = get_pos_on_grid()
 		%ShapeCast2D.force_shapecast_update()
 		#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 		if %ShapeCast2D.is_colliding():
-			%SelectedObjSprite.visible = false
+			selected_obj_sprite.visible = false
 			# Erasing the object by RMB
 			_input_paint_object_rmb()
 			return
@@ -280,7 +280,7 @@ func _input_paint_tile(event: InputEvent) -> void:
 		changes_after_save = true
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if event is InputEventMouseButton && event.is_pressed():
-			Audio.play_1d_sound(BLOCK_PLACE, false, { bus = "Editor" })
+			EditorAudio.place_object()
 		if selected_tile_holder.terrain > -1:
 			tilemap.set_cells_terrain_connect([local_pos],
 				selected_tile_holder.terrain_set,
@@ -307,6 +307,8 @@ func _input_paint_object_rmb() -> void:
 			# TODO: Properties menu
 			OS.alert("This will open up the properties menu...")
 			break
+		if _col is EditorAddableSpecial && !_col.deletable:
+			break
 		# Check if found object is of the same type as the selected object
 		if editor_options.erase_with_rmb && (
 			(
@@ -323,23 +325,8 @@ func _input_paint_object() -> void:
 	if !selected_object is EditorAddableNode2D:
 		printerr("Selected object is invalid")
 		return
-	#if selected_object
 	var _section_node = Editor.current_level.get_section(section)
-	var obj = selected_object.duplicate()
-	obj.process_mode = Node.PROCESS_MODE_INHERIT
-	obj.position = %SelectedObjSprite.global_position - _section_node.global_position
-	var _node_folder = obj.category
-	if !_section_node.has_node(_node_folder):
-		var new_node = Node2D.new()
-		new_node.name = _node_folder
-		_section_node.add_child(new_node)
-		new_node.owner = Editor.current_level
-	_section_node.get_node(_node_folder).add_child(obj, true)
-	obj.owner = Editor.current_level
-	changes_after_save = true
-	Audio.play_1d_sound(BLOCK_PLACE, false, { bus = "Editor" })
-	#obj.set_meta(&"nameid", selected_object.get_meta(&"nameid"))
-	obj._prepare_editor()
+	selected_object._paint_object(_section_node, mouse_clicked_once)
 
 
 func tileset_selected() -> void:
@@ -390,13 +377,13 @@ func switch_tile_by(amount: int) -> void:
 				play_sound = true
 	
 	if play_sound:
-		Audio.play_1d_sound(preload("uid://daeraa544o204"), false, { bus = "Editor" })
+		EditorAudio.menu_accept()
 		tool_mode = TOOL_MODES.PAINT
 
 
 func section_switched(to: int) -> void:
 	if to < 1 || to > 10: return
-	Audio.play_1d_sound(KICK, true, { bus = "Editor" })
+	EditorAudio.kick(0)
 	editor_cache.section_camera_pos[section] = Editor.camera.global_position
 	section = to
 	var section_node = Editor.current_level.get_section(to)
@@ -457,11 +444,11 @@ func notify(text: String, outline_color: Color = Color(0.505, 1, 0.34)) -> void:
 	__tw.tween_callback(notif.queue_free)
 
 func notify_error(text: String) -> void:
-	text = tr("Error: %s" + text)
+	text = tr("Error: %s") % text
 	notify(text, Color.FIREBRICK)
 	
 func notify_warn(text: String) -> void:
-	text = tr("Warning: %s" % text)
+	text = tr("Warning: %s") % text
 	notify(text, Color.YELLOW)
 
 
@@ -470,7 +457,7 @@ func object_pick_menu_close(play_sound: bool = true) -> void:
 		return
 	%ObjectPickMenu.hide()
 	if play_sound:
-		Audio.play_1d_sound(MENU_CLOSE, false, { bus = "Editor" })
+		EditorAudio.menu_close()
 	editor_options.erase_with_rmb = %EraseWithRMB.button_pressed
 	editor_options.erase_specific_object = %EraseSpecificObject.button_pressed
 	editor_options.use_tile_terrains = %UseTileTerrains.button_pressed
@@ -523,7 +510,7 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 	
 	var err = to_save.pack(_lvl)
 	if err != OK:
-		notify_error(tr("Save failed: %s" % error_string(err)))
+		notify_error(tr("Save failed: %s") % error_string(err))
 		player.free()
 		_editor_player.reparent(_lvl)
 		Thunder._current_player = _editor_player
@@ -538,7 +525,7 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 	Thunder._current_player = _editor_player
 	#Thunder._current_player.suit = CharacterManager.get_suit(Thunder._current_player_state.name)
 	if er != OK:
-		notify_error(tr("Save failed: %s" % error_string(er)))
+		notify_error(tr("Save failed: %s") % error_string(er))
 		Editor.level_path = ""
 		return false
 	changes_after_save = false
@@ -618,9 +605,9 @@ func load_level(path) -> bool:
 	Editor.is_loading = false
 	Editor.level_path = path
 	changes_after_save = false
-	notify.call_deferred(tr(
-		"Level loaded with %d objects!" % get_tree().get_node_count_in_group(&"editor_addable_object")
-	))
+	notify.call_deferred(tr("Level loaded with %d objects!") % [
+		get_tree().get_node_count_in_group(&"editor_addable_object")
+	])
 	return true
 
 
@@ -635,7 +622,7 @@ func deselect_object(obj: Node2D) -> void:
 func _on_selected_array_change() -> void:
 	%EditorGridSelection.queue_redraw()
 	if len(selected) > 1:
-		%ObjectName.text = tr("%d objects selected" % [selected.size()])
+		%ObjectName.text = tr("%d objects selected") % [selected.size()]
 		var first_meta = selected[0].get_meta(&"nameid")
 		for item in selected:
 			if item.get_meta(&"nameid") != first_meta:
@@ -643,15 +630,15 @@ func _on_selected_array_change() -> void:
 					i.queue_free()
 				break
 	elif len(selected) == 0:
-		%ObjectName.text = ""
+		%ObjectName.text = "" # NO_TRANSLATE
 		for i in %PropListContainer.get_children():
 			i.queue_free()
 	elif len(selected) == 1:
 		for i in %PropListContainer.get_children():
 			i.queue_free()
 		%ObjectName.text = '"%s"' % selected[0].name
-		var prop_list: Array[Dictionary] = selected[0].get_property_list()
-		var wait_for: int = -1
+		#var prop_list: Array[Dictionary] = selected[0].get_property_list()
+		#var wait_for: int = -1
 		#var _inst = load(selected[0].scene_path).instantiate()
 		#var instance_prop_list: Array[Dictionary] = _inst.get_property_list()
 		#for property in instance_prop_list:
@@ -661,50 +648,50 @@ func _on_selected_array_change() -> void:
 			#print(property.usage)
 			#_add_prop(property, _inst)
 			
-		for property in prop_list:
-			var prop_name = property.name
-			if prop_name != "modulate":
-				if wait_for != -1 && property.usage != wait_for:
-					continue
-				else:
-					wait_for = -1
-			if property.usage & PROPERTY_USAGE_CATEGORY && prop_name in ["Node", "CanvasItem"]:
-				wait_for = PROPERTY_USAGE_CATEGORY
-				print("Waiting")
-				if prop_name != "CanvasItem":
-					continue
-			if prop_name.begins_with("global_") || prop_name.begins_with("process_") || prop_name.begins_with("metadata") || property.name in [
-				"rotation", "transform", "script"
-			]:
-				continue
-			
-			if property.usage & PROPERTY_USAGE_INTERNAL || property.usage == 4102:
-				continue
-			if property.usage & PROPERTY_USAGE_CATEGORY:
-				prints("CAT:",property.usage, prop_name)
-				var _prop_cat = PROP_CAT_CONTAINER.instantiate()
-				_prop_cat.custom_minimum_size.y = 21
-				var label: Label = _prop_cat.get_child(0)
-				label.text = prop_name
-				label.add_theme_font_size_override("font_size", 15)
-				%PropListContainer.add_child(_prop_cat)
-				continue
-			if property.usage & PROPERTY_USAGE_GROUP:
-				if prop_name in ["Material", "Texture"]:
-					wait_for = PROPERTY_USAGE_GROUP
-					continue
-				
+		#for property in prop_list:
+			#var prop_name = property.name
+			#if prop_name != "modulate":
+				#if wait_for != -1 && property.usage != wait_for:
+					#continue
+				#else:
+					#wait_for = -1
+			#if property.usage & PROPERTY_USAGE_CATEGORY && prop_name in ["Node", "CanvasItem"]:
+				#wait_for = PROPERTY_USAGE_CATEGORY
+				#print("Waiting")
+				#if prop_name != "CanvasItem":
+					#continue
+			#if prop_name.begins_with("global_") || prop_name.begins_with("process_") || prop_name.begins_with("metadata") || property.name in [
+				#"rotation", "transform", "script"
+			#]:
+				#continue
+			#
+			#if property.usage & PROPERTY_USAGE_INTERNAL || property.usage == 4102:
+				#continue
+			#if property.usage & PROPERTY_USAGE_CATEGORY:
+				#prints("CAT:",property.usage, prop_name)
 				#var _prop_cat = PROP_CAT_CONTAINER.instantiate()
+				#_prop_cat.custom_minimum_size.y = 21
 				#var label: Label = _prop_cat.get_child(0)
 				#label.text = prop_name
-				#label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-				#label.add_theme_color_override("font_color", Color.WHITE)
-				#label.remove_theme_font_override(&"font")
+				#label.add_theme_font_size_override("font_size", 15)
 				#%PropListContainer.add_child(_prop_cat)
-				continue
-			
-			print(property.usage)
-			_add_prop(property, selected[0])
+				#continue
+			#if property.usage & PROPERTY_USAGE_GROUP:
+				#if prop_name in ["Material", "Texture"]:
+					#wait_for = PROPERTY_USAGE_GROUP
+					#continue
+				#
+				# #var _prop_cat = PROP_CAT_CONTAINER.instantiate()
+				# #var label: Label = _prop_cat.get_child(0)
+				# #label.text = prop_name
+				# #label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+				# #label.add_theme_color_override("font_color", Color.WHITE)
+				# #label.remove_theme_font_override(&"font")
+				# #%PropListContainer.add_child(_prop_cat)
+				#continue
+			#
+			#print(property.usage)
+			#_add_prop(property, selected[0])
 
 func _add_prop(property: Dictionary, target) -> void:
 	var prop_value = target.get(property.name)
@@ -781,18 +768,17 @@ func _tool_select() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%SelectMode.button_pressed = true
 	#%SelectedObjTexture.texture = null
-	%SelectedObjSprite.texture = null
+	selected_obj_sprite.texture = null
 	%SelectedObjControl.visible = false
 	selected_object = null
-	%SelectedObjLabel.text = tr(
-		"Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple."
-	)
+	%SelectedObjLabel.text = \
+		tr("Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple.")
 
 func _tool_pan() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_DRAG)
 	%PanMode.button_pressed = true
 	#%SelectedObjTexture.texture = null
-	%SelectedObjSprite.texture = null
+	selected_obj_sprite.texture = null
 	%SelectedObjControl.visible = false
 	%SelectedObjLabel.text = tr("Panning mode")
 
@@ -800,7 +786,7 @@ func _tool_list() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_HELP)
 	%ListMode.button_pressed = true
 	#%SelectedObjTexture.texture = null
-	%SelectedObjSprite.texture = null
+	selected_obj_sprite.texture = null
 	%SelectedObjControl.visible = false
 	%SelectedObjLabel.text = tr("List mode")
 
@@ -809,45 +795,48 @@ func _tool_paint() -> void:
 	%PaintMode.button_pressed = true
 	var _sel_obj = selected_object if is_instance_valid(selected_object) else selected[0] if len(selected) == 1 else null
 	if _sel_obj:
-		%SelectedObjSprite.texture = _sel_obj.editor_icon
+		selected_obj_sprite.texture = _sel_obj.editor_icon
 		%SelectedObjDisplay.texture = _sel_obj.editor_icon
 		%SelectedObjControl.visible = true
-		%SelectedObjLabel.text = tr("Painting %s" % [_sel_obj.name])
-		%SelectedObjSprite.offset = Vector2.ZERO
-		#var texsize = %SelectedObjSprite.texture.get_size()
-		#%SelectedObjSprite.offset.x = texsize.x / 2
+		%SelectedObjLabel.text = tr("Painting %s") % [_sel_obj.name]
+		selected_obj_sprite.offset = Vector2.ZERO
+		#var texsize = selected_obj_sprite.texture.get_size()
+		#selected_obj_sprite.offset.x = texsize.x / 2
 		#var size_y = (texsize.y / 2) if texsize.y <= 32 else 16
 		if !is_instance_valid(selected_object) && len(selected) == 1:
 			selected_object = selected[0]
 		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
 	elif selected_tile_holder && selected_tileset:
 		%SelectedObjControl.visible = true
-		%SelectedObjLabel.text = tr("Painting Tileset: %s" % [selected_tileset.name])
+		%SelectedObjLabel.text = tr("Painting Tileset: %s") % [selected_tileset.translated_name]
 		var tile_source: TileSetAtlasSource = selected_tileset.tileset.get_source(selected_tile_holder.source_id)
 		var atlas_texture := AtlasTexture.new()
 		atlas_texture.atlas = tile_source.texture
 		if selected_tile_holder.id.x > -1:
 			atlas_texture.region = tile_source.get_tile_texture_region(selected_tile_holder.id)
-			%SelectedObjSprite.texture = atlas_texture
-			%SelectedObjSprite.offset = -Vector2(
+			selected_obj_sprite.texture = atlas_texture
+			selected_obj_sprite.offset = -Vector2(
 				tile_source.get_tile_data(selected_tile_holder.id, 0).texture_origin
 			)
 		else:
-			%SelectedObjSprite.texture = preload("uid://dxx5wntq6ggux")
-			%SelectedObjSprite.offset = Vector2.ZERO
+			selected_obj_sprite.texture = preload("uid://dxx5wntq6ggux")
+			selected_obj_sprite.offset = Vector2.ZERO
 		%SelectedObjDisplay.texture = atlas_texture
 		
 	else:
-		%SelectedObjSprite.texture = null
+		selected_obj_sprite.texture = null
 		%SelectedObjDisplay.texture = null
 		%SelectedObjControl.visible = false
-		%SelectedObjSprite.offset = Vector2.ZERO
-		var _event: String = "Space"
+		selected_obj_sprite.offset = Vector2.ZERO
+		var _event: String = tr(&"Space", &"key")
+		var _new_event: String
 		for i in InputMap.action_get_events(&"ui_menu_toggle"):
 			if i is InputEventKey:
-				_event = i.as_text().get_slice(' (', 0)
+				_new_event = i.as_text().get_slice(' (', 0)
 				break
-		%SelectedObjLabel.text = tr("Nothing to paint. Press %s to pick an object" % [_event.to_upper()])
+		# NO_TRANSLATE
+		if _new_event != "Space": _event = _new_event
+		%SelectedObjLabel.text = tr("Nothing to paint. Press %s to pick an object") % [_event.to_upper()]
 		
 		#%SelectedObjTexture.texture = null
 		selected = []
@@ -865,16 +854,16 @@ func _tool_rect() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
 	%RectMode.button_pressed = true
 	if is_instance_valid(selected_object):
-		%SelectedObjSprite.texture = selected_object.editor_icon
+		selected_obj_sprite.texture = selected_object.editor_icon
 		%SelectedObjDisplay.texture = selected_object.editor_icon
 		%SelectedObjControl.visible = true
 		%SelectedObjLabel.text = selected_object.name
 		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
 	else:
-		%SelectedObjSprite.texture = null
+		selected_obj_sprite.texture = null
 		%SelectedObjDisplay.texture = null
 		%SelectedObjControl.visible = false
-		%SelectedObjLabel.text = ""
+		%SelectedObjLabel.text = str("")
 		#%SelectedObjTexture.texture = null
 
 func _tool_erase() -> void:
@@ -888,7 +877,7 @@ func _tool_erase() -> void:
 
 ## -- Select tool process functions --
 func _tool_select_process() -> void:
-	%SelectedObjSprite.global_position = get_pos_on_grid()
+	selected_obj_sprite.global_position = get_pos_on_grid()
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		return
 	%ShapeCastPoint.force_shapecast_update()
@@ -902,7 +891,7 @@ func _tool_list_process() -> void:
 	pass
 
 func _tool_paint_process() -> void:
-	%SelectedObjSprite.visible = can_draw() && !%ShapeCast2D.is_colliding()
+	selected_obj_sprite.visible = can_draw() && !%ShapeCast2D.is_colliding()
 	
 	if Input.is_action_just_pressed(&"ui_editor_1"):
 		switch_tile_by(-1)
@@ -915,14 +904,14 @@ func _tool_paint_process() -> void:
 	
 	if !can_draw():
 		return
-	%SelectedObjSprite.self_modulate.a = 0.0 if Input.is_action_pressed(&"a_ctrl") else 0.5
-	%SelectedObjSprite.global_position = get_pos_on_grid()
+	selected_obj_sprite.self_modulate.a = 0.0 if Input.is_action_pressed(&"a_ctrl") else 0.5
+	selected_obj_sprite.global_position = get_pos_on_grid()
 	if editing_sel != EDIT_SEL.TILE && is_instance_valid(selected_object):
-		%SelectedObjSprite.offset = selected_object.offset
+		selected_obj_sprite.offset = selected_object.offset
 	elif editing_sel == EDIT_SEL.TILE && selected_tile_holder:
-		%SelectedObjSprite.global_position = get_tile_pos_on_grid()
+		selected_obj_sprite.global_position = get_tile_pos_on_grid()
 	
-	%SelectedObjSprite.reset_physics_interpolation()
+	selected_obj_sprite.reset_physics_interpolation()
 
 func _tool_pick_process() -> void:
 	pass
@@ -931,22 +920,29 @@ func _tool_rect_process() -> void:
 	pass
 
 func _tool_erase_process() -> void:
-	%SelectedObjSprite.visible = false
+	selected_obj_sprite.visible = false
 	%SelectedObjTexture.visible = false
-	%SelectedObjSprite.global_position = get_pos_on_grid()
-	%SelectedObjSprite.reset_physics_interpolation()
+	selected_obj_sprite.global_position = get_pos_on_grid()
+	selected_obj_sprite.reset_physics_interpolation()
 	if editing_sel > EDIT_SEL.NONE:
-		%SelectedObjLabel.text = "Erasing: %s Category" % %EditingMenuButton.get_item_text(editing_sel)
+		%SelectedObjLabel.text = tr("Erasing: %s Category") % %EditingMenuButton.get_item_text(editing_sel)
+	if editing_sel == EDIT_SEL.TILE:
+		# TODO: Tile erasing
+		return
 	%ShapeCastPoint.force_shapecast_update()
 	var _col = %ShapeCastPoint.is_colliding()
 	control.set_default_cursor_shape(Control.CURSOR_FORBIDDEN if _col else Control.CURSOR_ARROW)
-	if is_processing_input() && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if can_draw_not_blocked() && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		for i in %ShapeCastPoint.get_collision_count():
 			var _sele = %ShapeCastPoint.get_collider(i)
-			if _sele && _sele.has_node(".."):
-				_sele.get_parent().queue_free()
-				Audio.play_1d_sound(KICK, true, { bus = "Editor" })
-				changes_after_save = true
+			if !_sele || !_sele.has_node(".."): continue
+			var _par = _sele.get_parent()
+			if !_par is EditorAddableNode2D: continue
+			if _par is EditorAddableSpecial && !_par.deletable:
+				continue
+			_par.queue_free()
+			EditorAudio.kick()
+			changes_after_save = true
 
 
 static func _edit_sel_to_enum(edit_sel_string: String) -> EDIT_SEL:

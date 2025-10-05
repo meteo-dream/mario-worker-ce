@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Mario Forever - Thunder Engine"
+config/name="Mario Worker: Community Edition"
 config/tags=PackedStringArray("game", "mario_forever")
 run/main_scene="res://stages/intro/intro.tscn"
 config/use_custom_user_dir=true
@@ -98,7 +98,7 @@ window/subwindows/embed_subwindows=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-openmpt/plugin.cfg")
+enabled=PackedStringArray("res://addons/custom-translation-parser/plugin.cfg", "res://addons/godot-openmpt/plugin.cfg")
 
 [file_customization]
 
@@ -109,10 +109,13 @@ folder_colors={
 
 [filesystem]
 
+import/fbx2gltf/enabled=false
 import/blender/enabled=false
 
 [gui]
 
+common/snap_controls_to_pixels=false
+common/text_edit_undo_stack_max_size=512
 theme/custom="res://modules/editor/editor_theme.tres"
 
 [input]
@@ -326,6 +329,11 @@ ui_drop_player={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://locale/ru.po")
+locale/translations_pot_files=PackedStringArray("res://stages/main_menu/prototype_menu.gd", "res://stages/main_menu/main_menu.tscn", "res://modules/editor/scripts/editor_gui.gd", "res://modules/editor/classes/LevelEditor.gd", "res://modules/editor/stages/level_editor.tscn", "res://modules/editor/scripts/help_key_formatter.gd", "res://modules/editor/gui/levelprop_tab_container.tscn", "res://locale/tileset_names.ini", "res://locale/object_names_special.ini", "res://locale/object_names_scenery.ini", "res://locale/object_names_misc.ini", "res://locale/object_names_enemy.ini", "res://locale/object_names_bonus.ini")
+
 [layer_names]
 
 2d_physics/layer_1="player"
@@ -358,4 +366,3 @@ renderer/rendering_method="mobile"
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 environment/defaults/default_clear_color=Color(0.2, 0.2, 0.2, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
-2d/snap/snap_2d_vertices_to_pixel=true

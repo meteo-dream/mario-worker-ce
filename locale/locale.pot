@@ -1,0 +1,959 @@
+# LANGUAGE translation for Mario Worker: Community Edition for the following files:
+# res://stages/main_menu/prototype_menu.gd
+# res://stages/main_menu/main_menu.tscn
+# res://modules/editor/scripts/editor_gui.gd
+# res://modules/editor/classes/LevelEditor.gd
+# res://modules/editor/stages/level_editor.tscn
+# res://modules/editor/scripts/help_key_formatter.gd
+# res://modules/editor/gui/levelprop_tab_container.tscn
+# res://locale/tileset_names.ini
+# res://locale/object_names_special.ini
+# res://locale/object_names_scenery.ini
+# res://locale/object_names_misc.ini
+# res://locale/object_names_enemy.ini
+# res://locale/object_names_bonus.ini
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Mario Worker: Community Edition\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: stages/main_menu/prototype_menu.gd
+#: modules/editor/classes/LevelEditor.gd
+msgid "Failed to load: Data is corrupted"
+msgstr ""
+
+#: stages/main_menu/prototype_menu.gd
+#: modules/editor/classes/LevelEditor.gd
+msgid "Failed to load: Scene is corrupted"
+msgstr ""
+
+#: stages/main_menu/prototype_menu.gd
+#: modules/editor/classes/LevelEditor.gd
+msgid "Failed to load: Incompatible Version"
+msgstr ""
+
+#: stages/main_menu/prototype_menu.gd
+#: modules/editor/classes/LevelEditor.gd
+msgid "Failed to load: Missing LevelProperties"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid ""
+"this is a public unfinished preview version of the level editor.\n"
+"everything is subject to change. this is not final!\n"
+"levels created in this build will not load in other versions."
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "Go to level editor"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+#: modules/editor/stages/level_editor.tscn
+msgid "Play level"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "Browse level files"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "Enable editor sounds"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "EN"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "RU"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "PL"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "TR"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid ""
+"Mario Worker: Community Edition\n"
+"PRE-ALPHA PROTOTYPE Build 1"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+#: modules/editor/stages/level_editor.tscn
+msgid "Open a File"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+#: modules/editor/stages/level_editor.tscn
+msgid "Open"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+#: modules/editor/stages/level_editor.tscn
+msgid "Level scenes"
+msgstr ""
+
+#: modules/editor/scripts/editor_gui.gd
+msgctxt "Close confirmation dialog"
+msgid "Don't Save"
+msgstr ""
+
+#: modules/editor/scripts/editor_gui.gd
+msgid "Save failed."
+msgstr ""
+
+#: modules/editor/scripts/editor_gui.gd
+msgid "This button is unimplemented for now, use 'Play Level' from the title screen"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Target: %.v"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid " Objects: %d, Tilemaps: %d"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Error: %s"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Warning: %s"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Level was not saved."
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Failed to save level."
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Save failed: %s"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Level saved!"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "This is not a valid level."
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Level loaded with %d objects!"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "%d objects selected"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid ""
+"Left click an object to select it.\n"
+"Right click to display its properties.\n"
+"Click with Shift for multiple."
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Panning mode"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "List mode"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Painting %s"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Painting Tileset: %s"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgctxt "key"
+msgid "Space"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Space"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Nothing to paint. Press %s to pick an object"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Pick a tile/object to select for drawing"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Erase mode"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Erasing: %s Category"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Selection Tool"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Pan Tool"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Show list of selectable nodes at position clicked."
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Pain Tool"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Rectangle Paint Tool"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Picker Tool"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Eraser Tool"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Rotate Object Left"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Rotate Object Right"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Show Grid"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Configure Snap"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Grid Offset:"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Grid Step:"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "OK"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Cancel"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Editing: "
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "None"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Tiles"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Decoration"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Enemies"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Items"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Misc."
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Special"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Save level and live-test through editor.\n"
+"Any changes made during live-testing will be aborted!"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Stop live-testing and go back to editing"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Open object picker and level properties"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Level Properties"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Apply"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Load level"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Save level. Click with Shift to save elsewhere"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Close editor and exit to main menu"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Save"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Warning: You have unsaved changes.\n"
+"Save before quitting?"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Middle mouse button: Pan\n"
+"Alt+Scroll wheel: Zoom\n"
+"(Shift+)Ctrl+Scroll wheel: Scroll\n"
+"...or use - and + keys\n"
+"H: drop player at mouse cursor"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Placeholder"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Center View"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "%.1f %%"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Category:"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Editor Settings:"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"If enabled, right click erases objects from the level.\n"
+"If disabled, right click opens up properties of the object, when available."
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Erase objects\n"
+"with right click"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Right click erases\n"
+"only same object"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Use Tile Terrains"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"%s\n"
+"to toggle this menu"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Save As..."
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Test Level"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Load Level"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Exit"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Misc"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Level\n"
+"Section"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "1"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "2"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid "3"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "keyboard buttons"
+msgid "Unknown"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Enter"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Tab"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Backspace"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Slash"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Backslash"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Colon"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Semicolon"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Shift"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Less"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Equal"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Greater"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Minus"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Asterisk"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Left"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Up"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Down"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Right"
+msgstr ""
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "e.g. Space button"
+msgid "%s button"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Main"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Time Limit:"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Display Name:"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "LINE 1"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "LINE 2"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Level Name:"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Description:"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Level Author:"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Author E-mail:"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Author Website:"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Background"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid ""
+"Primary\n"
+"Gradient"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Presets..."
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Default"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Cloudy (1 - 1)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Cloudless (1 - 3)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid " Morning (5 - 1)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Afternoon (6 - 1)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Tanks (8 - 2)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Volcano (BTE 9 - 1)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Sunset (Syzx 9 - 1)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Snowland (Syzx 10 - 1)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "After rain (WoS)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Dusk (Human Lab - 3)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Top"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Bottom"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Dummy"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "tile"
+msgid "Castle"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Hazard Launcher Supporting Tiles"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Overworld Default"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Pipes"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Rockland"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Starland"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Tanks"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Underground"
+msgstr ""
+
+#: locale/tileset_names.ini
+#: locale/object_names_enemy.ini
+msgid "Underwater"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Castle"
+msgid "Castle Bricks"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Solid Platform Gray"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Castle Ground"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Overworld Default"
+msgid "Hard Block Brown"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Overworld Ground"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Overworld Ground Slopes"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Pipes"
+msgid "Green Pipe"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Purple Pipe"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Gray Pipe"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Gray Pipe with Dots"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "White Pipe"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Yellow Pipe"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Orange Pipe"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Red Pipe"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Rockland"
+msgid "Cloud Tile"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Solid Platforms (bridge)"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Solid Rock Platforms"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Starland"
+msgid "Starland Ground"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "I will remove this"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Tanks"
+msgid "Tank Tileset Default"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Underground"
+msgid "Hard Block Blue"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Underground Ground"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Underwater"
+msgid "Underwater Block"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Underwater Sand"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgid "Coral Red"
+msgstr ""
+
+#: locale/object_names_special.ini
+msgctxt "special"
+msgid "Essentials"
+msgstr ""
+
+#: locale/object_names_special.ini
+msgid "Player Start Position"
+msgstr ""
+
+#: locale/object_names_misc.ini
+msgctxt "misc"
+msgid "Other"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgctxt "enemy"
+msgid "Other"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Other"
+msgstr ""
+
+#: locale/object_names_misc.ini
+msgid "Springboard"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Fire Bros"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Hammer Bros"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Buzzy Beetle"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Dry Bones"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Electric Coral"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Hazard"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Firebar"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Cheep Cheep (Blue)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Cheep Cheep (Green)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Cheep Cheep (Red)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Cheep Cheep (Yellow)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Goomba"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Troopas"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Blue"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Green"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Red"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Yellow"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Lakitu"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Lakitu (Dark)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Lakitu (Hardcore Worlds)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Paratroopa Blue"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Paratroopa Green"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Paratroopa Red"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plants"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Blue)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Fireball)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Red, Fireball)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Gray)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Iceball)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Red)"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Spiny Red"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Spiny Gray"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Spiny Green"
+msgstr ""
+
+#: locale/object_names_enemy.ini
+msgid "Thwomp"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgctxt "bonus"
+msgid "Containers"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Brick"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Coin"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Question Block"
+msgstr ""

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://coixrwl58swny"]
+[gd_scene load_steps=3 format=3 uid="uid://coixrwl58swny"]
 
 [ext_resource type="Script" uid="uid://78hf1m1sryup" path="res://stages/main_menu/prototype_menu.gd" id="1_phs36"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_phs36"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -64,6 +66,35 @@ layout_mode = 2
 button_pressed = true
 text = "Enable editor sounds"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LangEn" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+button_group = SubResource("ButtonGroup_phs36")
+text = "EN"
+
+[node name="LangRu" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+button_group = SubResource("ButtonGroup_phs36")
+text = "RU"
+
+[node name="LangPl" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+button_group = SubResource("ButtonGroup_phs36")
+text = "PL"
+
+[node name="LangTr" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+button_group = SubResource("ButtonGroup_phs36")
+text = "TR"
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 10
@@ -95,5 +126,9 @@ recent_list_enabled = false
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Testlevel" to="." method="_on_test_level_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/BrowseFiles" to="." method="_on_browse_files_pressed"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LangEn" to="." method="_on_lang_toggled" binds= ["en"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LangRu" to="." method="_on_lang_toggled" binds= ["ru"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LangPl" to="." method="_on_lang_toggled" binds= ["pl"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LangTr" to="." method="_on_lang_toggled" binds= ["tr"]]
 [connection signal="canceled" from="LoadFileDialog" to="LoadFileDialog" method="hide"]
 [connection signal="file_selected" from="LoadFileDialog" to="." method="_on_load_file_dialog_file_selected"]

@@ -5,8 +5,8 @@ extends Node2D
 @export_enum("tile", "scenery", "enemy", "bonus", "misc", "special") var category: String
 @export var subcategory: String = "Other"
 @export var offset: Vector2
-@export var instance_offset: Vector2
 @export var editor_icon: Texture2D
+@export_multiline var text_description: String
 
 var _editor_icon: Texture2D
 var _editor_ready: bool
@@ -61,14 +61,26 @@ func _prepare_editor(is_new: bool = true) -> void:
 	_area.add_child(_col)
 	
 	_editor_ready = true
-	_area.mouse_entered.connect(func():
-		queue_redraw()
-	)
 	queue_redraw()
 	
 	prints(name, global_position)
 
 @abstract func _prepare_gameplay() -> Node
+
+func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> void:
+	var obj = Editor.scene.selected_object.duplicate()
+	obj.process_mode = Node.PROCESS_MODE_INHERIT
+	obj.position = Editor.scene.selected_obj_sprite.global_position - _section_node.global_position
+	var _node_folder = obj.category
+	if !_section_node.has_node(_node_folder):
+		printerr("Section %d: Node %s doesn't exist" % [Editor.scene.section, obj.category])
+		return
+	_section_node.get_node(_node_folder).add_child(obj, true)
+	obj.owner = Editor.current_level
+	Editor.scene.changes_after_save = true
+	EditorAudio.place_object()
+	obj._prepare_editor(true)
+
 
 func _draw() -> void:
 	if Editor.mode != Editor.MODE.EDITOR || !_editor_ready: return
@@ -76,4 +88,5 @@ func _draw() -> void:
 		return
 	var _rect: Rect2 = _shape.get_rect()
 	_rect.position -= offset
-	draw_rect(_rect, Color.RED - Color(0, 0, 0, 0.5))
+	var _modulate: float = 0.5
+	draw_rect(_rect, Color.RED - Color(0, 0, 0, _modulate))

@@ -4,6 +4,7 @@ extends EditorAddableNode2D
 @export_file("*.tscn", "*.scn") var scene_path: String
 @export var properties: Dictionary[String, Variant]
 @export var internal_settings: Dictionary[String, Variant]
+@export var instance_offset: Vector2
 
 @onready var scene: PackedScene = load(scene_path)
 

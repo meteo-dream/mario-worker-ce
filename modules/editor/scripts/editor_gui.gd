@@ -77,7 +77,7 @@ func _on_button_group_pressed(button: BaseButton) -> void:
 
 func _on_menu_button_item_selected(index: int) -> void:
 	Editor.scene.editing_sel = index
-	Audio.play_1d_sound(Editor.scene.MENU_HOVER, false, { bus = "Editor" })
+	EditorAudio.menu_hover()
 
 
 var window_old_size: Vector2i
@@ -149,7 +149,7 @@ func _on_load_dialog_confirmed(path: String) -> void:
 	Editor.scene.load_level.call_deferred(path)
 
 func _on_play_level_button_pressed() -> void:
-	OS.alert("This button is unimplemented for now, use 'Play Level' from the title screen")
+	OS.alert(tr("This button is unimplemented for now, use 'Play Level' from the title screen"))
 
 
 func _on_play_button_pressed() -> void:
@@ -208,19 +208,20 @@ func _on_level_prop_cancel_pressed() -> void:
 func _on_tab_container_tab_selected(tab: int) -> void:
 	tab += 1
 	(func():
-		Audio.play_1d_sound(Editor.scene.MENU_HOVER, true, { bus = "Editor" })
+		EditorAudio.menu_hover()
 		Editor.scene.editing_sel = tab
 	).call_deferred()
 
 
 func _on_object_picker_button_pressed() -> void:
 	%ObjectPickMenu.show()
-	Audio.play_1d_sound(Editor.scene.MENU_OPEN, false, { bus = "Editor" })
+	EditorAudio.menu_open()
 
 
 func _on_center_level_button_pressed() -> void:
 	var section_y: int = Editor.current_level.SECTION_POS_Y_VALUE * (Editor.scene.section - 1)
 	Editor.camera.position = Vector2(448, section_y + 224)
+	Editor.camera.reset_physics_interpolation()
 
 
 func _on_erase_with_rmb_toggled(toggled_on: bool) -> void:

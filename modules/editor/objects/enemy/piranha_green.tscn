@@ -5,7 +5,7 @@
 [node name="Piranha Plant" type="Node2D"]
 script = ExtResource("1_rw2nm")
 scene_path = "res://engine/objects/enemies/piranha_plants/piranha_green.tscn"
+instance_offset = Vector2(0, 24)
 category = "enemy"
 subcategory = "Piranha Plants"
 offset = Vector2(16, -8)
-instance_offset = Vector2(0, 24)

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://df20s3mul5qb2"]
+
+[ext_resource type="Script" uid="uid://cnuiy7eced6jc" path="res://modules/editor/objects/special/player_start_position.gd" id="1_ypoer"]
+[ext_resource type="Texture2D" uid="uid://m12e2i1c63er" path="res://modules/editor/gfx/misc/player_start_position.png" id="2_8re6o"]
+
+[node name="Player Start Position" type="Node2D"]
+script = ExtResource("1_ypoer")
+place_mode = 1
+group_name = &"editor_player_position"
+deletable = false
+category = "special"
+subcategory = "Essentials"
+offset = Vector2(0, -14)
+editor_icon = ExtResource("2_8re6o")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=61 format=3 uid="uid://ct3gjwv0cs6p"]
 
-[ext_resource type="Script" uid="uid://4nevngh00vtd" path="res://modules/editor/stages/level_editor.gd" id="1_mqqp7"]
+[ext_resource type="Script" uid="uid://4nevngh00vtd" path="res://modules/editor/classes/LevelEditor.gd" id="1_mqqp7"]
 [ext_resource type="Script" uid="uid://cwrgji2fg1e83" path="res://modules/editor/scripts/editor_gui.gd" id="3_7ryt0"]
 [ext_resource type="Script" uid="uid://ce63c8dlebnst" path="res://modules/editor/scripts/editor_camera.gd" id="3_vg31g"]
 [ext_resource type="Texture2D" uid="uid://ddw2q8jqs2kl0" path="res://modules/editor/icons/ToolSelect.svg" id="4_ecd51"]
@@ -30,8 +30,8 @@
 [ext_resource type="Script" uid="uid://ci3vrg26vbf1u" path="res://modules/editor/scripts/editor_grid_selection.gd" id="25_3f3hp"]
 [ext_resource type="Texture2D" uid="uid://bv0fkrj5htkny" path="res://modules/editor/icons/CenterView.svg" id="26_ahe48"]
 [ext_resource type="Texture2D" uid="uid://dwtn8cky8tb3l" path="res://engine/objects/enemies/goombas/textures/goomba.png" id="26_kscub"]
-[ext_resource type="Script" uid="uid://dotfc1vccwoef" path="res://engine/objects/signs/sign_help_key_formatter.gd" id="27_ahe48"]
 [ext_resource type="Script" uid="uid://dn2ks33ok6x2d" path="res://modules/editor/scripts/editor_grid_extra.gd" id="27_bu24i"]
+[ext_resource type="Script" uid="uid://bjaiftk3vmmkl" path="res://modules/editor/scripts/help_key_formatter.gd" id="28_ahe48"]
 [ext_resource type="AudioStream" uid="uid://bsqliwe1f8tmx" path="res://modules/editor/sfx/block_erase.wav" id="31_abl8s"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_67k7q"]
@@ -143,7 +143,7 @@ corner_detail = 5
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
-bg_color = Color(0.32, 0.32, 0.32, 0.8627451)
+bg_color = Color(0.25882354, 0.25882354, 0.25882354, 0.8352941)
 anti_aliasing = false
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_abl8s"]
@@ -491,12 +491,10 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
-text = " Objects:"
 
 [node name="TargetLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Target: %s"
 
 [node name="VSeparator3" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 layout_mode = 2
@@ -754,7 +752,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0.69803923)
 theme_override_constants/line_spacing = -1
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 16
-text = "Text"
+text = "Placeholder"
 vertical_alignment = 2
 autowrap_mode = 3
 
@@ -854,7 +852,6 @@ script = ExtResource("20_fqhjp")
 
 [node name="ObjectPickMenu" type="PanelContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -924,7 +921,7 @@ text = "%s
 to toggle this menu"
 horizontal_alignment = 1
 vertical_alignment = 2
-script = ExtResource("27_ahe48")
+script = ExtResource("28_ahe48")
 action = "ui_menu_toggle"
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
@@ -972,7 +969,7 @@ current_tab = 0
 tab_focus_mode = 1
 deselect_enabled = true
 
-[node name="Tile" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+[node name="Tiles" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
 layout_mode = 2
 category_name = "tile"
 buttons_size = 56
@@ -985,12 +982,12 @@ layout_mode = 2
 category_name = "scenery"
 metadata/_tab_index = 1
 
-[node name="Enemy" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+[node name="Enemies" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
 visible = false
 layout_mode = 2
 category_name = "enemy"
 
-[node name="Item" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
+[node name="Items" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/TabContainer" instance=ExtResource("21_ho4cg")]
 visible = false
 layout_mode = 2
 category_name = "bonus"
