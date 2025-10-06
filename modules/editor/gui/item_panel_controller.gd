@@ -35,10 +35,24 @@ func _ready() -> void:
 		
 		_on_grid_container_resized()
 		container.resized.connect(_on_grid_container_resized)
+		
+		(func():
+			for i in subcategories:
+				if i.get_child(0).get_child_count() == 0:
+					i.queue_free()
+					prints("Removed empty subcat", i.name)
+					continue
+		).call_deferred()
 
 
 func load_scene_items(items: PackedStringArray):
 	var translated_titles := PackedStringArray(["[%s]" % category_name])
+	var _translation_context_fix: String = category_name
+	#var _other_subcat: FoldableContainer = ITEM_FOLDABLE_CONTAINER.instantiate()
+	# NO_TRANSLATION
+	#_other_subcat.title = tr(&"Other", category_name)
+	#subcategories.append(_other_subcat)
+	var _first_subcat: String
 	for i in items:
 		if !(i.ends_with(".tscn") || i.ends_with(".remap")):
 			continue
@@ -57,6 +71,10 @@ func load_scene_items(items: PackedStringArray):
 		# Filtering subcategories
 		var _subcat: Container
 		var subcat_name: String = tr(cached_scene.subcategory)
+		if !_first_subcat:
+			_first_subcat = cached_scene.subcategory
+		if _first_subcat && cached_scene.subcategory == _first_subcat:
+			subcat_name = tr(cached_scene.subcategory, category_name)
 		var filtered_arr: Array[Container] = subcategories.filter(func(cont):
 			return cont && cont.title == subcat_name
 		)
@@ -95,6 +113,7 @@ func load_scene_items(items: PackedStringArray):
 func load_tileset_items(items: PackedStringArray) -> void:
 	var translated_tiles := PackedStringArray(["[%s]" % category_name])
 	var translated_source_names := PackedStringArray([])
+	var _translation_context_fix: String = category_name
 	for i in items:
 		if !i.ends_with(".json"):
 			continue
@@ -114,12 +133,16 @@ func load_tileset_items(items: PackedStringArray) -> void:
 		dict.sources = []
 		
 		var _fold: FoldableContainer = ITEM_FOLDABLE_CONTAINER.instantiate()
-		_fold.title = tr(dict.get_or_add("name"))
+		_fold.title = tr(dict.get_or_add("name"), _translation_context_fix)
+		_translation_context_fix = ""
 		dict.translated_name = _fold.title
+		var _translation_msgc: String
 		if OS.is_debug_build():
 			translated_tiles.append(dict.get("name"))
-			if dict.get("source_names"):
+		if dict.get("source_names"):
+			if OS.is_debug_build():
 				translated_source_names.append("[%s]" % dict.get("name"))
+			_translation_msgc = dict.get("name")
 		subcategories.append(_fold)
 		
 		for id in tileset.get_source_count():
@@ -131,8 +154,9 @@ func load_tileset_items(items: PackedStringArray) -> void:
 			if !source is TileSetAtlasSource:
 				continue
 			var source_name: String
-			if dict.get("source_names") && dict.source_names is Array && len(dict.source_names) >= id + 1:
-				source_name = tr(dict.source_names[id])
+			if dict.get("source_names") && dict.source_names is Array: #&& len(dict.source_names) >= id + 1:
+				source_name = tr(dict.source_names[id], _translation_msgc)
+				_translation_msgc = ""
 				if OS.is_debug_build():
 					translated_source_names.append(dict.source_names[id])
 			
