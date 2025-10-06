@@ -159,7 +159,6 @@ func load_tileset_items(items: PackedStringArray) -> void:
 		file.close()
 
 func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> void:
-	Editor.scene.stash_selected_object(true)
 	if !tileset_dict: return
 	Editor.scene.selected_tileset = tileset_dict
 	
@@ -234,8 +233,8 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 		tile_holder.terrain = -1
 		tile_holder.terrain_set = -1
 	
+	Editor.scene.stash_selected_object(false)
 	Editor.scene.tileset_selected()
-	
 	Editor.scene.select_paint(category_name, true)
 
 

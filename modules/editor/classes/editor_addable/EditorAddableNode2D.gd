@@ -32,10 +32,10 @@ func setup_object() -> Node:
 @abstract func _install_icon() -> void
 
 func _on_editor_object_selected(category_name: String) -> void:
-	Editor.scene.stash_selected_object(true)
-	Editor.scene.selected_object = self
 	Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
 	Editor.scene.editing_sel = LevelEditor._edit_sel_to_enum(category_name)
+	Editor.scene.apply_stored_selection_object(self)
+	Editor.scene.selected_object = self
 	Editor.scene.selected = []
 	Editor.scene._on_selected_array_change()
 	Editor.scene.object_to_paint_selected(true)

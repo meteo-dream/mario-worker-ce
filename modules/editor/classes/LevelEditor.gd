@@ -185,10 +185,10 @@ func _input(event: InputEvent) -> void:
 			%ObjectPickMenu.show()
 		EditorAudio.menu_open()
 	elif event.is_action(&"ui_zoom_in") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
-		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT]:
+		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && is_paint_tool():
 			switch_tile_by(-1)
 	elif event.is_action(&"ui_zoom_out") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
-		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT]:
+		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && is_paint_tool():
 			switch_tile_by(1)
 	if event.is_action_pressed(&"ui_drop_player") && Thunder._current_player:
 		var pl := Thunder._current_player
@@ -222,7 +222,7 @@ func _input_mouse_click(event: InputEventMouseButton) -> void:
 	):
 		var picked: bool = pick_block()
 		if picked:
-			tool_mode = TOOL_MODES.PAINT
+			select_paint("tile", false)
 			EditorAudio.menu_accept()
 	elif tool_mode == TOOL_MODES.SELECT && (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
 		selected_obj_sprite.global_position = get_pos_on_grid()
@@ -365,6 +365,7 @@ func tileset_selected() -> void:
 func select_paint(category_name: String, from_menu: bool = true) -> void:
 	tool_mode = TOOL_MODES.PAINT
 	editing_sel = _edit_sel_to_enum(category_name)
+	apply_stored_selection_object()
 	selected = []
 	_on_selected_array_change()
 	object_to_paint_selected(from_menu)
@@ -383,7 +384,8 @@ func switch_tile_by(amount: int) -> void:
 	
 	if play_sound:
 		EditorAudio.menu_accept()
-		tool_mode = TOOL_MODES.PAINT
+		apply_stored_selection_object()
+		#tool_mode = TOOL_MODES.PAINT
 
 
 func section_switched(to: int) -> void:
@@ -768,18 +770,56 @@ func is_paint_tool() -> bool:
 
 
 func stash_selected_object(set_empty: bool = true) -> void:
-	editor_cache.stored_category_sel[editing_sel] = selected_object
-	if set_empty:
-		selected_obj_sprite.texture = null
-		%SelectedObjDisplay.texture = null
-		%SelectedObjControl.visible = false
-		selected_object = null
+	if is_instance_valid(selected_object):
+		editor_cache.stored_category_sel[editing_sel] = selected_object
+	if !set_empty:
+		return
+	selected_obj_sprite.texture = null
+	selected_obj_sprite.offset = Vector2.ZERO
+	%SelectedObjDisplay.texture = null
+	%SelectedObjControl.visible = false
+	selected_object = null
+	selected = []
+	_on_selected_array_change()
+	
+	if is_paint_tool():
+		var _event: String = tr(&"Space", &"key")
+		var _new_event: String
+		for i in InputMap.action_get_events(&"ui_menu_toggle"):
+			if i is InputEventKey:
+				_new_event = i.as_text().get_slice(' (', 0)
+				break
+		# NO_TRANSLATE
+		if _new_event != "Space": _event = _new_event
+		%SelectedObjLabel.text = tr("Nothing to paint. Press %s to pick an object") % [_event.to_upper()]
+	elif tool_mode == TOOL_MODES.SELECT:
+		%SelectedObjLabel.text = \
+tr("Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple.")
 
 
 func apply_stored_selection_object(override: Node2D = null) -> void:
+	if editing_sel == EDIT_SEL.TILE && selected_tile_holder && selected_tileset:
+		%SelectedObjControl.visible = true
+		%SelectedObjLabel.text = tr("Painting Tileset: %s") % [selected_tileset.translated_name]
+		var tile_source: TileSetAtlasSource = selected_tileset.tileset.get_source(selected_tile_holder.source_id)
+		var atlas_texture := AtlasTexture.new()
+		atlas_texture.atlas = tile_source.texture
+		if selected_tile_holder.id.x > -1:
+			atlas_texture.region = tile_source.get_tile_texture_region(selected_tile_holder.id)
+			selected_obj_sprite.texture = atlas_texture
+			selected_obj_sprite.offset = -Vector2(
+				tile_source.get_tile_data(selected_tile_holder.id, 0).texture_origin
+			)
+		else:
+			selected_obj_sprite.texture = preload("uid://dxx5wntq6ggux")
+			selected_obj_sprite.offset = Vector2.ZERO
+		%SelectedObjDisplay.texture = atlas_texture
+		return
+	
 	var _stored_obj = editor_cache.stored_category_sel[editing_sel] if !override else override
 	if !is_instance_valid(_stored_obj):
 		return
+	
 	selected_obj_sprite.texture = _stored_obj.editor_icon
 	%SelectedObjDisplay.texture = _stored_obj.editor_icon
 	%SelectedObjControl.visible = true
@@ -796,8 +836,6 @@ func _tool_select() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%SelectMode.button_pressed = true
 	stash_selected_object(true)
-	%SelectedObjLabel.text = \
-		tr("Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple.")
 
 func _tool_pan() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_DRAG)
@@ -817,74 +855,32 @@ func _tool_paint() -> void:
 	var _sel_obj = selected_object if is_instance_valid(selected_object) else selected[0] if len(selected) == 1 else null
 	if _sel_obj == null && editing_sel != EDIT_SEL.TILE:
 		_sel_obj = editor_cache.stored_category_sel[editing_sel]
+	
 	if is_instance_valid(_sel_obj):
 		apply_stored_selection_object(_sel_obj)
-	elif selected_tile_holder && selected_tileset && editing_sel == EDIT_SEL.TILE:
-		%SelectedObjControl.visible = true
-		%SelectedObjLabel.text = tr("Painting Tileset: %s") % [selected_tileset.translated_name]
-		var tile_source: TileSetAtlasSource = selected_tileset.tileset.get_source(selected_tile_holder.source_id)
-		var atlas_texture := AtlasTexture.new()
-		atlas_texture.atlas = tile_source.texture
-		if selected_tile_holder.id.x > -1:
-			atlas_texture.region = tile_source.get_tile_texture_region(selected_tile_holder.id)
-			selected_obj_sprite.texture = atlas_texture
-			selected_obj_sprite.offset = -Vector2(
-				tile_source.get_tile_data(selected_tile_holder.id, 0).texture_origin
-			)
-		else:
-			selected_obj_sprite.texture = preload("uid://dxx5wntq6ggux")
-			selected_obj_sprite.offset = Vector2.ZERO
-		%SelectedObjDisplay.texture = atlas_texture
-		
 	else:
-		selected_obj_sprite.texture = null
-		%SelectedObjDisplay.texture = null
-		%SelectedObjControl.visible = false
-		selected_obj_sprite.offset = Vector2.ZERO
-		var _event: String = tr(&"Space", &"key")
-		var _new_event: String
-		for i in InputMap.action_get_events(&"ui_menu_toggle"):
-			if i is InputEventKey:
-				_new_event = i.as_text().get_slice(' (', 0)
-				break
-		# NO_TRANSLATE
-		if _new_event != "Space": _event = _new_event
-		%SelectedObjLabel.text = tr("Nothing to paint. Press %s to pick an object") % [_event.to_upper()]
-		
-		selected = []
-		_on_selected_array_change()
+		stash_selected_object(true)
+
 
 func _tool_pick() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%PickMode.button_pressed = true
-	%SelectedObjControl.visible = false
+	stash_selected_object(true)
 	%SelectedObjLabel.text = tr("Pick a tile/object to select for drawing")
-	selected = []
-	_on_selected_array_change()
 
 func _tool_rect() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
 	%RectMode.button_pressed = true
 	if is_instance_valid(selected_object):
-		selected_obj_sprite.texture = selected_object.editor_icon
-		%SelectedObjDisplay.texture = selected_object.editor_icon
-		%SelectedObjControl.visible = true
-		%SelectedObjLabel.text = selected_object.name
-		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
+		apply_stored_selection_object(selected_object)
 	else:
-		selected_obj_sprite.texture = null
-		%SelectedObjDisplay.texture = null
-		%SelectedObjControl.visible = false
-		%SelectedObjLabel.text = str("")
-		#%SelectedObjTexture.texture = null
+		stash_selected_object(true)
 
 func _tool_erase() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%EraseMode.button_pressed = true
-	%SelectedObjControl.visible = false
+	stash_selected_object(true)
 	%SelectedObjLabel.text = tr("Erase mode")
-	selected = []
-	_on_selected_array_change()
 
 
 ## -- Select tool process functions --
