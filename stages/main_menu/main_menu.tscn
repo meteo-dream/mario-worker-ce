@@ -66,34 +66,63 @@ layout_mode = 2
 button_pressed = true
 text = "Enable editor sounds"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LangEn" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="LangEn" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "EN"
 
-[node name="LangRu" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="LangRu" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 button_group = SubResource("ButtonGroup_phs36")
 text = "RU"
 
-[node name="LangPl" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="LangPl" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "PL"
 
-[node name="LangTr" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="LangTr" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+button_group = SubResource("ButtonGroup_phs36")
+text = "TR"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LangZhCN" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 button_group = SubResource("ButtonGroup_phs36")
-text = "TR"
+text = "ZH"
+
+[node name="LangEs" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+button_group = SubResource("ButtonGroup_phs36")
+text = "ES"
+
+[node name="LangPtBR" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+button_group = SubResource("ButtonGroup_phs36")
+text = "PT"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -126,9 +155,12 @@ recent_list_enabled = false
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Testlevel" to="." method="_on_test_level_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/BrowseFiles" to="." method="_on_browse_files_pressed"]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LangEn" to="." method="_on_lang_toggled" binds= ["en"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LangRu" to="." method="_on_lang_toggled" binds= ["ru"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LangPl" to="." method="_on_lang_toggled" binds= ["pl"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LangTr" to="." method="_on_lang_toggled" binds= ["tr"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/LangEn" to="." method="_on_lang_toggled" binds= ["en"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/LangRu" to="." method="_on_lang_toggled" binds= ["ru"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/LangPl" to="." method="_on_lang_toggled" binds= ["pl"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/LangTr" to="." method="_on_lang_toggled" binds= ["tr"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LangZhCN" to="." method="_on_lang_toggled" binds= ["zh_CN"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LangEs" to="." method="_on_lang_toggled" binds= ["es"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LangPtBR" to="." method="_on_lang_toggled" binds= ["pt_BR"]]
 [connection signal="canceled" from="LoadFileDialog" to="LoadFileDialog" method="hide"]
 [connection signal="file_selected" from="LoadFileDialog" to="." method="_on_load_file_dialog_file_selected"]

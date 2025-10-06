@@ -1,0 +1,979 @@
+# LANGUAGE translation for Mario Worker: Community Edition for the following files:
+# res://stages/main_menu/prototype_menu.gd
+# res://stages/main_menu/main_menu.tscn
+# res://modules/editor/scripts/editor_gui.gd
+# res://modules/editor/classes/LevelEditor.gd
+# res://modules/editor/stages/level_editor.tscn
+# res://modules/editor/scripts/help_key_formatter.gd
+# res://modules/editor/gui/levelprop_tab_container.tscn
+# res://locale/tileset_names.ini
+# res://locale/object_names_special.ini
+# res://locale/object_names_scenery.ini
+# res://locale/object_names_misc.ini
+# res://locale/object_names_enemy.ini
+# res://locale/object_names_bonus.ini
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Mario Worker: Community Edition\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.7\n"
+
+#: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
+msgid "Failed to load: Data is corrupted"
+msgstr "加载失败：数据已损坏"
+
+#: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
+msgid "Failed to load: Scene is corrupted"
+msgstr "加载失败：场景已损坏"
+
+#: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
+msgid "Failed to load: Incompatible Version"
+msgstr "加载失败：版本不兼容"
+
+#: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
+msgid "Failed to load: Missing LevelProperties"
+msgstr "加载失败：LevelProperties丢失"
+
+#: stages/main_menu/main_menu.tscn
+msgid ""
+"this is a public unfinished preview version of the level editor.\n"
+"everything is subject to change. this is not final!\n"
+"levels created in this build will not load in other versions."
+msgstr ""
+"当前为待完成的公开预览版编辑器，\n"
+"内容在未来均可能有所更改，并非最终版本！\n"
+"由当前编译版本创建的关卡无法加载进其他版本当中。"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Go to level editor"
+msgstr "前往关卡编辑器"
+
+#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
+msgid "Play level"
+msgstr "游玩关卡"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Browse level files"
+msgstr "浏览关卡文件"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Enable editor sounds"
+msgstr "启用编辑器音效"
+
+#: stages/main_menu/main_menu.tscn
+msgid "EN"
+msgstr "EN"
+
+#: stages/main_menu/main_menu.tscn
+msgid "RU"
+msgstr "RU"
+
+#: stages/main_menu/main_menu.tscn
+msgid "PL"
+msgstr "PL"
+
+#: stages/main_menu/main_menu.tscn
+msgid "TR"
+msgstr "TR"
+
+#: stages/main_menu/main_menu.tscn
+msgid ""
+"Mario Worker: Community Edition\n"
+"PRE-ALPHA PROTOTYPE Build 1"
+msgstr ""
+"创世的马里奥：社区版\n"
+"预测原型版 第1次编译版本"
+
+#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
+msgid "Open a File"
+msgstr "打开文件"
+
+#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
+msgid "Open"
+msgstr "打开"
+
+#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
+msgid "Level scenes"
+msgstr "关卡场景"
+
+#: modules/editor/scripts/editor_gui.gd
+msgctxt "Close confirmation dialog"
+msgid "Don't Save"
+msgstr "不保存"
+
+#: modules/editor/scripts/editor_gui.gd
+msgid "Save failed."
+msgstr "保存失败。"
+
+#: modules/editor/scripts/editor_gui.gd
+msgid "This button is unimplemented for now, use 'Play Level' from the title screen"
+msgstr "该按钮目前功能未实装，请在标题界面点击“游玩关卡”按钮"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Target: %.v"
+msgstr "目标：%.v"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid " Objects: %d, Tilemaps: %d"
+msgstr "对象数量：%d；图块数量：%d"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Error: %s"
+msgstr "错误：%s"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Warning: %s"
+msgstr "警告：%s"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Level was not saved."
+msgstr "关卡未保存。"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Failed to save level."
+msgstr "关卡保存失败。"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Save failed: %s"
+msgstr "保存失败：%s"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Level saved!"
+msgstr "关卡已保存。"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "This is not a valid level."
+msgstr "该关卡无效。"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Level loaded with %d objects!"
+msgstr "关卡已加载，对象数量：%s。"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "%d objects selected"
+msgstr "已选中%d个对象"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Painting %s"
+msgstr "绘制%s"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid ""
+"Left click an object to select it.\n"
+"Right click to display its properties.\n"
+"Click with Shift for multiple."
+msgstr ""
+"鼠标左键单击选择对象，\n"
+"鼠标右键单击显示对象属性，\n"
+"按住Shift键以多选。"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Panning mode"
+msgstr "平移模式"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "List mode"
+msgstr "列表模式"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Painting Tileset: %s"
+msgstr "绘制图块：%s"
+
+#: modules/editor/classes/LevelEditor.gd
+msgctxt "key"
+msgid "Space"
+msgstr "空格"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Space"
+msgstr "空间"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Nothing to paint. Press %s to pick an object"
+msgstr "无物品可绘制，请点击%s选择对象"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Pick a tile/object to select for drawing"
+msgstr "选择图块/对象进行绘制"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Erase mode"
+msgstr "擦除模式"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Erasing: %s Category"
+msgstr "擦除：%s 类别"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Selection Tool"
+msgstr "选择工具"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Pan Tool"
+msgstr "平移工具"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Show list of selectable nodes at position clicked."
+msgstr "显示在点击位置处的所有可选节点"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Pain Tool"
+msgstr "绘制工具"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Rectangle Paint Tool"
+msgstr "矩形绘制工具"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Picker Tool"
+msgstr "采集器工具"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Eraser Tool"
+msgstr "橡皮擦工具"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Rotate Object Left"
+msgstr "向左旋转对象"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Rotate Object Right"
+msgstr "向右旋转对象"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Show Grid"
+msgstr "显示网格"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Configure Snap"
+msgstr "设置吸附"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Grid Offset:"
+msgstr "网格偏移："
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Grid Step:"
+msgstr "网格步长："
+
+#: modules/editor/stages/level_editor.tscn
+msgid "OK"
+msgstr "OK"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Cancel"
+msgstr "取消"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Editing: "
+msgstr "编辑："
+
+#: modules/editor/stages/level_editor.tscn
+msgid "None"
+msgstr "无"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Tiles"
+msgstr "图块"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Decoration"
+msgstr "装饰"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Enemies"
+msgstr "敌人"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Items"
+msgstr "物品"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Misc."
+msgstr "杂项"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Special"
+msgstr "特殊"
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Save level and live-test through editor.\n"
+"Any changes made during live-testing will be aborted!"
+msgstr ""
+"在编辑器中保存关卡并实时测试。\n"
+"在实时测试期间，任何更改均会被忽略！"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Stop live-testing and go back to editing"
+msgstr "停止实时测试，返回编辑模式"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Open object picker and level properties"
+msgstr "打开对象采集器与关卡属性"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Level Properties"
+msgstr "关卡属性"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Apply"
+msgstr "应用"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Load level"
+msgstr "加载关卡"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Save level. Click with Shift to save elsewhere"
+msgstr "保存关卡，按住Shift另存至其他位置"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Close editor and exit to main menu"
+msgstr "关闭编辑器，返回主菜单"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Save"
+msgstr "保存"
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Warning: You have unsaved changes.\n"
+"Save before quitting?"
+msgstr ""
+"警告：有未保存的更改。\n"
+"退出前是否保存？"
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Middle mouse button: Pan\n"
+"Alt+Scroll wheel: Zoom\n"
+"(Shift+)Ctrl+Scroll wheel: Scroll\n"
+"...or use - and + keys\n"
+"H: drop player at mouse cursor"
+msgstr ""
+"鼠标中键：平移\n"
+"Alt+鼠标滚轮：缩放\n"
+"(Shift+)Ctrl+鼠标滚轮：滚动\n"
+"或按 - 和 + 键\n"
+"H：将玩家放置在鼠标指针所在位置"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Center View"
+msgstr "居中视野"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "%.1f %%"
+msgstr "%.1f %%"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Category:"
+msgstr "类别："
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Editor Settings:"
+msgstr "编辑器设置："
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"If enabled, right click erases objects from the level.\n"
+"If disabled, right click opens up properties of the object, when available."
+msgstr ""
+"启用后，鼠标右键可将对象擦除出关卡，\n"
+"禁用后，鼠标右键可打开对象（若有效）的属性列表。"
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Erase objects\n"
+"with right click"
+msgstr ""
+"擦除对象\n"
+"鼠标右键擦除"
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Right click erases\n"
+"only same object"
+msgstr ""
+"鼠标右键点击擦除\n"
+"仅可擦除相同对象"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Use Tile Terrains"
+msgstr "使用图块地形"
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"%s\n"
+"to toggle this menu"
+msgstr ""
+"%s\n"
+"以切换显示该菜单"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Save As..."
+msgstr "另存为"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Test Level"
+msgstr "测试关卡"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Load Level"
+msgstr "加载关卡"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Exit"
+msgstr "退出"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "Misc"
+msgstr "杂项"
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
+"Level\n"
+"Section"
+msgstr "关卡分段"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "1"
+msgstr "1"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "2"
+msgstr "2"
+
+#: modules/editor/stages/level_editor.tscn
+msgid "3"
+msgstr "3"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "keyboard buttons"
+msgid "Unknown"
+msgstr "未知按键"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Enter"
+msgstr "Enter"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Tab"
+msgstr "Tab"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Backspace"
+msgstr "Backspace"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Slash"
+msgstr "/"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Backslash"
+msgstr "\\"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Colon"
+msgstr ":"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Semicolon"
+msgstr ";"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Shift"
+msgstr "Shift"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Less"
+msgstr "<"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Equal"
+msgstr "="
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Greater"
+msgstr ">"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Minus"
+msgstr "-"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Asterisk"
+msgstr "*"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Left"
+msgstr "←"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Up"
+msgstr "↑"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Down"
+msgstr "↓"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgid "Right"
+msgstr "→"
+
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "e.g. Space button"
+msgid "%s button"
+msgstr "%s 键"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Main"
+msgstr "主要设置"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Time Limit:"
+msgstr "关卡时限："
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Display Name:"
+msgstr "显示名："
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "LINE 1"
+msgstr "第一行"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "LINE 2"
+msgstr "第二行"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Level Name:"
+msgstr "关卡名："
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Description:"
+msgstr "描述："
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Level Author:"
+msgstr "作者："
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Author E-mail:"
+msgstr "作者邮箱："
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Author Website:"
+msgstr "作者网站："
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Background"
+msgstr "背景"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid ""
+"Primary\n"
+"Gradient"
+msgstr ""
+"主要\n"
+"渐变"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Presets..."
+msgstr "预设..."
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Default"
+msgstr "默认"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Cloudy (1 - 1)"
+msgstr "多云（1-1）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Cloudless (1 - 3)"
+msgstr "无云（1-3）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid " Morning (5 - 1)"
+msgstr "清晨（5-1）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Afternoon (6 - 1)"
+msgstr "下午（6-1）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Tanks (8 - 2)"
+msgstr "坦克（8-2）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Volcano (BTE 9 - 1)"
+msgstr "火山（BTE 9-1）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Sunset (Syzx 9 - 1)"
+msgstr "日落（Syzx 9-1）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Snowland (Syzx 10 - 1)"
+msgstr "雪地（Syzx 10-1）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "After rain (WoS)"
+msgstr "雨后（WoS）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Dusk (Human Lab - 3)"
+msgstr "黄昏（Human Lab-3）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Top"
+msgstr "顶部"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Bottom"
+msgstr "底部"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Dummy"
+msgstr "虚设"
+
+#: locale/tileset_names.ini
+msgctxt "tile"
+msgid "Castle"
+msgstr "城堡"
+
+#: locale/tileset_names.ini
+msgid "Hazard Launcher Supporting Tiles"
+msgstr "危险物发射器支撑图块"
+
+#: locale/tileset_names.ini
+msgid "Overworld Default"
+msgstr "地表（默认）"
+
+#: locale/tileset_names.ini
+msgid "Pipes"
+msgstr "水管"
+
+#: locale/tileset_names.ini
+msgid "Rockland"
+msgstr "岩地"
+
+#: locale/tileset_names.ini
+msgid "Starland"
+msgstr "星原"
+
+#: locale/tileset_names.ini
+msgid "Tanks"
+msgstr "坦克"
+
+#: locale/tileset_names.ini
+msgid "Underground"
+msgstr "地下"
+
+#: locale/tileset_names.ini locale/object_names_enemy.ini
+msgid "Underwater"
+msgstr "水下"
+
+#: locale/tileset_names.ini
+msgctxt "Castle"
+msgid "Castle Bricks"
+msgstr "城堡砖"
+
+#: locale/tileset_names.ini
+msgid "Solid Platform Gray"
+msgstr "实心平台（灰）"
+
+#: locale/tileset_names.ini
+msgid "Castle Ground"
+msgstr "城堡地面"
+
+#: locale/tileset_names.ini
+msgctxt "Overworld Default"
+msgid "Hard Block Brown"
+msgstr "棕色硬砖"
+
+#: locale/tileset_names.ini
+msgid "Overworld Ground"
+msgstr "地表地面"
+
+#: locale/tileset_names.ini
+msgid "Overworld Ground Slopes"
+msgstr "地表地面斜坡"
+
+#: locale/tileset_names.ini
+msgctxt "Pipes"
+msgid "Green Pipe"
+msgstr "绿水管"
+
+#: locale/tileset_names.ini
+msgid "Purple Pipe"
+msgstr "紫水管"
+
+#: locale/tileset_names.ini
+msgid "Gray Pipe"
+msgstr "灰水管"
+
+#: locale/tileset_names.ini
+msgid "Gray Pipe with Dots"
+msgstr "带点灰水管"
+
+#: locale/tileset_names.ini
+msgid "White Pipe"
+msgstr "白水管"
+
+#: locale/tileset_names.ini
+msgid "Yellow Pipe"
+msgstr "黄水管"
+
+#: locale/tileset_names.ini
+msgid "Orange Pipe"
+msgstr "橙水管"
+
+#: locale/tileset_names.ini
+msgid "Red Pipe"
+msgstr "红水管"
+
+#: locale/tileset_names.ini
+msgctxt "Rockland"
+msgid "Cloud Tile"
+msgstr "云图块"
+
+#: locale/tileset_names.ini
+msgid "Solid Platforms (bridge)"
+msgstr "实心平台（桥）"
+
+#: locale/tileset_names.ini
+msgid "Solid Rock Platforms"
+msgstr "实心平台（岩石）"
+
+#: locale/tileset_names.ini
+msgctxt "Starland"
+msgid "Starland Ground"
+msgstr "星原地面"
+
+#: locale/tileset_names.ini
+msgid "I will remove this"
+msgstr "将会移除此项"
+
+#: locale/tileset_names.ini
+msgctxt "Tanks"
+msgid "Tank Tileset Default"
+msgstr "默认坦克图块集"
+
+#: locale/tileset_names.ini
+msgctxt "Underground"
+msgid "Hard Block Blue"
+msgstr "蓝色硬砖"
+
+#: locale/tileset_names.ini
+msgid "Underground Ground"
+msgstr "地下地面"
+
+#: locale/tileset_names.ini
+msgctxt "Underwater"
+msgid "Underwater Block"
+msgstr "水下方块"
+
+#: locale/tileset_names.ini
+msgid "Underwater Sand"
+msgstr "水下沙地"
+
+#: locale/tileset_names.ini
+msgid "Coral Red"
+msgstr "红珊瑚"
+
+#: locale/object_names_special.ini
+msgctxt "special"
+msgid "Essentials"
+msgstr "基础物件"
+
+#: locale/object_names_special.ini
+msgid "Player Start Position"
+msgstr "玩家起点"
+
+#: locale/object_names_misc.ini
+msgctxt "misc"
+msgid "Other"
+msgstr "其他"
+
+#: locale/object_names_enemy.ini
+msgctxt "enemy"
+msgid "Other"
+msgstr "其他"
+
+#: locale/object_names_bonus.ini
+msgid "Other"
+msgstr "其他"
+
+#: locale/object_names_misc.ini
+msgid "Springboard"
+msgstr "弹簧"
+
+#: locale/object_names_enemy.ini
+msgid "Fire Bros"
+msgstr "火球龟"
+
+#: locale/object_names_enemy.ini
+msgid "Hammer Bros"
+msgstr "锤子龟"
+
+#: locale/object_names_enemy.ini
+msgid "Buzzy Beetle"
+msgstr "硬壳龟"
+
+#: locale/object_names_enemy.ini
+msgid "Dry Bones"
+msgstr "骷髅龟"
+
+#: locale/object_names_enemy.ini
+msgid "Electric Coral"
+msgstr "电珊瑚"
+
+#: locale/object_names_enemy.ini
+msgid "Hazard"
+msgstr "危险"
+
+#: locale/object_names_enemy.ini
+msgid "Firebar"
+msgstr "火棍"
+
+#: locale/object_names_enemy.ini
+msgid "Cheep Cheep (Blue)"
+msgstr "嘟嘟鱼（蓝）"
+
+#: locale/object_names_enemy.ini
+msgid "Cheep Cheep (Green)"
+msgstr "嘟嘟鱼（绿）"
+
+#: locale/object_names_enemy.ini
+msgid "Cheep Cheep (Red)"
+msgstr "嘟嘟鱼（红）"
+
+#: locale/object_names_enemy.ini
+msgid "Cheep Cheep (Yellow)"
+msgstr "嘟嘟鱼（黄）"
+
+#: locale/object_names_enemy.ini
+msgid "Goomba"
+msgstr "板栗仔"
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Troopas"
+msgstr "乌龟"
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Blue"
+msgstr "乌龟（蓝）"
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Green"
+msgstr "乌龟（绿）"
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Red"
+msgstr "乌龟（红）"
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Yellow"
+msgstr "乌龟（黄）"
+
+#: locale/object_names_enemy.ini
+msgid "Lakitu"
+msgstr "刺猬云"
+
+#: locale/object_names_enemy.ini
+msgid "Lakitu (Dark)"
+msgstr "刺猬云（黑化）"
+
+#: locale/object_names_enemy.ini
+msgid "Lakitu (Hardcore Worlds)"
+msgstr "刺猬云（Hardcore 世界版）"
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Paratroopa Blue"
+msgstr "飞乌龟（蓝）"
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Paratroopa Green"
+msgstr "飞乌龟（绿）"
+
+#: locale/object_names_enemy.ini
+msgid "Koopa Paratroopa Red"
+msgstr "飞乌龟（红）"
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plants"
+msgstr "食人花"
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Blue)"
+msgstr "食人花（蓝）"
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Fireball)"
+msgstr "食人花（火球）"
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Red, Fireball)"
+msgstr "食人花（红，火球）"
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Gray)"
+msgstr "食人花（灰）"
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant"
+msgstr "食人花（绿）"
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Iceball)"
+msgstr "食人花（冰球）"
+
+#: locale/object_names_enemy.ini
+msgid "Piranha Plant (Red)"
+msgstr "食人花（红）"
+
+#: locale/object_names_enemy.ini
+msgid "Spiny Red"
+msgstr "刺猬（红）"
+
+#: locale/object_names_enemy.ini
+msgid "Spiny Gray"
+msgstr "刺猬（灰）"
+
+#: locale/object_names_enemy.ini
+msgid "Spiny Green"
+msgstr "刺猬（绿）"
+
+#: locale/object_names_enemy.ini
+msgid "Thwomp"
+msgstr "笨石咚"
+
+#: locale/object_names_bonus.ini
+msgctxt "bonus"
+msgid "Containers"
+msgstr "容器"
+
+#: locale/object_names_bonus.ini
+msgid "Brick"
+msgstr "砖块"
+
+#: locale/object_names_bonus.ini
+msgid "Coin"
+msgstr "金币"
+
+#: locale/object_names_bonus.ini
+msgid "Question Block"
+msgstr "问号砖"

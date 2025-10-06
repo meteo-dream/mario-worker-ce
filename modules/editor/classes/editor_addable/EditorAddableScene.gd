@@ -25,14 +25,15 @@ func _install_icon() -> void:
 			continue
 		for j in state.get_node_property_count(i):
 			var propname = state.get_node_property_name(i, j)
-			if state.get_node_type(i) == &"AnimatedSprite2D":
-				print(propname)
+			#if state.get_node_type(i) == &"AnimatedSprite2D":
+			#	print(propname)
 			if specific_node == null && propname == "sprite":
 				specific_node = str(state.get_node_property_value(i, j))
 			if propname == "animation":
 				specific_anim = state.get_node_property_value(i, j)
 				print(specific_anim)
 				continue
+			if editor_icon: continue
 			if propname in ["sprite_frames", "texture"]:
 				var prop = state.get_node_property_value(i, j)
 				if is_instance_of(prop, Texture2D):
@@ -42,6 +43,7 @@ func _install_icon() -> void:
 					var anim = prop.get_animation_names()[0] if !specific_anim else specific_anim
 					editor_icon = prop.get_frame_texture(anim, 0)
 					return
+
 
 func _prepare_editor(is_new: bool = true) -> void:
 	super(is_new)

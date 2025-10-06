@@ -69,19 +69,20 @@ func _prepare_editor(is_new: bool = true) -> void:
 
 @abstract func _prepare_gameplay() -> Node
 
-func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> void:
+func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> Node2D:
 	var obj = Editor.scene.selected_object.duplicate()
 	obj.process_mode = Node.PROCESS_MODE_INHERIT
 	obj.position = Editor.scene.get_pos_on_grid() - _section_node.global_position
 	var _node_folder = obj.category
 	if !_section_node.has_node(_node_folder):
 		printerr("Section %d: Node %s doesn't exist" % [Editor.scene.section, obj.category])
-		return
+		return null
 	_section_node.get_node(_node_folder).add_child(obj, true)
 	obj.owner = Editor.current_level
 	Editor.scene.changes_after_save = true
 	EditorAudio.place_object()
 	obj._prepare_editor(true)
+	return obj
 
 
 func get_editor_sprite_pos() -> Vector2:

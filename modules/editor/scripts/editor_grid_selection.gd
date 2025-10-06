@@ -17,4 +17,4 @@ func _draw() -> void:
 		if !j: continue
 		draw_set_transform(j.global_position)
 		draw_rect(j.shape.get_rect(), Color.CORAL, false, -1, false)
-		print(j.shape.get_rect())
+		#print(j.shape.get_rect())

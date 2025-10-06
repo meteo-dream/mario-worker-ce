@@ -23,6 +23,11 @@ func update_input_values() -> void:
 	level_author.text = Editor.current_level_properties.level_author
 	author_email.text = Editor.current_level_properties.level_author_email
 	author_website.text = Editor.current_level_properties.level_author_website
+	
+	var player_pos: Node = get_tree().get_first_node_in_group(&"editor_player_position")
+	if player_pos:
+		player_pos.global_position = Editor.current_level_properties.player_position
+
 
 func update_section_values() -> void:
 	var section = Editor.current_level.get_section(Editor.scene.section)

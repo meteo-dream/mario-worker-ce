@@ -39,28 +39,30 @@ func _prepare_editor(is_new: bool = true) -> void:
 	
 	prints(name, global_position)
 
-func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> void:
-	if place_mode == PLACE_MODE.NORMAL:
-		super(_section_node, mouse_clicked_once)
-		return
-	#var sel_obj = Editor.scene.selected_object
+func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> Node2D:
 	var group_nodes := get_tree().get_nodes_in_group(group_name)
-	if group_nodes.is_empty():
-		super(_section_node, mouse_clicked_once)
-		return
+	if place_mode == PLACE_MODE.NORMAL || group_nodes.is_empty():
+		var new_node = super(_section_node, mouse_clicked_once)
+		new_node.position_changed()
+		return new_node
 	if place_mode == PLACE_MODE.ONE_PER_LEVEL:
 		group_nodes[0].position = Editor.scene.get_pos_on_grid() - _section_node.global_position + offset
 		group_nodes[0].reset_physics_interpolation()
+		group_nodes[0].position_changed()
 	elif place_mode == PLACE_MODE.ONE_PER_SECTION:
 		for i in group_nodes:
 			if _section_node.is_ancestor_of(i):
 				i.position = Editor.scene.get_pos_on_grid() - _section_node.global_position + offset
 				i.reset_physics_interpolation()
+				i.position_changed()
 				break
 	Editor.scene.changes_after_save = true
 	if mouse_clicked_once:
 		EditorAudio.place_object()
-	
+	return null
+
+func position_changed() -> void:
+	pass
 
 func get_editor_sprite_pos() -> Vector2:
 	return Editor.scene.get_pos_on_grid() + offset + editor_icon_offset
