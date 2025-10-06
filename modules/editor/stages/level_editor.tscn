@@ -207,7 +207,7 @@ mouse_filter = 1
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 30.0
+offset_bottom = 32.0
 grow_horizontal = 2
 mouse_force_pass_scroll_events = false
 
@@ -646,7 +646,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 30.0
+offset_top = 32.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -743,6 +743,7 @@ stretch_mode = 5
 
 [node name="SelectedObjLabel" type="Label" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer"]
 unique_name_in_owner = true
+auto_translate_mode = 2
 custom_minimum_size = Vector2(16, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -852,6 +853,7 @@ script = ExtResource("20_fqhjp")
 
 [node name="ObjectPickMenu" type="PanelContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

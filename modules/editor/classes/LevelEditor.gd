@@ -52,7 +52,7 @@ var tool_mode: int:
 var editing_sel: int = EDIT_SEL.NONE:
 	set(to):
 		if editing_sel != to:
-			editor_cache.stored_category_sel[to] = selected_object
+			#editor_cache.stored_category_sel[to] = selected_object
 			if editing_sel == EDIT_SEL.TILE:
 				editor_cache.stored_category_tileset = selected_tileset
 				editor_cache.stored_category_tile_holder = selected_tile_holder
@@ -119,6 +119,10 @@ func _ready() -> void:
 	add_child(Editor.current_level)
 	Thunder.reorder_top(Editor.current_level)
 	Editor.gui.apply_level_properties()
+	Editor.is_loading = false
+	get_tree().call_group_flags(SceneTree.GROUP_CALL_DEFERRED,
+		&"editor_addable_object", &"_prepare_editor", false
+	)
 	
 	reparent.call_deferred(get_tree().root, true)
 	SettingsManager.show_mouse()
@@ -247,7 +251,8 @@ func _input_mouse_hold(event: InputEvent) -> void:
 		if editing_sel == EDIT_SEL.TILE:
 			_input_paint_tile(event)
 			return
-		selected_obj_sprite.global_position = get_pos_on_grid()
+		if is_instance_valid(selected_object):
+			selected_obj_sprite.global_position = selected_object.get_editor_sprite_pos()
 		%ShapeCast2D.force_shapecast_update()
 		#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 		if %ShapeCast2D.is_colliding():
@@ -538,6 +543,7 @@ func load_level(path) -> bool:
 	Editor.is_loading = true
 	selected = []
 	_on_selected_array_change()
+	editor_cache = EditorCacheData.new()
 	editing_sel = EDIT_SEL.NONE
 	var res: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP)
 	#var res = load(path)
@@ -636,7 +642,7 @@ func _on_selected_array_change() -> void:
 	elif len(selected) == 1:
 		for i in %PropListContainer.get_children():
 			i.queue_free()
-		%ObjectName.text = '"%s"' % selected[0].name
+		%ObjectName.text = '"%s"' % [selected[0].translated_name if selected[0].get(&"translated_name") else selected[0].name]
 		#var prop_list: Array[Dictionary] = selected[0].get_property_list()
 		#var wait_for: int = -1
 		#var _inst = load(selected[0].scene_path).instantiate()
@@ -754,8 +760,6 @@ func pick_block() -> bool:
 			#selected_tileset = i.get_meta(&"editor_tileset")
 			return true
 	
-		
-	
 	return false
 
 
@@ -763,50 +767,59 @@ func is_paint_tool() -> bool:
 	return tool_mode in [TOOL_MODES.PAINT, TOOL_MODES.RECT, TOOL_MODES.LINE]
 
 
+func stash_selected_object(set_empty: bool = true) -> void:
+	editor_cache.stored_category_sel[editing_sel] = selected_object
+	if set_empty:
+		selected_obj_sprite.texture = null
+		%SelectedObjDisplay.texture = null
+		%SelectedObjControl.visible = false
+		selected_object = null
+
+
+func apply_stored_selection_object(override: Node2D = null) -> void:
+	var _stored_obj = editor_cache.stored_category_sel[editing_sel] if !override else override
+	if !is_instance_valid(_stored_obj):
+		return
+	selected_obj_sprite.texture = _stored_obj.editor_icon
+	%SelectedObjDisplay.texture = _stored_obj.editor_icon
+	%SelectedObjControl.visible = true
+	selected_object = _stored_obj
+	%SelectedObjLabel.text = tr("Painting %s") % [_stored_obj.translated_name]
+	selected_obj_sprite.offset = Vector2.ZERO
+	if !is_instance_valid(selected_object) && len(selected) == 1:
+		selected_object = selected[0]
+		return
+
+
 ## -- Select tool ready functions --
 func _tool_select() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%SelectMode.button_pressed = true
-	#%SelectedObjTexture.texture = null
-	selected_obj_sprite.texture = null
-	%SelectedObjControl.visible = false
-	selected_object = null
+	stash_selected_object(true)
 	%SelectedObjLabel.text = \
 		tr("Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple.")
 
 func _tool_pan() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_DRAG)
 	%PanMode.button_pressed = true
-	#%SelectedObjTexture.texture = null
-	selected_obj_sprite.texture = null
-	%SelectedObjControl.visible = false
+	stash_selected_object(true)
 	%SelectedObjLabel.text = tr("Panning mode")
 
 func _tool_list() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_HELP)
 	%ListMode.button_pressed = true
-	#%SelectedObjTexture.texture = null
-	selected_obj_sprite.texture = null
-	%SelectedObjControl.visible = false
+	stash_selected_object(true)
 	%SelectedObjLabel.text = tr("List mode")
 
 func _tool_paint() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
 	%PaintMode.button_pressed = true
 	var _sel_obj = selected_object if is_instance_valid(selected_object) else selected[0] if len(selected) == 1 else null
-	if _sel_obj:
-		selected_obj_sprite.texture = _sel_obj.editor_icon
-		%SelectedObjDisplay.texture = _sel_obj.editor_icon
-		%SelectedObjControl.visible = true
-		%SelectedObjLabel.text = tr("Painting %s") % [_sel_obj.name]
-		selected_obj_sprite.offset = Vector2.ZERO
-		#var texsize = selected_obj_sprite.texture.get_size()
-		#selected_obj_sprite.offset.x = texsize.x / 2
-		#var size_y = (texsize.y / 2) if texsize.y <= 32 else 16
-		if !is_instance_valid(selected_object) && len(selected) == 1:
-			selected_object = selected[0]
-		#%SelectedObjTexture.size = %SelectedObjTexture.texture.get_size()
-	elif selected_tile_holder && selected_tileset:
+	if _sel_obj == null && editing_sel != EDIT_SEL.TILE:
+		_sel_obj = editor_cache.stored_category_sel[editing_sel]
+	if is_instance_valid(_sel_obj):
+		apply_stored_selection_object(_sel_obj)
+	elif selected_tile_holder && selected_tileset && editing_sel == EDIT_SEL.TILE:
 		%SelectedObjControl.visible = true
 		%SelectedObjLabel.text = tr("Painting Tileset: %s") % [selected_tileset.translated_name]
 		var tile_source: TileSetAtlasSource = selected_tileset.tileset.get_source(selected_tile_holder.source_id)
@@ -838,7 +851,6 @@ func _tool_paint() -> void:
 		if _new_event != "Space": _event = _new_event
 		%SelectedObjLabel.text = tr("Nothing to paint. Press %s to pick an object") % [_event.to_upper()]
 		
-		#%SelectedObjTexture.texture = null
 		selected = []
 		_on_selected_array_change()
 
@@ -905,9 +917,8 @@ func _tool_paint_process() -> void:
 	if !can_draw():
 		return
 	selected_obj_sprite.self_modulate.a = 0.0 if Input.is_action_pressed(&"a_ctrl") else 0.5
-	selected_obj_sprite.global_position = get_pos_on_grid()
 	if editing_sel != EDIT_SEL.TILE && is_instance_valid(selected_object):
-		selected_obj_sprite.offset = selected_object.offset
+		selected_obj_sprite.global_position = selected_object.get_editor_sprite_pos()
 	elif editing_sel == EDIT_SEL.TILE && selected_tile_holder:
 		selected_obj_sprite.global_position = get_tile_pos_on_grid()
 	
@@ -925,7 +936,7 @@ func _tool_erase_process() -> void:
 	selected_obj_sprite.global_position = get_pos_on_grid()
 	selected_obj_sprite.reset_physics_interpolation()
 	if editing_sel > EDIT_SEL.NONE:
-		%SelectedObjLabel.text = tr("Erasing: %s Category") % %EditingMenuButton.get_item_text(editing_sel)
+		%SelectedObjLabel.text = tr("Erasing: %s Category") % tr(%EditingMenuButton.get_item_text(editing_sel))
 	if editing_sel == EDIT_SEL.TILE:
 		# TODO: Tile erasing
 		return

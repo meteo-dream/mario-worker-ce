@@ -162,6 +162,10 @@ msgid "%d objects selected"
 msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
+msgid "Painting %s"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
 msgid ""
 "Left click an object to select it.\n"
 "Right click to display its properties.\n"
@@ -174,10 +178,6 @@ msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "List mode"
-msgstr ""
-
-#: modules/editor/classes/LevelEditor.gd
-msgid "Painting %s"
 msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
@@ -352,10 +352,6 @@ msgid ""
 "(Shift+)Ctrl+Scroll wheel: Scroll\n"
 "...or use - and + keys\n"
 "H: drop player at mouse cursor"
-msgstr ""
-
-#: modules/editor/stages/level_editor.tscn
-msgid "Placeholder"
 msgstr ""
 
 #: modules/editor/stages/level_editor.tscn

@@ -72,6 +72,7 @@ func load_scene_items(items: PackedStringArray):
 			_subcat = filtered_arr.front()
 		
 		var tooltip_name: String = tr(cached_scene.name)
+		cached_scene.translated_name = tooltip_name
 		if OS.is_debug_build():
 			translated_titles.append(cached_scene.name)
 		
@@ -158,7 +159,7 @@ func load_tileset_items(items: PackedStringArray) -> void:
 		file.close()
 
 func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> void:
-	Editor.scene.selected_object = null
+	Editor.scene.stash_selected_object(true)
 	if !tileset_dict: return
 	Editor.scene.selected_tileset = tileset_dict
 	

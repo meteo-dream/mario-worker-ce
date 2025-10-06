@@ -10,6 +10,7 @@ enum PLACE_MODE {
 @export var place_mode: PLACE_MODE
 @export var group_name: StringName
 @export var deletable: bool = true
+@export var editor_icon_offset: Vector2
 
 
 func _install_icon() -> void:
@@ -30,6 +31,7 @@ func _prepare_editor(is_new: bool = true) -> void:
 	reset_physics_interpolation()
 	var _texture = Sprite2D.new()
 	_texture.texture = editor_icon
+	_texture.offset = editor_icon_offset
 	#_texture.position = -Vector2.ONE * 16
 	add_child(_texture)
 	
@@ -47,27 +49,21 @@ func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> void:
 		super(_section_node, mouse_clicked_once)
 		return
 	if place_mode == PLACE_MODE.ONE_PER_LEVEL:
-		group_nodes[0].position = Editor.scene.selected_obj_sprite.global_position - _section_node.global_position + offset
+		group_nodes[0].position = Editor.scene.get_pos_on_grid() - _section_node.global_position + offset
+		group_nodes[0].reset_physics_interpolation()
 	elif place_mode == PLACE_MODE.ONE_PER_SECTION:
 		for i in group_nodes:
 			if _section_node.is_ancestor_of(i):
-				i.position = Editor.scene.selected_obj_sprite.global_position - _section_node.global_position + offset
+				i.position = Editor.scene.get_pos_on_grid() - _section_node.global_position + offset
+				i.reset_physics_interpolation()
 				break
 	Editor.scene.changes_after_save = true
 	if mouse_clicked_once:
 		EditorAudio.place_object()
 	
-	#var obj = Editor.scene.selected_object.duplicate()
-	#obj.process_mode = Node.PROCESS_MODE_INHERIT
-	#obj.position = Editor.scene.selected_obj_sprite.global_position - _section_node.global_position
-	#var _node_folder = obj.category
-	#if !_section_node.has_node(_node_folder):
-		#printerr("Section %d: Node %s doesn't exist" % [Editor.scene.section, obj.category])
-		#return
-	#_section_node.get_node(_node_folder).add_child(obj, true)
-	#obj.owner = Editor.current_level
-	#EditorAudio.place_object()
-	#obj._prepare_editor(true)
+
+func get_editor_sprite_pos() -> Vector2:
+	return Editor.scene.get_pos_on_grid() + offset + editor_icon_offset
 
 func _draw() -> void:
 	pass

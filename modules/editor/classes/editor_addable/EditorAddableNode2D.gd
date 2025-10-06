@@ -8,6 +8,7 @@ extends Node2D
 @export var editor_icon: Texture2D
 @export_multiline var text_description: String
 
+var translated_name: String
 var _editor_icon: Texture2D
 var _editor_ready: bool
 var _shape: Shape2D
@@ -31,6 +32,7 @@ func setup_object() -> Node:
 @abstract func _install_icon() -> void
 
 func _on_editor_object_selected(category_name: String) -> void:
+	Editor.scene.stash_selected_object(true)
 	Editor.scene.selected_object = self
 	Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
 	Editor.scene.editing_sel = LevelEditor._edit_sel_to_enum(category_name)
@@ -70,7 +72,7 @@ func _prepare_editor(is_new: bool = true) -> void:
 func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> void:
 	var obj = Editor.scene.selected_object.duplicate()
 	obj.process_mode = Node.PROCESS_MODE_INHERIT
-	obj.position = Editor.scene.selected_obj_sprite.global_position - _section_node.global_position
+	obj.position = Editor.scene.get_pos_on_grid() - _section_node.global_position
 	var _node_folder = obj.category
 	if !_section_node.has_node(_node_folder):
 		printerr("Section %d: Node %s doesn't exist" % [Editor.scene.section, obj.category])
@@ -80,6 +82,10 @@ func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> void:
 	Editor.scene.changes_after_save = true
 	EditorAudio.place_object()
 	obj._prepare_editor(true)
+
+
+func get_editor_sprite_pos() -> Vector2:
+	return Editor.scene.get_pos_on_grid() + offset
 
 
 func _draw() -> void:

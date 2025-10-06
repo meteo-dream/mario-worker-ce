@@ -31,6 +31,7 @@ func _prepare_editor(is_new: bool = true) -> void:
 	reset_physics_interpolation()
 	var _texture = Sprite2D.new()
 	_texture.texture = editor_icon
+	_texture.offset = editor_icon_offset
 	#_texture.position = -Vector2.ONE * 16
 	add_child(_texture)
 	

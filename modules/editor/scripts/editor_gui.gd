@@ -1,6 +1,7 @@
 extends Control
 
 @onready var properties_tabs: TabContainer = %PropertiesTabs
+var _audio_workaround: bool
 
 func _ready() -> void:
 	Editor.gui = self
@@ -69,14 +70,20 @@ func _on_button_group_pressed(button: BaseButton) -> void:
 		"SelectMode": Editor.scene.tool_mode = LevelEditor.TOOL_MODES.SELECT
 		"PanMode": Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAN
 		"ListMode": Editor.scene.tool_mode = LevelEditor.TOOL_MODES.LIST
-		"PaintMode": Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
+		"PaintMode":
+			Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
+			Editor.scene.apply_stored_selection_object()
 		"PickMode": Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PICKER
-		"RectMode": Editor.scene.tool_mode = LevelEditor.TOOL_MODES.RECT
+		"RectMode":
+			Editor.scene.tool_mode = LevelEditor.TOOL_MODES.RECT
+			Editor.scene.apply_stored_selection_object()
 		"EraseMode": Editor.scene.tool_mode = LevelEditor.TOOL_MODES.ERASE
 
 
 func _on_menu_button_item_selected(index: int) -> void:
+	Editor.scene.stash_selected_object(true)
 	Editor.scene.editing_sel = index
+	Editor.scene.apply_stored_selection_object()
 	EditorAudio.menu_hover()
 
 
@@ -208,8 +215,13 @@ func _on_level_prop_cancel_pressed() -> void:
 func _on_tab_container_tab_selected(tab: int) -> void:
 	tab += 1
 	(func():
-		EditorAudio.menu_hover()
+		Editor.scene.stash_selected_object(true)
 		Editor.scene.editing_sel = tab
+		Editor.scene.apply_stored_selection_object()
+		if !_audio_workaround:
+			_audio_workaround = true
+			return
+		EditorAudio.menu_hover()
 	).call_deferred()
 
 
