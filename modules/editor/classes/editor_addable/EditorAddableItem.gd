@@ -17,6 +17,8 @@ func _prepare_gameplay() -> Node:
 	var instance: Node = scene.instantiate()
 	if "position" in instance:
 		instance.position = position + instance_offset
+	if "appear_distance" in instance:
+		instance.appear_distance = 0.0
 	add_sibling.call_deferred(instance)
 	prints("Game:", instance.name, position)
 	queue_free()

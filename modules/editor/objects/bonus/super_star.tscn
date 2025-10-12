@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgrm4ni4x6x4p"]
+
+[ext_resource type="Script" uid="uid://l675bvixf8wn" path="res://modules/editor/classes/editor_addable/EditorAddableItem.gd" id="1_gpyyu"]
+[ext_resource type="PackedScene" uid="uid://12ak5pa7cf8u" path="res://engine/objects/powerups/super_star/super_star.tscn" id="2_wnkll"]
+[ext_resource type="Script" uid="uid://dxygawbpxkakl" path="res://engine/objects/powerups/instance_powerup.gd" id="4_n48qp"]
+
+[sub_resource type="Resource" id="Resource_skr02"]
+script = ExtResource("4_n48qp")
+creation_nodepack = ExtResource("2_wnkll")
+trans_inheritances = 7
+metadata/_custom_type_script = "uid://chvjy6okoognf"
+
+[node name="Super Star" type="Node2D"]
+script = ExtResource("1_gpyyu")
+addable_to_container = true
+scene_path = "uid://12ak5pa7cf8u"
+internal_settings = Dictionary[String, Variant]({
+"result_inst": SubResource("Resource_skr02")
+})
+category = "bonus"

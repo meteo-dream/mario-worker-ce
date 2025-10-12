@@ -79,6 +79,7 @@ var editing_sel: int = EDIT_SEL.NONE:
 		get_tree().call_group(&"editor_addable_object", &"queue_redraw")
 		if to == EDIT_SEL.TILE:
 			selected_obj_sprite.visible = selected_tile_holder != null && can_draw()
+			selected_obj_sprite.self_modulate.a = 0.5
 			selected_object = null
 			selected = []
 			_on_selected_array_change()

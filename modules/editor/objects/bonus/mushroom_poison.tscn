@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxwgwtb177hvm"]
+
+[ext_resource type="Script" uid="uid://l675bvixf8wn" path="res://modules/editor/classes/editor_addable/EditorAddableItem.gd" id="1_ooudn"]
+[ext_resource type="PackedScene" uid="uid://d3x5itop6w8qu" path="res://engine/objects/powerups/poisonous_mushroom/poisonous_mushroom.tscn" id="2_ooudn"]
+[ext_resource type="Script" uid="uid://dxygawbpxkakl" path="res://engine/objects/powerups/instance_powerup.gd" id="3_8e1b7"]
+
+[sub_resource type="Resource" id="Resource_skr02"]
+script = ExtResource("3_8e1b7")
+creation_nodepack = ExtResource("2_ooudn")
+trans_inheritances = 7
+metadata/_custom_type_script = "uid://chvjy6okoognf"
+
+[node name="Poisonous Mushroom" type="Node2D"]
+script = ExtResource("1_ooudn")
+addable_to_container = true
+scene_path = "uid://d3x5itop6w8qu"
+internal_settings = Dictionary[String, Variant]({
+"result_inst": SubResource("Resource_skr02")
+})
+category = "bonus"

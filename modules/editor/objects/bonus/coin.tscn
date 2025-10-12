@@ -15,6 +15,7 @@ script = ExtResource("1_ny5yc")
 addable_to_container = true
 scene_path = "res://engine/objects/items/coin/coin.tscn"
 internal_settings = Dictionary[String, Variant]({
-"result_inst": SubResource("Resource_3ovaa")
+"result_inst": SubResource("Resource_3ovaa"),
+"set_max_items": 20
 })
 category = "bonus"

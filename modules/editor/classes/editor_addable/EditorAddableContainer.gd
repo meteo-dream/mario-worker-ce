@@ -59,6 +59,7 @@ func _physics_process(delta: float) -> void:
 			EditorAudio.kick(2)
 			Editor.scene.changes_after_save = true
 			internal_settings.result = _sel.get_prop_internal("result_inst")
+			properties.max_items = _sel.internal_settings.get("set_max_items", 1)
 			update_displayer(false)
 		else:
 			update_displayer(true)
