@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4b3m1wqenu6m"]
+[gd_scene load_steps=4 format=3 uid="uid://b4b3m1wqenu6m"]
 
-[ext_resource type="Script" uid="uid://l675bvixf8wn" path="res://modules/editor/classes/editor_addable/EditorAddableItem.gd" id="1_ppww8"]
+[ext_resource type="Script" uid="uid://bmms4ljay67xg" path="res://modules/editor/classes/editor_addable/EditorAddableContainer.gd" id="1_ppww8"]
+[ext_resource type="Resource" uid="uid://d14ntnfciec1v" path="res://engine/objects/bumping_blocks/question_block/item_resources/question_default_item.tres" id="2_50iw4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sw8rg"]
 size = Vector2(32, 32)
 
 [node name="Question Block" type="Node2D"]
 script = ExtResource("1_ppww8")
-is_container = true
 scene_path = "res://engine/objects/bumping_blocks/question_block/question_block.tscn"
+internal_settings = Dictionary[String, Variant]({
+"result": ExtResource("2_50iw4")
+})
 category = "bonus"
 subcategory = "Containers"
 
@@ -18,3 +21,8 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_sw8rg")
+
+[node name="ItemDisplayer" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+scale = Vector2(0.5, 0.5)
+metadata/_edit_lock_ = true

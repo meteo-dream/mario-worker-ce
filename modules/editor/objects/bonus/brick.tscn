@@ -1,14 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://brutcgtpqgluc"]
 
-[ext_resource type="Script" uid="uid://l675bvixf8wn" path="res://modules/editor/classes/editor_addable/EditorAddableItem.gd" id="1_0coqq"]
+[ext_resource type="Script" uid="uid://bmms4ljay67xg" path="res://modules/editor/classes/editor_addable/EditorAddableContainer.gd" id="1_0coqq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sw8rg"]
 size = Vector2(32, 32)
 
 [node name="Brick" type="Node2D"]
 script = ExtResource("1_0coqq")
-is_container = true
 scene_path = "uid://2yepdgrhpmj3"
+internal_settings = Dictionary[String, Variant]({
+"is_brick": true
+})
 category = "bonus"
 subcategory = "Containers"
 
@@ -18,3 +20,8 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_sw8rg")
+
+[node name="ItemDisplayer" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+scale = Vector2(0.5, 0.5)
+metadata/_edit_lock_ = true

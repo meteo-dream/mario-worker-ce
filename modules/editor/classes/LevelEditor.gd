@@ -2,6 +2,8 @@ extends Control
 class_name LevelEditor
 
 signal section_switched_to(section_index: int)
+signal tool_switched
+signal edit_sel_switched
 
 const NOTIFICATION = preload("res://modules/editor/gui/notification.tscn")
 const PROP_CONTAINER = preload("res://modules/editor/gui/prop_container.tscn")
@@ -37,6 +39,7 @@ enum EDIT_SEL {
 
 @onready var control: Control = %DrawArea2
 @onready var selected_obj_sprite: Sprite2D = %SelectedObjSprite
+@onready var object_pick_menu: PanelContainer = %ObjectPickMenu
 
 var tool_mode: int:
 	set(to):
@@ -179,10 +182,10 @@ func _input(event: InputEvent) -> void:
 			EditorAudio.kick()
 			changes_after_save = true
 	elif event.is_action(&"ui_menu_toggle") && event.is_pressed() && !event.is_echo() && !special_object_blocked:
-		if %ObjectPickMenu.visible:
+		if object_pick_menu.visible:
 			object_pick_menu_close(false)
 		else:
-			%ObjectPickMenu.show()
+			object_pick_menu.show()
 		EditorAudio.menu_open()
 	elif event.is_action(&"ui_zoom_in") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
 		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && is_paint_tool():
@@ -259,6 +262,14 @@ func _input_mouse_hold(event: InputEvent) -> void:
 			selected_obj_sprite.visible = false
 			# Erasing the object by RMB
 			_input_paint_object_rmb()
+			if !is_instance_valid(selected_object) || !selected_object is EditorAddableNode2D:
+				return
+			selected_object._hovering()
+			for i in %ShapeCast2D.get_collision_count():
+				var _col = %ShapeCast2D.get_collider(i)
+				if !_col || !_col.get_parent(): continue
+				_col = _col.get_parent()
+				_col._hovered()
 			return
 		# Painting the object to the level
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
@@ -420,7 +431,7 @@ func get_sectioned_pos(pos: Vector2) -> Vector2:
 	return Vector2(0, (section - 1) * LevelEdited.SECTION_POS_Y_VALUE) + pos
 
 func can_draw() -> bool:
-	if %ObjectPickMenu.visible:
+	if object_pick_menu.visible:
 		return false
 	var dr2 = control.get_rect()
 	dr2.size -= 4 * Vector2.ONE
@@ -460,9 +471,9 @@ func notify_warn(text: String) -> void:
 
 
 func object_pick_menu_close(play_sound: bool = true) -> void:
-	if !%ObjectPickMenu.visible:
+	if !object_pick_menu.visible:
 		return
-	%ObjectPickMenu.hide()
+	object_pick_menu.hide()
 	if play_sound:
 		EditorAudio.menu_close()
 	editor_options.erase_with_rmb = %EraseWithRMB.button_pressed

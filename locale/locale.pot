@@ -84,6 +84,18 @@ msgid "TR"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
+msgid "ZH"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "ES"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "PT"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
 msgid ""
 "Mario Worker: Community Edition\n"
 "PRE-ALPHA PROTOTYPE Build 1"
@@ -162,7 +174,13 @@ msgid "%d objects selected"
 msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
-msgid "Painting %s"
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "key"
+msgid "Space"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Nothing to paint. Press %s to pick an object"
 msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
@@ -173,28 +191,19 @@ msgid ""
 msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
+msgid "Painting Tileset: %s"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Painting %s"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
 msgid "Panning mode"
 msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "List mode"
-msgstr ""
-
-#: modules/editor/classes/LevelEditor.gd
-msgid "Painting Tileset: %s"
-msgstr ""
-
-#: modules/editor/classes/LevelEditor.gd
-msgctxt "key"
-msgid "Space"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Space"
-msgstr ""
-
-#: modules/editor/classes/LevelEditor.gd
-msgid "Nothing to paint. Press %s to pick an object"
 msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
@@ -524,14 +533,6 @@ msgstr ""
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Display Name:"
-msgstr ""
-
-#: modules/editor/gui/levelprop_tab_container.tscn
-msgid "LINE 1"
-msgstr ""
-
-#: modules/editor/gui/levelprop_tab_container.tscn
-msgid "LINE 2"
 msgstr ""
 
 #: modules/editor/gui/levelprop_tab_container.tscn

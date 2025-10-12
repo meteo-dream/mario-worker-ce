@@ -59,7 +59,6 @@ func _prepare_editor(is_new: bool = true) -> void:
 	_shape = RectangleShape2D.new()
 	_col.shape = _shape
 	_shape.size = Vector2.ONE * 32
-	_col.position = -offset
 	_area.add_child(_col)
 	
 	_editor_ready = true
@@ -83,6 +82,13 @@ func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> Node2D:
 	EditorAudio.place_object()
 	obj._prepare_editor(true)
 	return obj
+
+
+func _hovering() -> void:
+	pass
+
+func _hovered() -> void:
+	pass
 
 
 func get_editor_sprite_pos() -> Vector2:

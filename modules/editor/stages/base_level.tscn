@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d2ob41dqvqp5l"]
+[gd_scene load_steps=19 format=3 uid="uid://d2ob41dqvqp5l"]
 
 [ext_resource type="Script" uid="uid://6p7per48a8l2" path="res://modules/editor/scripts/e_level.gd" id="1_j2fth"]
 [ext_resource type="AudioStream" uid="uid://bqiy8kvcsy0rk" path="res://engine/scripts/classes/level/complete.ogg" id="2_33y0t"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bes0uboqshv1l" path="res://modules/editor/classes/resources/SectionProperties.gd" id="5_46p0d"]
 [ext_resource type="Script" uid="uid://cuj30d6nnmpec" path="res://modules/editor/scripts/level_properties.gd" id="5_j2fth"]
 [ext_resource type="Script" uid="uid://cxamgphsmf25s" path="res://modules/editor/scripts/e_player_camera_2d.gd" id="5_ymv0b"]
+[ext_resource type="AudioStream" uid="uid://no8rqi6mwk8c" path="res://music/smw-overworld.ogg" id="8_008ua"]
 [ext_resource type="PackedScene" uid="uid://dmljul85ysxlp" path="res://modules/editor/objects/editor-friendly/e_player.tscn" id="8_dj13d"]
 [ext_resource type="PackedScene" uid="uid://dguegm6pi350a" path="res://modules/editor/objects/editor-friendly/e_section.tscn" id="10_64c01"]
 [ext_resource type="TileSet" uid="uid://egdtsph4hncq" path="res://modules/editor/objects/tile/overworld_default.tres" id="11_46p0d"]
@@ -46,6 +47,7 @@ properties = SubResource("Resource_008ua")
 
 [node name="MusicLoader" parent="." instance=ExtResource("3_dhm08")]
 script = ExtResource("4_hbxjl")
+music = Array[Resource]([ExtResource("8_008ua")])
 volume_db = Array[float]([0.0])
 start_from_sec = Array[float]([0.0])
 

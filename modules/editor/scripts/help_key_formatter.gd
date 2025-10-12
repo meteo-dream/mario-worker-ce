@@ -13,7 +13,7 @@ func update_text() -> void:
 	var _event: String = "buttons on keyboard"
 	var _temp: String
 	var key_strings := PackedStringArray([
-		tr("Unknown", "keyboard buttons"), tr("Space"), tr("Enter"), tr("Tab"), tr("Backspace"),
+		tr("Unknown", "keyboard buttons"), tr("Space", "key"), tr("Enter"), tr("Tab"), tr("Backspace"),
 		tr("Slash"), tr("Backslash"),
 		tr("Colon"), tr("Semicolon"), tr("Shift"), tr("Less"), tr("Equal"), tr("Greater"), tr("Minus"),
 		tr("Asterisk"), tr("Left"), tr("Up"), tr("Down"), tr("Right"),

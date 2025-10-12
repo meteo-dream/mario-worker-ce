@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqcfi0hngpr3p"]
+[gd_scene load_steps=4 format=3 uid="uid://cqcfi0hngpr3p"]
 
 [ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_8s5y2"]
+[ext_resource type="Texture2D" uid="uid://df7awin576fr5" path="res://engine/objects/enemies/dry_bones/textures/dry_bones.png" id="2_j3s85"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yst3p"]
+atlas = ExtResource("2_j3s85")
+region = Rect2(0, 0, 32, 48)
 
 [node name="Dry Bones" type="Node2D"]
 script = ExtResource("1_8s5y2")
 scene_path = "uid://b4bjvmqtj8nv0"
 category = "enemy"
 offset = Vector2(0, -8)
+editor_icon = SubResource("AtlasTexture_yst3p")

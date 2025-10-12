@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxioaooywv4sh"]
+[gd_scene load_steps=3 format=3 uid="uid://bxioaooywv4sh"]
 
 [ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_sf6tl"]
+[ext_resource type="Texture2D" uid="uid://b4ge3k0d28g6h" path="res://modules/editor/gfx/object/piranha_red_fireball.png" id="2_ttjuq"]
 
 [node name="Piranha Plant (Red, Fireball)" type="Node2D"]
 script = ExtResource("1_sf6tl")
 scene_path = "uid://cegkk6ckcrphl"
+instance_offset = Vector2(0, 24)
 category = "enemy"
 subcategory = "Piranha Plants"
 offset = Vector2(16, -8)
-instance_offset = Vector2(0, 24)
+editor_icon = ExtResource("2_ttjuq")

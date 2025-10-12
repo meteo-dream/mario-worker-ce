@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://btjbc3j3s5cs5"]
+[gd_scene load_steps=4 format=3 uid="uid://btjbc3j3s5cs5"]
 
 [ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_0ylpy"]
+[ext_resource type="Texture2D" uid="uid://cc4c41qmqm1t" path="res://engine/objects/enemies/spinies/textures/spiny_green.png" id="2_wriaw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygvx6"]
+atlas = ExtResource("2_wriaw")
+region = Rect2(0, -1, 32, 32)
 
 [node name="Spiny Green" type="Node2D"]
 script = ExtResource("1_0ylpy")
 scene_path = "uid://bir2rn1mkn6h6"
 category = "enemy"
+editor_icon = SubResource("AtlasTexture_ygvx6")

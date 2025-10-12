@@ -67,3 +67,12 @@ func get_properties() -> PopupMenu:
 			continue
 		popup.add_item(value)
 	return popup
+
+
+func get_prop(key: String) -> Variant:
+	if properties.is_empty(): return null
+	return properties.get(key)
+
+func get_prop_internal(key: String) -> Variant:
+	if internal_settings.is_empty(): return null
+	return internal_settings.get(key)

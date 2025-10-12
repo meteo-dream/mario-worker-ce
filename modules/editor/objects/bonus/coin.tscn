@@ -1,9 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6b608jm04h4t"]
+[gd_scene load_steps=5 format=3 uid="uid://c6b608jm04h4t"]
 
 [ext_resource type="Script" uid="uid://l675bvixf8wn" path="res://modules/editor/classes/editor_addable/EditorAddableItem.gd" id="1_ny5yc"]
+[ext_resource type="PackedScene" uid="uid://b8kgbn8f7lvf0" path="res://engine/objects/items/coin/coin.tscn" id="2_hfd6c"]
+[ext_resource type="Script" uid="uid://dxygawbpxkakl" path="res://engine/objects/powerups/instance_powerup.gd" id="3_dypuq"]
+
+[sub_resource type="Resource" id="Resource_3ovaa"]
+script = ExtResource("3_dypuq")
+creation_nodepack = ExtResource("2_hfd6c")
+trans_inheritances = 7
+metadata/_custom_type_script = "uid://chvjy6okoognf"
 
 [node name="Coin" type="Node2D"]
 script = ExtResource("1_ny5yc")
 addable_to_container = true
 scene_path = "res://engine/objects/items/coin/coin.tscn"
+internal_settings = Dictionary[String, Variant]({
+"result_inst": SubResource("Resource_3ovaa")
+})
 category = "bonus"

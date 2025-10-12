@@ -54,7 +54,6 @@ func _input(event: InputEvent) -> void:
 				else:
 					position.x -= 32 / zoom.x
 				reset_physics_interpolation()
-				
 		elif event.is_action(&"ui_zoom_out"):
 			if alt:
 				zoom_out()
@@ -64,6 +63,21 @@ func _input(event: InputEvent) -> void:
 				else:
 					position.x += 32 / zoom.x
 				reset_physics_interpolation()
+		
+		if !shift || !ctrl: return
+		if event.is_action(&"ui_left") || event.is_action(&"ui_right"):
+			position.x += Input.get_axis(&"ui_left", &"ui_right") / zoom.x
+			reset_physics_interpolation()
+		if event.is_action(&"ui_up") || event.is_action(&"ui_down"):
+			position.y += Input.get_axis(&"ui_up", &"ui_down") / zoom.y
+			reset_physics_interpolation()
+
+
+func _physics_process(delta: float) -> void:
+	if !Input.is_action_pressed(&"a_ctrl") || Input.is_action_pressed(&"a_shift"): return
+	if Editor.scene.get_node("%ObjectPickMenu").visible: return
+	position.y += (Input.get_axis(&"ui_up", &"ui_down") * 16) / zoom.y
+	position.x += (Input.get_axis(&"ui_left", &"ui_right") * 16) / zoom.x
 
 #func _wrap_mouse(to: Vector2) -> void:
 	#var last_pos: Vector2 = get_viewport().get_mouse_position()
