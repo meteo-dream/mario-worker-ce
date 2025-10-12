@@ -58,11 +58,6 @@ func apply_level_properties() -> void:
 	Editor.current_level_properties.level_author_email = properties_tabs.author_email.text
 	Editor.current_level_properties.level_author_website = properties_tabs.author_website.text
 	
-	var player_pos: Node = get_tree().get_first_node_in_group(&"editor_player_position")
-	print("Pl ", player_pos)
-	if player_pos:
-		Editor.current_level_properties.player_position = player_pos.global_position
-	
 	# Sections
 	var section = Editor.current_level.get_section(Editor.scene.section)
 	var gradient: Gradient = section.get_node("Background/GradientLayer/Gradient").texture.gradient

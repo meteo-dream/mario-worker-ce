@@ -514,6 +514,10 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 		_level_props = _new_node
 	
 	_level_props.properties = Editor.current_level_properties.duplicate(true)
+	var player_pos: Node = get_tree().get_first_node_in_group(&"editor_player_position")
+	if player_pos:
+		print("Pl ", player_pos.global_position)
+		Editor.current_level_properties.player_position = player_pos.global_position
 	
 	var _editor_player
 	if Thunder._current_player:
@@ -826,6 +830,7 @@ func apply_stored_selection_object(override: Node2D = null) -> void:
 			selected_obj_sprite.texture = preload("uid://dxx5wntq6ggux")
 			selected_obj_sprite.offset = Vector2.ZERO
 		%SelectedObjDisplay.texture = atlas_texture
+		selected_obj_sprite.self_modulate.a = 0.5
 		return
 	
 	var _stored_obj = editor_cache.stored_category_sel[editing_sel] if !override else override
@@ -833,6 +838,7 @@ func apply_stored_selection_object(override: Node2D = null) -> void:
 		return
 	
 	selected_obj_sprite.texture = _stored_obj.editor_icon
+	selected_obj_sprite.self_modulate.a = 0.5
 	%SelectedObjDisplay.texture = _stored_obj.editor_icon
 	%SelectedObjControl.visible = true
 	selected_object = _stored_obj
