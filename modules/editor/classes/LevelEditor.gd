@@ -116,6 +116,8 @@ func _ready() -> void:
 	#	DisplayServer.window_set_size(Vector2i(1280, 720))
 	Editor.scene = self
 	Editor.mode = Editor.MODE.EDITOR
+	Thunder._current_player_state = null
+	Thunder._current_player_state_path = ""
 	var loaded_level
 	if Editor.current_level == null:
 		loaded_level = preload("res://modules/editor/stages/base_level.tscn")

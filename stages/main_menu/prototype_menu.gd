@@ -14,6 +14,7 @@ func _ready() -> void:
 	%LangZhCN.button_pressed = OS.get_locale_language() == "zh"
 	%LangEs.button_pressed = OS.get_locale_language() == "es"
 	%LangPtBR.button_pressed = OS.get_locale_language() == "pt"
+	%LangViVN.button_pressed = OS.get_locale_language() == "vi"
 
 
 func _on_button_pressed() -> void:
