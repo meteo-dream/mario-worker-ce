@@ -350,6 +350,7 @@ func _input_paint_object() -> void:
 
 
 func tileset_selected() -> void:
+	if !selected_tileset || !selected_tile_holder: return
 	var tile_parent: Node2D = Editor.current_level.get_section(section).get_node_or_null("tile")
 	var _tilemap = tile_parent.get_node_or_null(selected_tileset.name_id)
 	for i in get_tree().get_nodes_in_group(&"editor_addable_tilemap"):

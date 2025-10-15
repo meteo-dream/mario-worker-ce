@@ -53,7 +53,7 @@ func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> Node2D:
 		var _affected: bool
 		for i in group_nodes:
 			if _section_node.is_ancestor_of(i):
-				i.position = Editor.scene.get_pos_on_grid() + offset
+				i.position = Editor.scene.get_pos_on_grid() + offset - Editor.scene.get_sectioned_pos(Vector2.ZERO)
 				i.reset_physics_interpolation()
 				i.position_changed()
 				_affected = true

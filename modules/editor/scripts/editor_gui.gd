@@ -101,6 +101,7 @@ func _on_window_resized() -> void:
 		%HSplitContainer.split_offset = (size_x / 3)
 	_on_v_split_container_dragged(0)
 	%VSplitContainer.split_offset -= window_old_size.y - get_tree().root.size.y
+	%CountLabel.visible = get_tree().root.size.x > 1000
 
 
 func _on_v_split_container_dragged(offset: int) -> void:
