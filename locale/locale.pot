@@ -34,6 +34,13 @@ msgid "Failed to load: Scene is corrupted"
 msgstr ""
 
 #: stages/main_menu/prototype_menu.gd
+msgid ""
+"This is not a valid level. See logs at\n"
+"\n"
+"%s"
+msgstr ""
+
+#: stages/main_menu/prototype_menu.gd
 #: modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Incompatible Version"
 msgstr ""
@@ -65,34 +72,6 @@ msgstr ""
 
 #: stages/main_menu/main_menu.tscn
 msgid "Enable editor sounds"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
-msgid "EN"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
-msgid "RU"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
-msgid "PL"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
-msgid "TR"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
-msgid "ZH"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
-msgid "ES"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
-msgid "PT"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
@@ -451,74 +430,6 @@ msgid "Unknown"
 msgstr ""
 
 #: modules/editor/scripts/help_key_formatter.gd
-msgid "Enter"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Tab"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Backspace"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Slash"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Backslash"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Colon"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Semicolon"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Shift"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Less"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Equal"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Greater"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Minus"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Asterisk"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Left"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Up"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Down"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Right"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
 msgctxt "e.g. Space button"
 msgid "%s button"
 msgstr ""
@@ -777,7 +688,20 @@ msgid "Essentials"
 msgstr ""
 
 #: locale/object_names_special.ini
+msgid "Finish Line"
+msgstr ""
+
+#: locale/object_names_special.ini
 msgid "Player Start Position"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgctxt "scenery"
+msgid "Overworld"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Overworld Grass"
 msgstr ""
 
 #: locale/object_names_misc.ini
@@ -791,6 +715,7 @@ msgid "Other"
 msgstr ""
 
 #: locale/object_names_bonus.ini
+msgctxt "bonus"
 msgid "Other"
 msgstr ""
 
@@ -939,7 +864,14 @@ msgid "Thwomp"
 msgstr ""
 
 #: locale/object_names_bonus.ini
-msgctxt "bonus"
+msgid "Beetroot"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Boomerang Flower"
+msgstr ""
+
+#: locale/object_names_bonus.ini
 msgid "Containers"
 msgstr ""
 
@@ -952,5 +884,33 @@ msgid "Coin"
 msgstr ""
 
 #: locale/object_names_bonus.ini
+msgid "Fire Flower"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Frog Suit"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Green Lui"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Life Mushroom"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Poisonous Mushroom"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Super Mushroom"
+msgstr ""
+
+#: locale/object_names_bonus.ini
 msgid "Question Block"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Super Star"
 msgstr ""
