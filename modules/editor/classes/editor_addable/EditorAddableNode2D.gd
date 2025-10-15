@@ -6,6 +6,7 @@ extends Node2D
 @export var subcategory: String = "Other"
 @export var offset: Vector2
 @export var editor_icon: Texture2D
+@export var editor_button_icon: Texture2D
 @export_multiline var text_description: String
 
 var translated_name: String
@@ -22,8 +23,13 @@ func setup_object() -> Node:
 		add_to_group(&"editor_addable_object")
 	if Editor.mode == Editor.MODE.EDITOR:
 		_install_icon()
-		if get_parent() is Button:
-			get_parent().icon = editor_icon
+		var _par = get_parent()
+		if _par is Button:
+			if editor_button_icon:
+				_par.icon = editor_button_icon
+				_par.add_theme_constant_override(&"icon_max_width", editor_button_icon.get_width())
+			else:
+				_par.icon = editor_icon
 			process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		return _prepare_gameplay()

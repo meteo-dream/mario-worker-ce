@@ -4,6 +4,7 @@ extends Control
 
 func _ready() -> void:
 	reparent.call_deferred(get_tree().root, true)
+	add_to_group(&"prototype_menu")
 	SettingsManager.show_mouse()
 	Editor.current_level_properties = null
 	Editor.current_level = null
@@ -20,6 +21,7 @@ func _ready() -> void:
 func _on_button_pressed() -> void:
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(&"Editor"), !check_box.button_pressed)
 	Scenes.goto_scene("res://modules/editor/stages/level_editor.tscn")
+	queue_free()
 
 
 func _on_test_level_pressed() -> void:
@@ -42,9 +44,9 @@ func _on_load_file_dialog_file_selected(path: String) -> bool:
 		_throw_error_on_load(tr("Failed to load: Scene is corrupted"))
 		return false
 	if !new_level is LevelEdited:
-		_throw_error_on_load(tr("This is not a valid level. See logs at
-
-%s" % OS.get_user_data_dir().path_join("logs")))
+		_throw_error_on_load(
+			tr("This is not a valid level. See logs at\n\n%s") % OS.get_user_data_dir().path_join("logs")
+		)
 		new_level.free.call_deferred()
 		return false
 	
@@ -65,20 +67,8 @@ func _on_load_file_dialog_file_selected(path: String) -> bool:
 		Thunder._current_player.queue_free()
 	
 	GlobalViewport.show()
-	GlobalViewport.connect(&"close_requested", func():
-		GlobalViewport.hide()
-		if Scenes.custom_scenes.pause.opened:
-			Scenes.custom_scenes.pause.toggle(false, true)
-		get_window().show()
-		if Scenes.current_scene:
-			Scenes.current_scene.queue_free()
-		#Editor.mode = Editor.MODE.NONE
-		Editor.current_level = null
-		Editor.current_level_properties = null
-		Scenes.current_scene = self
-		Audio.stop_all_musics()
-		Audio.stop_all_sounds()
-	, CONNECT_ONE_SHOT)
+	hide()
+	GlobalViewport.close_requested.connect(_free_level_scene, CONNECT_ONE_SHOT)
 	
 	Editor.mode = Editor.MODE.NONE
 	# Forcefully removing old level and immediately assigning a new one
@@ -102,6 +92,34 @@ func _on_load_file_dialog_file_selected(path: String) -> bool:
 	#)
 	#notify.call_deferred("Level loaded with %d objects!" % get_tree().get_node_count_in_group(&"editor_addable_object"))
 	return true
+
+
+func _free_level_scene() -> void:
+	if !GlobalViewport.visible: return
+	GlobalViewport.hide()
+	if Scenes.custom_scenes.pause.opened:
+		Scenes.custom_scenes.pause.toggle(false, true)
+	get_window().show()
+	if Scenes.current_scene && Scenes.current_scene != self:
+		Scenes.current_scene.queue_free()
+	#Editor.mode = Editor.MODE.NONE
+	Editor.current_level = null
+	Editor.current_level_properties = null
+	Editor.level_path = ""
+	Scenes.current_scene = self
+	Audio.stop_all_musics()
+	Audio.stop_all_sounds()
+	show()
+	for i in get_tree().get_nodes_in_group(&"prototype_menu"):
+		if is_instance_valid(i) && i != self:
+			i.queue_free()
+
+
+func _physics_process(delta: float) -> void:
+	if !GlobalViewport.visible: return
+	if (!is_instance_valid(Scenes.current_scene) || Scenes.current_scene == self) && get_window().visible:
+		_free_level_scene()
+
 
 func _throw_error_on_load(text: String) -> void:
 	OS.alert(text)

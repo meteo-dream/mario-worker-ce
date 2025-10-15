@@ -12,3 +12,4 @@ script = ExtResource("1_ki5s0")
 scene_path = "res://engine/objects/enemies/spinies/spiny_iron.tscn"
 category = "enemy"
 editor_icon = SubResource("AtlasTexture_mxt68")
+text_description = "Walks on floor. Cannot be stomped. Immune to most projectiles."

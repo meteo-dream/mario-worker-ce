@@ -5,7 +5,8 @@
 [node name="Piranha Plant (Gray)" type="Node2D"]
 script = ExtResource("1_45oqn")
 scene_path = "res://engine/objects/enemies/piranha_plants/piranha_gray.tscn"
+instance_offset = Vector2(0, 24)
 category = "enemy"
 subcategory = "Piranha Plants"
 offset = Vector2(16, -8)
-instance_offset = Vector2(0, 24)
+text_description = "Immune to most projectiles."

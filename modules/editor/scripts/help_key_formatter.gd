@@ -13,15 +13,16 @@ func update_text() -> void:
 	var _event: String = "buttons on keyboard"
 	var _temp: String
 	var key_strings := PackedStringArray([
-		tr("Unknown", "keyboard buttons"), tr("Space", "key"), tr("Enter"), tr("Tab"), tr("Backspace"),
-		tr("Slash"), tr("Backslash"),
-		tr("Colon"), tr("Semicolon"), tr("Shift"), tr("Less"), tr("Equal"), tr("Greater"), tr("Minus"),
-		tr("Asterisk"), tr("Left"), tr("Up"), tr("Down"), tr("Right"),
+		tr("Unknown", "keyboard buttons"), tr("Space", "key")#, tr("Enter"), tr("Tab"), tr("Backspace"),
+		#tr("Slash"), tr("BackSlash"), tr("BracketLeft"), tr("BracketRight"), tr("Apostrophe"),
+		#tr("Colon"), tr("Semicolon"), tr("Shift"), tr("Comma"), tr("Equal"), tr("Period"), tr("Minus"),
+		#tr("QuoteLeft"), tr("Left"), tr("Up"), tr("Down"), tr("Right"),
 	])
 	var key_strings_raw := PackedStringArray([
-		"Unknown", "Space", "Enter", "Tab", "Backspace", "Slash", "Backslash",
-		"Colon", "Semicolon", "Shift", "Less", "Equal", "Greater", "Minus",
-		"Asterisk", "Left", "Up", "Down", "Right",
+		"Unknown", "Space"#, "Enter", "Tab", "Backspace", "Slash", "BackSlash",
+		#"BracketLeft", "BracketRight", "Apostrophe",
+		#"Colon", "Semicolon", "Shift", "Comma", "Equal", "Period", "Minus",
+		#"QuoteLeft", "Left", "Up", "Down", "Right",
 	])
 	
 	for i in _events:

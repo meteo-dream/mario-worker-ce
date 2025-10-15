@@ -1,7 +1,7 @@
 extends Node2D
 
 @export
-var grid_size: Vector2 = Vector2.ONE * 32.0 :
+var grid_size: Vector2 = Vector2.ONE * 16.0 :
 	set(value):
 		grid_size = value
 		Editor.grid_size = value
@@ -17,6 +17,8 @@ var grid_offset: Vector2:
 		prints("Grid offset:", remainder)
 		grid_offset = remainder
 		Editor.grid_offset = remainder
+@export
+var primary_line_every: int = 2
 
 @export
 var color: Color = Color.DIM_GRAY :
@@ -39,12 +41,12 @@ func _ready() -> void:
 	%GridButton.pressed.connect(_on_grid_button_pressed)
 	%GridOkBtn.pressed.connect(func():
 		var _size := Vector2(
-			%ConfigureSnapWindow/VBoxContainer/HBoxContainer2/SpinBox.value,
-			%ConfigureSnapWindow/VBoxContainer/HBoxContainer2/SpinBox2.value,
+			%GridStep1.value,
+			%GridStep2.value,
 		)
 		var _pos := Vector2(
-			%ConfigureSnapWindow/VBoxContainer/HBoxContainer/SpinBox.value,
-			%ConfigureSnapWindow/VBoxContainer/HBoxContainer/SpinBox2.value,
+			%GridOffset1.value,
+			%GridOffset2.value,
 		)
 		grid_size = _size
 		grid_offset = _pos
@@ -52,8 +54,10 @@ func _ready() -> void:
 		%ConfigureSnapWindow.hide()
 	)
 	%GridCancelBtn.pressed.connect(func():
-		%ConfigureSnapWindow/VBoxContainer/HBoxContainer2/SpinBox.value = grid_size.x
-		%ConfigureSnapWindow/VBoxContainer/HBoxContainer2/SpinBox2.value = grid_size.y
+		%GridStep1.value = grid_size.x
+		%GridStep2.value = grid_size.y
+		%GridOffset1.value = grid_offset.x
+		%GridOffset2.value = grid_offset.y
 		%ConfigureSnapWindow.hide()
 	)
 
@@ -71,44 +75,9 @@ func _draw():
 		vp_center = Editor.current_level_properties.sections[Editor.scene.section].position
 	var vp_right := vp_size.x
 	var vp_bottom := vp_size.y
-	var screen_size := Vector2i(640, 480)
 	
 	if Editor.grid_shown:
-		# Generic grid
-		for x in range(
-			int((cam_pos.x - vp_size.x) / grid_size.x) - 1,
-			int((vp_size.x + cam_pos.x) / grid_size.x) + 1
-		):
-			draw_line(
-				Vector2(x * grid_size.x, cam_pos.y + vp_size.y + 1),
-				Vector2(x * grid_size.x, cam_pos.y - vp_size.y - 1), color
-			)
-		for y in range(
-			int((cam_pos.y - vp_size.y) / grid_size.y) - 1,
-			int((vp_size.y + cam_pos.y) / grid_size.y) + 1
-		):
-			draw_line(
-				Vector2(cam_pos.x + vp_size.x + 1, y * grid_size.y),
-				Vector2(cam_pos.x - vp_size.x - 1, y * grid_size.y), color
-			)
-		
-		# Screen size lines
-		for x in range(
-			int((cam_pos.x - vp_size.x) / screen_size.x) - 1,
-			int((vp_size.x + cam_pos.x) / screen_size.x) + 1
-		):
-			draw_line(
-				Vector2(x * screen_size.x, cam_pos.y + vp_size.y + 1),
-				Vector2(x * screen_size.x, cam_pos.y - vp_size.y - 1), Color(screen_color, 0.4)
-			)
-		for y in range(
-			int((cam_pos.y - vp_size.y) / screen_size.y) - 1,
-			int((vp_size.y + cam_pos.y) / screen_size.y) + 1
-		):
-			draw_line(
-				Vector2(cam_pos.x + vp_size.x + 1, y * screen_size.y),
-				Vector2(cam_pos.x - vp_size.x - 1, y * screen_size.y), Color(screen_color, 0.4)
-			)
+		_draw_main_grid(vp_size, cam_pos)
 	
 	var rect := Rect2(Vector2.ZERO, vp_size).abs()
 	if rect.has_point(Vector2(cam_pos.abs().x, vp_center.y)):
@@ -128,3 +97,79 @@ func _draw():
 func _on_grid_button_pressed() -> void:
 	Editor.grid_shown = !Editor.grid_shown
 	queue_redraw()
+
+
+func _draw_main_grid(vp_size: Vector2, cam_pos: Vector2) -> void:
+	var screen_size := Vector2i(640, 480)
+	var is_tile_selected: bool = Editor.scene.editing_sel == LevelEditor.EDIT_SEL.TILE
+	if !is_tile_selected:
+		# Generic grid
+		for x in range(
+			int((cam_pos.x - vp_size.x) / grid_size.x) - 1,
+			int((vp_size.x + cam_pos.x) / grid_size.x) + 1
+		):
+			draw_line(
+				Vector2(x * grid_size.x, cam_pos.y + vp_size.y + 1),
+				Vector2(x * grid_size.x, cam_pos.y - vp_size.y - 1), Color(color, 0.3)
+			)
+		for y in range(
+			int((cam_pos.y - vp_size.y) / grid_size.y) - 1,
+			int((vp_size.y + cam_pos.y) / grid_size.y) + 1
+		):
+			draw_line(
+				Vector2(cam_pos.x + vp_size.x + 1, y * grid_size.y),
+				Vector2(cam_pos.x - vp_size.x - 1, y * grid_size.y), Color(color, 0.3)
+			)
+		# Primary lines of the grid
+		for x in range(
+			int((cam_pos.x - vp_size.x) / (grid_size.x * primary_line_every)) - 1,
+			int((vp_size.x + cam_pos.x) / (grid_size.x * primary_line_every)) + 1
+		):
+			draw_line(
+				Vector2(x * (grid_size.x * primary_line_every), cam_pos.y + vp_size.y + 1),
+				Vector2(x * (grid_size.x * primary_line_every), cam_pos.y - vp_size.y - 1), Color(color, 0.3)
+			)
+		for y in range(
+			int((cam_pos.y - vp_size.y) / (grid_size.y * primary_line_every)) - 1,
+			int((vp_size.y + cam_pos.y) / (grid_size.y * primary_line_every)) + 1
+		):
+			draw_line(
+				Vector2(cam_pos.x + vp_size.x + 1, y * (grid_size.y * primary_line_every)),
+				Vector2(cam_pos.x - vp_size.x - 1, y * (grid_size.y * primary_line_every)), Color(color, 0.3)
+			)
+	else:
+		var tileset_size: int = 32
+		for x in range(
+			int((cam_pos.x - vp_size.x) / tileset_size) - 1,
+			int((vp_size.x + cam_pos.x) / tileset_size) + 1
+		):
+			draw_line(
+				Vector2(x * tileset_size, cam_pos.y + vp_size.y + 1),
+				Vector2(x * tileset_size, cam_pos.y - vp_size.y - 1), Color(Color.ORANGE, 0.3)
+			)
+		for y in range(
+			int((cam_pos.y - vp_size.y) / tileset_size) - 1,
+			int((vp_size.y + cam_pos.y) / tileset_size) + 1
+		):
+			draw_line(
+				Vector2(cam_pos.x + vp_size.x + 1, y * tileset_size),
+				Vector2(cam_pos.x - vp_size.x - 1, y * tileset_size), Color(Color.ORANGE, 0.3)
+			)
+	
+	# Screen size lines
+	for x in range(
+		int((cam_pos.x - vp_size.x) / screen_size.x) - 1,
+		int((vp_size.x + cam_pos.x) / screen_size.x) + 1
+	):
+		draw_line(
+			Vector2(x * screen_size.x, cam_pos.y + vp_size.y + 1),
+			Vector2(x * screen_size.x, cam_pos.y - vp_size.y - 1), Color(screen_color, 0.4)
+		)
+	for y in range(
+		int((cam_pos.y - vp_size.y) / screen_size.y) - 1,
+		int((vp_size.y + cam_pos.y) / screen_size.y) + 1
+	):
+		draw_line(
+			Vector2(cam_pos.x + vp_size.x + 1, y * screen_size.y),
+			Vector2(cam_pos.x - vp_size.x - 1, y * screen_size.y), Color(screen_color, 0.4)
+		)

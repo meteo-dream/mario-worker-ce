@@ -12,3 +12,4 @@ editor_icon_offset = Vector2(0, -13)
 category = "special"
 subcategory = "Essentials"
 editor_icon = ExtResource("2_8re6o")
+text_description = "Starting position of the player in level."

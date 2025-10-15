@@ -12,3 +12,4 @@ script = ExtResource("1_i7ygx")
 scene_path = "res://engine/objects/springboard/springboard.tscn"
 category = "misc"
 editor_icon = SubResource("AtlasTexture_cnl2o")
+text_description = "Used to jump higher."

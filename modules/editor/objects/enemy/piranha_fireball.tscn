@@ -5,7 +5,8 @@
 [node name="Piranha Plant (Fireball)" type="Node2D"]
 script = ExtResource("1_hy3l7")
 scene_path = "res://engine/objects/enemies/piranha_plants/piranha_pink.tscn"
+instance_offset = Vector2(0, 24)
 category = "enemy"
 subcategory = "Piranha Plants"
 offset = Vector2(16, -8)
-instance_offset = Vector2(0, 24)
+text_description = "Launches fireballs with random speed that fall through tiles."

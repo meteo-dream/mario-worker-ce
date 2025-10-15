@@ -13,3 +13,4 @@ scene_path = "uid://b4bjvmqtj8nv0"
 category = "enemy"
 offset = Vector2(0, -8)
 editor_icon = SubResource("AtlasTexture_yst3p")
+text_description = "Walks on floor. Stomping stuns them for a while, but doesn't kill them. Immune to most projectiles."

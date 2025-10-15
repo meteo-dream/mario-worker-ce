@@ -29,7 +29,7 @@ func _window_scale_logic(force_update: bool = false) -> void:
 
 
 func hide_mouse() -> void:
-	if Editor.mode == Editor.MODE.EDITOR:
-		return
-	else:
-		super()
+	return
+	#if Editor.mode == Editor.MODE.EDITOR:
+	#else:
+	#	super()

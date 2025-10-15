@@ -46,6 +46,10 @@ func _install_icon() -> void:
 
 
 func _prepare_editor(is_new: bool = true) -> void:
+	if internal_settings.has("init_node2d"):
+		var _dict: Dictionary = internal_settings.init_node2d
+		for i in _dict.keys():
+			set(i, _dict[i])
 	super(is_new)
 
 func _prepare_gameplay() -> Node:

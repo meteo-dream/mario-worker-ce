@@ -25,7 +25,7 @@ func _draw() -> void:
 		could_draw && is_paint_tool &&
 		Editor.scene.editing_sel in [LevelEditor.EDIT_SEL.TILE]
 	):
-		var size = Editor.grid_size
+		var size = Vector2.ONE * 32
 		#var mouse_cursor := get_global_mouse_position()
 		var pos = Editor.scene.get_tile_pos_on_grid()
 		draw_rect(Rect2(pos - Vector2.ONE * 16, size), color, false)
@@ -34,11 +34,12 @@ func _draw() -> void:
 	if !Editor.grid_shown: return
 	
 	if Editor.scene.tool_mode == LevelEditor.TOOL_MODES.ERASE:
-		var size = Editor.grid_size
+		var size = Vector2.ONE * 32
 		#var mouse_cursor := get_global_mouse_position()
 		var pos: Vector2
 		if Editor.scene.editing_sel != LevelEditor.EDIT_SEL.TILE:
 			pos = Editor.scene.get_pos_on_grid()
 		else:
 			pos = Editor.scene.get_tile_pos_on_grid()
+			#size = Vector2.ONE * 32
 		draw_rect(Rect2(pos - Vector2.ONE * 16, size), Color.RED, false)

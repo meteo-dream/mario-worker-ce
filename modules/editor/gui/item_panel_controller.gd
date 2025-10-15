@@ -57,14 +57,15 @@ func load_scene_items(items: PackedStringArray):
 		if !(i.ends_with(".tscn") || i.ends_with(".remap")):
 			continue
 		
-		var cached_scene: EditorAddableNode2D = load(
+		var _loaded_scene = load(
 			SCENES_PATH + category_name + "/" + i.replace(".remap", "")
 		).instantiate()
-		assert(cached_scene is EditorAddableNode2D)
-		if !cached_scene is EditorAddableNode2D:
+		assert(_loaded_scene is EditorAddableNode2D, i + " is not a valid editor addable node.")
+		if !_loaded_scene is EditorAddableNode2D:
 			push_error(category_name + ": " + i + " is not a valid editor addable node.")
-			cached_scene.queue_free()
+			_loaded_scene.queue_free()
 			continue
+		var cached_scene: EditorAddableNode2D = _loaded_scene
 		
 		var btn: Button = ITEM_BUTTON.instantiate()
 		btn.custom_minimum_size = buttons_size * Vector2.ONE
@@ -186,7 +187,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 	if !tileset_dict: return
 	Editor.scene.selected_tileset = tileset_dict
 	
-	# Tile Holder to know what tile user selected
+	# Tile Holder to know what tile the user selected
 	var tile_holder := LevelEditor.TileHolder.new()
 	tile_holder.source_id = source_id
 	Editor.scene.selected_tile_holder = tile_holder
@@ -221,6 +222,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 			tile_holder.terrain = -1
 			tile_holder.terrain_set = -1
 			Editor.scene.select_paint(category_name, false)
+			EditorAudio.menu_accept()
 		)
 		tile_btn.draw.connect(func():
 			tile_btn.draw_texture_rect_region(
@@ -240,6 +242,8 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 	if _terrain > -1:
 		tile_holder.terrain = _terrain
 		tile_holder.terrain_set = _terrain_set
+		tile_holder.terrain_id = _terrain
+		tile_holder.terrain_set_id = _terrain_set
 		
 		var terrain_btn: Button = ITEM_TERRAIN_BUTTON.instantiate()
 		terrain_btn.pressed.connect(func():
@@ -248,6 +252,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 			tile_holder.terrain = _terrain
 			tile_holder.terrain_set = _terrain_set
 			Editor.scene.select_paint(category_name, false)
+			EditorAudio.menu_accept()
 		)
 		
 		%ScrollTileContainer.get_child(0).add_child(terrain_btn)

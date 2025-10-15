@@ -1,7 +1,7 @@
 extends Control
 
 @onready var properties_tabs: TabContainer = %PropertiesTabs
-var _audio_workaround: bool
+var _audio_workaround: int
 
 func _ready() -> void:
 	Editor.gui = self
@@ -218,8 +218,9 @@ func _on_tab_container_tab_selected(tab: int) -> void:
 		Editor.scene.stash_selected_object(true)
 		Editor.scene.editing_sel = tab
 		Editor.scene.apply_stored_selection_object()
-		if !_audio_workaround:
-			_audio_workaround = true
+		print(tab)
+		if _audio_workaround < 2:
+			_audio_workaround += 1
 			return
 		EditorAudio.menu_hover()
 	).call_deferred()

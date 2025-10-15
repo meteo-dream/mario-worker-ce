@@ -7,3 +7,4 @@ script = ExtResource("1_b8orn")
 scene_path = "uid://b1aibpt7836h7"
 category = "enemy"
 offset = Vector2(0, -8)
+text_description = "Walks on a set distance. Launches hammers at player."

@@ -15,3 +15,4 @@ category = "enemy"
 subcategory = "Hazard"
 offset = Vector2(16, 16)
 editor_icon = SubResource("AtlasTexture_wn7p7")
+text_description = "Stationary, until the player comes near, which will cause it to fall down and slowly rise back up. Immune to most projectiles."

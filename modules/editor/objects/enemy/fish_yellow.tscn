@@ -7,3 +7,4 @@ script = ExtResource("1_kk1jp")
 scene_path = "res://engine/objects/enemies/cheeps/cheep_yellow.tscn"
 category = "enemy"
 subcategory = "Underwater"
+text_description = "Moves towards the player's position in a straight line, updating their direction every second. Immune to most projectiles."

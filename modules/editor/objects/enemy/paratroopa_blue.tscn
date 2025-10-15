@@ -10,3 +10,4 @@ category = "enemy"
 subcategory = "Koopa Troopas"
 offset = Vector2(0, -8)
 editor_icon = ExtResource("2_yxhig")
+text_description = "Bounces off the floor. Stomping spawns Blue Koopa Troopa."

@@ -6,3 +6,4 @@
 script = ExtResource("1_kqgk6")
 scene_path = "res://engine/objects/enemies/goombas/goomba.tscn"
 category = "enemy"
+text_description = "Walks on floor. Stomping kills them."

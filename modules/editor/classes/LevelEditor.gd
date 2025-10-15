@@ -78,7 +78,8 @@ var editing_sel: int = EDIT_SEL.NONE:
 		%ShapeCastPoint.collision_mask = 1 << 7 << to
 		get_tree().call_group(&"editor_addable_object", &"queue_redraw")
 		if to == EDIT_SEL.TILE:
-			selected_obj_sprite.visible = selected_tile_holder != null && can_draw()
+			if is_paint_tool():
+				selected_obj_sprite.visible = selected_tile_holder != null
 			selected_obj_sprite.self_modulate.a = 0.5
 			selected_object = null
 			selected = []
@@ -116,8 +117,8 @@ func _ready() -> void:
 	#	DisplayServer.window_set_size(Vector2i(1280, 720))
 	Editor.scene = self
 	Editor.mode = Editor.MODE.EDITOR
-	Thunder._current_player_state = null
-	Thunder._current_player_state_path = ""
+	Data.reset_all_values()
+	
 	var loaded_level
 	if Editor.current_level == null:
 		loaded_level = preload("res://modules/editor/stages/base_level.tscn")
@@ -285,7 +286,7 @@ func _input_paint_tile(event: InputEvent) -> void:
 	var tilemap: TileMapLayer = selected_tile_holder.tilemap
 	if !tilemap: return
 	var _section_node = Editor.current_level.get_section(section)
-	var local_pos: Vector2i = _section_node.to_local(tilemap.local_to_map(get_pos_on_grid()))
+	var local_pos: Vector2i = _section_node.to_local(tilemap.local_to_map(get_tile_pos_on_grid(true)))
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && tilemap.get_cell_tile_data(local_pos):
 		if selected_tile_holder.terrain > -1:
 			tilemap.set_cells_terrain_connect(
@@ -354,15 +355,19 @@ func tileset_selected() -> void:
 	for i in get_tree().get_nodes_in_group(&"editor_addable_tilemap"):
 		if i == _tilemap: continue
 		if i is TileMapLayer:
+			# Removing tilemaps without any tiles
 			if len(i.get_used_cells()) == 0:
 				i.queue_free()
+	# Picking an existing tilemap
 	if _tilemap && _tilemap.has_meta(&"editor_tileset"):
 		selected_tile_holder.tilemap = _tilemap
 		return
 	var old_tiles: PackedByteArray
+	# Fallback code
 	if _tilemap && !_tilemap.has_meta(&"editor_tileset"):
 		old_tiles = _tilemap.tile_map_data
 		_tilemap.free.call_deferred()
+	# Creating new tilemap
 	var _new_tilemap = E_TILEMAP.instantiate()
 	_new_tilemap.tile_set = selected_tileset.tileset
 	_new_tilemap.name = selected_tileset.name_id
@@ -391,8 +396,11 @@ func switch_tile_by(amount: int) -> void:
 		EDIT_SEL.TILE:
 			var tile_index: int = selected_tile_holder.tiles.find(selected_tile_holder.id)
 			var old_index = tile_index
+			
 			tile_index = clampi(tile_index + amount, 0, len(selected_tile_holder.tiles) - 1)
 			if old_index != tile_index:
+				selected_tile_holder.terrain = -1
+				selected_tile_holder.terrain_set = -1
 				selected_tile_holder.id = selected_tile_holder.tiles[tile_index]
 				play_sound = true
 	
@@ -414,6 +422,7 @@ func section_switched(to: int) -> void:
 	else:
 		Editor.camera.global_position = section_node.global_position + Vector2(448, 224)
 	Editor.camera.reset_physics_interpolation()
+	tileset_selected()
 	%PropertiesTabs.update_section_values()
 
 
@@ -423,11 +432,13 @@ func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
 	var _grid_pos = Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
 	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown || forced_grid else get_global_mouse_position().round() #- Vector2.ONE * 16
 
-func get_tile_pos_on_grid() -> Vector2:
+func get_tile_pos_on_grid(sectioned: bool = true) -> Vector2:
 	var tile_grid = 32
-	var _offset := (Vector2.ONE * 16) + get_sectioned_pos(Vector2.ZERO)
+	var _offset := Vector2.ONE * 16
+	if sectioned:
+		_offset += get_sectioned_pos(Vector2.ZERO)
 	return _offset + Vector2(
-		(Editor.current_level.get_section(section).get_local_mouse_position().round() - _offset) / tile_grid
+		(get_local_mouse_position().round() - _offset) / tile_grid
 	).round() * tile_grid
 
 func get_sectioned_pos(pos: Vector2) -> Vector2:
@@ -746,11 +757,14 @@ func object_to_paint_selected(from_menu: bool = false) -> void:
 
 func pick_block() -> bool:
 	
-	if editing_sel != EDIT_SEL.TILE: return false
+	if editing_sel != EDIT_SEL.TILE:
+		
+		return false
+	
 	var _tile_pos: Vector2i = get_tile_pos_on_grid() / 32
 	if selected_tile_holder && is_instance_valid(selected_tile_holder.tilemap):
 		var _tile: int = selected_tile_holder.tilemap.get_cell_source_id(_tile_pos)
-		if _tile != -1:
+		if _tile != -1 && selected_tile_holder.source_id == _tile:
 			selected_tile_holder.id = selected_tile_holder.tilemap.get_cell_atlas_coords(_tile_pos)
 			selected_tile_holder.source_id = _tile
 			selected_tile_holder.alt_tile = selected_tile_holder.tilemap.get_cell_alternative_tile(_tile_pos)
@@ -817,8 +831,9 @@ tr("Left click an object to select it.\nRight click to display its properties.\n
 
 func apply_stored_selection_object(override: Node2D = null) -> void:
 	if editing_sel == EDIT_SEL.TILE && selected_tile_holder && selected_tileset:
-		%SelectedObjControl.visible = true
-		%SelectedObjLabel.text = tr("Painting Tileset: %s") % [selected_tileset.translated_name]
+		if is_paint_tool():
+			%SelectedObjControl.visible = true
+			%SelectedObjLabel.text = tr("Painting Tileset: %s") % [selected_tileset.translated_name]
 		var tile_source: TileSetAtlasSource = selected_tileset.tileset.get_source(selected_tile_holder.source_id)
 		var atlas_texture := AtlasTexture.new()
 		atlas_texture.atlas = tile_source.texture
@@ -842,9 +857,10 @@ func apply_stored_selection_object(override: Node2D = null) -> void:
 	selected_obj_sprite.texture = _stored_obj.editor_icon
 	selected_obj_sprite.self_modulate.a = 0.5
 	%SelectedObjDisplay.texture = _stored_obj.editor_icon
-	%SelectedObjControl.visible = true
+	if is_paint_tool():
+		%SelectedObjControl.visible = true
+		%SelectedObjLabel.text = tr("Painting %s") % [_stored_obj.translated_name]
 	selected_object = _stored_obj
-	%SelectedObjLabel.text = tr("Painting %s") % [_stored_obj.translated_name]
 	selected_obj_sprite.offset = Vector2.ZERO
 	if !is_instance_valid(selected_object) && len(selected) == 1:
 		selected_object = selected[0]
@@ -987,6 +1003,9 @@ static func _edit_sel_to_enum(edit_sel_string: String) -> EDIT_SEL:
 func restart() -> void:
 	pass
 
+func finish(walking: bool = false, walking_dir: int = 1) -> void:
+	Editor.current_level.finish(walking, walking_dir)
+
 
 ## Used to store what tile is currently selected to draw.
 class TileHolder:
@@ -994,6 +1013,8 @@ class TileHolder:
 	var id: Vector2i
 	var terrain: int = -1
 	var terrain_set: int = -1
+	var terrain_id: int = -1
+	var terrain_set_id: int = -1
 	var alt_tile: int = 0
 	var tiles: Array[Vector2i]
 	var tilemap: TileMapLayer

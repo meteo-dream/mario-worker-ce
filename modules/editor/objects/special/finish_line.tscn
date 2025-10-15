@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvyp52qq8x763"]
+
+[ext_resource type="Script" uid="uid://rxhe6nuejrdt" path="res://modules/editor/objects/special/finish_line.gd" id="1_btkjv"]
+[ext_resource type="Texture2D" uid="uid://cube175uuy8i6" path="res://engine/objects/core/finish_line/textures/finishline.png" id="2_btkjv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16jej"]
+atlas = ExtResource("2_btkjv")
+region = Rect2(0, 256, 31, 32)
+filter_clip = true
+
+[node name="Finish Line" type="Node2D"]
+script = ExtResource("1_btkjv")
+place_mode = 2
+group_name = &"finish_line"
+category = "special"
+subcategory = "Essentials"
+offset = Vector2(112, -128)
+editor_icon = ExtResource("2_btkjv")
+editor_button_icon = SubResource("AtlasTexture_16jej")
+text_description = "Used to finish the level."

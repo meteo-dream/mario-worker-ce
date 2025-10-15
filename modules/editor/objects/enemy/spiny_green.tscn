@@ -12,3 +12,4 @@ script = ExtResource("1_0ylpy")
 scene_path = "uid://bir2rn1mkn6h6"
 category = "enemy"
 editor_icon = SubResource("AtlasTexture_ygvx6")
+text_description = "Cannot be stomped. Does not walk off ledges. Faster than regular ones."

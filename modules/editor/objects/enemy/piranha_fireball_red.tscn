@@ -11,3 +11,4 @@ category = "enemy"
 subcategory = "Piranha Plants"
 offset = Vector2(16, -8)
 editor_icon = ExtResource("2_ttjuq")
+text_description = "Much faster than a regular Piranha Plant. Launches fireballs with random speed that fall through tiles."

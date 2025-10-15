@@ -10,3 +10,5 @@ scene_path = "res://engine/objects/enemies/firebar/firebar.tscn"
 category = "enemy"
 subcategory = "Hazard"
 editor_icon = ExtResource("2_gyogf")
+editor_button_icon = ExtResource("2_gyogf")
+text_description = "A bar of fireballs that can move either clockwise or counter-clockwise. Damages player on contact. Immune to everything."

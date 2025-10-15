@@ -8,3 +8,4 @@ scene_path = "res://engine/objects/enemies/koopas/koopa_blue.tscn"
 category = "enemy"
 subcategory = "Koopa Troopas"
 offset = Vector2(0, -8)
+text_description = "Walks on floor."

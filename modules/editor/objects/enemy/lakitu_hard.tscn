@@ -11,5 +11,6 @@ region = Rect2(0, 0, 31, 48)
 script = ExtResource("1_22kdv")
 scene_path = "res://engine/objects/enemies/lakitus/lakitu_hardcore.tscn"
 category = "enemy"
-editor_icon = SubResource("AtlasTexture_40sfs")
 offset = Vector2(0, -8)
+editor_icon = SubResource("AtlasTexture_40sfs")
+text_description = "Floats around the player, rapidly launching Spiny Eggs that move faster."

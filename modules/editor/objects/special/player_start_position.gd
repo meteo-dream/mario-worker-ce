@@ -14,7 +14,7 @@ func setup_object() -> Node:
 				_par.icon = _icon
 				_par.add_theme_constant_override(&"icon_max_width", _icon.get_width())
 			else:
-				_icon = editor_icon
+				_par.icon = editor_icon
 			process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		return _prepare_gameplay()

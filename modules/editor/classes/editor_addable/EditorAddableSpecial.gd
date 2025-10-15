@@ -46,16 +46,22 @@ func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> Node2D:
 		new_node.position_changed()
 		return new_node
 	if place_mode == PLACE_MODE.ONE_PER_LEVEL:
-		group_nodes[0].position = Editor.scene.get_pos_on_grid() - _section_node.global_position + offset
+		group_nodes[0].position = Editor.scene.get_pos_on_grid() + offset
 		group_nodes[0].reset_physics_interpolation()
 		group_nodes[0].position_changed()
 	elif place_mode == PLACE_MODE.ONE_PER_SECTION:
+		var _affected: bool
 		for i in group_nodes:
 			if _section_node.is_ancestor_of(i):
-				i.position = Editor.scene.get_pos_on_grid() - _section_node.global_position + offset
+				i.position = Editor.scene.get_pos_on_grid() + offset
 				i.reset_physics_interpolation()
 				i.position_changed()
+				_affected = true
 				break
+		if !_affected:
+			var new_node = super(_section_node, mouse_clicked_once)
+			new_node.position_changed()
+			return new_node
 	Editor.scene.changes_after_save = true
 	if mouse_clicked_once:
 		EditorAudio.place_object()

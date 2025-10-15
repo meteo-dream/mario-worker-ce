@@ -7,3 +7,4 @@ script = ExtResource("1_yoiix")
 scene_path = "res://engine/objects/enemies/lakitus/dark_lakitu.tscn"
 category = "enemy"
 offset = Vector2(0, -8)
+text_description = "Floats around the player, occasionally launching Gray Spiny Eggs."

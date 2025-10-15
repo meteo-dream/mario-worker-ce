@@ -184,7 +184,7 @@ dialog_autowrap = true
 file_mode = 0
 display_mode = 1
 access = 1
-filters = PackedStringArray("*.tscn;Level scenes")
+filters = PackedStringArray("*.scn,*.tscn;Level scenes")
 favorites_enabled = false
 recent_list_enabled = false
 

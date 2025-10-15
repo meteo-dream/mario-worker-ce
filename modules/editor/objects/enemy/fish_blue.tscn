@@ -7,3 +7,4 @@ script = ExtResource("1_1yrsv")
 scene_path = "res://engine/objects/enemies/cheeps/cheep_blue.tscn"
 category = "enemy"
 subcategory = "Underwater"
+text_description = "Moves in a straight line, bouncing off walls. Immune to some projectiles."

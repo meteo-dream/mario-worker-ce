@@ -10,3 +10,4 @@ category = "enemy"
 subcategory = "Koopa Troopas"
 offset = Vector2(0, -8)
 editor_icon = ExtResource("2_bij3m")
+text_description = "Flies around their origin in a horizontal line. Stomping spawns Red Koopa Troopa."

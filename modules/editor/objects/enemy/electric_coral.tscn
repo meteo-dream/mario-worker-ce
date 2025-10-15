@@ -7,3 +7,4 @@ script = ExtResource("1_mthw0")
 scene_path = "uid://cdfqlkg8w5yc8"
 category = "enemy"
 subcategory = "Underwater"
+text_description = "Damages player on contact. Immune to everything."

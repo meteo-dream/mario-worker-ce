@@ -5,7 +5,8 @@
 [node name="Piranha Plant (Iceball)" type="Node2D"]
 script = ExtResource("1_75m72")
 scene_path = "uid://da0fmncf7ksxc"
+instance_offset = Vector2(0, 24)
 category = "enemy"
 subcategory = "Piranha Plants"
 offset = Vector2(16, -8)
-instance_offset = Vector2(0, 24)
+text_description = "Launches iceballs with random speed that fall through tiles."

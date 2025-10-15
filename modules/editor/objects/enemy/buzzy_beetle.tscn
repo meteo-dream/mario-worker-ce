@@ -6,3 +6,4 @@
 script = ExtResource("1_jw1sa")
 scene_path = "res://engine/objects/enemies/buzzle_bettle/buzzle_beetle.tscn"
 category = "enemy"
+text_description = "Walks on floor. Immune to most projectiles. Kills moving Koopa Shells."

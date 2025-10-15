@@ -342,13 +342,14 @@ disable_3d = true
 oversampling_override = 1.0
 title = "Configure Snap"
 initial_position = 2
-size = Vector2i(320, 128)
+size = Vector2i(336, 160)
 visible = false
 transient = true
 transient_to_focused = true
 exclusive = true
 popup_window = true
-min_size = Vector2i(280, 100)
+force_native = true
+min_size = Vector2i(280, 140)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow"]
 anchors_preset = 15
@@ -357,7 +358,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.16, 0.16, 0.16, 1)
+color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow"]
 anchors_preset = 15
@@ -373,55 +374,66 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
 text = "Grid Offset:"
 
-[node name="SpinBox" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -100.0
-rounded = true
-allow_greater = true
-allow_lesser = true
-suffix = "px"
-custom_arrow_step = 1.0
-
-[node name="SpinBox2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -100.0
-rounded = true
-allow_greater = true
-allow_lesser = true
-suffix = "px"
-custom_arrow_step = 1.0
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 6
 text = "Grid Step:"
 
-[node name="SpinBox" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="GridOffset1" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+suffix = "px"
+custom_arrow_step = 1.0
+
+[node name="GridStep1" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 min_value = 4.0
 max_value = 500.0
-value = 32.0
+value = 16.0
 rounded = true
 suffix = "px"
 custom_arrow_step = 1.0
 
-[node name="SpinBox2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer2"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="GridOffset2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+suffix = "px"
+custom_arrow_step = 1.0
+
+[node name="GridStep2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
 min_value = 4.0
 max_value = 500.0
-value = 32.0
+value = 16.0
 rounded = true
 suffix = "px"
 custom_arrow_step = 1.0
@@ -539,6 +551,7 @@ title = "Level Properties"
 initial_position = 1
 size = Vector2i(512, 512)
 visible = false
+force_native = true
 min_size = Vector2i(400, 512)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties"]
@@ -596,12 +609,13 @@ title = "Open a File"
 initial_position = 2
 size = Vector2i(540, 420)
 popup_window = true
+force_native = true
 ok_button_text = "Open"
 dialog_autowrap = true
 file_mode = 0
 display_mode = 1
 access = 1
-filters = PackedStringArray("*.tscn;Level scenes")
+filters = PackedStringArray("*.tscn,*.scn;Level scenes")
 
 [node name="SaveLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 unique_name_in_owner = true
@@ -615,10 +629,11 @@ icon = ExtResource("18_efige")
 unique_name_in_owner = true
 initial_position = 2
 size = Vector2i(540, 420)
+force_native = true
 dialog_autowrap = true
 display_mode = 1
 access = 1
-filters = PackedStringArray("*.tscn;Level scenes")
+filters = PackedStringArray("*.tscn,*.scn;Level scenes")
 
 [node name="CloseEditorButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
 layout_mode = 2
@@ -631,6 +646,7 @@ unique_name_in_owner = true
 disable_3d = true
 initial_position = 2
 size = Vector2i(320, 128)
+force_native = true
 min_size = Vector2i(200, 100)
 ok_button_text = "Save"
 dialog_text = "Warning: You have unsaved changes.
