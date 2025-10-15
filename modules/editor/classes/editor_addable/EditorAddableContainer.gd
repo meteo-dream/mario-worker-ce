@@ -49,12 +49,22 @@ func _physics_process(delta: float) -> void:
 	var shape_cast: ShapeCast2D = Editor.scene.get_node("%ShapeCast2D")
 	shape_cast.force_shapecast_update()
 	if !shape_cast.is_colliding(): return
+	
+	var mouse_pos := get_global_mouse_position() - (Vector2.ONE * 0.00001)
+	var item_closest_pos_arr: Array[float]
+	var can_addable: bool
 	for i in shape_cast.get_collision_count():
 		var _col = shape_cast.get_collider(i)
 		if !_col || !_col.get_parent(): continue
 		_col = _col.get_parent()
-		if !_col == self: continue
+		if _col is EditorAddableContainer:
+			item_closest_pos_arr.append(mouse_pos.distance_squared_to(_col.global_position))
 		
+		can_addable = item_closest_pos_arr.all(func(dist):
+			return dist >= mouse_pos.distance_squared_to(global_position)
+		)
+	
+	if can_addable:
 		if Input.is_action_just_pressed(&"ui_mclick_left"):
 			EditorAudio.kick(2)
 			Editor.scene.changes_after_save = true
@@ -63,7 +73,7 @@ func _physics_process(delta: float) -> void:
 			update_displayer(false)
 		else:
 			update_displayer(true)
-		
+	#print(item_closest_pos_arr)
 
 #func _hovered() -> void:
 	#print(name)

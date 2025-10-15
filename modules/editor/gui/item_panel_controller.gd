@@ -193,6 +193,9 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 	Editor.scene.selected_tile_holder = tile_holder
 	
 	for i in %ScrollTileContainer.get_child(0).get_children():
+		if i == %TileFlowContainer: continue
+		i.queue_free()
+	for i in %TileFlowContainer.get_children():
 		i.queue_free()
 	
 	var _tile_btn_base: Button = ITEM_TILE_BUTTON.instantiate()
@@ -201,10 +204,17 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 	var _terrain: int = -1
 	var _terrain_set: int = -1
 	var tile_source: TileSetAtlasSource = tileset_dict.tileset.get_source(source_id)
-	for i in tile_source.get_tiles_count():
+	var tiles_arr: Array[Vector2i] = []
+	tiles_arr.resize(tile_source.get_tiles_count())
+	for i in tiles_arr.size():
+		tiles_arr[i] = tile_source.get_tile_id(i)
+	tiles_arr.sort_custom(func(a, b):
+		return a.x < b.x if a.y == b.y else a.y < b.y
+	)
+	for i in tiles_arr.size():
 		tile_btn = _tile_btn_base.duplicate() if i < tile_source.get_tiles_count() - 1 else _tile_btn_base
 		
-		var tile_id: Vector2i = tile_source.get_tile_id(i)
+		var tile_id: Vector2i = tiles_arr[i]
 		var tile_texture_region = tile_source.get_tile_texture_region(tile_id)
 		tile_btn.custom_minimum_size = Vector2(tile_texture_region.size) + (Vector2.ONE * 2)
 		tile_btn.set_meta(&"tile_id", tile_id)
@@ -237,7 +247,7 @@ func _on_editor_tileset_selected(source_id: int, tileset_dict: Dictionary) -> vo
 		)
 		#tile_btn.icon = tile_source.get_runtime_tile_texture_region()
 		
-		%ScrollTileContainer.get_child(0).add_child(tile_btn)
+		%TileFlowContainer.add_child(tile_btn)
 	
 	if _terrain > -1:
 		tile_holder.terrain = _terrain
