@@ -5,6 +5,7 @@ enum MODE {
 	EDITOR,
 	TESTING
 }
+const config_path = "user://editor_config.thss"
 
 var camera: Camera2D:
 	get():
@@ -34,6 +35,11 @@ var gui: Control:
 
 var mode: int = MODE.NONE
 
+var default_config: Dictionary = {
+	"lang": "",
+	"editor_sounds": true,
+}
+var config: Dictionary = default_config.duplicate(true)
 var grid_shown: bool = true
 var grid_size: Vector2
 var grid_offset: Vector2
@@ -45,6 +51,7 @@ func _ready() -> void:
 	get_window().min_size = Vector2(800, 480)
 	if !DirAccess.dir_exists_absolute("user://User Data/Levels"):
 		DirAccess.make_dir_recursive_absolute("user://User Data/Levels")
+	load_config()
 
 func get_group_property(group_name: StringName, property: StringName) -> bool:
 	var res: bool
@@ -67,3 +74,17 @@ func is_window_active() -> bool:
 	if _win != -1: res = false
 	if !DisplayServer.window_is_focused(0): res = false
 	return res
+
+## Loads the settings variable from file
+func load_config() -> void:
+	var loaded_data: Dictionary = SettingsManager.load_data(config_path, "EditorConfig")
+	if loaded_data.is_empty():
+		return
+
+	config = loaded_data
+	print("[Editor] Loaded editor config from a file.")
+
+## Saves the tweaks variable to a file
+func save_config() -> void:
+	SettingsManager.save_data(config, config_path, "EditorConfig")
+	print("[Editor] Editor config saved!")

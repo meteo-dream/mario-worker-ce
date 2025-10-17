@@ -1,17 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://coixrwl58swny"]
+[gd_scene load_steps=9 format=3 uid="uid://coixrwl58swny"]
 
 [ext_resource type="Script" uid="uid://78hf1m1sryup" path="res://stages/main_menu/prototype_menu.gd" id="1_phs36"]
+[ext_resource type="Shader" uid="uid://dvd0fknen38cd" path="res://gfx/fonts/nsmffont.gdshader" id="2_wxx16"]
+[ext_resource type="FontFile" uid="uid://cy6d4eflqb5m4" path="res://gfx/fonts/VAG Rounded Next ExtraBlack.OTF" id="3_wyd67"]
 
 [sub_resource type="Gradient" id="Gradient_phs36"]
-colors = PackedColorArray(0.5529412, 0.48235294, 1, 0.30980393, 0.3137255, 0.68235296, 0.98039216, 0.5019608)
+offsets = PackedFloat32Array(0, 0.27192983, 1)
+colors = PackedColorArray(0.7764706, 0.73333335, 1, 0.3764706, 0.7764706, 0.8039216, 0.9137255, 0.3764706, 0.3137255, 0.5686275, 0.98039216, 0.5019608)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_owbi8"]
 gradient = SubResource("Gradient_phs36")
-height = 480
+height = 800
 fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_phs36"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7wn7o"]
+shader = ExtResource("2_wxx16")
+shader_parameter/msdf_pixel_range = 16.0
+
+[sub_resource type="FontVariation" id="FontVariation_jofpu"]
+base_font = ExtResource("3_wyd67")
+variation_transform = Transform2D(1, 0, 0, 1.1, 0, 0)
+spacing_glyph = 2
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -30,6 +42,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_owbi8")
+expand_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(200, 0)
@@ -94,7 +107,7 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="LangEn" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Lang_en" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["menu_lang"]]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 8
@@ -102,23 +115,21 @@ button_pressed = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "EN"
 
-[node name="LangRu" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="Lang_ru" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["menu_lang"]]
 layout_mode = 2
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "RU"
 
-[node name="LangPl" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="Lang_pl" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["menu_lang"]]
+visible = false
 layout_mode = 2
 theme_override_constants/outline_size = 8
 disabled = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "PL"
 
-[node name="LangTr" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="Lang_tr" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["menu_lang"]]
 layout_mode = 2
 theme_override_constants/outline_size = 8
 disabled = true
@@ -129,48 +140,58 @@ text = "TR"
 layout_mode = 2
 alignment = 1
 
-[node name="LangZhCN" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
+[node name="Lang_zh" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "ZH"
 
-[node name="LangViVN" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
+[node name="Lang_vi" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "VI"
 
-[node name="LangEs" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
+[node name="Lang_es" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
 theme_override_constants/outline_size = 8
 disabled = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "ES"
 
-[node name="LangPtBR" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
+[node name="Lang_pt" type="CheckBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
+visible = false
 layout_mode = 2
 theme_override_constants/outline_size = 8
 disabled = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "PT"
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 16.0
-offset_bottom = 39.0
+offset_bottom = 91.0
 grow_horizontal = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer2"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_7wn7o")
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_jofpu")
+theme_override_font_sizes/font_size = 32
+text = "Mario Worker: Community Edition"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 20
 text = "Mario Worker: Community Edition
 PRE-ALPHA PROTOTYPE Build 1"
 horizontal_alignment = 1
+lines_skipped = 1
 
 [node name="LoadFileDialog" type="FileDialog" parent="."]
 auto_translate_mode = 1
@@ -191,13 +212,13 @@ recent_list_enabled = false
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Testlevel" to="." method="_on_test_level_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/BrowseFiles" to="." method="_on_browse_files_pressed"]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/LangEn" to="." method="_on_lang_toggled" binds= ["en"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/LangRu" to="." method="_on_lang_toggled" binds= ["ru"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/LangPl" to="." method="_on_lang_toggled" binds= ["pl"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/LangTr" to="." method="_on_lang_toggled" binds= ["tr"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LangZhCN" to="." method="_on_lang_toggled" binds= ["zh_CN"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LangViVN" to="." method="_on_lang_toggled" binds= ["vi_VN"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LangEs" to="." method="_on_lang_toggled" binds= ["es"]]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LangPtBR" to="." method="_on_lang_toggled" binds= ["pt_BR"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_en" to="." method="_on_lang_toggled" binds= ["en"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_ru" to="." method="_on_lang_toggled" binds= ["ru"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_pl" to="." method="_on_lang_toggled" binds= ["pl"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_tr" to="." method="_on_lang_toggled" binds= ["tr"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Lang_zh" to="." method="_on_lang_toggled" binds= ["zh_CN"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Lang_vi" to="." method="_on_lang_toggled" binds= ["vi_VN"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Lang_es" to="." method="_on_lang_toggled" binds= ["es"]]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Lang_pt" to="." method="_on_lang_toggled" binds= ["pt_BR"]]
 [connection signal="canceled" from="LoadFileDialog" to="LoadFileDialog" method="hide"]
 [connection signal="file_selected" from="LoadFileDialog" to="." method="_on_load_file_dialog_file_selected"]

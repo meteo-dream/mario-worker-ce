@@ -8,18 +8,23 @@ func _ready() -> void:
 	SettingsManager.show_mouse()
 	Editor.current_level_properties = null
 	Editor.current_level = null
-	%LangEn.button_pressed = OS.get_locale_language() == "en"
-	%LangRu.button_pressed = OS.get_locale_language() == "ru"
-	%LangTr.button_pressed = OS.get_locale_language() == "tr"
-	%LangPl.button_pressed = OS.get_locale_language() == "pl"
-	%LangZhCN.button_pressed = OS.get_locale_language() == "zh"
-	%LangEs.button_pressed = OS.get_locale_language() == "es"
-	%LangPtBR.button_pressed = OS.get_locale_language() == "pt"
-	%LangViVN.button_pressed = OS.get_locale_language() == "vi"
+	if Editor.config.lang == "":
+		for i in get_tree().get_nodes_in_group(&"menu_lang"):
+			i.button_pressed = OS.get_locale_language() == i.name.trim_prefix("Lang_")
+	else:
+		for i in get_tree().get_nodes_in_group(&"menu_lang"):
+			if i.name.trim_prefix("Lang_") == Editor.config.lang:
+				%Lang_en.button_pressed = false
+				i.button_pressed = true
+				break
+	%EditorSounds.button_pressed = Editor.config.editor_sounds
+	Editor.save_config()
 
 
 func _on_button_pressed() -> void:
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(&"Editor"), !check_box.button_pressed)
+	Editor.config.editor_sounds = check_box.button_pressed
+	Editor.save_config()
 	Scenes.goto_scene("res://modules/editor/stages/level_editor.tscn")
 	queue_free()
 
@@ -134,3 +139,4 @@ func _on_browse_files_pressed() -> void:
 func _on_lang_toggled(toggled_on: bool, lang_string: String) -> void:
 	if !toggled_on: return
 	TranslationServer.set_locale(lang_string)
+	Editor.config.lang = lang_string
