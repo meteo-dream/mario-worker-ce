@@ -14,18 +14,12 @@ func _ready() -> void:
 	Thunder._connect(%CloseConfirmationDialog.custom_action, _on_dontsave)
 	_on_tab_container_tab_selected(%TabContainer.current_tab)
 	
-	Thunder._connect(%GridOffset1.value_changed, _on_grid_value_changed.bind(%GridOffset1))
-	Thunder._connect(%GridOffset2.value_changed, _on_grid_value_changed.bind(%GridOffset2))
-	Thunder._connect(%GridStep1.value_changed, _on_grid_value_changed.bind(%GridStep1))
-	Thunder._connect(%GridStep2.value_changed, _on_grid_value_changed.bind(%GridStep2))
-	Thunder._connect(%GridPrimaryLine1.value_changed, _on_grid_line_value_changed.bind(%GridPrimaryLine1))
-	Thunder._connect(%GridPrimaryLine2.value_changed, _on_grid_line_value_changed.bind(%GridPrimaryLine2))
-	%GridOffset1.value = Editor.config.grid_offset_x
-	%GridOffset2.value = Editor.config.grid_offset_y
-	%GridStep1.value = Editor.config.grid_size_x
-	%GridStep2.value = Editor.config.grid_size_y
-	%GridPrimaryLine1.value = Editor.config.grid_primary_line_x
-	%GridPrimaryLine2.value = Editor.config.grid_primary_line_y
+	_update_grid_spinbox(%GridOffset1, Editor.config.grid_offset_x)
+	_update_grid_spinbox(%GridOffset2, Editor.config.grid_offset_y)
+	_update_grid_spinbox(%GridStep1, Editor.config.grid_size_x)
+	_update_grid_spinbox(%GridStep2, Editor.config.grid_size_y)
+	_update_grid_spinbox(%GridPrimaryLine1, Editor.config.grid_primary_line_x, true)
+	_update_grid_spinbox(%GridPrimaryLine2, Editor.config.grid_primary_line_y, true)
 
 
 func disable_toolbar_buttons() -> void:
@@ -254,6 +248,15 @@ func _on_center_level_button_pressed() -> void:
 func _on_erase_with_rmb_toggled(toggled_on: bool) -> void:
 	%EraseSpecificObject.disabled = !toggled_on
 
+
+func _update_grid_spinbox(obj: SpinBox, init_val: float, is_line: bool = false) -> void:
+	obj.value = init_val
+	if !is_line:
+		_on_grid_value_changed(init_val, obj)
+		Thunder._connect(obj.value_changed, _on_grid_value_changed.bind(obj))
+	else:
+		_on_grid_line_value_changed(init_val, obj)
+		Thunder._connect(obj.value_changed, _on_grid_line_value_changed.bind(obj))
 
 func _on_grid_value_changed(to: float, obj: SpinBox) -> void:
 	obj.suffix = tr(&"px", &"Grid value suffix")

@@ -19,6 +19,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.7\n"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
@@ -29,6 +30,16 @@ msgstr "Не удалось загрузить: Данные поврежден�
 msgid "Failed to load: Scene is corrupted"
 msgstr "Не удалось загрузить: Сцена повреждена"
 
+#: stages/main_menu/prototype_menu.gd
+msgid ""
+"This is not a valid level. See logs at\n"
+"\n"
+"%s"
+msgstr ""
+"Это недействительный уровень. См. журналы в\n"
+"\n"
+"%s"
+
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Incompatible Version"
 msgstr "Не удалось загрузить: Несовместимая версия"
@@ -36,6 +47,18 @@ msgstr "Не удалось загрузить: Несовместимая ве�
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Missing LevelProperties"
 msgstr "Не удалось загрузить: Отсутствуют данные свойства уровня"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Mario Worker: Community Edition"
+msgstr "Mario Worker: Community Edition"
+
+#: stages/main_menu/main_menu.tscn
+msgid ""
+"Mario Worker: Community Edition\n"
+"PRE-ALPHA PROTOTYPE Build 1"
+msgstr ""
+"Mario Worker: Community Edition\n"
+"PRE-ALPHA ПРОТОТИП Сборка 1"
 
 #: stages/main_menu/main_menu.tscn
 msgid ""
@@ -63,29 +86,13 @@ msgstr "Открыть папку уровней"
 msgid "Enable editor sounds"
 msgstr "Включить звуки редактора"
 
-#: stages/main_menu/main_menu.tscn
-msgid "EN"
-msgstr "EN"
+#: stages/main_menu/main_menu.tscn stages/main_menu/objects/about_window.tscn
+msgid "About"
+msgstr "О программе"
 
-#: stages/main_menu/main_menu.tscn
-msgid "RU"
-msgstr "RU"
-
-#: stages/main_menu/main_menu.tscn
-msgid "PL"
-msgstr "PL"
-
-#: stages/main_menu/main_menu.tscn
-msgid "TR"
-msgstr "TR"
-
-#: stages/main_menu/main_menu.tscn
-msgid ""
-"Mario Worker: Community Edition\n"
-"PRE-ALPHA PROTOTYPE Build 1"
-msgstr ""
-"Mario Worker: Community Edition\n"
-"PRE-ALPHA ПРОТОТИП Сборка 1"
+#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
+msgid "Exit"
+msgstr "Выход"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Open a File"
@@ -107,6 +114,23 @@ msgstr "Не сохранять"
 #: modules/editor/scripts/editor_gui.gd
 msgid "Save failed."
 msgstr "Не удалось сохранить."
+
+#: modules/editor/scripts/editor_gui.gd
+msgid "This button is unimplemented for now, use 'Play Level' from the title screen"
+msgstr "Эта кнопка на данный момент не реализована. Используйте «Запустить уровень» в главном меню"
+
+#: modules/editor/scripts/editor_gui.gd
+msgctxt "Grid value suffix"
+msgid "px"
+msgstr "пкс"
+
+#: modules/editor/scripts/editor_gui.gd
+msgctxt "Grid primary line value suffix"
+msgid "step"
+msgid_plural "steps"
+msgstr[0] "шаг"
+msgstr[1] "шага"
+msgstr[2] "шагов"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Target: %.v"
@@ -153,6 +177,22 @@ msgid "%d objects selected"
 msgstr "Выбрано объектов: %d"
 
 #: modules/editor/classes/LevelEditor.gd
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "key"
+msgid "Space"
+msgstr "Пробел"
+
+#: modules/editor/classes/LevelEditor.gd
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "e.g. Space button"
+msgid "%s button"
+msgstr "%s"
+
+#: modules/editor/classes/LevelEditor.gd
+msgid "Nothing to paint. Press %s to pick an object"
+msgstr "Нечем рисовать. Нажмите %s, чтобы выбрать объект"
+
+#: modules/editor/classes/LevelEditor.gd
 msgid ""
 "Left click an object to select it.\n"
 "Right click to display its properties.\n"
@@ -163,33 +203,20 @@ msgstr ""
 "Удерживайте клавишу Shift, чтобы выбрать несколько."
 
 #: modules/editor/classes/LevelEditor.gd
-msgid "Panning mode"
-msgstr "Режим «рука»"
-
-#: modules/editor/classes/LevelEditor.gd
-msgid "List mode"
-msgstr "Режим «список»"
+msgid "Painting Tileset: %s"
+msgstr "Рисование набора плиток: %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Painting %s"
 msgstr "Рисование: %s"
 
 #: modules/editor/classes/LevelEditor.gd
-msgid "Painting Tileset: %s"
-msgstr "Рисование набора плиток: %s"
+msgid "Panning mode"
+msgstr "Режим «рука»"
 
 #: modules/editor/classes/LevelEditor.gd
-msgctxt "key"
-msgid "Space"
-msgstr "Пробел"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Space"
-msgstr "Пробел"
-
-#: modules/editor/classes/LevelEditor.gd
-msgid "Nothing to paint. Press %s to pick an object"
-msgstr "Нечем рисовать. Нажмите %s, чтобы выбрать объект"
+msgid "List mode"
+msgstr "Режим «список»"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Pick a tile/object to select for drawing"
@@ -256,6 +283,11 @@ msgid "Grid Step:"
 msgstr "Шаг:"
 
 #: modules/editor/stages/level_editor.tscn
+msgid "Primary Line Every:"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+#: stages/main_menu/objects/about_window.tscn
 msgid "OK"
 msgstr "ОК"
 
@@ -344,11 +376,14 @@ msgstr ""
 "Сохранить перед выходом?"
 
 #: modules/editor/stages/level_editor.tscn
+#, fuzzy
 msgid ""
 "Middle mouse button: Pan\n"
+"Scroll wheel: Next/Previous tile\n"
 "Alt+Scroll wheel: Zoom\n"
 "(Shift+)Ctrl+Scroll wheel: Scroll\n"
 "...or use - and + keys\n"
+"Ctrl+Arrow keys: Scroll\n"
 "H: drop player at mouse cursor"
 msgstr ""
 "Средняя кнопка мыши: Рука\n"
@@ -356,10 +391,6 @@ msgstr ""
 "(Shift+)Ctrl+Колёсико: Прокрутить\n"
 "...или используйте кнопки - и +\n"
 "H: поставить игрока у курсора мыши"
-
-#: modules/editor/stages/level_editor.tscn
-msgid "Placeholder"
-msgstr "-"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Center View"
@@ -427,10 +458,6 @@ msgid "Load Level"
 msgstr "Загрузить уровень"
 
 #: modules/editor/stages/level_editor.tscn
-msgid "Exit"
-msgstr "Выход"
-
-#: modules/editor/stages/level_editor.tscn
 msgid "Misc"
 msgstr "Остальное"
 
@@ -459,79 +486,6 @@ msgctxt "keyboard buttons"
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Enter"
-msgstr "Ввод"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Tab"
-msgstr "Tab"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Backspace"
-msgstr "Backspace"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Slash"
-msgstr "Косая черта"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Backslash"
-msgstr "Обратная косая черта"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Colon"
-msgstr "Двоеточие"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Semicolon"
-msgstr "Точка с запятой"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Shift"
-msgstr "Shift"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Less"
-msgstr "<"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Equal"
-msgstr "="
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Greater"
-msgstr ">"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Minus"
-msgstr "Минус"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Asterisk"
-msgstr "Астериск"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Left"
-msgstr "Влево"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Up"
-msgstr "Вверх"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Down"
-msgstr "Вниз"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgid "Right"
-msgstr "Вправо"
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgctxt "e.g. Space button"
-msgid "%s button"
-msgstr "%s"
-
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Main"
 msgstr "Основное"
@@ -543,14 +497,6 @@ msgstr "Время:"
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Display Name:"
 msgstr "Выводимое имя:"
-
-#: modules/editor/gui/levelprop_tab_container.tscn
-msgid "LINE 1"
-msgstr "СТРОКА 1"
-
-#: modules/editor/gui/levelprop_tab_container.tscn
-msgid "LINE 2"
-msgstr "СТРОКА 2"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Level Name:"
@@ -795,8 +741,23 @@ msgid "Essentials"
 msgstr ""
 
 #: locale/object_names_special.ini
+msgid "Finish Line"
+msgstr ""
+
+#: locale/object_names_special.ini
 msgid "Player Start Position"
 msgstr ""
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+msgctxt "scenery"
+msgid "Overworld"
+msgstr "Верхний мир"
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+msgid "Overworld Grass"
+msgstr "Верхний мир"
 
 #: locale/object_names_misc.ini
 msgctxt "misc"
@@ -809,6 +770,8 @@ msgid "Other"
 msgstr ""
 
 #: locale/object_names_bonus.ini
+#, fuzzy
+msgctxt "bonus"
 msgid "Other"
 msgstr "Прочее"
 
@@ -957,9 +920,16 @@ msgid "Thwomp"
 msgstr "Твомп"
 
 #: locale/object_names_bonus.ini
-msgctxt "bonus"
-msgid "Containers"
+msgid "Beetroot"
 msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Boomerang Flower"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Containers"
+msgstr "Контейнеры"
 
 #: locale/object_names_bonus.ini
 msgid "Brick"
@@ -970,8 +940,172 @@ msgid "Coin"
 msgstr "Монета"
 
 #: locale/object_names_bonus.ini
+msgid "Fire Flower"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Frog Suit"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+#, fuzzy
+msgid "Green Lui"
+msgstr "Зелёная труба"
+
+#: locale/object_names_bonus.ini
+msgid "Life Mushroom"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Poisonous Mushroom"
+msgstr ""
+
+#: locale/object_names_bonus.ini
+msgid "Super Mushroom"
+msgstr ""
+
+#: locale/object_names_bonus.ini
 msgid "Question Block"
 msgstr "Блок «?»"
+
+#: locale/object_names_bonus.ini
+msgid "Super Star"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.tscn
+msgid "Source Code"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.tscn
+msgid "Thunder Engine"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.tscn
+#, fuzzy
+msgid "Play Mario Forever: Community Edition"
+msgstr ""
+"Mario Worker: Community Edition\n"
+"PRE-ALPHA ПРОТОТИП Сборка 1"
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Lead Developer of MW:CE:"
+msgid_plural "Lead Developers of MW:CE:"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Graphical Assistance:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Thunder Engine Developers:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Supporters:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Additional Credits:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Softendo/Buziol Games - For the base game"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "TheMarioVariable - For Mario Worker Remake"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgctxt "Put your language here!"
+msgid "English Translation:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgctxt "Put translation authors here!"
+msgid "Your name"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "A Level Editor for Mario Forever."
+msgstr ""
+
+#~ msgid "EN"
+#~ msgstr "EN"
+
+#~ msgid "RU"
+#~ msgstr "RU"
+
+#~ msgid "PL"
+#~ msgstr "PL"
+
+#~ msgid "TR"
+#~ msgstr "TR"
+
+#~ msgid "Space"
+#~ msgstr "Пробел"
+
+#~ msgid "Placeholder"
+#~ msgstr "-"
+
+#~ msgid "Enter"
+#~ msgstr "Ввод"
+
+#~ msgid "Tab"
+#~ msgstr "Tab"
+
+#~ msgid "Backspace"
+#~ msgstr "Backspace"
+
+#~ msgid "Slash"
+#~ msgstr "Косая черта"
+
+#~ msgid "Backslash"
+#~ msgstr "Обратная косая черта"
+
+#~ msgid "Colon"
+#~ msgstr "Двоеточие"
+
+#~ msgid "Semicolon"
+#~ msgstr "Точка с запятой"
+
+#~ msgid "Shift"
+#~ msgstr "Shift"
+
+#~ msgid "Less"
+#~ msgstr "<"
+
+#~ msgid "Equal"
+#~ msgstr "="
+
+#~ msgid "Greater"
+#~ msgstr ">"
+
+#~ msgid "Minus"
+#~ msgstr "Минус"
+
+#~ msgid "Asterisk"
+#~ msgstr "Астериск"
+
+#~ msgid "Left"
+#~ msgstr "Влево"
+
+#~ msgid "Up"
+#~ msgstr "Вверх"
+
+#~ msgid "Down"
+#~ msgstr "Вниз"
+
+#~ msgid "Right"
+#~ msgstr "Вправо"
+
+#~ msgid "LINE 1"
+#~ msgstr "СТРОКА 1"
+
+#~ msgid "LINE 2"
+#~ msgstr "СТРОКА 2"
 
 #~ msgid "Castle"
 #~ msgstr "Замок"
@@ -981,12 +1115,6 @@ msgstr "Блок «?»"
 
 #~ msgid "Hard Block Brown"
 #~ msgstr "Твёрдый блок коричневый"
-
-#~ msgid "Green Pipe"
-#~ msgstr "Зелёная труба"
-
-#~ msgid "Containers"
-#~ msgstr "Контейнеры"
 
 #~ msgid " Objects:"
 #~ msgstr " Объектов:"

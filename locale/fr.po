@@ -12,6 +12,8 @@
 # res://locale/object_names_misc.ini
 # res://locale/object_names_enemy.ini
 # res://locale/object_names_bonus.ini
+# res://stages/main_menu/objects/about_window.tscn
+# res://stages/main_menu/objects/about_window.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -23,20 +25,20 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: vi_VN\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.8\n"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Data is corrupted"
-msgstr "Không mở được: Lỗi dữ liệu"
+msgstr "Chargement échoué : Données corrompues"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Scene is corrupted"
-msgstr "Không mở được: Lỗi Scene"
+msgstr "Chargement échoué : Scène corrompue"
 
 #: stages/main_menu/prototype_menu.gd
 msgid ""
@@ -44,17 +46,17 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Đây không phải là level hợp lệ. Xem bản báo cáo tại\n"
+"Niveau non conforme. Voir les logs à\n"
 "\n"
 "%s"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Incompatible Version"
-msgstr "Không mở được: Sai phiên bản phần mềm"
+msgstr "Chargement échoué : Version incompatible"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Missing LevelProperties"
-msgstr "Không mở được: Thiếu chi tiết về đặc điểm level"
+msgstr "Chargement échoué : LevelProperties manquant"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Mario Worker: Community Edition"
@@ -66,7 +68,7 @@ msgid ""
 "PRE-ALPHA PROTOTYPE Build 1"
 msgstr ""
 "Mario Worker: Community Edition\n"
-"PROTOTYPE PRE-ALPHA Bản 1"
+"PROTOTYPE PRE-ALPHA Version 1"
 
 #: stages/main_menu/main_menu.tscn
 msgid ""
@@ -74,132 +76,131 @@ msgid ""
 "everything is subject to change. this is not final!\n"
 "levels created in this build will not load in other versions."
 msgstr ""
-"bạn đang sử dụng bản thử của phần mềm thiết kế level\n"
-"mọi thứ có thể khác khi ra mắt phần mềm chính thức\n"
-"level tạo trong bản này sẽ không mở được trong bản khác."
+"ceci est une version publique d'aperçu non terminée de l'éditeur de niveau.\n"
+"tout est susceptible d'être modifié. ce n'est pas une version finale !\n"
+"les niveaux créés dans cette version ne pourront pas être chargés dans d'autres version."
 
 #: stages/main_menu/main_menu.tscn
 msgid "Go to level editor"
-msgstr "Đi thiết kế level"
+msgstr "Editer un niveau"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Play level"
-msgstr "Chơi level"
+msgstr "Jouer à un niveau"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Browse level files"
-msgstr "Dò tìm tệp level"
+msgstr "Parcourir des fichiers de niveaux"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Enable editor sounds"
-msgstr "Bật hiệu ứng âm thanh"
+msgstr "Activer les sons de l'éditeur"
 
 #: stages/main_menu/main_menu.tscn stages/main_menu/objects/about_window.tscn
 msgid "About"
-msgstr "Giới thiệu"
+msgstr "À propos"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Exit"
-msgstr "Thoát"
+msgstr "Fermer"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Open a File"
-msgstr "Mở tệp"
+msgstr "Ouvrir un fichier"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Open"
-msgstr "Mở"
+msgstr "Ouvrir"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Level scenes"
-msgstr "Phân cảnh level"
+msgstr "Niveaux"
 
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Close confirmation dialog"
 msgid "Don't Save"
-msgstr "Không lưu"
+msgstr "Ne pas sauvegarder"
 
 #: modules/editor/scripts/editor_gui.gd
 msgid "Save failed."
-msgstr "Lưu thất bại."
+msgstr "Sauvegarde échouée."
 
 #: modules/editor/scripts/editor_gui.gd
-msgid ""
-"This button is unimplemented for now, use 'Play Level' from the title screen"
-msgstr ""
-"Hiện tại nút này chưa có chức năng. Vui lòng dùng nút 'Chơi level' ở màn "
-"hình chính"
+msgid "This button is unimplemented for now, use 'Play Level' from the title screen"
+msgstr "Ce bouton n'a pas encore été implémenté, appuyez sur \"Jouer à un niveau\" depuis l'écran titre"
 
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Grid value suffix"
 msgid "px"
-msgstr ""
+msgstr "px"
 
+# not sure if really understood context
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Grid primary line value suffix"
 msgid "step"
 msgid_plural "steps"
-msgstr[0] "ô"
+msgstr[0] "cran"
+msgstr[1] "crans"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Target: %.v"
-msgstr "Vị trí: %.v"
+msgstr "Cible : %.v"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid " Objects: %d, Tilemaps: %d"
-msgstr " Tổng số vật thể: %d, tổng số tilemap: %d"
+msgstr " Objets: %d, Grille: %d"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Error: %s"
-msgstr "Lỗi: %s"
+msgstr "Erreur : %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Warning: %s"
-msgstr "Cảnh báo: %s"
+msgstr "Attention : %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Level was not saved."
-msgstr "Không lưu lại level."
+msgstr "Niveau non sauvegardé."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Failed to save level."
-msgstr "Lưu lại level thất bại."
+msgstr "Sauvegarde du niveau échouée."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Save failed: %s"
-msgstr "Lưu thất bại: %s"
+msgstr "Sauvegarde échouée : %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Level saved!"
-msgstr "Đã lưu lại level!"
+msgstr "Niveau sauvegardé !"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "This is not a valid level."
-msgstr "Đây không phải là level hợp lệ."
+msgstr "Niveau non conforme."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Level loaded with %d objects!"
-msgstr "Đã mở level chứa %d vật thể!"
+msgstr "Niveau chargé avec %d objets !"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "%d objects selected"
-msgstr "Đang chọn %d vật thể"
+msgstr "%d objets sélectionnés"
 
 #: modules/editor/classes/LevelEditor.gd
 #: modules/editor/scripts/help_key_formatter.gd
 msgctxt "key"
 msgid "Space"
-msgstr "Phím cách"
+msgstr "Espace"
 
 #: modules/editor/classes/LevelEditor.gd
 #: modules/editor/scripts/help_key_formatter.gd
 msgctxt "e.g. Space button"
 msgid "%s button"
-msgstr "Phím %s"
+msgstr "Bouton %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Nothing to paint. Press %s to pick an object"
-msgstr "Không có gì đang tô. Ấn %s để chọn vật thể"
+msgstr "Rien à dessiner. Appuyez sur %s pour choisir un objet"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid ""
@@ -207,182 +208,182 @@ msgid ""
 "Right click to display its properties.\n"
 "Click with Shift for multiple."
 msgstr ""
-"Ấn chuột trái để chọn vật thể.\n"
-"Ấn chuột phải để xem đặc tính vật thể.\n"
-"Ấn chuột kèm phím Shift để chọn nhiều cái cùng lúc."
+"Appuyez sur clic gauche sur un objet pour le sélectionner.\n"
+"Appuyez sur clic droit pour afficher ses propriétés.\n"
+"Gardez Maj enfoncé pour séléctionner plusieurs objets."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Painting Tileset: %s"
-msgstr "Đang vẽ loại đất: %s"
+msgstr "Dessin de la Tileset : %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Painting %s"
-msgstr "Đang tô vẽ %s"
+msgstr "Dessin de %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Panning mode"
-msgstr "Chế độ di chuyển màn hình"
+msgstr "Mode Caméra Libre"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "List mode"
-msgstr "Chế độ danh sách"
+msgstr "Mode Liste"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Pick a tile/object to select for drawing"
-msgstr "Chọn vật thể hoặc tile để tô vẽ"
+msgstr "Choisissez un(e) case/objet à sélectionner pour dessiner"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Erase mode"
-msgstr "Chế độ tẩy xóa"
+msgstr "Mode Gomme"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Erasing: %s Category"
-msgstr "Đang xóa: Loại %s"
+msgstr "Effacer : Catégorie %s"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Selection Tool"
-msgstr "Chọn"
+msgstr "Outil de Sélection"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Pan Tool"
-msgstr "Di chuyển màn hình"
+msgstr "Outil de Déplacement de Caméra"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Show list of selectable nodes at position clicked."
-msgstr "Hiện danh sách node chọn được tại vị trí đã chọn."
+msgstr "Afficher la liste des nœuds sélectionnables à la position cliquée."
 
+# Shouldn't it be Paint Tool?
+# I translated it as Pain Tool anyway lmao
 #: modules/editor/stages/level_editor.tscn
 msgid "Pain Tool"
-msgstr "Tô vẽ"
+msgstr "Outil de Douleur"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Rectangle Paint Tool"
-msgstr "Tô vẽ theo hình chữ nhật"
+msgstr "Pinceau Rectangle"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Picker Tool"
-msgstr "Chọn copy"
+msgstr "Pipette"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Eraser Tool"
-msgstr "Tẩy xóa"
+msgstr "Gomme"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Rotate Object Left"
-msgstr "Xoay vật sang trái"
+msgstr "Tourner l'Objet à Gauche"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Rotate Object Right"
-msgstr "Xoay vật sang phải"
+msgstr "Tourner l'Objet à Droite"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Show Grid"
-msgstr "Bật lưới"
+msgstr "Afficher la Grille"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Configure Snap"
-msgstr "Điều chỉnh lưới"
+msgstr "Activer l'Alignement"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Grid Offset:"
-msgstr "Offset lưới:"
+msgstr "Dépassement de la Grille :"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Grid Step:"
-msgstr "Độ lớn ô lưới:"
+msgstr "Cran de la Grille :"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Primary Line Every:"
-msgstr "Dòng chính cách nhau:"
+msgstr "Ligne Primaire tous les :"
 
 #: modules/editor/stages/level_editor.tscn
 #: stages/main_menu/objects/about_window.tscn
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Cancel"
-msgstr "Hủy"
+msgstr "Annuler"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Editing: "
-msgstr "Đang chọn: "
+msgstr "Modifie : "
 
 #: modules/editor/stages/level_editor.tscn
 msgid "None"
-msgstr "Không"
+msgstr "Aucun"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Tiles"
-msgstr "Đất"
+msgstr "Cases"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Decoration"
-msgstr "Trang trí"
+msgstr "Décoration"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Enemies"
-msgstr "Kẻ địch"
+msgstr "Ennemis"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Items"
-msgstr "Vật phẩm"
+msgstr "Objets"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Misc."
-msgstr "V.v."
+msgstr "Autres"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Special"
-msgstr "Đặc biệt"
+msgstr "Spécial"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Save level and live-test through editor.\n"
 "Any changes made during live-testing will be aborted!"
 msgstr ""
-"Lưu lại level và chơi thử trực tiếp trong phần thiết kế luôn.\n"
-"Mọi thay đổi mới trong lúc chơi thử trực tiếp sẽ không được lưu lại!"
+"Sauvegarder le niveau et le tester depuis l'éditeur.\n"
+"Tout changement effectué pendant le test seront annulés !"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Stop live-testing and go back to editing"
-msgstr "Dừng chơi thử trực tiếp và quay về sửa level"
+msgstr "Ouvrir le test et retour à la modification"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Open object picker and level properties"
-msgstr "Mở menu chọn vật và đặc điểm level"
+msgstr "Ouvrir le sélectionneur d'objet et les propriétés du niveau"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Level Properties"
-msgstr "Đặc điểm level"
+msgstr "Propriétés du niveau"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Apply"
-msgstr "Áp dụng"
+msgstr "Appliquer"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Load level"
-msgstr "Mở level"
+msgstr "Charger le niveau"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Save level. Click with Shift to save elsewhere"
-msgstr "Lưu level. Ấn thêm Shift để lưu vào chỗ khác"
+msgstr "Sauvegarder le niveau. Cliquez avec Maj pour le sauvegarder autre part"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Close editor and exit to main menu"
-msgstr "Đóng phần thiết kế và quay về màn hình chính"
+msgstr "Fermer l'éditeur et retourner au menu principal"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Save"
-msgstr "Lưu"
+msgstr "Sauvegarder"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Warning: You have unsaved changes.\n"
 "Save before quitting?"
-msgstr ""
-"Cảnh báo: Bạn đang có thay đổi chưa lưu lại.\n"
-"Bạn muốn lưu lại trước khi thoát không?"
+msgstr "Attention : Changements non sauvegardés détectés. Voulez-vous sauvegarder avant de fermer ?"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -394,686 +395,635 @@ msgid ""
 "Ctrl+Arrow keys: Scroll\n"
 "H: drop player at mouse cursor"
 msgstr ""
-"Phím chuột giữa: Kéo màn hình tự do\n"
-"Bánh lăn chuột: Chọn khối đất trước/kế tiếp\n"
-"Alt+Bánh lăn chuột: Thu phóng\n"
-"(Shift+)Ctrl+Bánh lăn chuột: Kéo màn hình\n"
-"...hoặc dùng phím - và +\n"
-"Ctrl+Phím mũi tên: Kéo màn hình\n"
-"H: Đặt người chơi tại vị trí con trỏ"
+"Clic Molette : Déplacement de Caméra\n"
+"Molette : Case Suivante/Précédente\n"
+"Alt + Molette : Zoom\n"
+"(Maj +) Ctrl + Molette : Défilement\n"
+"…ou utiliser les touches - et +\n"
+"Ctrl + Flèches : Défilement\n"
+"H : Déposer le joueur au curseur"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Center View"
-msgstr "Góc nhìn trung tâm"
+msgstr "Centrer la Vue"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "%.1f %%"
-msgstr ""
+msgstr "%.1f %%"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Category:"
-msgstr "Thể loại:"
+msgstr "Categorie:"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Editor Settings:"
-msgstr "Hiệu chỉnh phần mềm thiết kế:"
+msgstr "Options de l'éditeur :"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "If enabled, right click erases objects from the level.\n"
 "If disabled, right click opens up properties of the object, when available."
 msgstr ""
-"Nếu bật, phím chuột phải dùng để xóa.\n"
-"Nếu tắt, phím chuột phải mở trang đặc điểm của vật thể (nếu có)"
+"Si activé, clic droit efface les objets du niveau.\n"
+"Si désactivé, clic droit ouvre les propriétés de l'objet, lorsque c'est possible."
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Erase objects\n"
 "with right click"
-msgstr ""
-"Phím chuột phải\n"
-"xóa vật thể"
+msgstr "Efface les objets avec clic droit"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Right click erases\n"
 "only same object"
-msgstr ""
-"Phím chuột phải\n"
-"chỉ xóa cùng một loại vật"
+msgstr "Clic droit n'efface que le même objet"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Use Tile Terrains"
-msgstr "Dùng Tile Terrain"
+msgstr "Utiliser les Terrains de Tiles"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "%s\n"
 "to toggle this menu"
 msgstr ""
-"Ấn %s để\n"
-"mở/đóng menu này"
+"%s\n"
+"pour activer ce menu"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Save As..."
-msgstr "Lưu dưới dạng..."
+msgstr "Enregister sous..."
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Test Level"
-msgstr "Chơi thử level"
+msgstr "Tester le Niveau"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Load Level"
-msgstr "Mở level"
+msgstr "Charger le Niveau"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Misc"
-msgstr "V.v."
+msgstr "Autres"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Level\n"
 "Section"
-msgstr ""
-"Chọn khu\n"
-"level"
+msgstr "Selection du Niveau"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: modules/editor/scripts/help_key_formatter.gd
 msgctxt "keyboard buttons"
 msgid "Unknown"
-msgstr "Không rõ"
+msgstr "Inconnu"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Main"
-msgstr "Chi tiết chính"
+msgstr "Principal"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Time Limit:"
-msgstr "Gia hạn thời gian:"
+msgstr "Limite de Temps :"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Display Name:"
-msgstr "Tên hiện trong level:"
+msgstr "Nom Affiché :"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Level Name:"
-msgstr "Tên level:"
+msgstr "Nom du Niveau :"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Description:"
-msgstr "Miêu tả:"
+msgstr "Description :"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Level Author:"
-msgstr "Tác giả:"
+msgstr "Auteur du Niveau :"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Author E-mail:"
-msgstr "E-mail tác giả:"
+msgstr "E-mail de l'Auteur :"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Author Website:"
-msgstr "Trang web tác giả:"
+msgstr "Site Web de l'Auteur :"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Background"
-msgstr "Nền"
+msgstr "Fond"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid ""
 "Primary\n"
 "Gradient"
-msgstr "Gradient chính"
+msgstr ""
+"Dégradé\n"
+"Primaire"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Presets..."
-msgstr "Xem mẫu..."
+msgstr "Présets..."
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Default"
-msgstr "Mặc định"
+msgstr "Par Défaut"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Cloudy (1 - 1)"
-msgstr "Có mây (1 - 1)"
+msgstr "Nuageux (1 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Cloudless (1 - 3)"
-msgstr "Trời quang (1 - 3)"
+msgstr "Dégagé (1 - 3)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid " Morning (5 - 1)"
-msgstr " Sáng (5 - 1)"
+msgstr " Matin (5 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Afternoon (6 - 1)"
-msgstr "Chiều (6 - 1)"
+msgstr "Après-Midi (6 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Tanks (8 - 2)"
-msgstr "Chiến trận xe tăng (8 - 2)"
+msgstr "Tanks (8 - 2)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Volcano (BTE 9 - 1)"
-msgstr "Núi lửa (BTE 9 - 1)"
+msgstr "Volcan (BTE 9 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Sunset (Syzx 9 - 1)"
-msgstr "Hoàng hôn (Syzx 9 - 1)"
+msgstr "Crépuscule (Syzx 9 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Snowland (Syzx 10 - 1)"
-msgstr "Tuyết (Syzx 10 - 1)"
+msgstr "Terres Enneigées (Syzx 10 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "After rain (WoS)"
-msgstr "Tạnh mưa (WoS)"
+msgstr "Après la Pluie (WoS)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Dusk (Human Lab - 3)"
-msgstr "Hoàng chiều (Human Lab - 3)"
+msgstr "Crépuscule (Human Lab - 3)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Top"
-msgstr "Trên"
+msgstr "Haut"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Bottom"
-msgstr "Dưới"
+msgstr "Bas"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Dummy"
-msgstr ""
+msgstr "Mannequin"
 
 #: locale/tileset_names.ini
 msgctxt "tile"
 msgid "Castle"
-msgstr "Lâu đài"
+msgstr "Château"
 
 #: locale/tileset_names.ini
 msgid "Hazard Launcher Supporting Tiles"
-msgstr "Đất dùng để bắn địch/vật cản"
+msgstr "Cases Supportant de Lanceur d'Aléas"
 
 #: locale/tileset_names.ini
 msgid "Overworld Default"
-msgstr "Đất cỏ (Mặc định)"
+msgstr "Plaines"
 
 #: locale/tileset_names.ini
 msgid "Pipes"
-msgstr "Ống"
+msgstr "Tuyaux"
 
 #: locale/tileset_names.ini
 msgid "Rockland"
-msgstr "Núi đá"
+msgstr "Montagnes"
 
 #: locale/tileset_names.ini
 msgid "Starland"
-msgstr "Đêm sao"
+msgstr "Etoiles"
 
 #: locale/tileset_names.ini
 msgid "Tanks"
-msgstr "Xe tăng"
+msgstr "Tanks"
 
 #: locale/tileset_names.ini
 msgid "Underground"
-msgstr "Hang động"
+msgstr "Sous-Terrains"
 
 #: locale/tileset_names.ini locale/object_names_enemy.ini
 msgid "Underwater"
-msgstr "Dưới nước"
+msgstr "Aquatique"
 
 #: locale/tileset_names.ini
 msgctxt "Castle"
 msgid "Castle Bricks"
-msgstr "Gạch lâu đài"
+msgstr "Briques du Château"
 
 #: locale/tileset_names.ini
 msgid "Solid Platform Gray"
-msgstr "Bục đứng màu xám"
+msgstr "Plateforme Solides Grises"
 
 #: locale/tileset_names.ini
 msgid "Castle Ground"
-msgstr "Đất liền lâu đài"
+msgstr "Sol du Château"
 
 #: locale/tileset_names.ini
 msgctxt "Overworld Default"
 msgid "Hard Block Brown"
-msgstr "Khối màu nâu"
+msgstr "Bloc Dur Marron"
 
 #: locale/tileset_names.ini
 msgid "Overworld Ground"
-msgstr "Đất liền cỏ thường"
+msgstr "Sol des Plaines"
 
 #: locale/tileset_names.ini
 msgid "Overworld Ground Slopes"
-msgstr "Đất liền cỏ dốc"
+msgstr "Sols des Plaines en Pente"
 
 #: locale/tileset_names.ini
 msgctxt "Pipes"
 msgid "Green Pipe"
-msgstr "Ống xanh"
+msgstr "Tuyau Vert"
 
 #: locale/tileset_names.ini
 msgid "Purple Pipe"
-msgstr "Ống tím"
+msgstr "Tuyau Violet"
 
 #: locale/tileset_names.ini
 msgid "Gray Pipe"
-msgstr "Ống xám"
+msgstr "Tuyau Gris"
 
 #: locale/tileset_names.ini
 msgid "Gray Pipe with Dots"
-msgstr "Ống xám có chấm/đinh"
+msgstr "Tuyau Gris avec Pointillés"
 
 #: locale/tileset_names.ini
 msgid "White Pipe"
-msgstr "Ống trắng"
+msgstr "Tuyau Blanc"
 
 #: locale/tileset_names.ini
 msgid "Yellow Pipe"
-msgstr "Ống vàng"
+msgstr "Tuyau Jaune"
 
 #: locale/tileset_names.ini
 msgid "Orange Pipe"
-msgstr "Ống cam"
+msgstr "Tuyau Orange"
 
 #: locale/tileset_names.ini
 msgid "Red Pipe"
-msgstr "Ống đỏ"
+msgstr "Tuyau Rouge"
 
 #: locale/tileset_names.ini
 msgctxt "Rockland"
 msgid "Cloud Tile"
-msgstr "Mây"
+msgstr "Case de Nuage"
 
 #: locale/tileset_names.ini
 msgid "Solid Platforms (bridge)"
-msgstr "Bục đứng (cầu)"
+msgstr "Plateformes Solides (pont)"
 
 #: locale/tileset_names.ini
 msgid "Solid Rock Platforms"
-msgstr "Bục đứng đá"
+msgstr "Plateformes Solides en Pierre"
 
 #: locale/tileset_names.ini
 msgctxt "Starland"
 msgid "Starland Ground"
-msgstr "Đất liền đêm sao"
+msgstr "Sols des Plaines Etoilés"
 
 #: locale/tileset_names.ini
 msgid "I will remove this"
-msgstr "cái này tao xóa sau"
+msgstr "J'adore le caca"
 
 #: locale/tileset_names.ini
 msgctxt "Tanks"
 msgid "Tank Tileset Default"
-msgstr "Xe tăng (Mặc định)"
+msgstr "Tileset par Défaut de Tanks"
 
 #: locale/tileset_names.ini
 msgctxt "Underground"
 msgid "Hard Block Blue"
-msgstr "Khối màu xanh biển"
+msgstr "Bloc Bleu Dur"
 
 #: locale/tileset_names.ini
 msgid "Underground Ground"
-msgstr "Đất liền hang động"
+msgstr "Sol des Sous-Terrains"
 
 #: locale/tileset_names.ini
 msgctxt "Underwater"
 msgid "Underwater Block"
-msgstr "Khối xanh"
+msgstr "Bloc Aquatique"
 
 #: locale/tileset_names.ini
 msgid "Underwater Sand"
-msgstr "Cát"
+msgstr "Sable Aquatique"
 
 #: locale/tileset_names.ini
 msgid "Coral Red"
-msgstr "San hô đỏ"
+msgstr "Corail Rouge"
 
 #: locale/object_names_special.ini
 msgctxt "special"
 msgid "Essentials"
-msgstr "Vật thể thiết yếu"
+msgstr "Essentiels"
 
 #: locale/object_names_special.ini
 msgid "Finish Line"
-msgstr "Vạch đích"
+msgstr "Ligne d'Arrivée"
 
 #: locale/object_names_special.ini
 msgid "Player Start Position"
-msgstr "Vị trí người chơi bắt đầu"
+msgstr "Position de Départ du Joueur"
 
 #: locale/object_names_scenery.ini
 msgctxt "scenery"
 msgid "Overworld"
-msgstr "Đất liền cỏ"
+msgstr "Plaines"
 
 #: locale/object_names_scenery.ini
 msgid "Overworld Grass"
-msgstr "Đất liền cỏ thường"
+msgstr "Herbe des Plaines"
 
 #: locale/object_names_misc.ini
 msgctxt "misc"
 msgid "Other"
-msgstr "Khác"
+msgstr "Autres"
 
 #: locale/object_names_enemy.ini
 msgctxt "enemy"
 msgid "Other"
-msgstr "Khác"
+msgstr "Autres"
 
 #: locale/object_names_bonus.ini
 msgctxt "bonus"
 msgid "Other"
-msgstr "Khác"
+msgstr "Autres"
 
 #: locale/object_names_misc.ini
 msgid "Springboard"
-msgstr "Giàn bật nhảy"
+msgstr "Ressort"
 
 #: locale/object_names_enemy.ini
 msgid "Fire Bros"
-msgstr "Rùa ném lửa"
+msgstr "Frère de Feu"
 
 #: locale/object_names_enemy.ini
 msgid "Hammer Bros"
-msgstr "Rùa ném búa"
+msgstr "Frère Marteau"
 
 #: locale/object_names_enemy.ini
 msgid "Buzzy Beetle"
-msgstr "Bọ cứng Buzzy Beetle"
+msgstr "Bruyinsecte"
 
 #: locale/object_names_enemy.ini
 msgid "Dry Bones"
-msgstr "Rùa xác xương Dry Bones"
+msgstr "Skelerex"
 
 #: locale/object_names_enemy.ini
 msgid "Electric Coral"
-msgstr "San hô điện"
+msgstr "Corail Electrique"
 
 #: locale/object_names_enemy.ini
 msgid "Hazard"
-msgstr "Vật cản"
+msgstr "Aléas"
 
 #: locale/object_names_enemy.ini
 msgid "Firebar"
-msgstr "Que lửa"
+msgstr "Barre de Feu"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Blue)"
-msgstr "Cá Cheep Cheep (xanh biển)"
+msgstr "Cheep Cheep (Bleu)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Green)"
-msgstr "Cá Cheep Cheep (xanh lá)"
+msgstr "Cheep Cheep (Vert)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Red)"
-msgstr "Cá Cheep Cheep (đỏ)"
+msgstr "Cheep Cheep (Rouge)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Yellow)"
-msgstr "Cá Cheep Cheep (vàng)"
+msgstr "Cheep Cheep (Jaune)"
 
 #: locale/object_names_enemy.ini
 msgid "Goomba"
-msgstr ""
+msgstr "Goomba"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Troopas"
-msgstr "Rùa Koopa Troopa"
+msgstr "Koopas"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Blue"
-msgstr "Rùa Koopa xanh biển"
+msgstr "Koopa Bleu"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Green"
-msgstr "Rùa Koopa xanh lá"
+msgstr "Koopa Vert"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Red"
-msgstr "Rùa Koopa đỏ"
+msgstr "Koopa Rouge"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Yellow"
-msgstr "Rùa Koopa vàng"
+msgstr "Koopa Jaune"
 
 #: locale/object_names_enemy.ini
 msgid "Lakitu"
-msgstr ""
+msgstr "Lakitu"
 
 #: locale/object_names_enemy.ini
 msgid "Lakitu (Dark)"
-msgstr "Lakitu (tối)"
+msgstr "Lakitu (Sombre)"
 
 #: locale/object_names_enemy.ini
 msgid "Lakitu (Hardcore Worlds)"
-msgstr "Lakitu (hardcore)"
+msgstr "Lakitu (Mondes Hardcore)"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Blue"
-msgstr "Rùa bay Koopa Paratroopa xanh biển"
+msgstr "Paratroopa Bleu"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Green"
-msgstr "Rùa bay Koopa Paratroopa xanh lá"
+msgstr "Paratroopa Vert"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Red"
-msgstr "Rùa bay Koopa Paratroopa đỏ"
+msgstr "Paratroopa Rouge"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plants"
-msgstr "Hoa răng đao Piranha Plant"
+msgstr "Plantes Piranha"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Blue)"
-msgstr "Hoa răng đao Piranha Plant (xanh biển)"
+msgstr "Plante Piranha (Bleue)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Fireball)"
-msgstr "Hoa răng đao Piranha Plant (nhổ lửa)"
+msgstr "Pyro Piranha"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Red, Fireball)"
-msgstr "Hoa răng đao Piranha Plant (đỏ, nhổ lửa)"
+msgstr "Pyro Piranha (Rouge)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Gray)"
-msgstr "Hoa răng đao Piranha Plant (xám)"
+msgstr "Plante Piranha (Grise)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant"
-msgstr "Hoa răng đao Piranha Plant"
+msgstr "Plante Piranha"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Iceball)"
-msgstr "Hoa răng đao Piranha Plant (nhổ băng)"
+msgstr "Piranha Gelée"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Red)"
-msgstr "Hoa răng đao Piranha Plant (đỏ)"
+msgstr "Plante Piranha (Rouge)"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Red"
-msgstr "Spiny đỏ"
+msgstr "Hériss Rouge"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Gray"
-msgstr "Spiny xám"
+msgstr "Hériss Gris"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Green"
-msgstr "Spiny xanh lá"
+msgstr "Hériss Vert"
 
 #: locale/object_names_enemy.ini
 msgid "Thwomp"
-msgstr ""
+msgstr "Thwomp"
 
 #: locale/object_names_bonus.ini
 msgid "Beetroot"
-msgstr "Củ dền"
+msgstr "Betterave"
 
 #: locale/object_names_bonus.ini
 msgid "Boomerang Flower"
-msgstr "Hoa Boomerang"
+msgstr "Fleur Boomerang"
 
 #: locale/object_names_bonus.ini
 msgid "Containers"
-msgstr "Hộp chứa"
+msgstr "Caisses"
 
 #: locale/object_names_bonus.ini
 msgid "Brick"
-msgstr "Khối gạch"
+msgstr "Briques"
 
 #: locale/object_names_bonus.ini
 msgid "Coin"
-msgstr "Xu"
+msgstr "Pièces"
 
 #: locale/object_names_bonus.ini
 msgid "Fire Flower"
-msgstr "Hoa lửa"
+msgstr "Fleur de Feu"
 
 #: locale/object_names_bonus.ini
 msgid "Frog Suit"
-msgstr "Bộ bơi ếch"
+msgstr "Costume de Grenouille"
 
 #: locale/object_names_bonus.ini
 msgid "Green Lui"
-msgstr "Lui xanh"
+msgstr "Lui Vert"
 
 #: locale/object_names_bonus.ini
 msgid "Life Mushroom"
-msgstr "Nấm xanh 1-up"
+msgstr "Champi 1-up"
 
 #: locale/object_names_bonus.ini
 msgid "Poisonous Mushroom"
-msgstr "Nấm độc"
+msgstr "Champi Poison"
 
 #: locale/object_names_bonus.ini
 msgid "Super Mushroom"
-msgstr "Nấm đỏ"
+msgstr "Super Champi"
 
 #: locale/object_names_bonus.ini
 msgid "Question Block"
-msgstr "Hộp chứa mang dấu '?'"
+msgstr "Block ?"
 
 #: locale/object_names_bonus.ini
 msgid "Super Star"
-msgstr "Sao"
+msgstr "Etoile"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Source Code"
-msgstr "Mã nguồn"
+msgstr "Code Source"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Thunder Engine"
-msgstr ""
+msgstr "Thunder Engine"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Play Mario Forever: Community Edition"
-msgstr "Chơi Mario Forever: Community Edition"
+msgstr "Jouer à Mario Forever: Community Edition"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Lead Developer of MW:CE:"
 msgid_plural "Lead Developers of MW:CE:"
-msgstr[0] "Phụ trách phát triển MWCE:"
+msgstr[0] "Développeur en Chef de MW:CE :"
+msgstr[1] "Développeurs en Chef de MW:CE :"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Graphical Assistance:"
-msgstr "Hỗ trợ đồ họa nhờ có:"
+msgstr "Assistance Graphique :"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Thunder Engine Developers:"
-msgstr "Phụ trách phát triển Thunder Engine:"
+msgstr "Développeurs de Thunder Engine :"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Supporters:"
-msgstr "Ghi danh bên ủng hộ:"
+msgstr "Supporters :"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Additional Credits:"
-msgstr "Ghi danh bổ sung:"
+msgstr "Crédits Additionnels :"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Softendo/Buziol Games - For the base game"
-msgstr "Softendo/Buziol Games - Phát triển game gốc"
+msgstr "Softendo/Buziol Games - Pour le jeu d'origine"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "TheMarioVariable - For Mario Worker Remake"
-msgstr "TheMarioVariable - Phát triển Mario Worker Remake"
+msgstr "TheMarioVariable - Pour Mario Worker Remake"
 
 #: stages/main_menu/objects/about_window.gd
 msgctxt "Put your language here!"
 msgid "English Translation:"
-msgstr "Bản dịch Tiếng Việt bởi:"
+msgstr "Traduction Française :"
 
 #: stages/main_menu/objects/about_window.gd
 msgctxt "Put translation authors here!"
 msgid "Your name"
-msgstr "Yaolinggui"
+msgstr "Sonilan"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "A Level Editor for Mario Forever."
-msgstr "Phần mềm thiết kế level theo kiểu Mario Forever."
-
-#~ msgid "Slash"
-#~ msgstr "/"
-
-#~ msgid "Backslash"
-#~ msgstr "\\"
-
-#~ msgid "Colon"
-#~ msgstr "Hai chấm (:)"
-
-#~ msgid "Semicolon"
-#~ msgstr "Chấm phẩy (;)"
-
-#~ msgid "Less"
-#~ msgstr "<"
-
-#~ msgid "Equal"
-#~ msgstr "="
-
-#~ msgid "Greater"
-#~ msgstr ">"
-
-#~ msgid "Minus"
-#~ msgstr "-"
-
-#~ msgid "Asterisk"
-#~ msgstr "*"
-
-#~ msgid "Left"
-#~ msgstr "Trái"
-
-#~ msgid "Up"
-#~ msgstr "Lên"
-
-#~ msgid "Down"
-#~ msgstr "Xuống"
-
-#~ msgid "Right"
-#~ msgstr "Phải"
-
-#~ msgid "Space"
-#~ msgstr "Không gian"
-
-#~ msgid "LINE 1"
-#~ msgstr "DÒNG 1"
-
-#~ msgid "LINE 2"
-#~ msgstr "DÒNG 2"
+msgstr "Un éditeur de niveau pour Mario Forever."

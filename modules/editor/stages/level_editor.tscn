@@ -14,10 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://ega6wksp4rjq" path="res://modules/editor/icons/Eraser.svg" id="10_wali5"]
 [ext_resource type="Texture2D" uid="uid://b8ykcflfqr08d" path="res://modules/editor/icons/RotateLeft.svg" id="11_dwdvr"]
 [ext_resource type="Texture2D" uid="uid://c0nldot04wcrw" path="res://modules/editor/icons/RotateRight.svg" id="12_e1ts8"]
-[ext_resource type="Texture2D" uid="uid://ti8vbdxyfjrj" path="res://modules/editor/icons/GridToggle.svg" id="13_8tcpw"]
 [ext_resource type="Theme" uid="uid://dkk2doj8kmuco" path="res://modules/editor/editor_theme.tres" id="13_yfcxx"]
 [ext_resource type="Texture2D" uid="uid://dfo5vjxf35y7o" path="res://modules/editor/icons/GuiTabMenuHl.svg" id="14_j2gld"]
 [ext_resource type="Texture2D" uid="uid://qls5l10cbaf5" path="res://modules/editor/icons/PlayScene.svg" id="15_875c2"]
+[ext_resource type="Texture2D" uid="uid://u3eaotg13qeb" path="res://modules/editor/icons/SnapGrid.svg" id="15_ahe48"]
 [ext_resource type="Texture2D" uid="uid://cw52qsclc4dmb" path="res://modules/editor/icons/MainPlay.svg" id="16_04k3a"]
 [ext_resource type="Texture2D" uid="uid://bgatdoljs02tp" path="res://modules/editor/icons/Save.svg" id="18_efige"]
 [ext_resource type="Texture2D" uid="uid://b30fcc4tqkm8m" path="res://modules/editor/icons/Stop.svg" id="18_wl423"]
@@ -328,7 +328,7 @@ theme = ExtResource("13_yfcxx")
 toggle_mode = true
 button_pressed = true
 shortcut = SubResource("Shortcut_gkcab")
-icon = ExtResource("13_8tcpw")
+icon = ExtResource("15_ahe48")
 
 [node name="MoreGridButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
 unique_name_in_owner = true
