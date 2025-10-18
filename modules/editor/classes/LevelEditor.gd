@@ -824,8 +824,18 @@ func stash_selected_object(set_empty: bool = true) -> void:
 				break
 		# NO_TRANSLATE
 		if _new_event != "Space": _event = _new_event
-		%SelectedObjLabel.text = tr("Nothing to paint. Press %s to pick an object") % [_event.to_upper()]
+		_event = tr('%s button', "e.g. Space button") % _event
+		%SelectedObjLabel.text = tr("Nothing to paint. Press %s to pick an object") % [_event]
 	elif tool_mode == TOOL_MODES.SELECT:
+		#match editing_sel:
+			#EDIT_SEL.NONE:
+				#%SelectedObjLabel.text = tr("No category selected")
+			#EDIT_SEL.TILE:
+				#if selected_tileset:
+					#%SelectedObjLabel.text = tr("Select a tile below to paint")
+				#else:
+					#%SelectedObjLabel.text = tr("Press %s to select a tileset") % [_event]
+			#_:
 		%SelectedObjLabel.text = \
 tr("Left click an object to select it.\nRight click to display its properties.\nClick with Shift for multiple.")
 

@@ -38,6 +38,12 @@ var mode: int = MODE.NONE
 var default_config: Dictionary = {
 	"lang": "",
 	"editor_sounds": true,
+	"grid_size_x": 16,
+	"grid_size_y": 16,
+	"grid_offset_x": 0,
+	"grid_offset_y": 0,
+	"grid_primary_line_x": 2,
+	"grid_primary_line_y": 2,
 }
 var config: Dictionary = default_config.duplicate(true)
 var grid_shown: bool = true
@@ -82,9 +88,21 @@ func load_config() -> void:
 		return
 
 	config = loaded_data
+	_check_for_validity()
 	print("[Editor] Loaded editor config from a file.")
 
 ## Saves the tweaks variable to a file
 func save_config() -> void:
 	SettingsManager.save_data(config, config_path, "EditorConfig")
 	print("[Editor] Editor config saved!")
+
+func _check_for_validity() -> void:
+	for i in default_config.keys():
+		if !i in config:
+			config[i] = default_config[i]
+			continue
+		if config[i] is Dictionary && default_config.get(i):
+			for j in default_config[i].keys():
+				if !j in config[i]:
+					config[i][j] = default_config[i][j]
+					print("[EditorConfig] Restored %s in dict %s" % [j, i])

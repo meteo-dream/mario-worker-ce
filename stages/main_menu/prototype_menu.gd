@@ -139,4 +139,10 @@ func _on_browse_files_pressed() -> void:
 func _on_lang_toggled(toggled_on: bool, lang_string: String) -> void:
 	if !toggled_on: return
 	TranslationServer.set_locale(lang_string)
-	Editor.config.lang = lang_string
+	Editor.config.lang = TranslationServer.get_locale()
+	%AboutWindow.update_locale_text()
+
+
+func _on_exit_pressed() -> void:
+	Editor.save_config()
+	get_tree().quit()

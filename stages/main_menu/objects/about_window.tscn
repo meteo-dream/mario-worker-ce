@@ -1,0 +1,143 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbll4iry2cawn"]
+
+[ext_resource type="Script" uid="uid://5wj8vs1dqp0k" path="res://stages/main_menu/objects/about_window.gd" id="1_nh6iy"]
+[ext_resource type="Texture2D" uid="uid://knr0vufr6qpt" path="res://icon.png" id="2_n6jd5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efxa6"]
+bg_color = Color(0.192157, 0.192157, 0.192157, 1)
+corner_detail = 1
+anti_aliasing = false
+
+[node name="AboutWindow" type="Window"]
+auto_translate_mode = 1
+disable_3d = true
+oversampling_override = 1.0
+title = "About"
+initial_position = 2
+size = Vector2i(512, 400)
+min_size = Vector2i(400, 240)
+script = ExtResource("1_nh6iy")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_efxa6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+texture = ExtResource("2_n6jd5")
+expand_mode = 1
+
+[node name="CopyrightBox" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]Mario Worker: Community Edition[/b]
+(c) 2025, Meteo Dream
+%s"
+scroll_active = false
+shortcut_keys_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Control" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/VBoxContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/font_color = Color(0.45098, 0.682353, 1, 1)
+text = "Source Code"
+uri = "https://github.com/meteo-dream/mario-worker-ce"
+
+[node name="LinkButton3" type="LinkButton" parent="MarginContainer/VBoxContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/font_color = Color(0.45098, 0.682353, 1, 1)
+text = "Thunder Engine"
+uri = "https://github.com/Thunder-Engine-Dev/thunder-engine"
+
+[node name="Control2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LinkButton2" type="LinkButton" parent="MarginContainer/VBoxContainer/Control2"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/font_color = Color(0.45098, 0.682353, 1, 1)
+text = "Play Mario Forever: Community Edition"
+uri = "https://mfce.rnx.su"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AuthorsBox" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_constants/line_separation = -3
+bbcode_enabled = true
+text = "{lead_dev_title}
+JUE13
+{translators_title}{translators}
+{graphics_title}
+Bullex738, Hellfire, SerafimGWS, CoreShinobi124, Zik The Green, Valtteri, AnasWael, GlacialSiren484
+
+{thunder_engine_title}
+ReflexGURU, Yukana, JUE13
+
+{supporters_title}
+Eric Marsbars, Краткий Знак
+
+{extra_credits_title}
+{softendo_credit}
+{tmv_credit}"
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "OK"
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/Button" to="." method="hide"]

@@ -13,6 +13,19 @@ func _ready() -> void:
 	Thunder._connect(%CloseConfirmationDialog.confirmed, _on_save_level_button_pressed.bind(true))
 	Thunder._connect(%CloseConfirmationDialog.custom_action, _on_dontsave)
 	_on_tab_container_tab_selected(%TabContainer.current_tab)
+	
+	Thunder._connect(%GridOffset1.value_changed, _on_grid_value_changed.bind(%GridOffset1))
+	Thunder._connect(%GridOffset2.value_changed, _on_grid_value_changed.bind(%GridOffset2))
+	Thunder._connect(%GridStep1.value_changed, _on_grid_value_changed.bind(%GridStep1))
+	Thunder._connect(%GridStep2.value_changed, _on_grid_value_changed.bind(%GridStep2))
+	Thunder._connect(%GridPrimaryLine1.value_changed, _on_grid_line_value_changed.bind(%GridPrimaryLine1))
+	Thunder._connect(%GridPrimaryLine2.value_changed, _on_grid_line_value_changed.bind(%GridPrimaryLine2))
+	%GridOffset1.value = Editor.config.grid_offset_x
+	%GridOffset2.value = Editor.config.grid_offset_y
+	%GridStep1.value = Editor.config.grid_size_x
+	%GridStep2.value = Editor.config.grid_size_y
+	%GridPrimaryLine1.value = Editor.config.grid_primary_line_x
+	%GridPrimaryLine2.value = Editor.config.grid_primary_line_y
 
 
 func disable_toolbar_buttons() -> void:
@@ -240,3 +253,10 @@ func _on_center_level_button_pressed() -> void:
 
 func _on_erase_with_rmb_toggled(toggled_on: bool) -> void:
 	%EraseSpecificObject.disabled = !toggled_on
+
+
+func _on_grid_value_changed(to: float, obj: SpinBox) -> void:
+	obj.suffix = tr(&"px", &"Grid value suffix")
+
+func _on_grid_line_value_changed(to: float, obj: SpinBox) -> void:
+	obj.suffix = tr_n(&"step", &"steps", int(to), &"Grid primary line value suffix")

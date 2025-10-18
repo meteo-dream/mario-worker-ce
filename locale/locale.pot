@@ -12,6 +12,8 @@
 # res://locale/object_names_misc.ini
 # res://locale/object_names_enemy.ini
 # res://locale/object_names_bonus.ini
+# res://stages/main_menu/objects/about_window.tscn
+# res://stages/main_menu/objects/about_window.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -51,6 +53,16 @@ msgid "Failed to load: Missing LevelProperties"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
+msgid "Mario Worker: Community Edition"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid ""
+"Mario Worker: Community Edition\n"
+"PRE-ALPHA PROTOTYPE Build 1"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
 msgid ""
 "this is a public unfinished preview version of the level editor.\n"
 "everything is subject to change. this is not final!\n"
@@ -75,9 +87,13 @@ msgid "Enable editor sounds"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
-msgid ""
-"Mario Worker: Community Edition\n"
-"PRE-ALPHA PROTOTYPE Build 1"
+#: stages/main_menu/objects/about_window.tscn
+msgid "About"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+#: modules/editor/stages/level_editor.tscn
+msgid "Exit"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
@@ -107,6 +123,18 @@ msgstr ""
 #: modules/editor/scripts/editor_gui.gd
 msgid "This button is unimplemented for now, use 'Play Level' from the title screen"
 msgstr ""
+
+#: modules/editor/scripts/editor_gui.gd
+msgctxt "Grid value suffix"
+msgid "px"
+msgstr ""
+
+#: modules/editor/scripts/editor_gui.gd
+msgctxt "Grid primary line value suffix"
+msgid "step"
+msgid_plural "steps"
+msgstr[0] ""
+msgstr[1] ""
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Target: %.v"
@@ -156,6 +184,12 @@ msgstr ""
 #: modules/editor/scripts/help_key_formatter.gd
 msgctxt "key"
 msgid "Space"
+msgstr ""
+
+#: modules/editor/classes/LevelEditor.gd
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "e.g. Space button"
+msgid "%s button"
 msgstr ""
 
 #: modules/editor/classes/LevelEditor.gd
@@ -250,6 +284,11 @@ msgid "Grid Step:"
 msgstr ""
 
 #: modules/editor/stages/level_editor.tscn
+msgid "Primary Line Every:"
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+#: stages/main_menu/objects/about_window.tscn
 msgid "OK"
 msgstr ""
 
@@ -336,9 +375,11 @@ msgstr ""
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Middle mouse button: Pan\n"
+"Scroll wheel: Next/Previous tile\n"
 "Alt+Scroll wheel: Zoom\n"
 "(Shift+)Ctrl+Scroll wheel: Scroll\n"
 "...or use - and + keys\n"
+"Ctrl+Arrow keys: Scroll\n"
 "H: drop player at mouse cursor"
 msgstr ""
 
@@ -399,10 +440,6 @@ msgid "Load Level"
 msgstr ""
 
 #: modules/editor/stages/level_editor.tscn
-msgid "Exit"
-msgstr ""
-
-#: modules/editor/stages/level_editor.tscn
 msgid "Misc"
 msgstr ""
 
@@ -427,11 +464,6 @@ msgstr ""
 #: modules/editor/scripts/help_key_formatter.gd
 msgctxt "keyboard buttons"
 msgid "Unknown"
-msgstr ""
-
-#: modules/editor/scripts/help_key_formatter.gd
-msgctxt "e.g. Space button"
-msgid "%s button"
 msgstr ""
 
 #: modules/editor/gui/levelprop_tab_container.tscn
@@ -913,4 +945,60 @@ msgstr ""
 
 #: locale/object_names_bonus.ini
 msgid "Super Star"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.tscn
+msgid "Source Code"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.tscn
+msgid "Thunder Engine"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.tscn
+msgid "Play Mario Forever: Community Edition"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Lead Developer of MW:CE:"
+msgid_plural "Lead Developers of MW:CE:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Graphical Assistance:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Thunder Engine Developers:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Supporters:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Additional Credits:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Softendo/Buziol Games - For the base game"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "TheMarioVariable - For Mario Worker Remake"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgctxt "Put your language here!"
+msgid "English Translation:"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgctxt "Put translation authors here!"
+msgid "Your name"
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
+msgid "A Level Editor for Mario Forever."
 msgstr ""

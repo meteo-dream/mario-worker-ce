@@ -342,14 +342,14 @@ disable_3d = true
 oversampling_override = 1.0
 title = "Configure Snap"
 initial_position = 2
-size = Vector2i(336, 160)
+size = Vector2i(400, 160)
 visible = false
 transient = true
 transient_to_focused = true
 exclusive = true
 popup_window = true
 force_native = true
-min_size = Vector2i(280, 140)
+min_size = Vector2i(320, 140)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow"]
 anchors_preset = 15
@@ -390,6 +390,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "Grid Step:"
 
+[node name="Label3" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Primary Line Every:"
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -397,7 +403,8 @@ size_flags_horizontal = 3
 [node name="GridOffset1" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-min_value = -100.0
+min_value = -1000.0
+max_value = 1000.0
 rounded = true
 allow_greater = true
 allow_lesser = true
@@ -414,6 +421,16 @@ rounded = true
 suffix = "px"
 custom_arrow_step = 1.0
 
+[node name="GridPrimaryLine1" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 999.0
+value = 2.0
+rounded = true
+suffix = "steps"
+custom_arrow_step = 1.0
+
 [node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -421,7 +438,8 @@ size_flags_horizontal = 3
 [node name="GridOffset2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
-min_value = -100.0
+min_value = -1000.0
+max_value = 1000.0
 rounded = true
 allow_greater = true
 allow_lesser = true
@@ -436,6 +454,16 @@ max_value = 500.0
 value = 16.0
 rounded = true
 suffix = "px"
+custom_arrow_step = 1.0
+
+[node name="GridPrimaryLine2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 999.0
+value = 2.0
+rounded = true
+suffix = "steps"
 custom_arrow_step = 1.0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer"]
@@ -719,9 +747,11 @@ theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 0.878431)
 theme_override_constants/line_spacing = -1
 theme_override_font_sizes/font_size = 14
 text = "Middle mouse button: Pan
+Scroll wheel: Next/Previous tile
 Alt+Scroll wheel: Zoom
 (Shift+)Ctrl+Scroll wheel: Scroll
 ...or use - and + keys
+Ctrl+Arrow keys: Scroll
 H: drop player at mouse cursor"
 horizontal_alignment = 2
 
