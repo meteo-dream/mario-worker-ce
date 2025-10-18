@@ -17,6 +17,8 @@ func _ready() -> void:
 				%Lang_en.button_pressed = false
 				i.button_pressed = true
 				break
+	if TranslationServer.get_locale() == "en":
+		%Lang_en.button_pressed = true
 	%EditorSounds.button_pressed = Editor.config.editor_sounds
 	Editor.save_config()
 

@@ -46,7 +46,7 @@ msgstr "Не удалось загрузить: Несовместимая ве�
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Missing LevelProperties"
-msgstr "Не удалось загрузить: Отсутствуют данные свойства уровня"
+msgstr "Не удалось загрузить: Отсутствуют свойства уровня"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Mario Worker: Community Edition"
@@ -272,19 +272,19 @@ msgstr "Показать сетку"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Configure Snap"
-msgstr "Настройка сетки"
+msgstr "Настройка привязки"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Grid Offset:"
-msgstr "Отступ:"
+msgstr "Отступ сетки:"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Grid Step:"
-msgstr "Шаг:"
+msgstr "Шаг сетки:"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Primary Line Every:"
-msgstr ""
+msgstr "Основная линия каждые:"
 
 #: modules/editor/stages/level_editor.tscn
 #: stages/main_menu/objects/about_window.tscn
@@ -309,7 +309,7 @@ msgstr "Плитки"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Decoration"
-msgstr "Декорация"
+msgstr "Декорации"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Enemies"
@@ -376,7 +376,6 @@ msgstr ""
 "Сохранить перед выходом?"
 
 #: modules/editor/stages/level_editor.tscn
-#, fuzzy
 msgid ""
 "Middle mouse button: Pan\n"
 "Scroll wheel: Next/Previous tile\n"
@@ -387,10 +386,12 @@ msgid ""
 "H: drop player at mouse cursor"
 msgstr ""
 "Средняя кнопка мыши: Рука\n"
-"Alt+Колёсико: Приблизить\n"
-"(Shift+)Ctrl+Колёсико: Прокрутить\n"
+"Колесо прокрутки: След./Пред. плитка\n"
+"Alt+Колесо прокрутки: Приблизить\n"
+"(Shift+)Ctrl+Колесо прокрутки: Прокрутить\n"
 "...или используйте кнопки - и +\n"
-"H: поставить игрока у курсора мыши"
+"Ctrl+Клавиши со стрелками: Прокрутить\n"
+"H: разместить игрока у курсора мыши"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Center View"
@@ -431,11 +432,13 @@ msgid ""
 msgstr ""
 "Правый щелчок\n"
 "стирает только\n"
-"выбранный объект"
+"одинаковые объекты"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Use Tile Terrains"
-msgstr "-"
+msgstr ""
+"Использовать автоматическое\n"
+"соединение соседних плиток"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -588,20 +591,20 @@ msgstr "Низ"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Dummy"
-msgstr "-"
+msgstr "Заглушка"
 
 #: locale/tileset_names.ini
 msgctxt "tile"
 msgid "Castle"
-msgstr ""
+msgstr "Замок"
 
 #: locale/tileset_names.ini
 msgid "Hazard Launcher Supporting Tiles"
-msgstr ""
+msgstr "Поддерживающие плитки опасных объектов"
 
 #: locale/tileset_names.ini
 msgid "Overworld Default"
-msgstr "Верхний мир"
+msgstr "Поверхность (стандарт)"
 
 #: locale/tileset_names.ini
 msgid "Pipes"
@@ -609,11 +612,11 @@ msgstr "Трубы"
 
 #: locale/tileset_names.ini
 msgid "Rockland"
-msgstr ""
+msgstr "Каменный мир"
 
 #: locale/tileset_names.ini
 msgid "Starland"
-msgstr ""
+msgstr "Звёздный мир"
 
 #: locale/tileset_names.ini
 msgid "Tanks"
@@ -625,38 +628,38 @@ msgstr "Подземелье"
 
 #: locale/tileset_names.ini locale/object_names_enemy.ini
 msgid "Underwater"
-msgstr "Подводье"
+msgstr "Под водой"
 
 #: locale/tileset_names.ini
 msgctxt "Castle"
 msgid "Castle Bricks"
-msgstr ""
+msgstr "Кирпичи замка"
 
 #: locale/tileset_names.ini
 msgid "Solid Platform Gray"
-msgstr ""
+msgstr "Твёрдая серая платформа"
 
 #: locale/tileset_names.ini
 msgid "Castle Ground"
-msgstr ""
+msgstr "Поверхность в замке"
 
 #: locale/tileset_names.ini
 msgctxt "Overworld Default"
 msgid "Hard Block Brown"
-msgstr ""
+msgstr "Твёрдый блок (коричневый)"
 
 #: locale/tileset_names.ini
 msgid "Overworld Ground"
-msgstr ""
+msgstr "Земля поверхности"
 
 #: locale/tileset_names.ini
 msgid "Overworld Ground Slopes"
-msgstr ""
+msgstr "Земля поверхности (склоны)"
 
 #: locale/tileset_names.ini
 msgctxt "Pipes"
 msgid "Green Pipe"
-msgstr ""
+msgstr "Зелёная труба"
 
 #: locale/tileset_names.ini
 msgid "Purple Pipe"
@@ -668,19 +671,19 @@ msgstr "Серая труба"
 
 #: locale/tileset_names.ini
 msgid "Gray Pipe with Dots"
-msgstr ""
+msgstr "Серая труба с болтами"
 
 #: locale/tileset_names.ini
 msgid "White Pipe"
-msgstr ""
+msgstr "Белая труба"
 
 #: locale/tileset_names.ini
 msgid "Yellow Pipe"
-msgstr ""
+msgstr "Жёлтая труба"
 
 #: locale/tileset_names.ini
 msgid "Orange Pipe"
-msgstr ""
+msgstr "Оранжевая труба"
 
 #: locale/tileset_names.ini
 msgid "Red Pipe"
@@ -689,47 +692,47 @@ msgstr "Красная труба"
 #: locale/tileset_names.ini
 msgctxt "Rockland"
 msgid "Cloud Tile"
-msgstr ""
+msgstr "Плитка облака"
 
 #: locale/tileset_names.ini
 msgid "Solid Platforms (bridge)"
-msgstr ""
+msgstr "Твёрдые платформы (мост)"
 
 #: locale/tileset_names.ini
 msgid "Solid Rock Platforms"
-msgstr ""
+msgstr "Твёрдые каменные платформы"
 
 #: locale/tileset_names.ini
 msgctxt "Starland"
 msgid "Starland Ground"
-msgstr ""
+msgstr "Земля звёздного мира"
 
 #: locale/tileset_names.ini
 msgid "I will remove this"
-msgstr ""
+msgstr "Я уберу это"
 
 #: locale/tileset_names.ini
 msgctxt "Tanks"
 msgid "Tank Tileset Default"
-msgstr ""
+msgstr "Стандартный набор плиток танковых уровней"
 
 #: locale/tileset_names.ini
 msgctxt "Underground"
 msgid "Hard Block Blue"
-msgstr ""
+msgstr "Твёрдый блок (синий)"
 
 #: locale/tileset_names.ini
 msgid "Underground Ground"
-msgstr ""
+msgstr "Земля подземелья"
 
 #: locale/tileset_names.ini
 msgctxt "Underwater"
 msgid "Underwater Block"
-msgstr ""
+msgstr "Подводный блок"
 
 #: locale/tileset_names.ini
 msgid "Underwater Sand"
-msgstr ""
+msgstr "Подводный песок"
 
 #: locale/tileset_names.ini
 msgid "Coral Red"
@@ -738,90 +741,87 @@ msgstr "Красный коралл"
 #: locale/object_names_special.ini
 msgctxt "special"
 msgid "Essentials"
-msgstr ""
+msgstr "Основные объекты"
 
 #: locale/object_names_special.ini
 msgid "Finish Line"
-msgstr ""
+msgstr "Финишная линия"
 
 #: locale/object_names_special.ini
 msgid "Player Start Position"
-msgstr ""
+msgstr "Начальная позиция игрока"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
 msgctxt "scenery"
 msgid "Overworld"
-msgstr "Верхний мир"
+msgstr "Поверхность"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
 msgid "Overworld Grass"
-msgstr "Верхний мир"
+msgstr "Трава (поверхность)"
 
 #: locale/object_names_misc.ini
 msgctxt "misc"
 msgid "Other"
-msgstr ""
+msgstr "Прочее"
 
 #: locale/object_names_enemy.ini
 msgctxt "enemy"
 msgid "Other"
-msgstr ""
+msgstr "Прочее"
 
 #: locale/object_names_bonus.ini
-#, fuzzy
 msgctxt "bonus"
 msgid "Other"
 msgstr "Прочее"
 
 #: locale/object_names_misc.ini
 msgid "Springboard"
-msgstr "Пружина"
+msgstr "Трамплин"
 
 #: locale/object_names_enemy.ini
 msgid "Fire Bros"
-msgstr ""
+msgstr "Братья огня"
 
 #: locale/object_names_enemy.ini
 msgid "Hammer Bros"
-msgstr "Братья молотовы"
+msgstr "Братья молота"
 
 #: locale/object_names_enemy.ini
 msgid "Buzzy Beetle"
-msgstr "Зайцевый жук"
+msgstr "Жук Баззи"
 
 #: locale/object_names_enemy.ini
 msgid "Dry Bones"
-msgstr ""
+msgstr "Купа-скелет"
 
 #: locale/object_names_enemy.ini
 msgid "Electric Coral"
-msgstr "Электрический коралл"
+msgstr "Электрокоралл"
 
 #: locale/object_names_enemy.ini
 msgid "Hazard"
-msgstr ""
+msgstr "Опасности"
 
 #: locale/object_names_enemy.ini
 msgid "Firebar"
-msgstr ""
+msgstr "Огненное препятствие"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Blue)"
-msgstr ""
+msgstr "Чип-чип (синий)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Green)"
-msgstr ""
+msgstr "Чип-чип (зелёный)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Red)"
-msgstr ""
+msgstr "Чип-чип (красный)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Yellow)"
-msgstr ""
+msgstr "Чип-чип (жёлтый)"
 
 #: locale/object_names_enemy.ini
 msgid "Goomba"
@@ -833,19 +833,19 @@ msgstr "Купы"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Blue"
-msgstr "Купа синяя"
+msgstr "Синий купа"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Green"
-msgstr "Купа зелёная"
+msgstr "Зелёный купа"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Red"
-msgstr "Купа красная"
+msgstr "Красный купа"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Yellow"
-msgstr "Купа жёлтая"
+msgstr "Жёлтый купа"
 
 #: locale/object_names_enemy.ini
 msgid "Lakitu"
@@ -861,59 +861,59 @@ msgstr "Лакиту (хардкор миры)"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Blue"
-msgstr ""
+msgstr "Синий летучий купа"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Green"
-msgstr ""
+msgstr "Зелёный летучий купа"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Red"
-msgstr ""
+msgstr "Красный летучий купа"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plants"
-msgstr ""
+msgstr "Растения-пираньи"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Blue)"
-msgstr ""
+msgstr "Растение-пиранья (синее)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Fireball)"
-msgstr ""
+msgstr "Растение-пиранья (огненное)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Red, Fireball)"
-msgstr ""
+msgstr "Растение-пиранья (красное, огненное)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Gray)"
-msgstr ""
+msgstr "Растение-пиранья (серое)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant"
-msgstr ""
+msgstr "Растение-пиранья"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Iceball)"
-msgstr ""
+msgstr "Растение-пиранья (ледяное)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Red)"
-msgstr ""
+msgstr "Растение-пиранья (красное)"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Red"
-msgstr "Спайни красный"
+msgstr "Красный спайни"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Gray"
-msgstr "Спайни серый"
+msgstr "Серый спайни"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Green"
-msgstr "Спайни зелёный"
+msgstr "Зелёный спайни"
 
 #: locale/object_names_enemy.ini
 msgid "Thwomp"
@@ -921,11 +921,11 @@ msgstr "Твомп"
 
 #: locale/object_names_bonus.ini
 msgid "Beetroot"
-msgstr ""
+msgstr "Свёкла"
 
 #: locale/object_names_bonus.ini
 msgid "Boomerang Flower"
-msgstr ""
+msgstr "Цветок-бумеранг"
 
 #: locale/object_names_bonus.ini
 msgid "Containers"
@@ -941,28 +941,27 @@ msgstr "Монета"
 
 #: locale/object_names_bonus.ini
 msgid "Fire Flower"
-msgstr ""
+msgstr "Огненный цветок"
 
 #: locale/object_names_bonus.ini
 msgid "Frog Suit"
-msgstr ""
+msgstr "Костюм лягушки"
 
 #: locale/object_names_bonus.ini
-#, fuzzy
 msgid "Green Lui"
-msgstr "Зелёная труба"
+msgstr "Зелёный Луи"
 
 #: locale/object_names_bonus.ini
 msgid "Life Mushroom"
-msgstr ""
+msgstr "Гриб жизни"
 
 #: locale/object_names_bonus.ini
 msgid "Poisonous Mushroom"
-msgstr ""
+msgstr "Ядовитый гриб"
 
 #: locale/object_names_bonus.ini
 msgid "Super Mushroom"
-msgstr ""
+msgstr "Супергриб"
 
 #: locale/object_names_bonus.ini
 msgid "Question Block"
@@ -970,67 +969,64 @@ msgstr "Блок «?»"
 
 #: locale/object_names_bonus.ini
 msgid "Super Star"
-msgstr ""
+msgstr "Суперзвезда"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Source Code"
-msgstr ""
+msgstr "Исходный код"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Thunder Engine"
-msgstr ""
+msgstr "Thunder Engine"
 
 #: stages/main_menu/objects/about_window.tscn
-#, fuzzy
 msgid "Play Mario Forever: Community Edition"
-msgstr ""
-"Mario Worker: Community Edition\n"
-"PRE-ALPHA ПРОТОТИП Сборка 1"
+msgstr "Играть в Mario Forever: Community Edition"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Lead Developer of MW:CE:"
 msgid_plural "Lead Developers of MW:CE:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ведущий разработчик проекта:"
+msgstr[1] "Ведущие разработчики проекта:"
+msgstr[2] "Ведущие разработчики проекта:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Graphical Assistance:"
-msgstr ""
+msgstr "Помощь в графике:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Thunder Engine Developers:"
-msgstr ""
+msgstr "Разработчики Thunder Engine:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Supporters:"
-msgstr ""
+msgstr "Поддержавшие проект:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Additional Credits:"
-msgstr ""
+msgstr "Дополнительные благодарности:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Softendo/Buziol Games - For the base game"
-msgstr ""
+msgstr "Softendo/Buziol Games - За основную игру"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "TheMarioVariable - For Mario Worker Remake"
-msgstr ""
+msgstr "TheMarioVariable - За Mario Worker Remake"
 
 #: stages/main_menu/objects/about_window.gd
 msgctxt "Put your language here!"
 msgid "English Translation:"
-msgstr ""
+msgstr "Перевод на русский:"
 
 #: stages/main_menu/objects/about_window.gd
 msgctxt "Put translation authors here!"
 msgid "Your name"
-msgstr ""
+msgstr "JUE13"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "A Level Editor for Mario Forever."
-msgstr ""
+msgstr "Редактор уровней для Mario Forever."
 
 #~ msgid "EN"
 #~ msgstr "EN"
