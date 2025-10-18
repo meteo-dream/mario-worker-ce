@@ -53,10 +53,6 @@ msgid "Failed to load: Missing LevelProperties"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
-msgid "Mario Worker: Community Edition"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
 msgid ""
 "Mario Worker: Community Edition\n"
 "PRE-ALPHA PROTOTYPE Build 1"
@@ -960,6 +956,10 @@ msgid "Play Mario Forever: Community Edition"
 msgstr ""
 
 #: stages/main_menu/objects/about_window.gd
+msgid "A Level Editor for Mario Forever."
+msgstr ""
+
+#: stages/main_menu/objects/about_window.gd
 msgid "Lead Developer of MW:CE:"
 msgid_plural "Lead Developers of MW:CE:"
 msgstr[0] ""
@@ -997,8 +997,4 @@ msgstr ""
 #: stages/main_menu/objects/about_window.gd
 msgctxt "Put translation authors here!"
 msgid "Your name"
-msgstr ""
-
-#: stages/main_menu/objects/about_window.gd
-msgid "A Level Editor for Mario Forever."
 msgstr ""

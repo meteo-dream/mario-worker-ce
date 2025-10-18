@@ -64,6 +64,7 @@ theme_override_constants/separation = 8
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer2"]
+auto_translate_mode = 2
 texture_filter = 2
 material = SubResource("ShaderMaterial_7wn7o")
 layout_mode = 2
@@ -73,6 +74,7 @@ text = "Mario Worker: Community Edition"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 20
@@ -138,6 +140,12 @@ layout_mode = 2
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "RU"
+
+[node name="Lang_fr" type="CheckBox" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["menu_lang"]]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+button_group = SubResource("ButtonGroup_phs36")
+text = "FR"
 
 [node name="Lang_pl" type="CheckBox" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["menu_lang"]]
 visible = false
@@ -226,6 +234,7 @@ force_native = true
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/BrowseFiles" to="." method="_on_browse_files_pressed"]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_en" to="." method="_on_lang_toggled" binds= ["en"]]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_ru" to="." method="_on_lang_toggled" binds= ["ru"]]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_fr" to="." method="_on_lang_toggled" binds= ["fr"]]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_pl" to="." method="_on_lang_toggled" binds= ["pl"]]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Lang_tr" to="." method="_on_lang_toggled" binds= ["tr"]]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Lang_zh" to="." method="_on_lang_toggled" binds= ["zh_CN"]]

@@ -66,7 +66,9 @@ msgstr "创世的马里奥：社区版"
 msgid ""
 "Mario Worker: Community Edition\n"
 "PRE-ALPHA PROTOTYPE Build 1"
-msgstr "创世的马里奥：社区版 预测试原型版 第1次编译版本"
+msgstr "\n"
+"创世的马里奥：社区版\n"
+"预测试原型版 第1次编译版本"
 
 #: stages/main_menu/main_menu.tscn
 msgid ""
