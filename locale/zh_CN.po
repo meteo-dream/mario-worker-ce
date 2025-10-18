@@ -12,6 +12,8 @@
 # res://locale/object_names_misc.ini
 # res://locale/object_names_enemy.ini
 # res://locale/object_names_bonus.ini
+# res://stages/main_menu/objects/about_window.tscn
+# res://stages/main_menu/objects/about_window.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -27,6 +29,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.7\n"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
@@ -38,12 +41,14 @@ msgid "Failed to load: Scene is corrupted"
 msgstr "加载失败：场景已损坏"
 
 #: stages/main_menu/prototype_menu.gd
-#, fuzzy
 msgid ""
 "This is not a valid level. See logs at\n"
 "\n"
 "%s"
-msgstr "该关卡无效。"
+msgstr ""
+"该关卡无效，详见日志\n"
+"\n"
+"%s"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Incompatible Version"
@@ -52,6 +57,16 @@ msgstr "加载失败：版本不兼容"
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Missing LevelProperties"
 msgstr "加载失败：LevelProperties丢失"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Mario Worker: Community Edition"
+msgstr "创世的马里奥：社区版"
+
+#: stages/main_menu/main_menu.tscn
+msgid ""
+"Mario Worker: Community Edition\n"
+"PRE-ALPHA PROTOTYPE Build 1"
+msgstr "创世的马里奥：社区版 预测试原型版 第1次编译版本"
 
 #: stages/main_menu/main_menu.tscn
 msgid ""
@@ -79,14 +94,13 @@ msgstr "浏览关卡文件"
 msgid "Enable editor sounds"
 msgstr "启用编辑器音效"
 
-#: stages/main_menu/main_menu.tscn
-#, fuzzy
-msgid ""
-"Mario Worker: Community Edition\n"
-"PRE-ALPHA PROTOTYPE Build 1"
-msgstr ""
-"创世的马里奥：社区版\n"
-"预测式原型版 第1次编译版本"
+#: stages/main_menu/main_menu.tscn stages/main_menu/objects/about_window.tscn
+msgid "About"
+msgstr "关于"
+
+#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
+msgid "Exit"
+msgstr "退出"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Open a File"
@@ -110,9 +124,19 @@ msgid "Save failed."
 msgstr "保存失败。"
 
 #: modules/editor/scripts/editor_gui.gd
-#, fuzzy
 msgid "This button is unimplemented for now, use 'Play Level' from the title screen"
 msgstr "该按钮目前未实装功能，请在标题界面点击“游玩关卡”按钮"
+
+#: modules/editor/scripts/editor_gui.gd
+msgctxt "Grid value suffix"
+msgid "px"
+msgstr "像素"
+
+#: modules/editor/scripts/editor_gui.gd
+msgctxt "Grid primary line value suffix"
+msgid "step"
+msgid_plural "steps"
+msgstr[0] "步长"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Target: %.v"
@@ -135,7 +159,6 @@ msgid "Level was not saved."
 msgstr "关卡未保存。"
 
 #: modules/editor/classes/LevelEditor.gd
-#, fuzzy
 msgid "Failed to save level."
 msgstr "关卡保存失败。"
 
@@ -144,12 +167,10 @@ msgid "Save failed: %s"
 msgstr "保存失败：%s"
 
 #: modules/editor/classes/LevelEditor.gd
-#, fuzzy
 msgid "Level saved!"
 msgstr "关卡已保存。"
 
 #: modules/editor/classes/LevelEditor.gd
-#, fuzzy
 msgid "This is not a valid level."
 msgstr "该关卡无效。"
 
@@ -163,17 +184,21 @@ msgstr "已选中%d个对象"
 
 #: modules/editor/classes/LevelEditor.gd
 #: modules/editor/scripts/help_key_formatter.gd
-#, fuzzy
 msgctxt "key"
 msgid "Space"
-msgstr "空间"
+msgstr "空格"
+
+#: modules/editor/classes/LevelEditor.gd
+#: modules/editor/scripts/help_key_formatter.gd
+msgctxt "e.g. Space button"
+msgid "%s button"
+msgstr "%s 键"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Nothing to paint. Press %s to pick an object"
 msgstr "无物品可绘制，请点击%s选择对象"
 
 #: modules/editor/classes/LevelEditor.gd
-#, fuzzy
 msgid ""
 "Left click an object to select it.\n"
 "Right click to display its properties.\n"
@@ -249,7 +274,7 @@ msgstr "向右旋转对象"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Show Grid"
-msgstr "显示网格"
+msgstr "显示栅格"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Configure Snap"
@@ -257,13 +282,18 @@ msgstr "设置吸附"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Grid Offset:"
-msgstr "网格偏移："
+msgstr "栅格偏移："
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Grid Step:"
-msgstr "网格步长："
+msgstr "栅格步长："
 
 #: modules/editor/stages/level_editor.tscn
+msgid "Primary Line Every:"
+msgstr "主线间隔："
+
+#: modules/editor/stages/level_editor.tscn
+#: stages/main_menu/objects/about_window.tscn
 msgid "OK"
 msgstr "OK"
 
@@ -304,7 +334,6 @@ msgid "Special"
 msgstr "特殊"
 
 #: modules/editor/stages/level_editor.tscn
-#, fuzzy
 msgid ""
 "Save level and live-test through editor.\n"
 "Any changes made during live-testing will be aborted!"
@@ -318,7 +347,7 @@ msgstr "停止实时测试，返回编辑模式"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Open object picker and level properties"
-msgstr "打开对象采集器与关卡属性"
+msgstr "打开对象采集器与关卡属性菜单"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Level Properties"
@@ -333,7 +362,6 @@ msgid "Load level"
 msgstr "加载关卡"
 
 #: modules/editor/stages/level_editor.tscn
-#, fuzzy
 msgid "Save level. Click with Shift to save elsewhere"
 msgstr "保存关卡，按住Shift另存至其他位置"
 
@@ -354,19 +382,22 @@ msgstr ""
 "退出前是否保存？"
 
 #: modules/editor/stages/level_editor.tscn
-#, fuzzy
 msgid ""
 "Middle mouse button: Pan\n"
+"Scroll wheel: Next/Previous tile\n"
 "Alt+Scroll wheel: Zoom\n"
 "(Shift+)Ctrl+Scroll wheel: Scroll\n"
 "...or use - and + keys\n"
+"Ctrl+Arrow keys: Scroll\n"
 "H: drop player at mouse cursor"
 msgstr ""
 "鼠标中键：平移\n"
+"鼠标滚轮：下一个/上一个图块\n"
 "Alt+鼠标滚轮：缩放\n"
-"(Shift+)Ctrl+鼠标滚轮：滚动屏幕\n"
-"或按 - 和 + 键\n"
-"H：将玩家放置在鼠标指针所在位置"
+"(Shift+)Ctrl+鼠标滚轮：缩放\n"
+"或按“-”或“+”键\n"
+"Ctrl+方向键：滚动\n"
+"H：将玩家放置在鼠标指针处"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Center View"
@@ -385,7 +416,6 @@ msgid "Editor Settings:"
 msgstr "编辑器设置："
 
 #: modules/editor/stages/level_editor.tscn
-#, fuzzy
 msgid ""
 "If enabled, right click erases objects from the level.\n"
 "If disabled, right click opens up properties of the object, when available."
@@ -402,7 +432,6 @@ msgstr ""
 "鼠标右键擦除"
 
 #: modules/editor/stages/level_editor.tscn
-#, fuzzy
 msgid ""
 "Right click erases\n"
 "only same object"
@@ -415,7 +444,6 @@ msgid "Use Tile Terrains"
 msgstr "使用图块地形"
 
 #: modules/editor/stages/level_editor.tscn
-#, fuzzy
 msgid ""
 "%s\n"
 "to toggle this menu"
@@ -436,15 +464,10 @@ msgid "Load Level"
 msgstr "加载关卡"
 
 #: modules/editor/stages/level_editor.tscn
-msgid "Exit"
-msgstr "退出"
-
-#: modules/editor/stages/level_editor.tscn
 msgid "Misc"
 msgstr "杂项"
 
 #: modules/editor/stages/level_editor.tscn
-#, fuzzy
 msgid ""
 "Level\n"
 "Section"
@@ -467,23 +490,15 @@ msgctxt "keyboard buttons"
 msgid "Unknown"
 msgstr "未知按键"
 
-#: modules/editor/scripts/help_key_formatter.gd
-msgctxt "e.g. Space button"
-msgid "%s button"
-msgstr "%s 键"
-
 #: modules/editor/gui/levelprop_tab_container.tscn
-#, fuzzy
 msgid "Main"
 msgstr "主要设置"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-#, fuzzy
 msgid "Time Limit:"
 msgstr "关卡时限："
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-#, fuzzy
 msgid "Display Name:"
 msgstr "显示名："
 
@@ -528,7 +543,6 @@ msgid "Default"
 msgstr "默认"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-#, fuzzy
 msgid "Cloudy (1 - 1)"
 msgstr "多云（1-1）"
 
@@ -541,7 +555,6 @@ msgid " Morning (5 - 1)"
 msgstr "清晨（5-1）"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-#, fuzzy
 msgid "Afternoon (6 - 1)"
 msgstr "下午（6-1）"
 
@@ -591,7 +604,6 @@ msgid "Hazard Launcher Supporting Tiles"
 msgstr "危险物发射器支撑图块"
 
 #: locale/tileset_names.ini
-#, fuzzy
 msgid "Overworld Default"
 msgstr "地表（默认）"
 
@@ -600,7 +612,6 @@ msgid "Pipes"
 msgstr "水管"
 
 #: locale/tileset_names.ini
-#, fuzzy
 msgid "Rockland"
 msgstr "岩地"
 
@@ -685,7 +696,6 @@ msgid "Cloud Tile"
 msgstr "云图块"
 
 #: locale/tileset_names.ini
-#, fuzzy
 msgid "Solid Platforms (bridge)"
 msgstr "实心平台（桥）"
 
@@ -735,24 +745,21 @@ msgid "Essentials"
 msgstr "基础物件"
 
 #: locale/object_names_special.ini
-#, fuzzy
 msgid "Finish Line"
-msgstr "第二行"
+msgstr "终点"
 
 #: locale/object_names_special.ini
 msgid "Player Start Position"
 msgstr "玩家起点"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
 msgctxt "scenery"
 msgid "Overworld"
-msgstr "地表地面斜坡"
+msgstr "地表地面"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
 msgid "Overworld Grass"
-msgstr "地表地面"
+msgstr "地表地面（草地）"
 
 #: locale/object_names_misc.ini
 msgctxt "misc"
@@ -783,18 +790,17 @@ msgstr "锤子龟"
 
 #: locale/object_names_enemy.ini
 msgid "Buzzy Beetle"
-msgstr "硬壳龟"
+msgstr "钢盔龟"
 
 #: locale/object_names_enemy.ini
 msgid "Dry Bones"
-msgstr "骷髅龟"
+msgstr "碎骨龟"
 
 #: locale/object_names_enemy.ini
 msgid "Electric Coral"
 msgstr "电珊瑚"
 
 #: locale/object_names_enemy.ini
-#, fuzzy
 msgid "Hazard"
 msgstr "危险敌人"
 
@@ -823,39 +829,36 @@ msgid "Goomba"
 msgstr "板栗仔"
 
 #: locale/object_names_enemy.ini
-#, fuzzy
 msgid "Koopa Troopas"
-msgstr "乌龟"
+msgstr "慢慢龟"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Blue"
-msgstr "乌龟（蓝）"
+msgstr "慢慢龟（蓝）"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Green"
-msgstr "乌龟（绿）"
+msgstr "慢慢龟（绿）"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Red"
-msgstr "乌龟（红）"
+msgstr "慢慢龟（红）"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Yellow"
-msgstr "乌龟（黄）"
+msgstr "慢慢龟（黄）"
 
 #: locale/object_names_enemy.ini
-#, fuzzy
 msgid "Lakitu"
-msgstr "刺猬云"
+msgstr "球盖姆"
 
 #: locale/object_names_enemy.ini
-#, fuzzy
 msgid "Lakitu (Dark)"
-msgstr "刺猬云（黑化）"
+msgstr "球盖姆（黑化）"
 
 #: locale/object_names_enemy.ini
 msgid "Lakitu (Hardcore Worlds)"
-msgstr "刺猬云（Hardcore 世界版）"
+msgstr "球盖姆（Hardcore 世界版）"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Blue"
@@ -870,50 +873,48 @@ msgid "Koopa Paratroopa Red"
 msgstr "飞乌龟（红）"
 
 #: locale/object_names_enemy.ini
-#, fuzzy
 msgid "Piranha Plants"
-msgstr "食人花"
+msgstr "吞食花"
 
 #: locale/object_names_enemy.ini
-#, fuzzy
 msgid "Piranha Plant (Blue)"
-msgstr "食人花（蓝）"
+msgstr "吞食花（蓝）"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Fireball)"
-msgstr "食人花（火球）"
+msgstr "吞食花（火球）"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Red, Fireball)"
-msgstr "食人花（红，火球）"
+msgstr "吞食花（红，火球）"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Gray)"
-msgstr "食人花（灰）"
+msgstr "吞食花（灰）"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant"
-msgstr "食人花（绿）"
+msgstr "吞食花（绿）"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Iceball)"
-msgstr "食人花（冰球）"
+msgstr "吞食花（冰球）"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Red)"
-msgstr "食人花（红）"
+msgstr "吞食花（红）"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Red"
-msgstr "刺猬（红）"
+msgstr "刺刺龟（红）"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Gray"
-msgstr "刺猬（灰）"
+msgstr "刺刺龟（灰）"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Green"
-msgstr "刺猬（绿）"
+msgstr "刺刺龟（绿）"
 
 #: locale/object_names_enemy.ini
 msgid "Thwomp"
@@ -921,11 +922,11 @@ msgstr "笨石咚"
 
 #: locale/object_names_bonus.ini
 msgid "Beetroot"
-msgstr ""
+msgstr "甜菜"
 
 #: locale/object_names_bonus.ini
 msgid "Boomerang Flower"
-msgstr ""
+msgstr "旋标花"
 
 #: locale/object_names_bonus.ini
 msgid "Containers"
@@ -940,30 +941,28 @@ msgid "Coin"
 msgstr "金币"
 
 #: locale/object_names_bonus.ini
-#, fuzzy
 msgid "Fire Flower"
-msgstr "火球龟"
+msgstr "火焰花"
 
 #: locale/object_names_bonus.ini
 msgid "Frog Suit"
-msgstr ""
+msgstr "青蛙装"
 
 #: locale/object_names_bonus.ini
-#, fuzzy
 msgid "Green Lui"
-msgstr "绿水管"
+msgstr "绿果"
 
 #: locale/object_names_bonus.ini
 msgid "Life Mushroom"
-msgstr ""
+msgstr "加命菇"
 
 #: locale/object_names_bonus.ini
 msgid "Poisonous Mushroom"
-msgstr ""
+msgstr "剧毒菇"
 
 #: locale/object_names_bonus.ini
 msgid "Super Mushroom"
-msgstr ""
+msgstr "变大菇"
 
 #: locale/object_names_bonus.ini
 msgid "Question Block"
@@ -971,4 +970,59 @@ msgstr "问号砖"
 
 #: locale/object_names_bonus.ini
 msgid "Super Star"
-msgstr ""
+msgstr "无敌星"
+
+#: stages/main_menu/objects/about_window.tscn
+msgid "Source Code"
+msgstr "源代码"
+
+#: stages/main_menu/objects/about_window.tscn
+msgid "Thunder Engine"
+msgstr "雷霆引擎"
+
+#: stages/main_menu/objects/about_window.tscn
+msgid "Play Mario Forever: Community Edition"
+msgstr "游玩《创世的马里奥：社区版》"
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Lead Developer of MW:CE:"
+msgid_plural "Lead Developers of MW:CE:"
+msgstr[0] "《创世的马里奥：社区版》主要开发者："
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Graphical Assistance:"
+msgstr "美术："
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Thunder Engine Developers:"
+msgstr "《雷霆引擎》开发者："
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Supporters:"
+msgstr "助力者："
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Additional Credits:"
+msgstr "附加致谢："
+
+#: stages/main_menu/objects/about_window.gd
+msgid "Softendo/Buziol Games - For the base game"
+msgstr "Softendo/Buziol Games：游戏奠基者"
+
+#: stages/main_menu/objects/about_window.gd
+msgid "TheMarioVariable - For Mario Worker Remake"
+msgstr "TheMarioVariable：Mario Worker Remake 作者"
+
+#: stages/main_menu/objects/about_window.gd
+msgctxt "Put your language here!"
+msgid "English Translation:"
+msgstr "中文（简体）翻译："
+
+#: stages/main_menu/objects/about_window.gd
+msgctxt "Put translation authors here!"
+msgid "Your name"
+msgstr "鱼子酱飞不出三米呀"
+
+#: stages/main_menu/objects/about_window.gd
+msgid "A Level Editor for Mario Forever."
+msgstr "一个《永远的马里奥》关卡编辑器。"
