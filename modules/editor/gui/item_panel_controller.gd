@@ -54,11 +54,12 @@ func load_scene_items(items: PackedStringArray):
 	#subcategories.append(_other_subcat)
 	var _first_subcat: String
 	for i in items:
-		if !(i.ends_with(".tscn") || i.ends_with(".remap")):
+		i = i.replace(".remap", "")
+		if !i.ends_with(".tscn"):
 			continue
 		
 		var _loaded_scene = load(
-			SCENES_PATH + category_name + "/" + i.replace(".remap", "")
+			SCENES_PATH + category_name + "/" + i
 		).instantiate()
 		assert(_loaded_scene is EditorAddableNode2D, i + " is not a valid editor addable node.")
 		if !_loaded_scene is EditorAddableNode2D:
@@ -116,6 +117,7 @@ func load_tileset_items(items: PackedStringArray) -> void:
 	var translated_source_names := PackedStringArray([])
 	var _translation_context_fix: String = category_name
 	for i in items:
+		i = i.replace(".remap", "")
 		if !i.ends_with(".json"):
 			continue
 		
@@ -124,7 +126,7 @@ func load_tileset_items(items: PackedStringArray) -> void:
 		if !dict || !dict is Dictionary:
 			push_error(category_name + ": " + i + " is not a valid JSON.")
 			continue
-		if !items.has(i.replace(".json", ".tres")):
+		if !items.has(i.replace(".json", ".tres")) && !items.has(i.replace(".json", ".tres.remap")):
 			push_error(category_name + ": " + i + ": No tileset provided (.tres).")
 			continue
 		

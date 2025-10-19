@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://15mx0pbdq2fh"]
 
-[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_pw5fr"]
+[ext_resource type="Script" uid="uid://degfyc3bn1f7a" path="res://modules/editor/classes/editor_addable/EditorAddableDecoration.gd" id="1_pw5fr"]
 
 [node name="Grass Green" type="Node2D"]
 script = ExtResource("1_pw5fr")
