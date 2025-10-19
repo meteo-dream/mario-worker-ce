@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbll4iry2cawn"]
+[gd_scene load_steps=6 format=3 uid="uid://dbll4iry2cawn"]
 
 [ext_resource type="Script" uid="uid://5wj8vs1dqp0k" path="res://stages/main_menu/objects/about_window.gd" id="1_nh6iy"]
 [ext_resource type="Texture2D" uid="uid://knr0vufr6qpt" path="res://icon.png" id="2_n6jd5"]
@@ -7,6 +7,13 @@
 bg_color = Color(0.192157, 0.192157, 0.192157, 1)
 corner_detail = 1
 anti_aliasing = false
+
+[sub_resource type="InputEventKey" id="InputEventKey_nh6iy"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_n6jd5"]
+events = [SubResource("InputEventKey_nh6iy")]
 
 [node name="AboutWindow" type="Window"]
 auto_translate_mode = 1
@@ -133,6 +140,7 @@ size_flags_horizontal = 3
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+shortcut = SubResource("Shortcut_n6jd5")
 text = "OK"
 
 [node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2"]

@@ -38,6 +38,7 @@ var mode: int = MODE.NONE
 var default_config: Dictionary = {
 	"lang": "",
 	"editor_sounds": true,
+	"editor_scale": 0.0,
 	"grid_size_x": 16,
 	"grid_size_y": 16,
 	"grid_offset_x": 0,

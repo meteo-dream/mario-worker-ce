@@ -12,6 +12,7 @@ disable_3d = true
 snap_2d_transforms_to_pixel = true
 snap_2d_vertices_to_pixel = true
 audio_listener_enable_2d = true
+oversampling = false
 oversampling_override = 1.0
 title = "Mario Worker: Gameplay"
 initial_position = 2

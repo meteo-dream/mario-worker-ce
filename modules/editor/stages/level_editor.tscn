@@ -203,24 +203,37 @@ layout_mode = 2
 layout_mode = 2
 mouse_filter = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 32.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
 mouse_force_pass_scroll_events = false
 
-[node name="TopBox" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
+[node name="TopBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer"]
+layout_mode = 2
+
+[node name="TopBoxLeft" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_constants/separation = 4
 
-[node name="VSeparator" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_67k7q")
 
-[node name="SelectMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="SelectMode" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Selection Tool"
@@ -231,7 +244,7 @@ button_group = ExtResource("4_rv8e0")
 shortcut = SubResource("Shortcut_e1fo8")
 icon = ExtResource("4_ecd51")
 
-[node name="PanMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="PanMode" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Pan Tool"
@@ -241,7 +254,7 @@ button_group = ExtResource("4_rv8e0")
 shortcut = SubResource("Shortcut_305fs")
 icon = ExtResource("5_ibgvw")
 
-[node name="ListMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="ListMode" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -251,10 +264,10 @@ toggle_mode = true
 button_group = ExtResource("4_rv8e0")
 icon = ExtResource("6_0pm15")
 
-[node name="VSeparator4" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="VSeparator4" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 layout_mode = 2
 
-[node name="PaintMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="PaintMode" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Pain Tool"
@@ -264,7 +277,7 @@ button_group = ExtResource("4_rv8e0")
 shortcut = SubResource("Shortcut_ahe48")
 icon = ExtResource("7_siqy4")
 
-[node name="RectMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="RectMode" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -274,10 +287,10 @@ toggle_mode = true
 button_group = ExtResource("4_rv8e0")
 icon = ExtResource("9_h7q7v")
 
-[node name="VSeparator6" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="VSeparator6" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 layout_mode = 2
 
-[node name="PickMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="PickMode" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Picker Tool"
@@ -286,7 +299,7 @@ toggle_mode = true
 button_group = ExtResource("4_rv8e0")
 icon = ExtResource("8_xb7r7")
 
-[node name="EraseMode" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="EraseMode" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Eraser Tool"
@@ -296,10 +309,10 @@ button_group = ExtResource("4_rv8e0")
 shortcut = SubResource("Shortcut_lq0bh")
 icon = ExtResource("10_wali5")
 
-[node name="VSeparator2" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="VSeparator2" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 layout_mode = 2
 
-[node name="RotateLeft" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="RotateLeft" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -307,7 +320,7 @@ tooltip_text = "Rotate Object Left"
 focus_mode = 1
 icon = ExtResource("11_dwdvr")
 
-[node name="RotateRight" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="RotateRight" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -315,11 +328,11 @@ tooltip_text = "Rotate Object Right"
 focus_mode = 1
 icon = ExtResource("12_e1ts8")
 
-[node name="VSeparator3" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="VSeparator3" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 visible = false
 layout_mode = 2
 
-[node name="GridButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="GridButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Show Grid"
@@ -330,13 +343,13 @@ button_pressed = true
 shortcut = SubResource("Shortcut_gkcab")
 icon = ExtResource("15_ahe48")
 
-[node name="MoreGridButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="MoreGridButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
 icon = ExtResource("14_j2gld")
 
-[node name="ConfigureSnapWindow" type="Window" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton"]
+[node name="ConfigureSnapWindow" type="Window" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton"]
 unique_name_in_owner = true
 disable_3d = true
 oversampling_override = 1.0
@@ -351,7 +364,7 @@ popup_window = true
 force_native = true
 min_size = Vector2i(320, 140)
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -360,7 +373,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.2, 0.2, 0.2, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -371,36 +384,36 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "Grid Offset:"
 
-[node name="Label2" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "Grid Step:"
 
-[node name="Label3" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "Primary Line Every:"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="GridOffset1" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="GridOffset1" type="SpinBox" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -1000.0
@@ -411,7 +424,7 @@ allow_lesser = true
 suffix = "px"
 custom_arrow_step = 1.0
 
-[node name="GridStep1" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="GridStep1" type="SpinBox" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 4.0
@@ -421,7 +434,7 @@ rounded = true
 suffix = "px"
 custom_arrow_step = 1.0
 
-[node name="GridPrimaryLine1" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="GridPrimaryLine1" type="SpinBox" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 1.0
@@ -431,11 +444,11 @@ rounded = true
 suffix = "steps"
 custom_arrow_step = 1.0
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="GridOffset2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="GridOffset2" type="SpinBox" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -1000.0
@@ -446,7 +459,7 @@ allow_lesser = true
 suffix = "px"
 custom_arrow_step = 1.0
 
-[node name="GridStep2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="GridStep2" type="SpinBox" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 4.0
@@ -456,7 +469,7 @@ rounded = true
 suffix = "px"
 custom_arrow_step = 1.0
 
-[node name="GridPrimaryLine2" type="SpinBox" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="GridPrimaryLine2" type="SpinBox" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer/VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 1.0
@@ -466,11 +479,11 @@ rounded = true
 suffix = "steps"
 custom_arrow_step = 1.0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="GridOkBtn" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer3"]
+[node name="GridOkBtn" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -479,7 +492,7 @@ size_flags_vertical = 10
 shortcut = SubResource("Shortcut_s3imp")
 text = "OK"
 
-[node name="GridCancelBtn" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer3"]
+[node name="GridCancelBtn" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -488,17 +501,17 @@ size_flags_vertical = 10
 shortcut = SubResource("Shortcut_pgov6")
 text = "Cancel"
 
-[node name="VSeparator5" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="VSeparator5" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 modulate = Color(0.8, 0.8, 0.8, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_font_sizes/font_size = 13
 text = "Editing: "
 
-[node name="EditingMenuButton" type="OptionButton" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="EditingMenuButton" type="OptionButton" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
@@ -521,25 +534,27 @@ popup/item_5/id = 5
 popup/item_6/text = "Special"
 popup/item_6/id = 6
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox"]
+[node name="CountLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="TopBoxRight" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 alignment = 2
 
-[node name="CountLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="TargetLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="TargetLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VSeparator3" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="VSeparator3" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="PlayButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Save level and live-test through editor.
@@ -547,7 +562,7 @@ Any changes made during live-testing will be aborted!"
 focus_mode = 1
 icon = ExtResource("16_04k3a")
 
-[node name="StopButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="StopButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Stop live-testing and go back to editing"
@@ -555,23 +570,23 @@ focus_mode = 1
 disabled = true
 icon = ExtResource("18_wl423")
 
-[node name="PlayLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="PlayLevelButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Play level"
 focus_mode = 1
 icon = ExtResource("15_875c2")
 
-[node name="VSeparator4" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="VSeparator4" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 layout_mode = 2
 
-[node name="ObjectPickerButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="ObjectPickerButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 layout_mode = 2
 tooltip_text = "Open object picker and level properties"
 focus_mode = 1
 icon = ExtResource("6_0pm15")
 
-[node name="LevelProperties" type="Window" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="LevelProperties" type="Window" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 disable_3d = true
 oversampling_override = 1.0
@@ -582,7 +597,7 @@ visible = false
 force_native = true
 min_size = Vector2i(400, 512)
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -591,11 +606,11 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.24, 0.24, 0.24, 1)
 
-[node name="PropertiesTabs" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties" instance=ExtResource("21_iskyl")]
+[node name="PropertiesTabs" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties" instance=ExtResource("21_iskyl")]
 unique_name_in_owner = true
 offset_bottom = -40.0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -606,7 +621,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 10
 
-[node name="LevelPropApply" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties/HBoxContainer3"]
+[node name="LevelPropApply" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -614,7 +629,7 @@ size_flags_vertical = 10
 shortcut = SubResource("Shortcut_s3imp")
 text = "Apply"
 
-[node name="LevelPropCancel" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties/HBoxContainer3"]
+[node name="LevelPropCancel" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -622,7 +637,7 @@ size_flags_vertical = 10
 shortcut = SubResource("Shortcut_pgov6")
 text = "Cancel"
 
-[node name="LoadLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="LoadLevelButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -630,7 +645,7 @@ tooltip_text = "Load level"
 focus_mode = 1
 icon = ExtResource("19_xlbnm")
 
-[node name="LoadFileDialog" type="FileDialog" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="LoadFileDialog" type="FileDialog" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Open a File"
@@ -645,7 +660,7 @@ display_mode = 1
 access = 1
 filters = PackedStringArray("*.tscn,*.scn;Level scenes")
 
-[node name="SaveLevelButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="SaveLevelButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Save level. Click with Shift to save elsewhere"
@@ -653,7 +668,7 @@ focus_mode = 1
 shortcut = SubResource("Shortcut_jeruh")
 icon = ExtResource("18_efige")
 
-[node name="SaveFileDialog" type="FileDialog" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/SaveLevelButton"]
+[node name="SaveFileDialog" type="FileDialog" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/SaveLevelButton"]
 unique_name_in_owner = true
 initial_position = 2
 size = Vector2i(540, 420)
@@ -663,13 +678,13 @@ display_mode = 1
 access = 1
 filters = PackedStringArray("*.tscn,*.scn;Level scenes")
 
-[node name="CloseEditorButton" type="Button" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="CloseEditorButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 layout_mode = 2
 tooltip_text = "Close editor and exit to main menu"
 focus_mode = 1
 icon = ExtResource("19_b8vnf")
 
-[node name="CloseConfirmationDialog" type="ConfirmationDialog" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/CloseEditorButton"]
+[node name="CloseConfirmationDialog" type="ConfirmationDialog" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/CloseEditorButton"]
 unique_name_in_owner = true
 disable_3d = true
 initial_position = 2
@@ -680,32 +695,29 @@ ok_button_text = "Save"
 dialog_text = "Warning: You have unsaved changes.
 Save before quitting?"
 
-[node name="VSeparator" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2"]
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_67k7q")
 
-[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer/Control"]
+[node name="Control2" type="Control" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer/Control/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 32.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 0
 theme_override_constants/minimum_grab_thickness = 8
 theme_override_icons/grabber = SubResource("GradientTexture2D_ps8hf")
 split_offset = 800
 
-[node name="DrawArea" type="Control" parent="CanvasLayer/Control/HSplitContainer"]
+[node name="DrawArea" type="Control" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 mouse_default_cursor_shape = 5
 
-[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea"]
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -716,11 +728,11 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 split_offset = 450
 
-[node name="DrawArea2" type="Control" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer"]
+[node name="DrawArea2" type="Control" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/DrawArea2"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -730,7 +742,7 @@ offset_right = -8.0
 offset_bottom = 123.0
 grow_horizontal = 0
 
-[node name="ObjectName" type="Label" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/VBoxContainer"]
+[node name="ObjectName" type="Label" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -739,7 +751,7 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
 autowrap_mode = 3
 
-[node name="ExplanationStatic" type="Label" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/VBoxContainer"]
+[node name="ExplanationStatic" type="Label" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -755,7 +767,7 @@ Ctrl+Arrow keys: Scroll
 H: drop player at mouse cursor"
 horizontal_alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/DrawArea2"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -769,13 +781,13 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
 
-[node name="SelectedObjControl" type="Control" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer"]
+[node name="SelectedObjControl" type="Control" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="SelectedObjDisplay" type="TextureRect" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer/SelectedObjControl"]
+[node name="SelectedObjDisplay" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer/SelectedObjControl"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -787,7 +799,7 @@ texture = SubResource("AtlasTexture_cnl2o")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SelectedObjLabel" type="Label" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer"]
+[node name="SelectedObjLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/DrawArea2/HBoxContainer"]
 unique_name_in_owner = true
 auto_translate_mode = 2
 custom_minimum_size = Vector2(16, 32)
@@ -803,12 +815,12 @@ text = "Placeholder"
 vertical_alignment = 2
 autowrap_mode = 3
 
-[node name="TilePanel" type="Panel" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer"]
+[node name="TilePanel" type="Panel" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 84)
 layout_mode = 2
 
-[node name="ScrollTileContainer" type="ScrollContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/TilePanel"]
+[node name="ScrollTileContainer" type="ScrollContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/TilePanel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -821,24 +833,24 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/TilePanel/ScrollTileContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/TilePanel/ScrollTileContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TileFlowContainer" type="FlowContainer" parent="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer/TilePanel/ScrollTileContainer/HBoxContainer"]
+[node name="TileFlowContainer" type="FlowContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer/TilePanel/ScrollTileContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/HSplitContainer"]
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer"]
 visible = false
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HSplitContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -849,24 +861,24 @@ theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/Panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScrollPropContainer" type="ScrollContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="ScrollPropContainer" type="ScrollContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PropListContainer" type="VBoxContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollPropContainer"]
+[node name="PropListContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollPropContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PropContainer" parent="CanvasLayer/Control/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollPropContainer/PropListContainer" instance=ExtResource("22_m6va2")]
+[node name="PropContainer" parent="CanvasLayer/Control/VBoxContainer/HSplitContainer/Panel/MarginContainer/VBoxContainer/ScrollPropContainer/PropListContainer" instance=ExtResource("22_m6va2")]
 layout_mode = 2
 
 [node name="ZoomContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
@@ -1175,21 +1187,21 @@ collision_mask = 256
 collide_with_areas = true
 collide_with_bodies = false
 
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton" to="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow" method="show"]
-[connection signal="close_requested" from="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow" to="CanvasLayer/Control/PanelContainer/TopBox/MoreGridButton/ConfigureSnapWindow" method="hide"]
-[connection signal="item_selected" from="CanvasLayer/Control/PanelContainer/TopBox/EditingMenuButton" to="CanvasLayer/Control" method="_on_menu_button_item_selected"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/PlayButton" to="CanvasLayer/Control" method="_on_play_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/StopButton" to="CanvasLayer/Control" method="_on_stop_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/PlayLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/ObjectPickerButton" to="CanvasLayer/Control" method="_on_object_picker_button_pressed"]
-[connection signal="close_requested" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties" to="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties" method="hide"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties/HBoxContainer3/LevelPropApply" to="CanvasLayer/Control" method="_on_level_prop_apply_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LevelProperties/HBoxContainer3/LevelPropCancel" to="CanvasLayer/Control" method="_on_level_prop_cancel_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/LoadLevelButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/SaveLevelButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/TopBox/HBoxContainer2/CloseEditorButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]
-[connection signal="dragged" from="CanvasLayer/Control/HSplitContainer" to="CanvasLayer/Control" method="_on_h_split_container_dragged"]
-[connection signal="dragged" from="CanvasLayer/Control/HSplitContainer/DrawArea/VSplitContainer" to="CanvasLayer/Control" method="_on_v_split_container_dragged"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton" to="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow" method="show"]
+[connection signal="close_requested" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow" to="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow" method="hide"]
+[connection signal="item_selected" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/EditingMenuButton" to="CanvasLayer/Control" method="_on_menu_button_item_selected"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/PlayButton" to="CanvasLayer/Control" method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/StopButton" to="CanvasLayer/Control" method="_on_stop_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/PlayLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/ObjectPickerButton" to="CanvasLayer/Control" method="_on_object_picker_button_pressed"]
+[connection signal="close_requested" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties" to="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties" method="hide"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropApply" to="CanvasLayer/Control" method="_on_level_prop_apply_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropCancel" to="CanvasLayer/Control" method="_on_level_prop_cancel_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LoadLevelButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/SaveLevelButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/CloseEditorButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]
+[connection signal="dragged" from="CanvasLayer/Control/VBoxContainer/HSplitContainer" to="CanvasLayer/Control" method="_on_h_split_container_dragged"]
+[connection signal="dragged" from="CanvasLayer/Control/VBoxContainer/HSplitContainer/DrawArea/VSplitContainer" to="CanvasLayer/Control" method="_on_v_split_container_dragged"]
 [connection signal="pressed" from="CanvasLayer/Control/ZoomContainer/CenterLevelButton" to="CanvasLayer/Control" method="_on_center_level_button_pressed"]
 [connection signal="toggled" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/EraseWithRMB" to="CanvasLayer/Control" method="_on_erase_with_rmb_toggled"]
 [connection signal="pressed" from="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/SaveButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed"]

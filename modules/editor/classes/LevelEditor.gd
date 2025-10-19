@@ -187,7 +187,9 @@ func _input(event: InputEvent) -> void:
 			_on_selected_array_change()
 			EditorAudio.kick()
 			changes_after_save = true
-	elif event.is_action(&"ui_menu_toggle") && event.is_pressed() && !event.is_echo() && !special_object_blocked:
+	elif (
+		event.is_action(&"ui_menu_toggle") || event.is_action(&"pause_toggle")
+	) && event.is_pressed() && !event.is_echo() && !special_object_blocked:
 		if object_pick_menu.visible:
 			object_pick_menu_close(false)
 		else:

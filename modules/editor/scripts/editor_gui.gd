@@ -1,6 +1,8 @@
 extends Control
 
 @onready var properties_tabs: TabContainer = %PropertiesTabs
+@onready var top_box_left: HBoxContainer = %TopBoxLeft
+@onready var top_box_right: HBoxContainer = %TopBoxRight
 var _audio_workaround: int
 
 func _ready() -> void:
@@ -108,7 +110,10 @@ func _on_window_resized() -> void:
 		%HSplitContainer.split_offset = (size_x / 3)
 	_on_v_split_container_dragged(0)
 	%VSplitContainer.split_offset -= window_old_size.y - get_tree().root.size.y
-	%CountLabel.visible = get_tree().root.size.x > 1000
+	if get_tree().root.size.x / get_tree().root.content_scale_factor <= 1024 && top_box_right.get_parent() == top_box_left:
+		top_box_right.reparent(%TopBoxContainer)
+	elif get_tree().root.size.x / get_tree().root.content_scale_factor > 1024 && top_box_right.get_parent() == %TopBoxContainer:
+		top_box_right.reparent(top_box_left)
 
 
 func _on_v_split_container_dragged(offset: int) -> void:
