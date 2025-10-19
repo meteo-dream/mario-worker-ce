@@ -70,16 +70,7 @@ msgid "Go to level editor"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
-#: modules/editor/stages/level_editor.tscn
-msgid "Play level"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
 msgid "Browse level files"
-msgstr ""
-
-#: stages/main_menu/main_menu.tscn
-msgid "Enable editor sounds"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
@@ -89,7 +80,20 @@ msgstr ""
 
 #: stages/main_menu/main_menu.tscn
 #: modules/editor/stages/level_editor.tscn
+msgid "Play level"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "Feedback"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+#: modules/editor/stages/level_editor.tscn
 msgid "Exit"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn
+msgid "Enable editor sounds"
 msgstr ""
 
 #: stages/main_menu/main_menu.tscn
@@ -612,7 +616,16 @@ msgid "Solid Platform Gray"
 msgstr ""
 
 #: locale/tileset_names.ini
+msgid "Hard Block Gray"
+msgstr ""
+
+#: locale/tileset_names.ini
 msgid "Castle Ground"
+msgstr ""
+
+#: locale/tileset_names.ini
+msgctxt "Hazard Launcher Supporting Tiles"
+msgid "Bullet Launcher"
 msgstr ""
 
 #: locale/tileset_names.ini
@@ -680,6 +693,10 @@ msgid "Starland Ground"
 msgstr ""
 
 #: locale/tileset_names.ini
+msgid "Starland Ground"
+msgstr ""
+
+#: locale/tileset_names.ini
 msgid "I will remove this"
 msgstr ""
 
@@ -725,11 +742,63 @@ msgstr ""
 
 #: locale/object_names_scenery.ini
 msgctxt "scenery"
+msgid "Sky"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Big Clouds (Face)"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Big Clouds"
+msgstr ""
+
+#: locale/object_names_scenery.ini
 msgid "Overworld"
 msgstr ""
 
 #: locale/object_names_scenery.ini
-msgid "Overworld Grass"
+msgid "Castle Bottom"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Castle Top"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Cloud"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Fence"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Forest Green"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Grass Green"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Hill Green"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Mountains Green"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Tree x1 Green"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Tree x2 Green"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Tree x3 Green"
 msgstr ""
 
 #: locale/object_names_misc.ini
