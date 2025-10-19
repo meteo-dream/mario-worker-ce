@@ -80,6 +80,7 @@ var editing_sel: int = EDIT_SEL.NONE:
 		if to == EDIT_SEL.TILE:
 			if is_paint_tool():
 				selected_obj_sprite.visible = selected_tile_holder != null
+			object_sprite_visible = true
 			selected_obj_sprite.self_modulate.a = 0.5
 			selected_object = null
 			selected = []
@@ -267,6 +268,7 @@ func _input_mouse_click(event: InputEventMouseButton) -> void:
 func _input_mouse_hold(event: InputEvent) -> void:
 	if tool_mode == TOOL_MODES.PAINT && !Input.is_action_pressed(&"a_ctrl"):
 		if editing_sel == EDIT_SEL.TILE:
+			object_sprite_visible = true
 			_input_paint_tile(event)
 			return
 		if is_instance_valid(selected_object):
@@ -968,7 +970,7 @@ func _tool_list_process() -> void:
 	pass
 
 func _tool_paint_process() -> void:
-	if !selected_object is EditorAddableDecoration:
+	if !selected_object is EditorAddableDecoration && editing_sel != EDIT_SEL.TILE:
 		object_sprite_visible = !%ShapeCast2D.is_colliding()
 	selected_obj_sprite.visible = can_draw() && object_sprite_visible
 	

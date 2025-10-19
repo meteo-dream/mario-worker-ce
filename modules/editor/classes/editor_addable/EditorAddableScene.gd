@@ -57,6 +57,10 @@ func _prepare_gameplay() -> Node:
 	if "position" in instance:
 		instance.position = position + instance_offset
 	add_sibling.call_deferred(instance)
+	if internal_settings.has("init_node2d"):
+		var _dict: Dictionary = internal_settings.init_node2d
+		for i in _dict.keys():
+			instance.set(i, _dict[i])
 	prints("Game:", instance.name, position)
 	queue_free()
 	return instance

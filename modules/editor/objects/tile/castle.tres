@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://cmvtwr8ois4yj"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://cmvtwr8ois4yj"]
 
 [ext_resource type="Texture2D" uid="uid://djeepjjheqxl" path="res://engine/tilesets/castle/castle_tileset.png" id="1_avr7q"]
 [ext_resource type="Texture2D" uid="uid://nwyeqno7oote" path="res://engine/tilesets/castle/gray_platform_tile.png" id="3_1kc24"]
+[ext_resource type="Texture2D" uid="uid://8wq2gxlevvdi" path="res://gfx/tileset/gray_hard_block.png" id="3_2bbe2"]
 [ext_resource type="Texture2D" uid="uid://ccwdebygfxng6" path="res://gfx/tileset/castle_terrain.png" id="3_x7vbb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejetu"]
@@ -52,6 +53,20 @@ texture_region_size = Vector2i(32, 16)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 8)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 0, -16, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bbhl6"]
+texture = ExtResource("3_2bbe2")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, -16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, -16, -16, -16)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ckuu3"]
 texture = ExtResource("3_x7vbb")
@@ -444,3 +459,4 @@ terrain_set_0/terrain_0/color = Color(0.3137255, 0, 1, 1)
 sources/0 = SubResource("TileSetAtlasSource_ejetu")
 sources/2 = SubResource("TileSetAtlasSource_agocj")
 sources/4 = SubResource("TileSetAtlasSource_ckuu3")
+sources/3 = SubResource("TileSetAtlasSource_bbhl6")
