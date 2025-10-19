@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckq36pk8wcsur"]
+
+[ext_resource type="Texture2D" uid="uid://cfl32xhp20q7x" path="res://engine/scenes/castle_cutscene/textures/castle_big.png" id="1_71bqv"]
+
+[node name="CastleBottom" type="Sprite2D"]
+texture = ExtResource("1_71bqv")
+region_enabled = true
+region_rect = Rect2(0, 160, 315, 192)

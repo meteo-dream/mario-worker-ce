@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	if !_sel.get_prop_internal("result_inst"): return
 	if Editor.scene.object_pick_menu.visible: return
 	
-	var shape_cast: ShapeCast2D = Editor.scene.get_node("%ShapeCast2D")
+	var shape_cast: ShapeCast2D = Editor.scene.get_node("%ShapeCastPoint")
 	shape_cast.force_shapecast_update()
 	if !shape_cast.is_colliding(): return
 	
@@ -57,8 +57,8 @@ func _physics_process(delta: float) -> void:
 		var _col = shape_cast.get_collider(i)
 		if !_col || !_col.get_parent(): continue
 		_col = _col.get_parent()
-		if _col is EditorAddableContainer:
-			item_closest_pos_arr.append(mouse_pos.distance_squared_to(_col.global_position))
+		if !_col is EditorAddableContainer: continue
+		item_closest_pos_arr.append(mouse_pos.distance_squared_to(_col.global_position))
 		
 		can_addable = item_closest_pos_arr.all(func(dist):
 			return dist >= mouse_pos.distance_squared_to(global_position)

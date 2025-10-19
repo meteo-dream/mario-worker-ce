@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2ml2pnodrrtb"]
+
+[ext_resource type="Texture2D" uid="uid://b5477r418vvmg" path="res://engine/tilesets/rockland/gfx/big_clouds.png" id="1_vhhlj"]
+
+[node name="BigClouds" type="Sprite2D"]
+texture = ExtResource("1_vhhlj")

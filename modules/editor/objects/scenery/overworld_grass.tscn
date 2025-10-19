@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_pw5fr"]
 
-[node name="Overworld Grass" type="Node2D"]
+[node name="Grass Green" type="Node2D"]
 script = ExtResource("1_pw5fr")
 scene_path = "uid://dor0tmdd8itya"
 internal_settings = Dictionary[String, Variant]({
 "init_node2d": {
-"z_index": -10
+"z_index": -9
 }
 })
 category = "scenery"
 subcategory = "Overworld"
+offset = Vector2(16, 0)

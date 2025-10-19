@@ -14,15 +14,18 @@ func _physics_process(delta: float) -> void:
 
 func _draw() -> void:
 	var tile_picking: bool = (
-		Editor.scene.is_paint_tool() && Input.is_action_pressed(&"a_ctrl")
+		(Editor.scene.is_paint_tool() || Editor.scene.tool_mode == LevelEditor.TOOL_MODES.SELECT) &&
+		Input.is_action_pressed(&"a_ctrl")
 	) || Editor.scene.tool_mode == LevelEditor.TOOL_MODES.PICKER
+	
 	var color := Color.ORANGE if !tile_picking else Color.MAGENTA
 	var is_paint_tool: bool = (
 		Editor.scene.is_paint_tool() ||
 		Editor.scene.tool_mode == LevelEditor.TOOL_MODES.PICKER
 	)
+	
 	if (
-		could_draw && is_paint_tool &&
+		could_draw && (is_paint_tool || tile_picking) &&
 		Editor.scene.editing_sel in [LevelEditor.EDIT_SEL.TILE]
 	):
 		var size = Vector2.ONE * 32

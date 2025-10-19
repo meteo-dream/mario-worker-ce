@@ -110,6 +110,7 @@ var editor_options: Dictionary = {
 }
 var editor_cache := EditorCacheData.new()
 var mouse_clicked_once: bool
+var object_sprite_visible: bool
 
 
 func _ready() -> void:
@@ -251,6 +252,16 @@ func _input_mouse_click(event: InputEventMouseButton) -> void:
 			else:
 				select_object(_col)
 			break
+	elif tool_mode == TOOL_MODES.SELECT && (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
+		%ShapeCastPoint.force_shapecast_update()
+		for i in %ShapeCastPoint.get_collision_count():
+			var _col = %ShapeCastPoint.get_collider(i)
+			if !_col || !_col.get_parent(): continue
+			_col = _col.get_parent()
+			if _col.get("properties") && !editor_options.erase_with_rmb:
+				# TODO: Properties menu
+				OS.alert("This will open up the properties menu...")
+				break
 
 
 func _input_mouse_hold(event: InputEvent) -> void:
@@ -263,18 +274,29 @@ func _input_mouse_hold(event: InputEvent) -> void:
 		%ShapeCast2D.force_shapecast_update()
 		#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 		if %ShapeCast2D.is_colliding():
-			selected_obj_sprite.visible = false
 			# Erasing the object by RMB
 			_input_paint_object_rmb()
 			if !is_instance_valid(selected_object) || !selected_object is EditorAddableNode2D:
+				selected_obj_sprite.visible = false
 				return
 			selected_object._hovering()
+			var do_return: bool = false
 			for i in %ShapeCast2D.get_collision_count():
 				var _col = %ShapeCast2D.get_collider(i)
 				if !_col || !_col.get_parent(): continue
 				_col = _col.get_parent()
 				_col._hovered()
-			return
+				if selected_object is EditorAddableDecoration:
+					if _col.get_meta(&"nameid") == selected_object.get_meta(&"nameid"):
+						do_return = true
+				else:
+					do_return = true
+			object_sprite_visible = !do_return
+			selected_obj_sprite.visible = !do_return
+			if do_return:
+				return
+		elif selected_object is EditorAddableDecoration:
+			object_sprite_visible = true
 		# Painting the object to the level
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && selected_object:
 			_input_paint_object()
@@ -946,7 +968,9 @@ func _tool_list_process() -> void:
 	pass
 
 func _tool_paint_process() -> void:
-	selected_obj_sprite.visible = can_draw() && !%ShapeCast2D.is_colliding()
+	if !selected_object is EditorAddableDecoration:
+		object_sprite_visible = !%ShapeCast2D.is_colliding()
+	selected_obj_sprite.visible = can_draw() && object_sprite_visible
 	
 	if Input.is_action_just_pressed(&"ui_editor_1"):
 		switch_tile_by(-1)

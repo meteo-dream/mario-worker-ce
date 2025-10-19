@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bterkt1u2onr"]
+
+[ext_resource type="Script" uid="uid://degfyc3bn1f7a" path="res://modules/editor/classes/editor_addable/EditorAddableDecoration.gd" id="1_w1mxo"]
+[ext_resource type="Texture2D" uid="uid://cfl32xhp20q7x" path="res://engine/scenes/castle_cutscene/textures/castle_big.png" id="2_c2546"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncubu"]
+atlas = ExtResource("2_c2546")
+region = Rect2(0, 160, 315, 192)
+
+[node name="Castle Bottom" type="Node2D"]
+script = ExtResource("1_w1mxo")
+scene_path = "uid://ckq36pk8wcsur"
+internal_settings = Dictionary[String, Variant]({
+"init_node2d": {
+"z_index": -8
+}
+})
+category = "scenery"
+subcategory = "Overworld"
+offset = Vector2(144, -80)
+editor_icon = SubResource("AtlasTexture_ncubu")

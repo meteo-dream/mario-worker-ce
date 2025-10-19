@@ -7,6 +7,7 @@ func _prepare_gameplay() -> Node:
 	if "position" in instance:
 		instance.position = position - offset + Vector2(-16, 16)
 		instance.use_strict_detection_area = true
+		instance.z_index = -1
 	add_sibling.call_deferred(instance)
 	queue_free()
 	return instance
@@ -23,6 +24,7 @@ func _prepare_editor(is_new: bool = true) -> void:
 	var _texture = Sprite2D.new()
 	_texture.texture = editor_icon
 	_texture.offset = editor_icon_offset
+	_texture.z_index = -1
 	#_texture.position = -Vector2.ONE * 16
 	add_child(_texture)
 	

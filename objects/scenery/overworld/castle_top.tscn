@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyb1l8054isbe"]
+
+[ext_resource type="Texture2D" uid="uid://csps5gx8et6p5" path="res://engine/scenes/castle_cutscene/textures/castle_small.png" id="1_omvlu"]
+
+[node name="CastleTop" type="Sprite2D"]
+texture = ExtResource("1_omvlu")

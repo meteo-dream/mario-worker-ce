@@ -3,6 +3,4 @@
 [ext_resource type="Texture2D" uid="uid://r73jhhrgt172" path="res://engine/tilesets/overworld/tree_taller.png" id="1_cka21"]
 
 [node name="TreeLonger" type="Sprite2D"]
-position = Vector2(-16, -95)
 texture = ExtResource("1_cka21")
-centered = false

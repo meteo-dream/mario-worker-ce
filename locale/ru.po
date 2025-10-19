@@ -633,7 +633,7 @@ msgstr "Под водой"
 #: locale/tileset_names.ini
 msgctxt "Castle"
 msgid "Castle Bricks"
-msgstr "Кирпичи замка"
+msgstr "Кирпичи замка (индивидуальные)"
 
 #: locale/tileset_names.ini
 msgid "Solid Platform Gray"
@@ -641,7 +641,7 @@ msgstr "Твёрдая серая платформа"
 
 #: locale/tileset_names.ini
 msgid "Castle Ground"
-msgstr "Поверхность в замке"
+msgstr "Кирпичи замка (поверхность)"
 
 #: locale/tileset_names.ini
 msgctxt "Overworld Default"

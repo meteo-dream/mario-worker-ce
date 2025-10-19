@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://brp1pd8rx1mn4"]
+
+[ext_resource type="Script" uid="uid://degfyc3bn1f7a" path="res://modules/editor/classes/editor_addable/EditorAddableDecoration.gd" id="1_yx2ej"]
+
+[node name="Hill Green" type="Node2D"]
+script = ExtResource("1_yx2ej")
+scene_path = "uid://2ea3ayd2sj7i"
+internal_settings = Dictionary[String, Variant]({
+"init_node2d": {
+"z_index": -11
+}
+})
+category = "scenery"
+subcategory = "Overworld"
+offset = Vector2(160, -64)

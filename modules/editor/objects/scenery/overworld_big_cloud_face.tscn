@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1y6lu4y5yub0"]
+
+[ext_resource type="Script" uid="uid://degfyc3bn1f7a" path="res://modules/editor/classes/editor_addable/EditorAddableDecoration.gd" id="1_ue8s0"]
+
+[node name="Big Clouds (Face)" type="Node2D"]
+script = ExtResource("1_ue8s0")
+scene_path = "uid://clvxdgshbdw7c"
+internal_settings = Dictionary[String, Variant]({
+"init_node2d": {
+"z_index": -14
+}
+})
+category = "scenery"
+subcategory = "Sky"

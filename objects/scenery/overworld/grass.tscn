@@ -32,6 +32,5 @@ animations = [{
 }]
 
 [node name="Grass" type="AnimatedSprite2D"]
-z_index = -10
 sprite_frames = SubResource("SpriteFrames_nsqk6")
 autoplay = "default"
