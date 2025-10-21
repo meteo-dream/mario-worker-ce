@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Data is corrupted"
@@ -59,50 +59,50 @@ msgid "Failed to load: Missing LevelProperties"
 msgstr "加载失败：LevelProperties丢失"
 
 #: stages/main_menu/main_menu.tscn
-msgid "Mario Worker: Community Edition"
-msgstr "创世的马里奥：社区版"
-
-#: stages/main_menu/main_menu.tscn
 msgid ""
 "Mario Worker: Community Edition\n"
 "PRE-ALPHA PROTOTYPE Build 1"
-msgstr "\n"
-"创世的马里奥：社区版\n"
+msgstr ""
+"Mario Forever: Community Edition\n"
 "预测试原型版 第1次编译版本"
 
 #: stages/main_menu/main_menu.tscn
 msgid ""
 "this is a public unfinished preview version of the level editor.\n"
-"everything is subject to change. this is not final!\n"
+"presented prototype may significantly differ from the final version.\n"
 "levels created in this build will not load in other versions."
 msgstr ""
 "当前为待完成的公开预览版编辑器，\n"
-"内容在未来均可能有所更改，并非最终版本！\n"
+"原型版本的内容可能会与最终版本有所差异！\n"
 "由当前编译版本创建的关卡无法加载进其他版本当中。"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Go to level editor"
 msgstr "前往关卡编辑器"
 
-#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
-msgid "Play level"
-msgstr "游玩关卡"
-
 #: stages/main_menu/main_menu.tscn
 msgid "Browse level files"
 msgstr "浏览关卡文件"
-
-#: stages/main_menu/main_menu.tscn
-msgid "Enable editor sounds"
-msgstr "启用编辑器音效"
 
 #: stages/main_menu/main_menu.tscn stages/main_menu/objects/about_window.tscn
 msgid "About"
 msgstr "关于"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
+msgid "Play level"
+msgstr "游玩关卡"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Feedback"
+msgstr "反馈"
+
+#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Exit"
 msgstr "退出"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Enable editor sounds"
+msgstr "启用编辑器音效"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Open a File"
@@ -126,7 +126,8 @@ msgid "Save failed."
 msgstr "保存失败。"
 
 #: modules/editor/scripts/editor_gui.gd
-msgid "This button is unimplemented for now, use 'Play Level' from the title screen"
+msgid ""
+"This button is unimplemented for now, use 'Play Level' from the title screen"
 msgstr "该按钮目前未实装功能，请在标题界面点击“游玩关卡”按钮"
 
 #: modules/editor/scripts/editor_gui.gd
@@ -435,15 +436,21 @@ msgstr ""
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
+"If enabled, right click only erases objects of the type that you have "
+"selected to paint.\n"
+"If disabled, any object from the selected category can be erased with right "
+"click."
+msgstr ""
+"启用后，鼠标右键仅擦除与当前绘制的对象相同类型的对象，\n"
+"禁用后，鼠标右键可擦除当前选中类型下的任意对象。"
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
 "Right click erases\n"
 "only same object"
 msgstr ""
 "鼠标右键仅可\n"
 "擦除相同对象"
-
-#: modules/editor/stages/level_editor.tscn
-msgid "Use Tile Terrains"
-msgstr "使用图块地形"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -529,6 +536,10 @@ msgid "Background"
 msgstr "背景"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Section: %d (See right panel to change)"
+msgstr "分景：%d（在右侧边栏更改）"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
 msgid ""
 "Primary\n"
 "Gradient"
@@ -553,7 +564,7 @@ msgid "Cloudless (1 - 3)"
 msgstr "无云（1-3）"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-msgid " Morning (5 - 1)"
+msgid "Morning (5 - 1)"
 msgstr "清晨（5-1）"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
@@ -593,8 +604,16 @@ msgid "Bottom"
 msgstr "底部"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-msgid "Dummy"
-msgstr "虚设"
+msgid "Experimental"
+msgstr "实验性"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Camera Limits (Width x Height):"
+msgstr "相机边界（宽 x 高）："
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Enable Wide Screen (864 x 480 resolution)"
+msgstr "启用宽屏模式（分辨率：864 x 480）"
 
 #: locale/tileset_names.ini
 msgctxt "tile"
@@ -643,8 +662,17 @@ msgid "Solid Platform Gray"
 msgstr "实心平台（灰）"
 
 #: locale/tileset_names.ini
+msgid "Hard Block Gray"
+msgstr "灰色硬砖"
+
+#: locale/tileset_names.ini
 msgid "Castle Ground"
 msgstr "城堡地面"
+
+#: locale/tileset_names.ini
+msgctxt "Hazard Launcher Supporting Tiles"
+msgid "Bullet Launcher"
+msgstr "炮台"
 
 #: locale/tileset_names.ini
 msgctxt "Overworld Default"
@@ -711,6 +739,10 @@ msgid "Starland Ground"
 msgstr "星原地面"
 
 #: locale/tileset_names.ini
+msgid "Starland Ground"
+msgstr "星原地面"
+
+#: locale/tileset_names.ini
 msgid "I will remove this"
 msgstr "将会移除此项"
 
@@ -756,12 +788,64 @@ msgstr "玩家起点"
 
 #: locale/object_names_scenery.ini
 msgctxt "scenery"
+msgid "Sky"
+msgstr "天空"
+
+#: locale/object_names_scenery.ini
+msgid "Big Clouds (Face)"
+msgstr "大片云彩（带脸）"
+
+#: locale/object_names_scenery.ini
+msgid "Big Clouds"
+msgstr "大片云彩"
+
+#: locale/object_names_scenery.ini
 msgid "Overworld"
 msgstr "地表地面"
 
 #: locale/object_names_scenery.ini
-msgid "Overworld Grass"
-msgstr "地表地面（草地）"
+msgid "Castle Bottom"
+msgstr "城堡底部"
+
+#: locale/object_names_scenery.ini
+msgid "Castle Top"
+msgstr "城堡顶部"
+
+#: locale/object_names_scenery.ini
+msgid "Cloud"
+msgstr "云"
+
+#: locale/object_names_scenery.ini
+msgid "Fence"
+msgstr "栅栏"
+
+#: locale/object_names_scenery.ini
+msgid "Forest Green"
+msgstr "森林（绿）"
+
+#: locale/object_names_scenery.ini
+msgid "Grass Green"
+msgstr "草（绿）"
+
+#: locale/object_names_scenery.ini
+msgid "Hill Green"
+msgstr "山丘（绿）"
+
+#: locale/object_names_scenery.ini
+msgid "Mountains Green"
+msgstr "山脉（绿）"
+
+#: locale/object_names_scenery.ini
+msgid "Tree x1 Green"
+msgstr "树（绿，1格高树冠）"
+
+#: locale/object_names_scenery.ini
+msgid "Tree x2 Green"
+msgstr "树（绿，2格高树冠）"
+
+#: locale/object_names_scenery.ini
+msgid "Tree x3 Green"
+msgstr "树（绿，3格高树冠）"
 
 #: locale/object_names_misc.ini
 msgctxt "misc"
@@ -984,12 +1068,16 @@ msgstr "雷霆引擎"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Play Mario Forever: Community Edition"
-msgstr "游玩《创世的马里奥：社区版》"
+msgstr "游玩《Mario Forever: Community Edition》"
+
+#: stages/main_menu/objects/about_window.gd
+msgid "A Level Editor for Mario Forever."
+msgstr "一个《永远的马里奥》关卡编辑器。"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Lead Developer of MW:CE:"
 msgid_plural "Lead Developers of MW:CE:"
-msgstr[0] "《创世的马里奥：社区版》主要开发者："
+msgstr[0] "《Mario Forever: Community Edition》主要开发者："
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Graphical Assistance:"
@@ -997,7 +1085,7 @@ msgstr "美术："
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Thunder Engine Developers:"
-msgstr "《雷霆引擎》开发者："
+msgstr "《Thunder Engine》开发者："
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Supporters:"
@@ -1025,6 +1113,14 @@ msgctxt "Put translation authors here!"
 msgid "Your name"
 msgstr "鱼子酱飞不出三米呀"
 
-#: stages/main_menu/objects/about_window.gd
-msgid "A Level Editor for Mario Forever."
-msgstr "一个《永远的马里奥》关卡编辑器。"
+#~ msgid "Mario Worker: Community Edition"
+#~ msgstr "创世的马里奥：社区版"
+
+#~ msgid "Use Tile Terrains"
+#~ msgstr "使用图块地形"
+
+#~ msgid "Dummy"
+#~ msgstr "虚设"
+
+#~ msgid "Overworld Grass"
+#~ msgstr "地表地面（草地）"
