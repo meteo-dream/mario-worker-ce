@@ -89,7 +89,7 @@ size_flags_vertical = 3
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 18
 text = "this is a public unfinished preview version of the level editor.
-everything is subject to change. this is not final!
+presented prototype may significantly differ from the final version.
 levels created in this build will not load in other versions."
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -243,7 +243,7 @@ force_native = true
 
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/BrowseFiles" to="." method="_on_browse_files_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Credits" to="AboutWindow" method="show"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Testlevel" to="." method="_on_test_level_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Forum" to="." method="_on_forum_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Exit" to="." method="_on_exit_pressed"]

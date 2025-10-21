@@ -10,9 +10,16 @@ extends TabContainer
 @onready var author_website: LineEdit = %AuthorWebsite
 @onready var gradient_top: ColorPickerButton = %GradientTop
 @onready var gradient_bottom: ColorPickerButton = %GradientBottom
+@onready var section_width: SpinBox = %SectionWidth
+@onready var section_height: SpinBox = %SectionHeight
+@onready var widescreen_check_box: CheckBox = %WidescreenCheckBox
+
+@onready var section_label_text = tr(%SectionLabel.text)
 
 func _ready() -> void:
 	%GradientPresets.get_popup().id_pressed.connect(_on_gradient_preset_choosed)
+	%SectionLabel.text = section_label_text % 1
+	%SectionLabel2.text = section_label_text % 1
 
 func update_input_values() -> void:
 	time_limit.value = Editor.current_level.time
@@ -27,6 +34,8 @@ func update_input_values() -> void:
 	var player_pos: Node = get_tree().get_first_node_in_group(&"editor_player_position")
 	if player_pos:
 		player_pos.global_position = Editor.current_level_properties.player_position
+	
+	widescreen_check_box.button_pressed = Editor.current_level_properties.screen_resolution != Vector2i(640, 480)
 
 
 func update_section_values() -> void:
@@ -35,6 +44,10 @@ func update_section_values() -> void:
 	gradient_bottom.color = section.get_node("Background/GradientLayer/Gradient").texture.gradient.get_color(1)
 	%GradientPreviewRect.texture.gradient.set_color(0, gradient_top.color)
 	%GradientPreviewRect.texture.gradient.set_color(1, gradient_bottom.color)
+	%SectionLabel.text = section_label_text % Editor.scene.section
+	%SectionLabel2.text = section_label_text % Editor.scene.section
+	section_width.value = Editor.current_level_properties.sections[Editor.scene.section].size.x
+	section_height.value = Editor.current_level_properties.sections[Editor.scene.section].size.y
 
 
 func _on_gradient_top_color_changed(color: Color) -> void:

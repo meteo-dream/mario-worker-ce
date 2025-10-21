@@ -8,32 +8,6 @@ func _ready() -> void:
 	SettingsManager.show_mouse()
 	Editor.current_level_properties = null
 	Editor.current_level = null
-	var current_screen := DisplayServer.window_get_current_screen(get_tree().root.get_window_id())
-	var non_windows_scale := DisplayServer.screen_get_scale(current_screen)
-	if Editor.config.editor_scale < 0.5:
-		if OS.get_name() != "Windows":
-			Editor.config.editor_scale = non_windows_scale
-		elif (
-			DisplayServer.screen_get_dpi(current_screen) > 120
-		):
-			Editor.config.editor_scale = 2.0
-	
-	var screen_size: Vector2i = DisplayServer.screen_get_size(current_screen)
-	if (Editor.config.editor_scale >= 2.0 && 
-		screen_size.x >= 1920 && screen_size.y >= 1080
-	):
-		get_tree().root.min_size = Vector2i(1600, 800)
-		get_tree().root.size = Vector2i(1920, 1080)
-		
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		get_tree().root.position = (
-			(screen_size / 2) - (get_tree().root.size / 2)
-		)
-	
-	if Editor.config.editor_scale >= 0.5:
-		get_tree().root.content_scale_factor = Editor.config.editor_scale
-		ProjectSettings.set_setting("display/window/stretch/scale", Editor.config.editor_scale)
-	#Editor.config.editor_scale = get_tree().root.content_scale_factor
 	
 	if Editor.config.lang == "":
 		for i in get_tree().get_nodes_in_group(&"menu_lang"):
@@ -61,7 +35,7 @@ func _on_button_pressed() -> void:
 func _on_test_level_pressed() -> void:
 	if $LoadFileDialog.current_dir == "user://":
 		$LoadFileDialog.current_dir = "user://User Data/Levels"
-	$LoadFileDialog.show()
+	Editor.show_window($LoadFileDialog)
 
 
 func _on_load_file_dialog_file_selected(path: String) -> bool:
@@ -86,7 +60,7 @@ func _on_load_file_dialog_file_selected(path: String) -> bool:
 	
 	var _level_props = new_level.get_node_or_null("LevelProperties")
 	if _level_props && "properties" in _level_props:
-		if _level_props.properties.get("level_major_version") < ProjectSettings.get_setting("application/thunder_settings/major_version", 1):
+		if _level_props.properties.get("level_major_version") != ProjectSettings.get_setting("application/thunder_settings/major_version", 1):
 			_throw_error_on_load(tr("Failed to load: Incompatible Version"))
 			new_level.free.call_deferred()
 			return false
@@ -101,6 +75,7 @@ func _on_load_file_dialog_file_selected(path: String) -> bool:
 		Thunder._current_player.queue_free()
 	
 	GlobalViewport.show()
+	Editor.set_game_screen_size(_level_props.properties.get(&"screen_resolution"))
 	hide()
 	GlobalViewport.close_requested.connect(_free_level_scene, CONNECT_ONE_SHOT)
 	
@@ -179,3 +154,7 @@ func _on_exit_pressed() -> void:
 
 func _on_forum_pressed() -> void:
 	OS.shell_open("https://marioforever.space/topic/36/wip-mario-worker-community-edition")
+
+
+func _on_credits_pressed() -> void:
+	Editor.show_window(%AboutWindow)

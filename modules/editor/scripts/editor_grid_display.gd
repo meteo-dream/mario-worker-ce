@@ -117,7 +117,7 @@ func _on_grid_button_pressed() -> void:
 
 
 func _draw_main_grid(vp_size: Vector2, cam_pos: Vector2) -> void:
-	var screen_size := Vector2i(640, 480)
+	var screen_size := Editor.current_level_properties.screen_resolution
 	var is_tile_selected: bool = Editor.scene.editing_sel == LevelEditor.EDIT_SEL.TILE
 	if !is_tile_selected:
 		# Generic grid

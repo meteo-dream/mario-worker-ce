@@ -352,7 +352,6 @@ icon = ExtResource("14_j2gld")
 [node name="ConfigureSnapWindow" type="Window" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton"]
 unique_name_in_owner = true
 disable_3d = true
-oversampling_override = 1.0
 title = "Configure Snap"
 initial_position = 2
 size = Vector2i(400, 160)
@@ -594,7 +593,6 @@ title = "Level Properties"
 initial_position = 1
 size = Vector2i(512, 512)
 visible = false
-force_native = true
 min_size = Vector2i(400, 512)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties"]
@@ -621,13 +619,13 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 10
 
-[node name="LevelPropApply" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3"]
+[node name="LevelPropOK" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 10
 size_flags_vertical = 10
 shortcut = SubResource("Shortcut_s3imp")
-text = "Apply"
+text = "OK"
 
 [node name="LevelPropCancel" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
@@ -636,6 +634,14 @@ size_flags_horizontal = 6
 size_flags_vertical = 10
 shortcut = SubResource("Shortcut_pgov6")
 text = "Cancel"
+
+[node name="LevelPropApply" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+shortcut = SubResource("Shortcut_s3imp")
+text = "Apply"
 
 [node name="LoadLevelButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
@@ -659,6 +665,8 @@ file_mode = 0
 display_mode = 1
 access = 1
 filters = PackedStringArray("*.tscn,*.scn;Level scenes")
+favorites_enabled = false
+recent_list_enabled = false
 
 [node name="SaveLevelButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
@@ -677,6 +685,8 @@ dialog_autowrap = true
 display_mode = 1
 access = 1
 filters = PackedStringArray("*.tscn,*.scn;Level scenes")
+favorites_enabled = false
+recent_list_enabled = false
 
 [node name="CloseEditorButton" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 layout_mode = 2
@@ -963,20 +973,11 @@ with right click"
 [node name="EraseSpecificObject" type="CheckBox" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "If enabled, right click erases objects from the level.
-If disabled, right click opens up properties of the object, when available."
+tooltip_text = "If enabled, right click only erases objects of the type that you have selected to paint.
+If disabled, any object from the selected category can be erased with right click."
 button_pressed = true
 text = "Right click erases
 only same object"
-
-[node name="UseTileTerrains" type="CheckBox" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-tooltip_text = "If enabled, right click erases objects from the level.
-If disabled, right click opens up properties of the object, when available."
-button_pressed = true
-text = "Use Tile Terrains"
 
 [node name="Control2" type="Label" parent="CanvasLayer/Control/ObjectPickMenu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1187,7 +1188,7 @@ collision_mask = 256
 collide_with_areas = true
 collide_with_bodies = false
 
-[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton" to="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow" method="show"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton" to="CanvasLayer/Control" method="_on_more_grid_button_pressed"]
 [connection signal="close_requested" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow" to="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow" method="hide"]
 [connection signal="item_selected" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/EditingMenuButton" to="CanvasLayer/Control" method="_on_menu_button_item_selected"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/PlayButton" to="CanvasLayer/Control" method="_on_play_button_pressed"]
@@ -1195,8 +1196,9 @@ collide_with_bodies = false
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/PlayLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/ObjectPickerButton" to="CanvasLayer/Control" method="_on_object_picker_button_pressed"]
 [connection signal="close_requested" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties" to="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties" method="hide"]
-[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropApply" to="CanvasLayer/Control" method="_on_level_prop_apply_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropOK" to="CanvasLayer/Control" method="_on_level_prop_ok_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropCancel" to="CanvasLayer/Control" method="_on_level_prop_cancel_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropApply" to="CanvasLayer/Control" method="_on_level_prop_apply_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LoadLevelButton" to="CanvasLayer/Control" method="_on_load_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/SaveLevelButton" to="CanvasLayer/Control" method="_on_save_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/CloseEditorButton" to="CanvasLayer/Control" method="_on_close_editor_button_pressed"]

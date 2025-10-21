@@ -15,6 +15,8 @@ class_name LevelProperties
 
 @export var sections: Dictionary[int, SectionProperties]
 
+@export var screen_resolution := Vector2i(640, 480)
+
 func _init() -> void:
 	level_version = ProjectSettings.get_setting("application/thunder_settings/version")
 	level_major_version = ProjectSettings.get_setting("application/thunder_settings/major_version")

@@ -16,7 +16,7 @@ func _ready() -> void:
 ## Fullscreen toggle
 func _unhandled_input(event: InputEvent) -> void:
 	if !event is InputEventKey or event.echo or !event.is_pressed(): return
-	if event.keycode == KEY_F11:
+	if event.keycode == KEY_F11 && visible:
 		SettingsManager.settings.fullscreen = !SettingsManager.settings.fullscreen
 		SettingsManager._process_settings()
 
@@ -43,7 +43,8 @@ func _update_view():
 		((container.scale.y == 1 || (int(ceil(container.scale.y)) % 2 == 0 && container.scale.y >= 2)) && \
 		!SettingsManager.settings.filter) else vp_control.TEXTURE_FILTER_LINEAR
 	if !keep_aspect:
-		vp.size.x = 480 * (float(window_size.x) / float(window_size.y))
+		@warning_ignore("narrowing_conversion")
+		vp.size.x = Editor.screen_size.y * (float(window_size.x) / float(window_size.y))
 	else:
 		container.position.x = (window_size.x / 2) - (vp.size.x * container.scale.x / 2)
 		container.position.y = (window_size.y / 2) - (vp.size.y * container.scale.y / 2)

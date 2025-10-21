@@ -62,7 +62,7 @@ auto_translate_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "[b]Mario Worker: Community Edition[/b]
+text = "[b]Mario Worker: Community Edition (PROTOTYPE)[/b]
 (c) 2025, Meteo Dream
 %s"
 scroll_active = false
@@ -113,7 +113,7 @@ text = "{lead_dev_title}
 JUE13
 {translators_title}{translators}
 {graphics_title}
-Bullex738, Hellfire, SerafimGWS, CoreShinobi124, Zik The Green, Valtteri, AnasWael, GlacialSiren484
+Bullex738, Hellfire, SerafimGWS, CoreShinobi124, Zik The Green, Valtteri, AnasWael, GlacialSiren484, CST1229
 
 {thunder_engine_title}
 ReflexGURU, Yukana, JUE13

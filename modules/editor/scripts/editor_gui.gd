@@ -46,12 +46,7 @@ func enable_toolbar_buttons() -> void:
 
 
 func show_one_dialog(dialog: Window) -> void:
-	if dialog.visible:
-		if dialog.mode == Window.MODE_MINIMIZED:
-			dialog.mode = Window.MODE_WINDOWED
-		dialog.grab_focus()
-		return
-	dialog.show()
+	Editor.show_window(dialog)
 
 
 func apply_level_properties() -> void:
@@ -68,10 +63,23 @@ func apply_level_properties() -> void:
 	Editor.current_level_properties.level_author_website = properties_tabs.author_website.text
 	
 	# Sections
-	var section = Editor.current_level.get_section(Editor.scene.section)
-	var gradient: Gradient = section.get_node("Background/GradientLayer/Gradient").texture.gradient
-	gradient.set_color(0, properties_tabs.gradient_top.color)
-	gradient.set_color(1, properties_tabs.gradient_bottom.color)
+	for i in Editor.current_level_properties.sections:
+		var section = Editor.current_level.get_section(i)
+		var gradient: Gradient = section.get_node("Background/GradientLayer/Gradient").texture.gradient
+		gradient.set_color(0, properties_tabs.gradient_top.color)
+		gradient.set_color(1, properties_tabs.gradient_bottom.color)
+		
+		Editor.current_level_properties.sections[i].size = Vector2i(
+			properties_tabs.section_width.value,
+			properties_tabs.section_height.value,
+		)
+		section.get_node("CamAreas/CamArea").size = Editor.current_level_properties.sections[i].size
+	
+	# Experimental
+	if properties_tabs.widescreen_check_box.button_pressed:
+		Editor.current_level_properties.screen_resolution = Vector2i(864, 480)
+	else:
+		Editor.current_level_properties.screen_resolution = Vector2i(640, 480)
 
 
 func _on_button_group_pressed(button: BaseButton) -> void:
@@ -215,14 +223,16 @@ func _on_level_properties_button_pressed() -> void:
 
 func _on_level_prop_apply_pressed() -> void:
 	apply_level_properties()
-	%LevelProperties.hide()
 	Editor.scene.changes_after_save = true
-
 
 func _on_level_prop_cancel_pressed() -> void:
 	%LevelProperties.hide()
 	properties_tabs.update_input_values()
 	properties_tabs.update_section_values()
+
+func _on_level_prop_ok_pressed() -> void:
+	_on_level_prop_apply_pressed()
+	%LevelProperties.hide()
 
 
 func _on_tab_container_tab_selected(tab: int) -> void:
@@ -268,3 +278,7 @@ func _on_grid_value_changed(to: float, obj: SpinBox) -> void:
 
 func _on_grid_line_value_changed(to: float, obj: SpinBox) -> void:
 	obj.suffix = tr_n(&"step", &"steps", int(to), &"Grid primary line value suffix")
+
+
+func _on_more_grid_button_pressed() -> void:
+	Editor.show_window(%ConfigureSnapWindow)

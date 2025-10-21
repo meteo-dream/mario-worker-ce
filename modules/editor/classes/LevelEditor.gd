@@ -69,7 +69,7 @@ var editing_sel: int = EDIT_SEL.NONE:
 		%EditingMenuButton.select(to)
 		%EraseWithRMB.disabled = to == EDIT_SEL.TILE
 		%EraseSpecificObject.disabled = to == EDIT_SEL.TILE || !%EraseWithRMB.button_pressed
-		%UseTileTerrains.disabled = to != EDIT_SEL.TILE
+		#%UseTileTerrains.disabled = to != EDIT_SEL.TILE
 		if to == EDIT_SEL.NONE:
 			tool_mode = TOOL_MODES.SELECT
 		%ScrollPropContainer.visible = !to in [EDIT_SEL.TILE]
@@ -100,18 +100,15 @@ var section: int = 1
 var changes_after_save: bool = false:
 	set(to):
 		changes_after_save = to
-		var _end: String = " (*)" if changes_after_save else ""
-		DisplayServer.window_set_title(ProjectSettings.get_setting("application/config/name") + _end)
+		var _start: String = "(*) " if changes_after_save else ""
+		DisplayServer.window_set_title(_start + ProjectSettings.get_setting("application/config/name"))
 var mouse_blocked: bool
 var special_object_blocked: bool
-var editor_options: Dictionary = {
-	erase_with_rmb = false,
-	erase_specific_object = true,
-	use_tile_terrains = true,
-}
-var editor_cache := EditorCacheData.new()
 var mouse_clicked_once: bool
 var object_sprite_visible: bool
+
+@onready var editor_options: Dictionary = Editor.config.editor_options.duplicate()
+var editor_cache := EditorCacheData.new()
 
 
 func _ready() -> void:
@@ -120,6 +117,9 @@ func _ready() -> void:
 	Editor.scene = self
 	Editor.mode = Editor.MODE.EDITOR
 	Data.reset_all_values()
+	
+	%EraseWithRMB.button_pressed = editor_options.erase_with_rmb
+	%EraseSpecificObject.button_pressed = editor_options.erase_specific_object
 	
 	var loaded_level
 	if Editor.current_level == null:
@@ -135,8 +135,10 @@ func _ready() -> void:
 	
 	reparent.call_deferred(get_tree().root, true)
 	SettingsManager.show_mouse()
-	Input.set_custom_mouse_cursor(preload("res://engine/components/ui/generic/textures/mouse_cursor.png"), Input.CURSOR_BUSY)
-	Input.set_default_cursor_shape(Input.CURSOR_BUSY)
+	if Editor.editor_scale < 2.0:
+		Input.set_custom_mouse_cursor(preload("res://engine/components/ui/generic/textures/mouse_cursor.png"), Input.CURSOR_BUSY)
+	else:
+		Input.set_custom_mouse_cursor(preload("uid://cq6ynexop5a1o"), Input.CURSOR_BUSY)
 	changes_after_save = false
 	
 	editing_sel = EDIT_SEL.NONE
@@ -519,7 +521,8 @@ func object_pick_menu_close(play_sound: bool = true) -> void:
 		EditorAudio.menu_close()
 	editor_options.erase_with_rmb = %EraseWithRMB.button_pressed
 	editor_options.erase_specific_object = %EraseSpecificObject.button_pressed
-	editor_options.use_tile_terrains = %UseTileTerrains.button_pressed
+	#editor_options.use_tile_terrains = %UseTileTerrains.button_pressed
+	Editor.config.editor_options = editor_options.duplicate()
 
 
 func save_level(path: String, forced_dialog: bool = false) -> bool:
@@ -529,7 +532,7 @@ func save_level(path: String, forced_dialog: bool = false) -> bool:
 			%SaveFileDialog.current_file = "MyLevel"
 		if %SaveFileDialog.current_dir == "user://":
 			%SaveFileDialog.current_dir = "user://User Data/Levels"
-		%SaveFileDialog.show()
+		Editor.show_window(%SaveFileDialog)
 		await %SaveFileDialog.visibility_changed
 		if %SaveFileDialog.current_path:
 			path = %SaveFileDialog.current_path
@@ -636,7 +639,7 @@ func load_level(path) -> bool:
 	
 	var _level_props = new_level.get_node_or_null("LevelProperties")
 	if _level_props && "properties" in _level_props:
-		if _level_props.properties.get("level_major_version") < ProjectSettings.get_setting("application/thunder_settings/major_version", 1):
+		if _level_props.properties.get("level_major_version") != ProjectSettings.get_setting("application/thunder_settings/major_version", 1):
 			notify_error(tr("Failed to load: Incompatible Version"))
 			Editor.level_path = ""
 			Editor.is_loading = false
