@@ -60,7 +60,7 @@ msgstr ""
 #: stages/main_menu/main_menu.tscn
 msgid ""
 "this is a public unfinished preview version of the level editor.\n"
-"everything is subject to change. this is not final!\n"
+"presented prototype may significantly differ from the final version.\n"
 "levels created in this build will not load in other versions."
 msgstr ""
 "это общедоступная незавершённая предварительная версия редактора уровней.\n"
@@ -431,18 +431,24 @@ msgstr ""
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
+"If enabled, right click only erases objects of the type that you have "
+"selected to paint.\n"
+"If disabled, any object from the selected category can be erased with right "
+"click."
+msgstr ""
+"Если включено, правый щелчок удаляет объекты только того типа, которые были "
+"выбраны для рисования.\n"
+"Если выключено, любой объект из выбранной категории можно удалить правым "
+"щелчком мыши."
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
 "Right click erases\n"
 "only same object"
 msgstr ""
 "Правый щелчок\n"
 "стирает только\n"
 "одинаковые объекты"
-
-#: modules/editor/stages/level_editor.tscn
-msgid "Use Tile Terrains"
-msgstr ""
-"Использовать автоматическое\n"
-"соединение соседних плиток"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -530,6 +536,10 @@ msgid "Background"
 msgstr "Фон"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Section: %d (See right panel to change)"
+msgstr "Секция: %d (см. правую панель, чтобы переключить)"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
 msgid ""
 "Primary\n"
 "Gradient"
@@ -554,7 +564,7 @@ msgid "Cloudless (1 - 3)"
 msgstr "Безоблачно (1 - 3)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-msgid " Morning (5 - 1)"
+msgid "Morning (5 - 1)"
 msgstr "Утро (5 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
@@ -594,8 +604,16 @@ msgid "Bottom"
 msgstr "Низ"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-msgid "Dummy"
-msgstr "Заглушка"
+msgid "Experimental"
+msgstr "Экспериментальное"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Camera Limits (Width x Height):"
+msgstr "Пределы камеры (ширина × высота):"
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Enable Wide Screen (864 x 480 resolution)"
+msgstr "Включить широкоэкранный режим (разрешение 864 × 480)"
 
 #: locale/tileset_names.ini
 msgctxt "tile"
@@ -1096,6 +1114,14 @@ msgstr "Перевод на русский:"
 msgctxt "Put translation authors here!"
 msgid "Your name"
 msgstr "JUE13"
+
+#~ msgid "Use Tile Terrains"
+#~ msgstr ""
+#~ "Использовать автоматическое\n"
+#~ "соединение соседних плиток"
+
+#~ msgid "Dummy"
+#~ msgstr "Заглушка"
 
 #~ msgid "EN"
 #~ msgstr "EN"

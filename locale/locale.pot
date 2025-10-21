@@ -61,7 +61,7 @@ msgstr ""
 #: stages/main_menu/main_menu.tscn
 msgid ""
 "this is a public unfinished preview version of the level editor.\n"
-"everything is subject to change. this is not final!\n"
+"presented prototype may significantly differ from the final version.\n"
 "levels created in this build will not load in other versions."
 msgstr ""
 
@@ -413,12 +413,14 @@ msgstr ""
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
-"Right click erases\n"
-"only same object"
+"If enabled, right click only erases objects of the type that you have selected to paint.\n"
+"If disabled, any object from the selected category can be erased with right click."
 msgstr ""
 
 #: modules/editor/stages/level_editor.tscn
-msgid "Use Tile Terrains"
+msgid ""
+"Right click erases\n"
+"only same object"
 msgstr ""
 
 #: modules/editor/stages/level_editor.tscn
@@ -503,6 +505,10 @@ msgid "Background"
 msgstr ""
 
 #: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Section: %d (See right panel to change)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
 msgid ""
 "Primary\n"
 "Gradient"
@@ -525,7 +531,7 @@ msgid "Cloudless (1 - 3)"
 msgstr ""
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-msgid " Morning (5 - 1)"
+msgid "Morning (5 - 1)"
 msgstr ""
 
 #: modules/editor/gui/levelprop_tab_container.tscn
@@ -565,7 +571,15 @@ msgid "Bottom"
 msgstr ""
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-msgid "Dummy"
+msgid "Experimental"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Camera Limits (Width x Height):"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Enable Wide Screen (864 x 480 resolution)"
 msgstr ""
 
 #: locale/tileset_names.ini
