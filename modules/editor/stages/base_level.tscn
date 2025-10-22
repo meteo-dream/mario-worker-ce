@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d2ob41dqvqp5l"]
+[gd_scene load_steps=20 format=3 uid="uid://d2ob41dqvqp5l"]
 
 [ext_resource type="Script" uid="uid://6p7per48a8l2" path="res://modules/editor/scripts/e_level.gd" id="1_j2fth"]
 [ext_resource type="AudioStream" uid="uid://bqiy8kvcsy0rk" path="res://engine/scripts/classes/level/complete.ogg" id="2_33y0t"]
@@ -25,6 +25,9 @@ sections = Dictionary[int, ExtResource("5_46p0d")]({
 1: SubResource("Resource_46p0d")
 })
 metadata/_custom_type_script = "uid://bbim6vyaqnsvh"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_008ua"]
+normal = Vector2(1, 0)
 
 [sub_resource type="Gradient" id="Gradient_008ua"]
 resource_local_to_scene = true
@@ -59,6 +62,16 @@ enabled = false
 editor_draw_screen = false
 script = ExtResource("5_ymv0b")
 metadata/_edit_lock_ = true
+
+[node name="Global" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Global"]
+disable_mode = 1
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Global/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_008ua")
 
 [node name="Section1" parent="." instance=ExtResource("10_64c01")]
 

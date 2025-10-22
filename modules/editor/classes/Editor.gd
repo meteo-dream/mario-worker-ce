@@ -46,8 +46,8 @@ var default_config: Dictionary = {
 	grid_primary_line_x = 2,
 	grid_primary_line_y = 2,
 	editor_options = {
-		erase_with_rmb = false,
-		erase_specific_object = true,
+		erase_with_rmb = true,
+		erase_specific_object = false,
 	}
 }
 var config: Dictionary = default_config.duplicate(true)

@@ -22,6 +22,11 @@ func _ready() -> void:
 	add_child(hud)
 	hud.get_node("Control/WorldHolder/DisplayName1").text = Editor.current_level_properties.level_display_name_1
 	hud.get_node("Control/WorldHolder/DisplayName2").text = Editor.current_level_properties.level_display_name_2
+	if Editor.mode == Editor.MODE.TESTING:
+		hud.offset.y = 56
+		hud.reset_physics_interpolation()
+	
+	
 	
 
 func get_section(section_index: int) -> Node2D:

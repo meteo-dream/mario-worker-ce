@@ -194,9 +194,10 @@ func _input(event: InputEvent) -> void:
 	) && event.is_pressed() && !event.is_echo() && !special_object_blocked:
 		if object_pick_menu.visible:
 			object_pick_menu_close(false)
-		else:
+			EditorAudio.menu_open()
+		elif Editor.mode != Editor.MODE.TESTING:
 			object_pick_menu.show()
-		EditorAudio.menu_open()
+			EditorAudio.menu_open()
 	elif event.is_action(&"ui_zoom_in") && event.is_pressed() && !event.is_echo() && can_draw_not_blocked():
 		if !Input.is_action_pressed(&"a_alt") && !Input.is_action_pressed(&"a_ctrl") && is_paint_tool():
 			switch_tile_by(-1)
@@ -223,6 +224,9 @@ func _input(event: InputEvent) -> void:
 			_input_mouse_click(event)
 	
 	if !Editor.current_level:
+		return
+	if event.is_action(&"pause_toggle") && Editor.mode == Editor.MODE.TESTING:
+		Editor.gui._on_stop_button_pressed()
 		return
 	if event is InputEventMouseMotion || (event is InputEventMouseButton && event.is_pressed()):
 		if can_draw_not_blocked():

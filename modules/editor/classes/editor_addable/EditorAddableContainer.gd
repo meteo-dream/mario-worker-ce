@@ -71,6 +71,7 @@ func _physics_process(delta: float) -> void:
 			internal_settings.result = _sel.get_prop_internal("result_inst")
 			properties.max_items = _sel.internal_settings.get("set_max_items", 1)
 			update_displayer(false)
+			Editor.scene.mouse_blocked = true
 		else:
 			update_displayer(true)
 	#print(item_closest_pos_arr)
@@ -82,7 +83,7 @@ func _physics_process(delta: float) -> void:
 
 func update_displayer(addable: bool) -> void:
 	if !item_displayer: return
-	if addable:
+	if addable && !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		item_displayer.texture = CONTAINER_ITEM_PLUS
 		item_displayer.scale = Vector2.ONE
 		item_displayer.reset_physics_interpolation()

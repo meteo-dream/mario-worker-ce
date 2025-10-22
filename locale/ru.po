@@ -613,7 +613,7 @@ msgstr "Пределы камеры (ширина × высота):"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Enable Wide Screen (864 x 480 resolution)"
-msgstr "Включить широкоэкранный режим (разрешение 864 × 480)"
+msgstr "Широкоэкранный режим (разрешение 864 × 480)"
 
 #: locale/tileset_names.ini
 msgctxt "tile"
@@ -634,7 +634,7 @@ msgstr "Трубы"
 
 #: locale/tileset_names.ini
 msgid "Rockland"
-msgstr "Каменный мир"
+msgstr "Рокленд"
 
 #: locale/tileset_names.ini
 msgid "Starland"
