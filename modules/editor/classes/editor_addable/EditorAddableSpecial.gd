@@ -71,7 +71,7 @@ func position_changed() -> void:
 	pass
 
 func get_editor_sprite_pos() -> Vector2:
-	return Editor.scene.get_pos_on_grid() + offset + editor_icon_offset
+	return offset + editor_icon_offset
 
 func _draw() -> void:
 	pass

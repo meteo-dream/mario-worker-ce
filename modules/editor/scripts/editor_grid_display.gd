@@ -86,7 +86,7 @@ func _process(delta: float) -> void:
 func _draw():
 	if !Editor.camera: return
 	var vp_size := get_viewport_rect().size / Editor.camera.zoom / 2
-	var cam_pos := Editor.camera.get_screen_center_position() + Editor.grid_offset
+	var cam_pos := Editor.camera.get_screen_center_position()
 	var vp_center := Vector2.ZERO
 	if Editor.current_level_properties.sections[Editor.scene.section].position:
 		vp_center = Editor.current_level_properties.sections[Editor.scene.section].position
@@ -117,6 +117,7 @@ func _on_grid_button_pressed() -> void:
 
 
 func _draw_main_grid(vp_size: Vector2, cam_pos: Vector2) -> void:
+	var offset := Editor.grid_offset
 	var screen_size := Editor.current_level_properties.screen_resolution
 	var is_tile_selected: bool = Editor.scene.editing_sel == LevelEditor.EDIT_SEL.TILE
 	if !is_tile_selected:
@@ -126,16 +127,16 @@ func _draw_main_grid(vp_size: Vector2, cam_pos: Vector2) -> void:
 			int((vp_size.x + cam_pos.x) / grid_size.x) + 1
 		):
 			draw_line(
-				Vector2(x * grid_size.x, cam_pos.y + vp_size.y + 1),
-				Vector2(x * grid_size.x, cam_pos.y - vp_size.y - 1), Color(color, 0.2)
+				Vector2(x * grid_size.x + offset.x, cam_pos.y + vp_size.y + 1),
+				Vector2(x * grid_size.x + offset.x, cam_pos.y - vp_size.y - 1), Color(color, 0.2)
 			)
 		for y in range(
 			int((cam_pos.y - vp_size.y) / grid_size.y) - 1,
 			int((vp_size.y + cam_pos.y) / grid_size.y) + 1
 		):
 			draw_line(
-				Vector2(cam_pos.x + vp_size.x + 1, y * grid_size.y),
-				Vector2(cam_pos.x - vp_size.x - 1, y * grid_size.y), Color(color, 0.2)
+				Vector2(cam_pos.x + vp_size.x + 1, y * grid_size.y + offset.y),
+				Vector2(cam_pos.x - vp_size.x - 1, y * grid_size.y + offset.y), Color(color, 0.2)
 			)
 		# Primary lines of the grid
 		for x in range(
@@ -143,16 +144,16 @@ func _draw_main_grid(vp_size: Vector2, cam_pos: Vector2) -> void:
 			int((vp_size.x + cam_pos.x) / (grid_size.x * primary_line_every.x)) + 1
 		):
 			draw_line(
-				Vector2(x * (grid_size.x * primary_line_every.x), cam_pos.y + vp_size.y + 1),
-				Vector2(x * (grid_size.x * primary_line_every.x), cam_pos.y - vp_size.y - 1), Color(color, 0.4)
+				Vector2(x * (grid_size.x * primary_line_every.x) + offset.x, cam_pos.y + vp_size.y + 1),
+				Vector2(x * (grid_size.x * primary_line_every.x) + offset.x, cam_pos.y - vp_size.y - 1), Color(color, 0.4)
 			)
 		for y in range(
 			int((cam_pos.y - vp_size.y) / (grid_size.y * primary_line_every.y)) - 1,
 			int((vp_size.y + cam_pos.y) / (grid_size.y * primary_line_every.y)) + 1
 		):
 			draw_line(
-				Vector2(cam_pos.x + vp_size.x + 1, y * (grid_size.y * primary_line_every.y)),
-				Vector2(cam_pos.x - vp_size.x - 1, y * (grid_size.y * primary_line_every.y)), Color(color, 0.4)
+				Vector2(cam_pos.x + vp_size.x + 1, y * (grid_size.y * primary_line_every.y) + offset.y),
+				Vector2(cam_pos.x - vp_size.x - 1, y * (grid_size.y * primary_line_every.y) + offset.y), Color(color, 0.4)
 			)
 	else:
 		var tileset_size: int = 32

@@ -164,6 +164,8 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed(&"ui_cancel"):
 			special_object_blocked = false
 	
+	%ShapeCastPoint.global_position = get_global_mouse_position().round()
+	
 	if mouse_blocked: return
 	
 	match tool_mode:
@@ -280,8 +282,11 @@ func _input_mouse_hold(event: InputEvent) -> void:
 			_input_paint_tile(event)
 			return
 		if is_instance_valid(selected_object):
-			selected_obj_sprite.global_position = selected_object.get_editor_sprite_pos()
+			selected_obj_sprite.global_position = get_pos_on_grid()
+			selected_obj_sprite.offset = selected_object.get_editor_sprite_pos()
+		%ShapeCast2D.force_update_transform()
 		%ShapeCast2D.force_shapecast_update()
+		#prints(Time.get_ticks_msec(), %ShapeCast2D.is_colliding())
 		#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 		if %ShapeCast2D.is_colliding():
 			# Erasing the object by RMB
@@ -996,9 +1001,11 @@ func _tool_paint_process() -> void:
 		return
 	selected_obj_sprite.self_modulate.a = 0.0 if Input.is_action_pressed(&"a_ctrl") else 0.5
 	if editing_sel != EDIT_SEL.TILE && is_instance_valid(selected_object):
-		selected_obj_sprite.global_position = selected_object.get_editor_sprite_pos()
+		selected_obj_sprite.global_position = get_pos_on_grid()
+		selected_obj_sprite.offset = selected_object.get_editor_sprite_pos()
 	elif editing_sel == EDIT_SEL.TILE && selected_tile_holder:
 		selected_obj_sprite.global_position = get_tile_pos_on_grid()
+		selected_obj_sprite.offset = Vector2.ZERO
 	
 	selected_obj_sprite.reset_physics_interpolation()
 
@@ -1012,6 +1019,7 @@ func _tool_erase_process() -> void:
 	selected_obj_sprite.visible = false
 	%SelectedObjTexture.visible = false
 	selected_obj_sprite.global_position = get_pos_on_grid()
+	selected_obj_sprite.offset = Vector2.ZERO
 	selected_obj_sprite.reset_physics_interpolation()
 	if editing_sel > EDIT_SEL.NONE:
 		%SelectedObjLabel.text = tr("Erasing: %s Category") % tr(%EditingMenuButton.get_item_text(editing_sel))

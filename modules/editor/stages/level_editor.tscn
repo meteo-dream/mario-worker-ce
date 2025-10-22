@@ -1178,7 +1178,7 @@ collision_mask = 256
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="ShapeCastPoint" type="ShapeCast2D" parent="SelectedObjSprite"]
+[node name="ShapeCastPoint" type="ShapeCast2D" parent="." groups=["editor_internal_object"]]
 unique_name_in_owner = true
 self_modulate = Color(0.243137, 1, 0.376471, 0.627451)
 enabled = false
