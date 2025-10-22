@@ -150,61 +150,77 @@ alignment = 1
 [node name="Lang_en" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "English (United States)"
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "EN"
 
-[node name="Lang_ru" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
+[node name="Lang_es" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
+tooltip_text = "Spanish (Spain)"
 theme_override_constants/outline_size = 8
+disabled = true
 button_group = SubResource("ButtonGroup_phs36")
-text = "RU"
+text = "ES"
+
+[node name="Lang_de" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
+layout_mode = 2
+tooltip_text = "German (Germany)"
+theme_override_constants/outline_size = 8
+disabled = true
+button_group = SubResource("ButtonGroup_phs36")
+text = "DE"
 
 [node name="Lang_fr" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
+tooltip_text = "French (France)"
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "FR"
 
 [node name="Lang_pl" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
+tooltip_text = "Polish (Poland)"
 theme_override_constants/outline_size = 8
 disabled = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "PL"
 
+[node name="Lang_pt" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
+layout_mode = 2
+tooltip_text = "Portuguese (Brazil)"
+theme_override_constants/outline_size = 8
+button_group = SubResource("ButtonGroup_phs36")
+text = "PT"
+
+[node name="Lang_ru" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
+layout_mode = 2
+tooltip_text = "Russian (Russia)"
+theme_override_constants/outline_size = 8
+button_group = SubResource("ButtonGroup_phs36")
+text = "RU"
+
 [node name="Lang_tr" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
+tooltip_text = "Turkish (Turkey)"
 theme_override_constants/outline_size = 8
 disabled = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "TR"
 
-[node name="Lang_zh" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
-layout_mode = 2
-theme_override_constants/outline_size = 8
-button_group = SubResource("ButtonGroup_phs36")
-text = "ZH"
-
 [node name="Lang_vi" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
+tooltip_text = "Vietnamese (Vietnam)"
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "VI"
 
-[node name="Lang_es" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
+[node name="Lang_zh" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
+tooltip_text = "Chinese (Simplified, China)"
 theme_override_constants/outline_size = 8
-disabled = true
 button_group = SubResource("ButtonGroup_phs36")
-text = "ES"
-
-[node name="Lang_pt" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
-layout_mode = 2
-theme_override_constants/outline_size = 8
-disabled = true
-button_group = SubResource("ButtonGroup_phs36")
-text = "PT"
+text = "ZH"
 
 [node name="EditorSounds" type="CheckBox" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -248,13 +264,14 @@ force_native = true
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Forum" to="." method="_on_forum_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Exit" to="." method="_on_exit_pressed"]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_en" to="." method="_on_lang_toggled" binds= ["en"]]
-[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_ru" to="." method="_on_lang_toggled" binds= ["ru"]]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_es" to="." method="_on_lang_toggled" binds= ["es"]]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_de" to="." method="_on_lang_toggled" binds= ["de"]]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_fr" to="." method="_on_lang_toggled" binds= ["fr"]]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_pl" to="." method="_on_lang_toggled" binds= ["pl"]]
-[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_tr" to="." method="_on_lang_toggled" binds= ["tr"]]
-[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_zh" to="." method="_on_lang_toggled" binds= ["zh_CN"]]
-[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_vi" to="." method="_on_lang_toggled" binds= ["vi_VN"]]
-[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_es" to="." method="_on_lang_toggled" binds= ["es"]]
 [connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_pt" to="." method="_on_lang_toggled" binds= ["pt_BR"]]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_ru" to="." method="_on_lang_toggled" binds= ["ru"]]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_tr" to="." method="_on_lang_toggled" binds= ["tr"]]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_vi" to="." method="_on_lang_toggled" binds= ["vi_VN"]]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/Lang_zh" to="." method="_on_lang_toggled" binds= ["zh_CN"]]
 [connection signal="canceled" from="LoadFileDialog" to="LoadFileDialog" method="hide"]
 [connection signal="file_selected" from="LoadFileDialog" to="." method="_on_load_file_dialog_file_selected"]
