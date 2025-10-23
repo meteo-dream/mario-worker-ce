@@ -467,7 +467,8 @@ func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
 	#var _offset: Vector2 = %SelectedObjTexture.size / 2.0
 	var _offset: Vector2 = Editor.grid_offset + Vector2.ONE * 16
 	var _grid_pos = Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
-	return _grid_pos + Vector2.ONE * 16 if Editor.grid_shown || forced_grid else get_global_mouse_position().round() #- Vector2.ONE * 16
+	var _res: Vector2 = _grid_pos + _offset if Editor.grid_shown || forced_grid else get_global_mouse_position().round()
+	return _res
 
 func get_tile_pos_on_grid(sectioned: bool = true) -> Vector2:
 	var tile_grid = 32
