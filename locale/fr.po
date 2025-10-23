@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Data is corrupted"
@@ -63,32 +63,30 @@ msgid ""
 "Mario Worker: Community Edition\n"
 "PRE-ALPHA PROTOTYPE Build 1"
 msgstr ""
-"Mario Worker: Community Edition\n"
+"Mario Worker: Édition Communautaire\n"
 "PROTOTYPE PRE-ALPHA Version 1"
 
 #: stages/main_menu/main_menu.tscn
-#, fuzzy
-#| msgid ""
-#| "this is a public unfinished preview version of the level editor.\n"
-#| "everything is subject to change. this is not final!\n"
-#| "levels created in this build will not load in other versions."
 msgid ""
 "this is a public unfinished preview version of the level editor.\n"
 "presented prototype may significantly differ from the final version.\n"
 "levels created in this build will not load in other versions."
 msgstr ""
-"ceci est une version publique d'aperçu non terminée de l'éditeur de niveau.\n"
-"tout est susceptible d'être modifié. ce n'est pas une version finale !\n"
-"les niveaux créés dans cette version ne pourront pas être chargés dans "
-"d'autres version."
+"ceci est un aperçu de la version publique non-terminée de l'éditeur de "
+"niveau.\n"
+" \n"
+"le prototype présenté peut être complètement différent de la version "
+"finale.\n"
+"les niveaux créés dans cette version ne chargeront pas dans les autres "
+"versions."
 
 #: stages/main_menu/main_menu.tscn
 msgid "Go to level editor"
-msgstr "Editer un niveau"
+msgstr "Éditer un niveau"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Browse level files"
-msgstr "Parcourir des fichiers de niveaux"
+msgstr "Parcourir les fichiers de niveaux"
 
 #: stages/main_menu/main_menu.tscn stages/main_menu/objects/about_window.tscn
 msgid "About"
@@ -100,7 +98,7 @@ msgstr "Jouer à un niveau"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Feedback"
-msgstr ""
+msgstr "Commentaires"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Exit"
@@ -120,7 +118,7 @@ msgstr "Ouvrir"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Level scenes"
-msgstr "Niveaux"
+msgstr "Scènes du niveau"
 
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Close confirmation dialog"
@@ -219,15 +217,15 @@ msgid ""
 msgstr ""
 "Appuyez sur clic gauche sur un objet pour le sélectionner.\n"
 "Appuyez sur clic droit pour afficher ses propriétés.\n"
-"Gardez Maj enfoncé pour séléctionner plusieurs objets."
+"Gardez Maj enfoncé pour sélectionner plusieurs objets."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Painting Tileset: %s"
-msgstr "Dessin de la Tileset : %s"
+msgstr "Peindre la Tileset : %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Painting %s"
-msgstr "Dessin de %s"
+msgstr "Peindre %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Panning mode"
@@ -263,13 +261,15 @@ msgstr "Afficher la liste des nœuds sélectionnables à la position cliquée."
 
 # Shouldn't it be Paint Tool?
 # I translated it as Pain Tool anyway lmao
+# FR : I translated it as Paint tool
+# If you really want 'Pain tool' which sounds weird, it's 'Outil de Douleur'
 #: modules/editor/stages/level_editor.tscn
 msgid "Pain Tool"
-msgstr "Outil de Douleur"
+msgstr "Outil de Peinture"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Rectangle Paint Tool"
-msgstr "Pinceau Rectangle"
+msgstr "Outil de Peinture de Rectangle"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Picker Tool"
@@ -318,7 +318,7 @@ msgstr "Annuler"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Editing: "
-msgstr "Modifie : "
+msgstr "Éditer : "
 
 #: modules/editor/stages/level_editor.tscn
 msgid "None"
@@ -342,7 +342,7 @@ msgstr "Objets"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Misc."
-msgstr "Autres"
+msgstr "Autre."
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Special"
@@ -354,11 +354,11 @@ msgid ""
 "Any changes made during live-testing will be aborted!"
 msgstr ""
 "Sauvegarder le niveau et le tester depuis l'éditeur.\n"
-"Tout changement effectué pendant le test seront annulés !"
+"Tout changements effectués pendant le test seront annulés !"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Stop live-testing and go back to editing"
-msgstr "Ouvrir le test et retour à la modification"
+msgstr "Arrêter le test et retourner à l'édition"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Open object picker and level properties"
@@ -424,19 +424,19 @@ msgstr "%.1f %%"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Category:"
-msgstr "Categorie:"
+msgstr "Catégorie :"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Editor Settings:"
-msgstr "Options de l'éditeur :"
+msgstr "Paramètres de l'éditeur :"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "If enabled, right click erases objects from the level.\n"
 "If disabled, right click opens up properties of the object, when available."
 msgstr ""
-"Si activé, clic droit efface les objets du niveau.\n"
-"Si désactivé, clic droit ouvre les propriétés de l'objet, lorsque c'est "
+"Si activé, le clic droit efface les objets du niveau.\n"
+"Si désactivé, le clic droit ouvre les propriétés de l'objet, lorsque c'est "
 "possible."
 
 #: modules/editor/stages/level_editor.tscn
@@ -452,12 +452,16 @@ msgid ""
 "If disabled, any object from the selected category can be erased with right "
 "click."
 msgstr ""
+"Si activé, le clic droit efface uniquement les objets du type que vous avez "
+"sélectionné pour peindre.\n"
+"Si désactivé, tout objet de la catégorie sélectionnée peut être effacé avec "
+"clic droit."
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Right click erases\n"
 "only same object"
-msgstr "Clic droit n'efface que le même objet"
+msgstr "Le clic droit n'efface que le même objet"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -481,7 +485,7 @@ msgstr "Charger le Niveau"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Misc"
-msgstr "Autres"
+msgstr "Autre"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -544,7 +548,7 @@ msgstr "Fond"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Section: %d (See right panel to change)"
-msgstr ""
+msgstr "Section : %d (Voir le tableau de droite pour changer)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid ""
@@ -571,10 +575,8 @@ msgid "Cloudless (1 - 3)"
 msgstr "Dégagé (1 - 3)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-#, fuzzy
-#| msgid " Morning (5 - 1)"
 msgid "Morning (5 - 1)"
-msgstr " Matin (5 - 1)"
+msgstr "Matin (5 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Afternoon (6 - 1)"
@@ -582,7 +584,7 @@ msgstr "Après-Midi (6 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Tanks (8 - 2)"
-msgstr "Tanks (8 - 2)"
+msgstr "Chars (8 - 2)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Volcano (BTE 9 - 1)"
@@ -590,11 +592,11 @@ msgstr "Volcan (BTE 9 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Sunset (Syzx 9 - 1)"
-msgstr "Crépuscule (Syzx 9 - 1)"
+msgstr "Coucher de Soleil (Syzx 9 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Snowland (Syzx 10 - 1)"
-msgstr "Terres Enneigées (Syzx 10 - 1)"
+msgstr "Terre Enneigée (Syzx 10 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "After rain (WoS)"
@@ -614,29 +616,29 @@ msgstr "Bas"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Experimental"
-msgstr ""
+msgstr "Expérimental"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Camera Limits (Width x Height):"
-msgstr ""
+msgstr "Limites de Caméra ( Largeur x Longueur ) :"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Enable Wide Screen (864 x 480 resolution)"
-msgstr ""
+msgstr "Activer le Grand Écran ( Résolution de 864 x 480 )"
 
 #: locale/tileset_names.ini
 msgctxt "tile"
 msgid "Castle"
 msgstr "Château"
 
-# Translated it as "Cannon Support Blocks" instead, to make it easier to understand.
+# FR : Translated it as "Cannon Support Blocks" instead, to make it easier to understand.
 #: locale/tileset_names.ini
 msgid "Hazard Launcher Supporting Tiles"
 msgstr "Blocs de Supports à Cannons"
 
 #: locale/tileset_names.ini
 msgid "Overworld Default"
-msgstr "Plaines"
+msgstr "Plaine"
 
 #: locale/tileset_names.ini
 msgid "Pipes"
@@ -644,19 +646,19 @@ msgstr "Tuyaux"
 
 #: locale/tileset_names.ini
 msgid "Rockland"
-msgstr "Montagnes"
+msgstr "Montagne"
 
 #: locale/tileset_names.ini
 msgid "Starland"
-msgstr "Etoiles"
+msgstr "Terre Étoilée"
 
 #: locale/tileset_names.ini
 msgid "Tanks"
-msgstr "Tanks"
+msgstr "Chars"
 
 #: locale/tileset_names.ini
 msgid "Underground"
-msgstr "Sous-Terrains"
+msgstr "Sous-Terrain"
 
 #: locale/tileset_names.ini locale/object_names_enemy.ini
 msgid "Underwater"
@@ -665,18 +667,15 @@ msgstr "Aquatique"
 #: locale/tileset_names.ini
 msgctxt "Castle"
 msgid "Castle Bricks"
-msgstr "Briques du Château"
+msgstr "Briques de Château"
 
 #: locale/tileset_names.ini
 msgid "Solid Platform Gray"
-msgstr "Plateforme Solides Grises"
+msgstr "Plateforme Solide Grise"
 
 #: locale/tileset_names.ini
-#, fuzzy
-#| msgctxt "Overworld Default"
-#| msgid "Hard Block Brown"
 msgid "Hard Block Gray"
-msgstr "Bloc Dur Marron"
+msgstr "Bloc Dur Gris"
 
 #: locale/tileset_names.ini
 msgid "Castle Ground"
@@ -685,7 +684,7 @@ msgstr "Sol du Château"
 #: locale/tileset_names.ini
 msgctxt "Hazard Launcher Supporting Tiles"
 msgid "Bullet Launcher"
-msgstr ""
+msgstr "Bill Boum"
 
 #: locale/tileset_names.ini
 msgctxt "Overworld Default"
@@ -694,11 +693,11 @@ msgstr "Bloc Dur Marron"
 
 #: locale/tileset_names.ini
 msgid "Overworld Ground"
-msgstr "Sol des Plaines"
+msgstr "Sol de Plaine"
 
 #: locale/tileset_names.ini
 msgid "Overworld Ground Slopes"
-msgstr "Sols des Plaines en Pente"
+msgstr "Sols de Plaine en Pente"
 
 #: locale/tileset_names.ini
 msgctxt "Pipes"
@@ -715,7 +714,7 @@ msgstr "Tuyau Gris"
 
 #: locale/tileset_names.ini
 msgid "Gray Pipe with Dots"
-msgstr "Tuyau Gris avec Pointillés"
+msgstr "Tuyau Gris Pointillé"
 
 #: locale/tileset_names.ini
 msgid "White Pipe"
@@ -749,32 +748,29 @@ msgstr "Plateformes Solides en Pierre"
 #: locale/tileset_names.ini
 msgctxt "Starland"
 msgid "Starland Ground"
-msgstr "Sols des Plaines Etoilés"
+msgstr "Sol de Plaine Étoilé"
 
 #: locale/tileset_names.ini
-#, fuzzy
-#| msgctxt "Starland"
-#| msgid "Starland Ground"
 msgid "Starland Ground"
-msgstr "Sols des Plaines Etoilés"
+msgstr "Sol de Plaine Étoilé"
 
 #: locale/tileset_names.ini
 msgid "I will remove this"
-msgstr "J'adore le caca"
+msgstr "Je vais enlever ça"
 
 #: locale/tileset_names.ini
 msgctxt "Tanks"
 msgid "Tank Tileset Default"
-msgstr "Tileset par Défaut de Tanks"
+msgstr "Tileset par Défaut de Char"
 
 #: locale/tileset_names.ini
 msgctxt "Underground"
 msgid "Hard Block Blue"
-msgstr "Bloc Bleu Dur"
+msgstr "Bloc Dur Bleu"
 
 #: locale/tileset_names.ini
 msgid "Underground Ground"
-msgstr "Sol des Sous-Terrains"
+msgstr "Sol de Sous-Terrain"
 
 #: locale/tileset_names.ini
 msgctxt "Underwater"
@@ -805,101 +801,82 @@ msgstr "Position de Départ du Joueur"
 #: locale/object_names_scenery.ini
 msgctxt "scenery"
 msgid "Sky"
-msgstr ""
+msgstr "Ciel"
 
 #: locale/object_names_scenery.ini
 msgid "Big Clouds (Face)"
-msgstr ""
+msgstr "Gros Nuages ( Visage )"
 
 #: locale/object_names_scenery.ini
 msgid "Big Clouds"
-msgstr ""
+msgstr "Gros Nuages"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
-#| msgctxt "scenery"
-#| msgid "Overworld"
 msgid "Overworld"
-msgstr "Plaines"
+msgstr "Plaine"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
-#| msgid "Bottom"
 msgid "Castle Bottom"
-msgstr "Bas"
+msgstr "Base de Château"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
-#| msgctxt "tile"
-#| msgid "Castle"
 msgid "Castle Top"
-msgstr "Château"
+msgstr "Sommet de Château"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
-#| msgctxt "Rockland"
-#| msgid "Cloud Tile"
 msgid "Cloud"
-msgstr "Case de Nuage"
+msgstr "Nuage"
 
 #: locale/object_names_scenery.ini
 msgid "Fence"
-msgstr ""
+msgstr "Clôture"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
-#| msgid "Koopa Green"
 msgid "Forest Green"
-msgstr "Koopa Vert"
+msgstr "Forêt Verte"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
-#| msgid "Koopa Green"
 msgid "Grass Green"
-msgstr "Koopa Vert"
+msgstr "Herbe Verte"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
-#| msgid "Spiny Green"
 msgid "Hill Green"
-msgstr "Hériss Vert"
+msgstr "Colline Verte"
 
 #: locale/object_names_scenery.ini
-#, fuzzy
-#| msgid "Koopa Green"
 msgid "Mountains Green"
-msgstr "Koopa Vert"
+msgstr "Montagnes Vertes"
 
 #: locale/object_names_scenery.ini
 msgid "Tree x1 Green"
-msgstr ""
+msgstr "Arbre x1 Vert"
 
 #: locale/object_names_scenery.ini
 msgid "Tree x2 Green"
-msgstr ""
+msgstr "Arbre x2 Vert"
 
 #: locale/object_names_scenery.ini
 msgid "Tree x3 Green"
-msgstr ""
+msgstr "Arbre x3 Vert"
 
 #: locale/object_names_misc.ini
 msgctxt "misc"
 msgid "Other"
-msgstr "Autres"
+msgstr "Autre"
 
 #: locale/object_names_enemy.ini
 msgctxt "enemy"
 msgid "Other"
-msgstr "Autres"
+msgstr "Autre"
 
 #: locale/object_names_bonus.ini
 msgctxt "bonus"
 msgid "Other"
-msgstr "Autres"
+msgstr "Autre"
 
 #: locale/object_names_misc.ini
 msgid "Springboard"
-msgstr "Ressort"
+msgstr "Trampoline"
 
 #: locale/object_names_enemy.ini
 msgid "Fire Bros"
@@ -919,11 +896,11 @@ msgstr "Skelerex"
 
 #: locale/object_names_enemy.ini
 msgid "Electric Coral"
-msgstr "Corail Electrique"
+msgstr "Corail Électrique"
 
 #: locale/object_names_enemy.ini
 msgid "Hazard"
-msgstr "Aléas"
+msgstr "Danger"
 
 #: locale/object_names_enemy.ini
 msgid "Firebar"
@@ -1055,11 +1032,11 @@ msgstr "Caisses"
 
 #: locale/object_names_bonus.ini
 msgid "Brick"
-msgstr "Briques"
+msgstr "Brique"
 
 #: locale/object_names_bonus.ini
 msgid "Coin"
-msgstr "Pièces"
+msgstr "Pièce"
 
 #: locale/object_names_bonus.ini
 msgid "Fire Flower"
@@ -1071,11 +1048,11 @@ msgstr "Costume de Grenouille"
 
 #: locale/object_names_bonus.ini
 msgid "Green Lui"
-msgstr "Lui Vert"
+msgstr "Pois Vert"
 
 #: locale/object_names_bonus.ini
 msgid "Life Mushroom"
-msgstr "Champi 1-up"
+msgstr "Champi 1UP"
 
 #: locale/object_names_bonus.ini
 msgid "Poisonous Mushroom"
@@ -1087,23 +1064,27 @@ msgstr "Super Champi"
 
 #: locale/object_names_bonus.ini
 msgid "Question Block"
-msgstr "Block ?"
+msgstr "Bloc Mystère"
 
 #: locale/object_names_bonus.ini
 msgid "Super Star"
-msgstr "Etoile"
+msgstr "Super Étoile"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Source Code"
 msgstr "Code Source"
 
+# FR : Don't think translation is needed for this, but in case
+# Thunder : Orage
+# Engine : Moteur
+# 'Moteur Orage'
 #: stages/main_menu/objects/about_window.tscn
 msgid "Thunder Engine"
 msgstr "Thunder Engine"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Play Mario Forever: Community Edition"
-msgstr "Jouer à Mario Forever: Community Edition"
+msgstr "Jouer à Mario Forever: Édition Communautaire"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "A Level Editor for Mario Forever."
@@ -1119,6 +1100,7 @@ msgstr[1] "Développeurs en Chef de MW:CE :"
 msgid "Graphical Assistance:"
 msgstr "Assistance Graphique :"
 
+# FR : For TE translation, check out com.
 #: stages/main_menu/objects/about_window.gd
 msgid "Thunder Engine Developers:"
 msgstr "Développeurs de Thunder Engine :"
@@ -1147,7 +1129,7 @@ msgstr "Traduction Française :"
 #: stages/main_menu/objects/about_window.gd
 msgctxt "Put translation authors here!"
 msgid "Your name"
-msgstr "Sonilan"
+msgstr "Sonilan, Ulvvis"
 
 #~ msgid "Mario Worker: Community Edition"
 #~ msgstr "Mario Worker: Community Edition"

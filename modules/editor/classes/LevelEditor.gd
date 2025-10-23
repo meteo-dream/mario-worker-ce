@@ -152,18 +152,19 @@ func _physics_process(delta: float) -> void:
 		mouse_blocked = false
 		print("Input unblocked!")
 	mouse_clicked_once = false
-	if !Editor.is_window_active(): return
 	
 	%TargetLabel.text = tr("Target: %.v") % get_global_mouse_position().round()
 	%CountLabel.text = tr(" Objects: %d, Tilemaps: %d") % [
 		get_tree().get_node_count_in_group(&"editor_addable_object"),
 		get_tree().get_node_count_in_group(&"editor_addable_tilemap"),
 	]
+	
+	%ShapeCastPoint.global_position = get_global_mouse_position().round()
+	
+	if !Editor.is_window_active(): return
 	if special_object_blocked:
 		if Input.is_action_just_pressed(&"ui_cancel"):
 			special_object_blocked = false
-	
-	%ShapeCastPoint.global_position = get_global_mouse_position().round()
 	
 	if mouse_blocked: return
 	
