@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.7\n"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Data is corrupted"
@@ -59,10 +59,6 @@ msgid "Failed to load: Missing LevelProperties"
 msgstr "Chargement échoué : LevelProperties manquant"
 
 #: stages/main_menu/main_menu.tscn
-msgid "Mario Worker: Community Edition"
-msgstr "Mario Worker: Community Edition"
-
-#: stages/main_menu/main_menu.tscn
 msgid ""
 "Mario Worker: Community Edition\n"
 "PRE-ALPHA PROTOTYPE Build 1"
@@ -71,38 +67,48 @@ msgstr ""
 "PROTOTYPE PRE-ALPHA Version 1"
 
 #: stages/main_menu/main_menu.tscn
+#, fuzzy
+#| msgid ""
+#| "this is a public unfinished preview version of the level editor.\n"
+#| "everything is subject to change. this is not final!\n"
+#| "levels created in this build will not load in other versions."
 msgid ""
 "this is a public unfinished preview version of the level editor.\n"
-"everything is subject to change. this is not final!\n"
+"presented prototype may significantly differ from the final version.\n"
 "levels created in this build will not load in other versions."
 msgstr ""
 "ceci est une version publique d'aperçu non terminée de l'éditeur de niveau.\n"
 "tout est susceptible d'être modifié. ce n'est pas une version finale !\n"
-"les niveaux créés dans cette version ne pourront pas être chargés dans d'autres version."
+"les niveaux créés dans cette version ne pourront pas être chargés dans "
+"d'autres version."
 
 #: stages/main_menu/main_menu.tscn
 msgid "Go to level editor"
 msgstr "Editer un niveau"
 
-#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
-msgid "Play level"
-msgstr "Jouer à un niveau"
-
 #: stages/main_menu/main_menu.tscn
 msgid "Browse level files"
 msgstr "Parcourir des fichiers de niveaux"
-
-#: stages/main_menu/main_menu.tscn
-msgid "Enable editor sounds"
-msgstr "Activer les sons de l'éditeur"
 
 #: stages/main_menu/main_menu.tscn stages/main_menu/objects/about_window.tscn
 msgid "About"
 msgstr "À propos"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
+msgid "Play level"
+msgstr "Jouer à un niveau"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Feedback"
+msgstr ""
+
+#: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Exit"
 msgstr "Fermer"
+
+#: stages/main_menu/main_menu.tscn
+msgid "Enable editor sounds"
+msgstr "Activer les sons de l'éditeur"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Open a File"
@@ -126,8 +132,11 @@ msgid "Save failed."
 msgstr "Sauvegarde échouée."
 
 #: modules/editor/scripts/editor_gui.gd
-msgid "This button is unimplemented for now, use 'Play Level' from the title screen"
-msgstr "Ce bouton n'a pas encore été implémenté, appuyez sur \"Jouer à un niveau\" depuis l'écran titre"
+msgid ""
+"This button is unimplemented for now, use 'Play Level' from the title screen"
+msgstr ""
+"Ce bouton n'a pas encore été implémenté, appuyez sur \"Jouer à un niveau\" "
+"depuis l'écran titre"
 
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Grid value suffix"
@@ -383,7 +392,9 @@ msgstr "Sauvegarder"
 msgid ""
 "Warning: You have unsaved changes.\n"
 "Save before quitting?"
-msgstr "Attention : Changements non sauvegardés détectés. Voulez-vous sauvegarder avant de fermer ?"
+msgstr ""
+"Attention : Changements non sauvegardés détectés. Voulez-vous sauvegarder "
+"avant de fermer ?"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -425,7 +436,8 @@ msgid ""
 "If disabled, right click opens up properties of the object, when available."
 msgstr ""
 "Si activé, clic droit efface les objets du niveau.\n"
-"Si désactivé, clic droit ouvre les propriétés de l'objet, lorsque c'est possible."
+"Si désactivé, clic droit ouvre les propriétés de l'objet, lorsque c'est "
+"possible."
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -435,13 +447,17 @@ msgstr "Efface les objets avec clic droit"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
+"If enabled, right click only erases objects of the type that you have "
+"selected to paint.\n"
+"If disabled, any object from the selected category can be erased with right "
+"click."
+msgstr ""
+
+#: modules/editor/stages/level_editor.tscn
+msgid ""
 "Right click erases\n"
 "only same object"
 msgstr "Clic droit n'efface que le même objet"
-
-#: modules/editor/stages/level_editor.tscn
-msgid "Use Tile Terrains"
-msgstr "Utiliser les Terrains de Tiles"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -527,6 +543,10 @@ msgid "Background"
 msgstr "Fond"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Section: %d (See right panel to change)"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
 msgid ""
 "Primary\n"
 "Gradient"
@@ -551,7 +571,9 @@ msgid "Cloudless (1 - 3)"
 msgstr "Dégagé (1 - 3)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-msgid " Morning (5 - 1)"
+#, fuzzy
+#| msgid " Morning (5 - 1)"
+msgid "Morning (5 - 1)"
 msgstr " Matin (5 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
@@ -591,8 +613,16 @@ msgid "Bottom"
 msgstr "Bas"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
-msgid "Dummy"
-msgstr "Mannequin"
+msgid "Experimental"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Camera Limits (Width x Height):"
+msgstr ""
+
+#: modules/editor/gui/levelprop_tab_container.tscn
+msgid "Enable Wide Screen (864 x 480 resolution)"
+msgstr ""
 
 #: locale/tileset_names.ini
 msgctxt "tile"
@@ -642,8 +672,20 @@ msgid "Solid Platform Gray"
 msgstr "Plateforme Solides Grises"
 
 #: locale/tileset_names.ini
+#, fuzzy
+#| msgctxt "Overworld Default"
+#| msgid "Hard Block Brown"
+msgid "Hard Block Gray"
+msgstr "Bloc Dur Marron"
+
+#: locale/tileset_names.ini
 msgid "Castle Ground"
 msgstr "Sol du Château"
+
+#: locale/tileset_names.ini
+msgctxt "Hazard Launcher Supporting Tiles"
+msgid "Bullet Launcher"
+msgstr ""
 
 #: locale/tileset_names.ini
 msgctxt "Overworld Default"
@@ -710,6 +752,13 @@ msgid "Starland Ground"
 msgstr "Sols des Plaines Etoilés"
 
 #: locale/tileset_names.ini
+#, fuzzy
+#| msgctxt "Starland"
+#| msgid "Starland Ground"
+msgid "Starland Ground"
+msgstr "Sols des Plaines Etoilés"
+
+#: locale/tileset_names.ini
 msgid "I will remove this"
 msgstr "J'adore le caca"
 
@@ -755,12 +804,83 @@ msgstr "Position de Départ du Joueur"
 
 #: locale/object_names_scenery.ini
 msgctxt "scenery"
+msgid "Sky"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Big Clouds (Face)"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Big Clouds"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+#| msgctxt "scenery"
+#| msgid "Overworld"
 msgid "Overworld"
 msgstr "Plaines"
 
 #: locale/object_names_scenery.ini
-msgid "Overworld Grass"
-msgstr "Herbe des Plaines"
+#, fuzzy
+#| msgid "Bottom"
+msgid "Castle Bottom"
+msgstr "Bas"
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+#| msgctxt "tile"
+#| msgid "Castle"
+msgid "Castle Top"
+msgstr "Château"
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+#| msgctxt "Rockland"
+#| msgid "Cloud Tile"
+msgid "Cloud"
+msgstr "Case de Nuage"
+
+#: locale/object_names_scenery.ini
+msgid "Fence"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+#| msgid "Koopa Green"
+msgid "Forest Green"
+msgstr "Koopa Vert"
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+#| msgid "Koopa Green"
+msgid "Grass Green"
+msgstr "Koopa Vert"
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+#| msgid "Spiny Green"
+msgid "Hill Green"
+msgstr "Hériss Vert"
+
+#: locale/object_names_scenery.ini
+#, fuzzy
+#| msgid "Koopa Green"
+msgid "Mountains Green"
+msgstr "Koopa Vert"
+
+#: locale/object_names_scenery.ini
+msgid "Tree x1 Green"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Tree x2 Green"
+msgstr ""
+
+#: locale/object_names_scenery.ini
+msgid "Tree x3 Green"
+msgstr ""
 
 #: locale/object_names_misc.ini
 msgctxt "misc"
@@ -986,6 +1106,10 @@ msgid "Play Mario Forever: Community Edition"
 msgstr "Jouer à Mario Forever: Community Edition"
 
 #: stages/main_menu/objects/about_window.gd
+msgid "A Level Editor for Mario Forever."
+msgstr "Un éditeur de niveau pour Mario Forever."
+
+#: stages/main_menu/objects/about_window.gd
 msgid "Lead Developer of MW:CE:"
 msgid_plural "Lead Developers of MW:CE:"
 msgstr[0] "Développeur en Chef de MW:CE :"
@@ -1025,6 +1149,14 @@ msgctxt "Put translation authors here!"
 msgid "Your name"
 msgstr "Sonilan"
 
-#: stages/main_menu/objects/about_window.gd
-msgid "A Level Editor for Mario Forever."
-msgstr "Un éditeur de niveau pour Mario Forever."
+#~ msgid "Mario Worker: Community Edition"
+#~ msgstr "Mario Worker: Community Edition"
+
+#~ msgid "Use Tile Terrains"
+#~ msgstr "Utiliser les Terrains de Tiles"
+
+#~ msgid "Dummy"
+#~ msgstr "Mannequin"
+
+#~ msgid "Overworld Grass"
+#~ msgstr "Herbe des Plaines"

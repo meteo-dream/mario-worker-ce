@@ -26,23 +26,25 @@ func _ready() -> void:
 
 func disable_toolbar_buttons() -> void:
 	%PlayButton.disabled = true
-	%SelectMode.disabled = true
+	#%SelectMode.disabled = true
 	%ListMode.disabled = true
 	%PickMode.disabled = true
 	%RotateLeft.disabled = true
 	%RotateRight.disabled = true
 	%LoadLevelButton.disabled = true
 	%SaveLevelButton.disabled = true
+	%EditingMenuButton.disabled = true
 
 func enable_toolbar_buttons() -> void:
 	%PlayButton.disabled = false
-	%SelectMode.disabled = false
+	#%SelectMode.disabled = false
 	%ListMode.disabled = false
 	%PickMode.disabled = false
 	%RotateLeft.disabled = false
 	%RotateRight.disabled = false
 	%LoadLevelButton.disabled = false
 	%SaveLevelButton.disabled = false
+	%EditingMenuButton.disabled = false
 
 
 func show_one_dialog(dialog: Window) -> void:
@@ -80,6 +82,11 @@ func apply_level_properties() -> void:
 		Editor.current_level_properties.screen_resolution = Vector2i(864, 480)
 	else:
 		Editor.current_level_properties.screen_resolution = Vector2i(640, 480)
+
+
+func open_obj_properties(_col) -> void:
+	# TODO: Properties menu
+	OS.alert("This will open up the properties menu... Properties aren't implemented yet!")
 
 
 func _on_button_group_pressed(button: BaseButton) -> void:

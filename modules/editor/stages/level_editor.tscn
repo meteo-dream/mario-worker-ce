@@ -360,8 +360,10 @@ transient = true
 transient_to_focused = true
 exclusive = true
 popup_window = true
+minimize_disabled = true
+maximize_disabled = true
 force_native = true
-min_size = Vector2i(320, 140)
+min_size = Vector2i(400, 140)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/MoreGridButton/ConfigureSnapWindow"]
 anchors_preset = 15
@@ -588,12 +590,13 @@ icon = ExtResource("6_0pm15")
 [node name="LevelProperties" type="Window" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight"]
 unique_name_in_owner = true
 disable_3d = true
-oversampling_override = 1.0
 title = "Level Properties"
 initial_position = 1
 size = Vector2i(512, 512)
 visible = false
-min_size = Vector2i(400, 512)
+minimize_disabled = true
+maximize_disabled = true
+min_size = Vector2i(480, 512)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties"]
 anchors_preset = 15
@@ -1195,7 +1198,7 @@ collide_with_bodies = false
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/StopButton" to="CanvasLayer/Control" method="_on_stop_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/PlayLevelButton" to="CanvasLayer/Control" method="_on_play_level_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/ObjectPickerButton" to="CanvasLayer/Control" method="_on_object_picker_button_pressed"]
-[connection signal="close_requested" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties" to="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties" method="hide"]
+[connection signal="close_requested" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties" to="CanvasLayer/Control" method="_on_level_prop_cancel_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropOK" to="CanvasLayer/Control" method="_on_level_prop_ok_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropCancel" to="CanvasLayer/Control" method="_on_level_prop_cancel_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft/TopBoxRight/LevelProperties/HBoxContainer3/LevelPropApply" to="CanvasLayer/Control" method="_on_level_prop_apply_pressed"]

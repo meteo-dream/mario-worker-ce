@@ -71,8 +71,8 @@ func _ready() -> void:
 	%GridCancelBtn.pressed.connect(func():
 		%GridStep1.value = grid_size.x
 		%GridStep2.value = grid_size.y
-		%GridOffset1.value = grid_offset.x
-		%GridOffset2.value = grid_offset.y
+		%GridOffset1.value = Editor.config.grid_offset_x
+		%GridOffset2.value = Editor.config.grid_offset_y
 		%GridPrimaryLine1.value = primary_line_every.x
 		%GridPrimaryLine2.value = primary_line_every.y
 		%ConfigureSnapWindow.hide()

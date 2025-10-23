@@ -264,15 +264,15 @@ func _input_mouse_click(event: InputEventMouseButton) -> void:
 			else:
 				select_object(_col)
 			break
-	elif tool_mode == TOOL_MODES.SELECT && (!event.is_pressed() && event.button_index == MOUSE_BUTTON_LEFT):
+	elif !event.is_pressed() && event.button_index == MOUSE_BUTTON_RIGHT:
+		if !(tool_mode == TOOL_MODES.SELECT || tool_mode == TOOL_MODES.PAINT): return
 		%ShapeCastPoint.force_shapecast_update()
 		for i in %ShapeCastPoint.get_collision_count():
 			var _col = %ShapeCastPoint.get_collider(i)
 			if !_col || !_col.get_parent(): continue
 			_col = _col.get_parent()
-			if _col.get("properties") && !editor_options.erase_with_rmb:
-				# TODO: Properties menu
-				OS.alert("This will open up the properties menu...")
+			if _col.get("properties"):
+				Editor.gui.open_obj_properties(_col)
 				break
 
 
@@ -291,7 +291,7 @@ func _input_mouse_hold(event: InputEvent) -> void:
 		#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 		if %ShapeCast2D.is_colliding():
 			# Erasing the object by RMB
-			_input_paint_object_rmb()
+			_input_paint_object_rmb(event)
 			if !is_instance_valid(selected_object) || !selected_object is EditorAddableNode2D:
 				selected_obj_sprite.visible = false
 				return
@@ -353,25 +353,20 @@ func _input_paint_tile(event: InputEvent) -> void:
 		changes_after_save = true
 
 
-func _input_paint_object_rmb() -> void:
+func _input_paint_object_rmb(event: InputEvent) -> void:
 	if !(Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) && selected_object):
 		return
+	
 	%ShapeCast2D.force_shapecast_update()
 	for i in %ShapeCast2D.get_collision_count():
 		var _col = %ShapeCast2D.get_collider(i)
 		if !_col || !_col.get_parent(): continue
 		_col = _col.get_parent()
-		if _col.get("properties") && !editor_options.erase_with_rmb:
-			# TODO: Properties menu
-			OS.alert("This will open up the properties menu...")
-			break
-		if _col is EditorAddableSpecial && !_col.deletable:
-			break
 		# Check if found object is of the same type as the selected object
 		if editor_options.erase_with_rmb && (
 			(
-				_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid") &&
-				editor_options.erase_specific_object
+				editor_options.erase_specific_object &&
+				_col.get_meta(&"nameid") == selected_object.get_meta(&"nameid")
 			) || !editor_options.erase_specific_object
 		):
 			_col.queue_free()
@@ -422,7 +417,10 @@ func tileset_selected() -> void:
 
 func select_paint(category_name: String, from_menu: bool = true) -> void:
 	tool_mode = TOOL_MODES.PAINT
-	editing_sel = _edit_sel_to_enum(category_name)
+	if category_name.is_empty():
+		editing_sel = editing_sel
+	else:
+		editing_sel = _edit_sel_to_enum(category_name)
 	apply_stored_selection_object()
 	selected = []
 	_on_selected_array_change()
@@ -1012,7 +1010,7 @@ func _tool_paint_process() -> void:
 	
 	if !can_draw():
 		return
-	selected_obj_sprite.self_modulate.a = 0.0 if Input.is_action_pressed(&"a_ctrl") else 0.5
+	selected_obj_sprite.self_modulate.a = 0.0 if Input.is_action_pressed(&"a_ctrl") && !Input.is_action_pressed(&"a_shift") else 0.5
 	if editing_sel != EDIT_SEL.TILE && is_instance_valid(selected_object):
 		selected_obj_sprite.global_position = get_pos_on_grid()
 		selected_obj_sprite.offset = selected_object.get_editor_sprite_pos()
