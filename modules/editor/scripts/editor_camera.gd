@@ -1,5 +1,7 @@
 extends Camera2D
 
+signal zoomed
+
 var zoom_min := 0.5
 var zoom_max := 8.0
 const ZOOM_INCREMENT: float = 6
@@ -122,3 +124,4 @@ func update_zoom(old_zoom: Vector2, new_zoom: Vector2) -> void:
 	if position != get_screen_center_position():
 		position = get_screen_center_position()
 	reset_physics_interpolation()
+	zoomed.emit()

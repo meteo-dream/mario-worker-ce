@@ -599,9 +599,10 @@ msgctxt "tile"
 msgid "Castle"
 msgstr "Château"
 
+# Translated it as "Cannon Support Blocks" instead, to make it easier to understand.
 #: locale/tileset_names.ini
 msgid "Hazard Launcher Supporting Tiles"
-msgstr "Cases Supportant de Lanceur d'Aléas"
+msgstr "Blocs de Supports à Cannons"
 
 #: locale/tileset_names.ini
 msgid "Overworld Default"

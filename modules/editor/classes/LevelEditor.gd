@@ -152,7 +152,6 @@ func _physics_process(delta: float) -> void:
 		mouse_blocked = false
 		print("Input unblocked!")
 	mouse_clicked_once = false
-	#print(Editor.is_window_active())
 	if !Editor.is_window_active(): return
 	
 	%TargetLabel.text = tr("Target: %.v") % get_global_mouse_position().round()
@@ -179,6 +178,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if !Editor.is_window_active(): return
+	
 	if event.is_action(&"a_ctrl") && Thunder._current_player && !event.is_echo():
 		Thunder._current_player.completed = event.is_pressed()
 	elif event.is_action(&"a_delete") && event.is_pressed() && !event.is_echo():
@@ -941,6 +942,9 @@ func _tool_paint() -> void:
 	if _sel_obj == null && editing_sel != EDIT_SEL.TILE:
 		_sel_obj = editor_cache.stored_category_sel[editing_sel]
 	
+	selected.resize(0)
+	_on_selected_array_change()
+	
 	if is_instance_valid(_sel_obj):
 		apply_stored_selection_object(_sel_obj)
 	else:
@@ -950,12 +954,18 @@ func _tool_paint() -> void:
 func _tool_pick() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%PickMode.button_pressed = true
+	selected.resize(0)
+	_on_selected_array_change()
+	
 	stash_selected_object(true)
 	%SelectedObjLabel.text = tr("Pick a tile/object to select for drawing")
 
 func _tool_rect() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_BUSY)
 	%RectMode.button_pressed = true
+	selected.resize(0)
+	_on_selected_array_change()
+	
 	if is_instance_valid(selected_object):
 		apply_stored_selection_object(selected_object)
 	else:
@@ -964,6 +974,9 @@ func _tool_rect() -> void:
 func _tool_erase() -> void:
 	control.set_default_cursor_shape(Control.CURSOR_ARROW)
 	%EraseMode.button_pressed = true
+	selected.resize(0)
+	_on_selected_array_change()
+	
 	stash_selected_object(true)
 	%SelectedObjLabel.text = tr("Erase mode")
 
@@ -1005,7 +1018,6 @@ func _tool_paint_process() -> void:
 		selected_obj_sprite.offset = selected_object.get_editor_sprite_pos()
 	elif editing_sel == EDIT_SEL.TILE && selected_tile_holder:
 		selected_obj_sprite.global_position = get_tile_pos_on_grid()
-		selected_obj_sprite.offset = Vector2.ZERO
 	
 	selected_obj_sprite.reset_physics_interpolation()
 
