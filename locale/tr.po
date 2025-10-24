@@ -12,8 +12,6 @@
 # res://locale/object_names_misc.ini
 # res://locale/object_names_enemy.ini
 # res://locale/object_names_bonus.ini
-# res://stages/main_menu/objects/about_window.tscn
-# res://stages/main_menu/objects/about_window.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -25,20 +23,20 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr\n"
+"Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Data is corrupted"
-msgstr "Chargement échoué : Données corrompues"
+msgstr "Yüklenemedi: Veri bozuk"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Scene is corrupted"
-msgstr "Chargement échoué : Scène corrompue"
+msgstr "Yüklenemedi: Sahne bozuk"
 
 #: stages/main_menu/prototype_menu.gd
 msgid ""
@@ -46,25 +44,25 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Niveau non conforme. Voir les logs à\n"
+"Bu geçerli bir bölüm değil. Günlük kayıtlarına bakmak için:\n"
 "\n"
 "%s"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Incompatible Version"
-msgstr "Chargement échoué : Version incompatible"
+msgstr "Yüklenemedi: Uyumsuz Sürüm"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Missing LevelProperties"
-msgstr "Chargement échoué : LevelProperties manquant"
+msgstr "Yüklenemedi: Bölüm özellikleri eksik"
 
 #: stages/main_menu/main_menu.tscn
 msgid ""
 "Mario Worker: Community Edition\n"
 "PRE-ALPHA PROTOTYPE Build 1"
 msgstr ""
-"Mario Worker: Édition Communautaire\n"
-"PROTOTYPE PRE-ALPHA Version 1"
+"Mario Worker: Community Edition\n"
+"ALFA ÖNCESİ PROTOTİP Derleme 1"
 
 #: stages/main_menu/main_menu.tscn
 msgid ""
@@ -72,142 +70,136 @@ msgid ""
 "presented prototype may significantly differ from the final version.\n"
 "levels created in this build will not load in other versions."
 msgstr ""
-"ceci est un aperçu de la version publique non-terminée de l'éditeur de "
-"niveau.\n"
-" \n"
-"le prototype présenté peut être complètement différent de la version "
-"finale.\n"
-"les niveaux créés dans cette version ne chargeront pas dans les autres "
-"versions."
+"bu, bölüm editörünün herkese açık tamamlanmamış bir ön izleme sürümüdür.\n"
+"sunulan prototip, son sürüme göre önemli ölçüde farklılık gösterebilir.\n"
+"bu sürümde oluşturulan bölümler diğer sürümlerde yüklenmeyecektir."
 
 #: stages/main_menu/main_menu.tscn
 msgid "Go to level editor"
-msgstr "Éditer un niveau"
+msgstr "Bölüm editörüne git"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Browse level files"
-msgstr "Parcourir les fichiers de niveaux"
+msgstr "Bölüm dosyalarına göz at"
 
 #: stages/main_menu/main_menu.tscn stages/main_menu/objects/about_window.tscn
 msgid "About"
-msgstr "À propos"
+msgstr "Hakkında"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Play level"
-msgstr "Jouer à un niveau"
+msgstr "Bölüm oyna"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Feedback"
-msgstr "Commentaires"
+msgstr "Geri bildirim"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Exit"
-msgstr "Fermer"
+msgstr "Çık"
 
 #: stages/main_menu/main_menu.tscn
 msgid "Enable editor sounds"
-msgstr "Activer les sons de l'éditeur"
+msgstr "Editör seslerini aç"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Open a File"
-msgstr "Ouvrir un fichier"
+msgstr "Bir dosyayı aç"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Open"
-msgstr "Ouvrir"
+msgstr "Aç"
 
 #: stages/main_menu/main_menu.tscn modules/editor/stages/level_editor.tscn
 msgid "Level scenes"
-msgstr "Scènes du niveau"
+msgstr "Bölüm sahneleri"
 
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Close confirmation dialog"
 msgid "Don't Save"
-msgstr "Ne pas sauvegarder"
+msgstr "Kaydetme"
 
 #: modules/editor/scripts/editor_gui.gd
 msgid "Save failed."
-msgstr "Sauvegarde échouée."
+msgstr "Kaydedilemedi."
 
 #: modules/editor/scripts/editor_gui.gd
 msgid ""
 "This button is unimplemented for now, use 'Play Level' from the title screen"
 msgstr ""
-"Ce bouton n'a pas encore été implémenté, appuyez sur \"Jouer à un niveau\" "
-"depuis l'écran titre"
+"Bu buton henüz kullanılabilir değil, başlık ekranından 'Bölümü Oyna'yı seç"
 
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Grid value suffix"
 msgid "px"
 msgstr "px"
 
-# not sure if really understood context
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Grid primary line value suffix"
 msgid "step"
 msgid_plural "steps"
-msgstr[0] "cran"
-msgstr[1] "crans"
+msgstr[0] "adım"
+msgstr[1] "adım"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Target: %.v"
-msgstr "Cible : %.v"
+msgstr "Hedef: %.v"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid " Objects: %d, Tilemaps: %d"
-msgstr " Objets: %d, Grille: %d"
+msgstr " Nesneler: %d, Döşeme Haritaları: %d"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Error: %s"
-msgstr "Erreur : %s"
+msgstr "Hata: %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Warning: %s"
-msgstr "Attention : %s"
+msgstr "Uyarı: %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Level was not saved."
-msgstr "Niveau non sauvegardé."
+msgstr "Bölüm kaydedilmedi."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Failed to save level."
-msgstr "Sauvegarde du niveau échouée."
+msgstr "Bölüm kaydı başarısız."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Save failed: %s"
-msgstr "Sauvegarde échouée : %s"
+msgstr "Kaydetme başarısız: %s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Level saved!"
-msgstr "Niveau sauvegardé !"
+msgstr "Bölüm kaydedildi!"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "This is not a valid level."
-msgstr "Niveau non conforme."
+msgstr "Bu geçerli bir bölüm değil."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Level loaded with %d objects!"
-msgstr "Niveau chargé avec %d objets !"
+msgstr "Bölüm %d adet nesneyle yüklendi!"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "%d objects selected"
-msgstr "%d objets sélectionnés"
+msgstr "%d adet nesne seçildi"
 
 #: modules/editor/classes/LevelEditor.gd
 #: modules/editor/scripts/help_key_formatter.gd
 msgctxt "key"
 msgid "Space"
-msgstr "Espace"
+msgstr "Space"
 
 #: modules/editor/classes/LevelEditor.gd
 #: modules/editor/scripts/help_key_formatter.gd
 msgctxt "e.g. Space button"
 msgid "%s button"
-msgstr "Bouton %s"
+msgstr "%s"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Nothing to paint. Press %s to pick an object"
-msgstr "Rien à dessiner. Appuyez sur %s pour choisir un objet"
+msgstr "Yerleştirilecek bir şey yok. %s tuşuna basarak bir nesne seç"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid ""
@@ -215,186 +207,182 @@ msgid ""
 "Right click to display its properties.\n"
 "Click with Shift for multiple."
 msgstr ""
-"Appuyez sur clic gauche sur un objet pour le sélectionner.\n"
-"Appuyez sur clic droit pour afficher ses propriétés.\n"
-"Gardez Maj enfoncé pour sélectionner plusieurs objets."
+"Nesne seçmek için sol tıkla.\n"
+"Özelliklerini göstermek için sağ tıkla.\n"
+"Çoklu seçim için Shift ile tıkla."
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Painting Tileset: %s"
-msgstr "Peindre la Tileset : %s"
+msgstr "%s Döşeme Seti Yerleştiriliyor"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Painting %s"
-msgstr "Peindre %s"
+msgstr "%s Yerleştiriliyor"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Panning mode"
-msgstr "Mode Caméra Libre"
+msgstr "Kaydırma modu"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "List mode"
-msgstr "Mode Liste"
+msgstr "Liste modu"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Pick a tile/object to select for drawing"
-msgstr "Choisissez un(e) case/objet à sélectionner pour dessiner"
+msgstr "Çizim için bir döşeme/nesne seç"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Erase mode"
-msgstr "Mode Gomme"
+msgstr "Silme Modu"
 
 #: modules/editor/classes/LevelEditor.gd
 msgid "Erasing: %s Category"
-msgstr "Effacer : Catégorie %s"
+msgstr "%s Kategorisi siliniyor"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Selection Tool"
-msgstr "Outil de Sélection"
+msgstr "Seçim Aracı"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Pan Tool"
-msgstr "Outil de Déplacement de Caméra"
+msgstr "Kaydırma Aracı"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Show list of selectable nodes at position clicked."
-msgstr "Afficher la liste des nœuds sélectionnables à la position cliquée."
+msgstr "Tıklatılan konumdaki seçilebilir düğümlerin listesini göster."
 
-# Shouldn't it be Paint Tool?
-# I translated it as Pain Tool anyway lmao
-# FR : I translated it as Paint tool
-# If you really want 'Pain tool' which sounds weird, it's 'Outil de Douleur'
 #: modules/editor/stages/level_editor.tscn
 msgid "Pain Tool"
-msgstr "Outil de Peinture"
+msgstr "Acı Aracı :D"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Rectangle Paint Tool"
-msgstr "Outil de Peinture de Rectangle"
+msgstr "Dikdörtgen Boya Aracı"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Picker Tool"
-msgstr "Pipette"
+msgstr "Damlalık Aracı"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Eraser Tool"
-msgstr "Gomme"
+msgstr "Silgi Aracı"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Rotate Object Left"
-msgstr "Tourner l'Objet à Gauche"
+msgstr "Nesneyi Sola Döndür"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Rotate Object Right"
-msgstr "Tourner l'Objet à Droite"
+msgstr "Nesneyi Sağa döndür"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Show Grid"
-msgstr "Afficher la Grille"
+msgstr "Izgarayı Göster"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Configure Snap"
-msgstr "Activer l'Alignement"
+msgstr "Yaslamayı Ayarla"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Grid Offset:"
-msgstr "Dépassement de la Grille :"
+msgstr "Izgara Ötelemesi:"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Grid Step:"
-msgstr "Cran de la Grille :"
+msgstr "Izgara Adımı:"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Primary Line Every:"
-msgstr "Ligne Primaire tous les :"
+msgstr "Birincil Çizgi Sıklığı:"
 
 #: modules/editor/stages/level_editor.tscn
 #: stages/main_menu/objects/about_window.tscn
 msgid "OK"
-msgstr "OK"
+msgstr "Tamam"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "İptal"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Editing: "
-msgstr "Éditer : "
+msgstr "Düzenlenen: "
 
 #: modules/editor/stages/level_editor.tscn
 msgid "None"
-msgstr "Aucun"
+msgstr "Hiçbiri"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Tiles"
-msgstr "Cases"
+msgstr "Döşemeler"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Decoration"
-msgstr "Décoration"
+msgstr "Dekorasyon"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Enemies"
-msgstr "Ennemis"
+msgstr "Düşmanlar"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Items"
-msgstr "Objets"
+msgstr "Eşyalar"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Misc."
-msgstr "Autres"
+msgstr "Çeşitli"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Special"
-msgstr "Spécial"
+msgstr "Özel"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Save level and live-test through editor.\n"
 "Any changes made during live-testing will be aborted!"
 msgstr ""
-"Sauvegarder le niveau et le tester depuis l'éditeur.\n"
-"Tout changements effectués pendant le test seront annulés !"
+"Bölümü kaydet ve editör üzerinden canlı test et.\n"
+"Canlı test sırasında yapılan tüm değişiklikler yok sayılacak!"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Stop live-testing and go back to editing"
-msgstr "Arrêter le test et retourner à l'édition"
+msgstr "Canlı testi bırak ve düzenlemeye geri dön"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Open object picker and level properties"
-msgstr "Ouvrir le sélectionneur d'objet et les propriétés du niveau"
+msgstr "Nesne seçiciyi ve bölüm özelliklerini aç"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Level Properties"
-msgstr "Propriétés du niveau"
+msgstr "Bölüm Özellikleri"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Apply"
-msgstr "Appliquer"
+msgstr "Uygula"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Load level"
-msgstr "Charger le niveau"
+msgstr "Bölümü Yükle"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Save level. Click with Shift to save elsewhere"
-msgstr "Sauvegarder le niveau. Cliquez avec Maj pour le sauvegarder autre part"
+msgstr "Bölümü kaydet. Başka bir yere kaydetmek için Shift ile birlikte tıkla"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Close editor and exit to main menu"
-msgstr "Fermer l'éditeur et retourner au menu principal"
+msgstr "Editörü kapat ve ana menüye geri dön"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Kaydet"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Warning: You have unsaved changes.\n"
 "Save before quitting?"
 msgstr ""
-"Attention : Changements non sauvegardés détectés. Voulez-vous sauvegarder "
-"avant de fermer ?"
+"Uyarı: Kaydedilmemiş değişiklikler var!\n"
+"Çıkmadan önce kaydedilsin mi?"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -406,44 +394,44 @@ msgid ""
 "Ctrl+Arrow keys: Scroll\n"
 "H: drop player at mouse cursor"
 msgstr ""
-"Clic Molette : Déplacement de Caméra\n"
-"Molette : Case Suivante/Précédente\n"
-"Alt + Molette : Zoom\n"
-"(Maj +) Ctrl + Molette : Défilement\n"
-"…ou utiliser les touches - et +\n"
-"Ctrl + Flèches : Défilement\n"
-"H : Déposer le joueur au curseur"
+"EKRAN YÖNERGELERİ\n"
+"Orta fare düğmesi: Serbest Gezinme\n"
+"Alt + Fare tekerleği: Yakınlık Ayarı\n"
+"(Shift+)Ctrl+Fare tekerleği (veya -/+ tuşları): Yatay/Dikey Kaydırma\n"
+"Ctrl+Yön tuşları: Gezinme\n"
+"H: Oyuncuyu fare imlecine bırak"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Center View"
-msgstr "Centrer la Vue"
+msgstr "Görünümü Ortala"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "%.1f %%"
-msgstr "%.1f %%"
+msgstr "%. 1f %%"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Category:"
-msgstr "Catégorie :"
+msgstr "Kategori:"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Editor Settings:"
-msgstr "Paramètres de l'éditeur :"
+msgstr "Editör Ayarları:"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "If enabled, right click erases objects from the level.\n"
 "If disabled, right click opens up properties of the object, when available."
 msgstr ""
-"Si activé, le clic droit efface les objets du niveau.\n"
-"Si désactivé, le clic droit ouvre les propriétés de l'objet, lorsque c'est "
-"possible."
+"Etkinse, sağ tıklama bölümdeki nesneleri siler.\n"
+"Devre dışıysa, sağ tıklama nesnenin mevcut özelliklerini açar."
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Erase objects\n"
 "with right click"
-msgstr "Efface les objets avec clic droit"
+msgstr ""
+"Sağ tık ile\n"
+"nesneleri sil"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
@@ -452,46 +440,50 @@ msgid ""
 "If disabled, any object from the selected category can be erased with right "
 "click."
 msgstr ""
-"Si activé, clic droit efface uniquement les objets du type que vous avez "
-"sélectionné pour peindre.\n"
-"Si désactivé, tout objet de la catégorie sélectionnée peut être effacé avec "
-"clic droit."
+"Etkinse, sağ tıklama sadece yerleştirmek için seçtiğiniz türdeki nesneleri "
+"siler.\n"
+"Devre dışıysa, seçili kategorideki herhangi bir nesne sağ tıklama ile "
+"silinebilir."
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Right click erases\n"
 "only same object"
-msgstr "Le clic droit n'efface que le même objet"
+msgstr ""
+"Sağ tık sadece\n"
+"aynı nesneleri siler"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "%s\n"
 "to toggle this menu"
 msgstr ""
-"%s\n"
-"pour activer ce menu"
+"Menüyü açıp kapatmak için\n"
+"%s tuşuna bas"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Save As..."
-msgstr "Enregister sous..."
+msgstr "Farklı Kaydet"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Test Level"
-msgstr "Tester le Niveau"
+msgstr "Bölümü Dene"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Load Level"
-msgstr "Charger le Niveau"
+msgstr "Bölüm Yükle"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "Misc"
-msgstr "Autres"
+msgstr "Çeşitli"
 
 #: modules/editor/stages/level_editor.tscn
 msgid ""
 "Level\n"
 "Section"
-msgstr "Selection du Niveau"
+msgstr ""
+"Bölüm\n"
+"Kısmı"
 
 #: modules/editor/stages/level_editor.tscn
 msgid "1"
@@ -508,419 +500,418 @@ msgstr "3"
 #: modules/editor/scripts/help_key_formatter.gd
 msgctxt "keyboard buttons"
 msgid "Unknown"
-msgstr "Inconnu"
+msgstr "Bilinmeyen"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Main"
-msgstr "Principal"
+msgstr "Ana"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Time Limit:"
-msgstr "Limite de Temps :"
+msgstr "Zaman Sınırı:"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Display Name:"
-msgstr "Nom Affiché :"
+msgstr "Görünen Ad:"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Level Name:"
-msgstr "Nom du Niveau :"
+msgstr "Bölüm Adı:"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Description:"
-msgstr "Description :"
+msgstr "Açıklama:"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Level Author:"
-msgstr "Auteur du Niveau :"
+msgstr "Bölümü Yapan:"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Author E-mail:"
-msgstr "E-mail de l'Auteur :"
+msgstr "Yapımcının E-posta adresi:"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Author Website:"
-msgstr "Site Web de l'Auteur :"
+msgstr "Yapımcının İnternet Sitesi:"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Background"
-msgstr "Fond"
+msgstr "Arka plan"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Section: %d (See right panel to change)"
-msgstr "Section : %d (Voir le tableau de droite pour changer)"
+msgstr "Kısım: %d (Değiştirmek için sağ panele bak)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid ""
 "Primary\n"
 "Gradient"
 msgstr ""
-"Dégradé\n"
-"Principal"
+"Birincil\n"
+"Renk Geçişi"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Presets..."
-msgstr "Présets..."
+msgstr "Ön ayarlar..."
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Default"
-msgstr "Par Défaut"
+msgstr "Varsayılan"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Cloudy (1 - 1)"
-msgstr "Nuageux (1 - 1)"
+msgstr "Bulutlu (1 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Cloudless (1 - 3)"
-msgstr "Dégagé (1 - 3)"
+msgstr "Bulutsuz (1 - 3)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Morning (5 - 1)"
-msgstr "Matin (5 - 1)"
+msgstr "Sabah (5 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Afternoon (6 - 1)"
-msgstr "Après-Midi (6 - 1)"
+msgstr "Öğleden sonra (6 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Tanks (8 - 2)"
-msgstr "Chars (8 - 2)"
+msgstr "Tanklar (8 - 2)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Volcano (BTE 9 - 1)"
-msgstr "Volcan (BTE 9 - 1)"
+msgstr "Yanardağ (BTE 9 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Sunset (Syzx 9 - 1)"
-msgstr "Coucher de Soleil (Syzx 9 - 1)"
+msgstr "Gün batımı (Syzx 9 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Snowland (Syzx 10 - 1)"
-msgstr "Terres Enneigée (Syzx 10 - 1)"
+msgstr "Kardiyar (Syzx 10 - 1)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "After rain (WoS)"
-msgstr "Après la Pluie (WoS)"
+msgstr "Yağmur sonrası (WoS)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Dusk (Human Lab - 3)"
-msgstr "Crépuscule (Human Lab - 3)"
+msgstr "Alaca karanlık (İnsan Lab. - 3)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Top"
-msgstr "Haut"
+msgstr "Üst"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Bottom"
-msgstr "Bas"
+msgstr "Alt"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Experimental"
-msgstr "Expérimental"
+msgstr "Deneysel"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Camera Limits (Width x Height):"
-msgstr "Limites de Caméra (Largeur x Longueur) :"
+msgstr "Kamera Sınırları (En x Boy)"
 
 #: modules/editor/gui/levelprop_tab_container.tscn
 msgid "Enable Wide Screen (864 x 480 resolution)"
-msgstr "Activer le Grand Écran (Résolution de 864 x 480)"
+msgstr "Geniş Ekranı Etkinleştir (864 x 480 çözünürlük)"
 
 #: locale/tileset_names.ini
 msgctxt "tile"
 msgid "Castle"
-msgstr "Château"
+msgstr "Kale"
 
-# FR : Translated it as "Cannon Support Blocks" instead, to make it easier to understand.
 #: locale/tileset_names.ini
 msgid "Hazard Launcher Supporting Tiles"
-msgstr "Blocs de Supports à Cannons"
+msgstr "Tuzak Destekleyici Döşemeler"
 
 #: locale/tileset_names.ini
 msgid "Overworld Default"
-msgstr "Plaines"
+msgstr "Yeryüzü"
 
 #: locale/tileset_names.ini
 msgid "Pipes"
-msgstr "Tuyaux"
+msgstr "Borular"
 
 #: locale/tileset_names.ini
 msgid "Rockland"
-msgstr "Montagnes"
+msgstr "Taşdiyar"
 
 #: locale/tileset_names.ini
 msgid "Starland"
-msgstr "Terres Étoilées"
+msgstr "Yıldızdiyar"
 
 #: locale/tileset_names.ini
 msgid "Tanks"
-msgstr "Chars"
+msgstr "Tanklar"
 
 #: locale/tileset_names.ini
 msgid "Underground"
-msgstr "Sous-Terrains"
+msgstr "Yer Altı"
 
 #: locale/tileset_names.ini locale/object_names_enemy.ini
 msgid "Underwater"
-msgstr "Aquatique"
+msgstr "Su Altı"
 
 #: locale/tileset_names.ini
 msgctxt "Castle"
 msgid "Castle Bricks"
-msgstr "Briques de Château"
+msgstr "Kale Tuğlaları"
 
 #: locale/tileset_names.ini
 msgid "Solid Platform Gray"
-msgstr "Plateforme Solide Grise"
+msgstr "Sağlam Gri Platform"
 
 #: locale/tileset_names.ini
 msgid "Hard Block Gray"
-msgstr "Bloc Solide Gris"
+msgstr "Sert Gri Blok"
 
 #: locale/tileset_names.ini
 msgid "Castle Ground"
-msgstr "Sol du Château"
+msgstr "Kale Zemini"
 
 #: locale/tileset_names.ini
 msgctxt "Hazard Launcher Supporting Tiles"
 msgid "Bullet Launcher"
-msgstr "Bill Boum"
+msgstr "Mermi Atar"
 
 #: locale/tileset_names.ini
 msgctxt "Overworld Default"
 msgid "Hard Block Brown"
-msgstr "Bloc Solide Marron"
+msgstr "Sert Kahverengi Blok"
 
 #: locale/tileset_names.ini
 msgid "Overworld Ground"
-msgstr "Sol des Plaines"
+msgstr "Yeryüzü Zemini"
 
 #: locale/tileset_names.ini
 msgid "Overworld Ground Slopes"
-msgstr "Sols des Plaines en Pente"
+msgstr "Yamaçlı Yeryüzü Zemini"
 
 #: locale/tileset_names.ini
 msgctxt "Pipes"
 msgid "Green Pipe"
-msgstr "Tuyau Vert"
+msgstr "Yeşil Boru"
 
 #: locale/tileset_names.ini
 msgid "Purple Pipe"
-msgstr "Tuyau Violet"
+msgstr "Mor Boru"
 
 #: locale/tileset_names.ini
 msgid "Gray Pipe"
-msgstr "Tuyau Gris"
+msgstr "Gri Boru"
 
 #: locale/tileset_names.ini
 msgid "Gray Pipe with Dots"
-msgstr "Tuyau Gris Pointillé"
+msgstr "Noktalı Gri Boru"
 
 #: locale/tileset_names.ini
 msgid "White Pipe"
-msgstr "Tuyau Blanc"
+msgstr "Beyaz Boru"
 
 #: locale/tileset_names.ini
 msgid "Yellow Pipe"
-msgstr "Tuyau Jaune"
+msgstr "Sarı Boru"
 
 #: locale/tileset_names.ini
 msgid "Orange Pipe"
-msgstr "Tuyau Orange"
+msgstr "Turuncu Boru"
 
 #: locale/tileset_names.ini
 msgid "Red Pipe"
-msgstr "Tuyau Rouge"
+msgstr "Kırmızı Boru"
 
 #: locale/tileset_names.ini
 msgctxt "Rockland"
 msgid "Cloud Tile"
-msgstr "Case de Nuage"
+msgstr "Bulut Döşemesi"
 
 #: locale/tileset_names.ini
 msgid "Solid Platforms (bridge)"
-msgstr "Plateformes Solides (pont)"
+msgstr "Sağlam Platformlar (köprü)"
 
 #: locale/tileset_names.ini
 msgid "Solid Rock Platforms"
-msgstr "Plateformes Solides en Pierre"
+msgstr "Sağlam Taş Platformlar"
 
 #: locale/tileset_names.ini
 msgctxt "Starland"
 msgid "Starland Ground"
-msgstr "Sol de Plaines Étoilées"
+msgstr "Yıldızdiyar Zemini"
 
 #: locale/tileset_names.ini
 msgid "Starland Ground"
-msgstr "Sol de Plaines Étoilées"
+msgstr "Yıldızdiyar Zemini"
 
 #: locale/tileset_names.ini
 msgid "I will remove this"
-msgstr "Je vais enlever ça"
+msgstr "tavuk döner"
 
 #: locale/tileset_names.ini
 msgctxt "Tanks"
 msgid "Tank Tileset Default"
-msgstr "Tileset par Défaut de Char"
+msgstr "Tank Döşeme Seti"
 
 #: locale/tileset_names.ini
 msgctxt "Underground"
 msgid "Hard Block Blue"
-msgstr "Bloc Solide Bleu"
+msgstr "Sert Mavi Blok"
 
 #: locale/tileset_names.ini
 msgid "Underground Ground"
-msgstr "Sol des Sous-Terrains"
+msgstr "Yer Altı Zemini"
 
 #: locale/tileset_names.ini
 msgctxt "Underwater"
 msgid "Underwater Block"
-msgstr "Bloc Aquatique"
+msgstr "Su Altı Bloğu"
 
 #: locale/tileset_names.ini
 msgid "Underwater Sand"
-msgstr "Sable Aquatique"
+msgstr "Su Altı Kumu"
 
 #: locale/tileset_names.ini
 msgid "Coral Red"
-msgstr "Corail Rouge"
+msgstr "Kırmızı Mercan"
 
 #: locale/object_names_special.ini
 msgctxt "special"
 msgid "Essentials"
-msgstr "Essentiels"
+msgstr "Temel Öğeler"
 
 #: locale/object_names_special.ini
 msgid "Finish Line"
-msgstr "Ligne d'Arrivée"
+msgstr "Bitiş Çizgisi"
 
 #: locale/object_names_special.ini
 msgid "Player Start Position"
-msgstr "Position de Départ du Joueur"
+msgstr "Oyuncu Başlangıç Pozisyonu"
 
 #: locale/object_names_scenery.ini
 msgctxt "scenery"
 msgid "Sky"
-msgstr "Ciel"
+msgstr "Gökyüzü"
 
 #: locale/object_names_scenery.ini
 msgid "Big Clouds (Face)"
-msgstr "Gros Nuages (Visage)"
+msgstr "Büyük Bulut (Yüzü)"
 
 #: locale/object_names_scenery.ini
 msgid "Big Clouds"
-msgstr "Gros Nuages"
+msgstr "Büyük Bulut"
 
 #: locale/object_names_scenery.ini
 msgid "Overworld"
-msgstr "Plaines"
+msgstr "Yeryüzü Zemini"
 
 #: locale/object_names_scenery.ini
 msgid "Castle Bottom"
-msgstr "Base de Château"
+msgstr "Kale Altı"
 
 #: locale/object_names_scenery.ini
 msgid "Castle Top"
-msgstr "Sommet de Château"
+msgstr "Kale Üstü"
 
 #: locale/object_names_scenery.ini
 msgid "Cloud"
-msgstr "Nuage"
+msgstr "Bulut"
 
 #: locale/object_names_scenery.ini
 msgid "Fence"
-msgstr "Clôture"
+msgstr "Çit"
 
 #: locale/object_names_scenery.ini
 msgid "Forest Green"
-msgstr "Forêt Verte"
+msgstr "Yeşil Orman"
 
 #: locale/object_names_scenery.ini
 msgid "Grass Green"
-msgstr "Herbe Verte"
+msgstr "Yeşil Çayır"
 
 #: locale/object_names_scenery.ini
 msgid "Hill Green"
-msgstr "Colline Verte"
+msgstr "Yeşil Tepe"
 
 #: locale/object_names_scenery.ini
 msgid "Mountains Green"
-msgstr "Montagnes Vertes"
+msgstr "Yeşil Dağlar"
 
 #: locale/object_names_scenery.ini
 msgid "Tree x1 Green"
-msgstr "Arbre x1 Vert"
+msgstr "Yeşil Ağaç (x1)"
 
 #: locale/object_names_scenery.ini
 msgid "Tree x2 Green"
-msgstr "Arbre x2 Vert"
+msgstr "Yeşil Ağaç (x2)"
 
 #: locale/object_names_scenery.ini
 msgid "Tree x3 Green"
-msgstr "Arbre x3 Vert"
+msgstr "Yeşil Ağaç (x3)"
 
 #: locale/object_names_misc.ini
 msgctxt "misc"
 msgid "Other"
-msgstr "Autre"
+msgstr "Diğer"
 
 #: locale/object_names_enemy.ini
 msgctxt "enemy"
 msgid "Other"
-msgstr "Autre"
+msgstr "Diğer"
 
 #: locale/object_names_bonus.ini
 msgctxt "bonus"
 msgid "Other"
-msgstr "Autre"
+msgstr "Diğer"
 
 #: locale/object_names_misc.ini
 msgid "Springboard"
-msgstr "Trampoline"
+msgstr "Sıçrama Tahtası"
 
 #: locale/object_names_enemy.ini
 msgid "Fire Bros"
-msgstr "Frère Pyro"
+msgstr "Ateş Kardeşler"
 
 #: locale/object_names_enemy.ini
 msgid "Hammer Bros"
-msgstr "Frère Marteau"
+msgstr "Çekiç Kardeşler"
 
 #: locale/object_names_enemy.ini
 msgid "Buzzy Beetle"
-msgstr "Bruyinsecte"
+msgstr "Buzzy Beetle"
 
 #: locale/object_names_enemy.ini
 msgid "Dry Bones"
-msgstr "Skelerex"
+msgstr "Kuru Kemik"
 
 #: locale/object_names_enemy.ini
 msgid "Electric Coral"
-msgstr "Corail Électrique"
+msgstr "Elektrikli Mercan"
 
 #: locale/object_names_enemy.ini
 msgid "Hazard"
-msgstr "Danger"
+msgstr "Tuzak"
 
 #: locale/object_names_enemy.ini
 msgid "Firebar"
-msgstr "Barre de Feu"
+msgstr "Ateş Çubuğu"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Blue)"
-msgstr "Cheep Cheep (Bleu)"
+msgstr "Cheep Cheep (Mavi)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Green)"
-msgstr "Cheep Cheep (Vert)"
+msgstr "Cheep Cheep (Yeşil)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Red)"
-msgstr "Cheep Cheep (Rouge)"
+msgstr "Cheep Cheep (Kırmızı)"
 
 #: locale/object_names_enemy.ini
 msgid "Cheep Cheep (Yellow)"
-msgstr "Cheep Cheep (Jaune)"
+msgstr "Cheep Cheep (Sarı)"
 
 #: locale/object_names_enemy.ini
 msgid "Goomba"
@@ -928,23 +919,23 @@ msgstr "Goomba"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Troopas"
-msgstr "Koopas"
+msgstr "Koopa Troopalar"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Blue"
-msgstr "Koopa Bleu"
+msgstr "Mavi Koopa"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Green"
-msgstr "Koopa Vert"
+msgstr "Yeşil Koopa"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Red"
-msgstr "Koopa Rouge"
+msgstr "Kırmızı Koopa"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Yellow"
-msgstr "Koopa Jaune"
+msgstr "Sarı Koopa"
 
 #: locale/object_names_enemy.ini
 msgid "Lakitu"
@@ -952,67 +943,67 @@ msgstr "Lakitu"
 
 #: locale/object_names_enemy.ini
 msgid "Lakitu (Dark)"
-msgstr "Lakitu (Sombre)"
+msgstr "Lakitu (Karanlık)"
 
 #: locale/object_names_enemy.ini
 msgid "Lakitu (Hardcore Worlds)"
-msgstr "Lakitu (Mondes Hardcore)"
+msgstr "Lakitu (Hardcore Dünyaları)"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Blue"
-msgstr "Paratroopa Bleu"
+msgstr "Mavi Paratroopa"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Green"
-msgstr "Paratroopa Vert"
+msgstr "Yeşil Paratroopa"
 
 #: locale/object_names_enemy.ini
 msgid "Koopa Paratroopa Red"
-msgstr "Paratroopa Rouge"
+msgstr "Kırmızı Paratroopa"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plants"
-msgstr "Plantes Piranha"
+msgstr "Pirana Bitkileri"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Blue)"
-msgstr "Plante Piranha (Bleue)"
+msgstr "Pirana Bitkisi (Mavi)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Fireball)"
-msgstr "Pyro Piranha"
+msgstr "Pirana Bitkisi (Ateş Topu)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Red, Fireball)"
-msgstr "Pyro Piranha (Rouge)"
+msgstr "Pirana Bitkisi (Kırmızı, Ateş Topu)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Gray)"
-msgstr "Plante Piranha (Grise)"
+msgstr "Pirana Bitkisi (Gri)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant"
-msgstr "Plante Piranha"
+msgstr "Pirana Bitkisi"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Iceball)"
-msgstr "Piranha Gelée"
+msgstr "Pirana Bitkisi (Buz Topu)"
 
 #: locale/object_names_enemy.ini
 msgid "Piranha Plant (Red)"
-msgstr "Plante Piranha (Rouge)"
+msgstr "Pirana Bitkisi (Kırmızı)"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Red"
-msgstr "Hériss Rouge"
+msgstr "Kırmızı Spiny"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Gray"
-msgstr "Hériss Gris"
+msgstr "Gri Spiny"
 
 #: locale/object_names_enemy.ini
 msgid "Spiny Green"
-msgstr "Hériss Vert"
+msgstr "Yeşil Spiny"
 
 #: locale/object_names_enemy.ini
 msgid "Thwomp"
@@ -1020,125 +1011,189 @@ msgstr "Thwomp"
 
 #: locale/object_names_bonus.ini
 msgid "Beetroot"
-msgstr "Betterave"
+msgstr "Pancar"
 
 #: locale/object_names_bonus.ini
 msgid "Boomerang Flower"
-msgstr "Fleur Boomerang"
+msgstr "Bumerang Çiçeği"
 
 #: locale/object_names_bonus.ini
 msgid "Containers"
-msgstr "Caisses"
+msgstr "Barındırıcılar"
 
 #: locale/object_names_bonus.ini
 msgid "Brick"
-msgstr "Brique"
+msgstr "Tuğla"
 
 #: locale/object_names_bonus.ini
 msgid "Coin"
-msgstr "Pièce"
+msgstr "Para"
 
 #: locale/object_names_bonus.ini
 msgid "Fire Flower"
-msgstr "Fleur de Feu"
+msgstr "Ateş Çiçeği"
 
 #: locale/object_names_bonus.ini
 msgid "Frog Suit"
-msgstr "Costume de Grenouille"
+msgstr "Kurbağa Kostümü"
 
 #: locale/object_names_bonus.ini
 msgid "Green Lui"
-msgstr "Pois Vert"
+msgstr "Yeşil Lui"
 
 #: locale/object_names_bonus.ini
 msgid "Life Mushroom"
-msgstr "Champi 1UP"
+msgstr "Can Mantarı"
 
 #: locale/object_names_bonus.ini
 msgid "Poisonous Mushroom"
-msgstr "Champi Poison"
+msgstr "Zehirli Mantar"
 
 #: locale/object_names_bonus.ini
 msgid "Super Mushroom"
-msgstr "Super Champi"
+msgstr "Süper Mantar"
 
 #: locale/object_names_bonus.ini
 msgid "Question Block"
-msgstr "Bloc ?"
+msgstr "Soru İşareti Bloğu"
 
 #: locale/object_names_bonus.ini
 msgid "Super Star"
-msgstr "Super Étoile"
+msgstr "Süper Yıldız"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Source Code"
-msgstr "Code Source"
+msgstr "Kaynak Kodu"
 
-# FR : Don't think translation is needed for this, but in case
-# Thunder : Orage
-# Engine : Moteur
-# 'Moteur Orage'
 #: stages/main_menu/objects/about_window.tscn
 msgid "Thunder Engine"
 msgstr "Thunder Engine"
 
 #: stages/main_menu/objects/about_window.tscn
 msgid "Play Mario Forever: Community Edition"
-msgstr "Jouer à Mario Forever: Édition Communautaire"
+msgstr "Mario Forever: Community Edition oyna"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "A Level Editor for Mario Forever."
-msgstr "Un éditeur de niveau pour Mario Forever."
+msgstr "Mario Forever için bir Bölüm Düzenleyicisi."
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Lead Developer of MW:CE:"
 msgid_plural "Lead Developers of MW:CE:"
-msgstr[0] "Développeur en Chef de MW:CE :"
-msgstr[1] "Développeurs en Chef de MW:CE :"
+msgstr[0] "MW:CE Baş Geliştiricisi:"
+msgstr[1] "MW:CE Baş Geliştiricileri:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Graphical Assistance:"
-msgstr "Assistance Graphique :"
+msgstr "Görsel Yardım:"
 
-# FR : For TE translation, check out com.
 #: stages/main_menu/objects/about_window.gd
 msgid "Thunder Engine Developers:"
-msgstr "Développeurs de Thunder Engine :"
+msgstr "Thunder Engine Geliştiricileri:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Supporters:"
-msgstr "Supporters :"
+msgstr "Destekçiler:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Additional Credits:"
-msgstr "Crédits Additionnels :"
+msgstr "Ek Olarak Katkıda Bulunanlar:"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "Softendo/Buziol Games - For the base game"
-msgstr "Softendo/Buziol Games - Pour le jeu d'origine"
+msgstr "Softendo/Buziol Games - Ana oyunu yaptığı için"
 
 #: stages/main_menu/objects/about_window.gd
 msgid "TheMarioVariable - For Mario Worker Remake"
-msgstr "TheMarioVariable - Pour Mario Worker Remake"
+msgstr "TheMarioVariable - Mario Worker Remake'i yaptığı için"
 
 #: stages/main_menu/objects/about_window.gd
 msgctxt "Put your language here!"
 msgid "English Translation:"
-msgstr "Traduction Française :"
+msgstr "Türkçeye Çevirenler:"
 
 #: stages/main_menu/objects/about_window.gd
 msgctxt "Put translation authors here!"
 msgid "Your name"
-msgstr "Sonilan, Ulvvis"
+msgstr "Master 48, miyameon"
 
-#~ msgid "Mario Worker: Community Edition"
-#~ msgstr "Mario Worker: Community Edition"
+#~ msgid "EN"
+#~ msgstr "ENG"
+
+#~ msgid "RU"
+#~ msgstr "RU"
+
+#~ msgid "PL"
+#~ msgstr "PL"
+
+#~ msgid "TR"
+#~ msgstr "TR"
+
+#~ msgid "Space"
+#~ msgstr "Space"
+
+#~ msgid "Placeholder"
+#~ msgstr "Sahte (Yer Tutucu)"
 
 #~ msgid "Use Tile Terrains"
-#~ msgstr "Utiliser les Terrains de Tiles"
+#~ msgstr "Döşeme Arazilerini Kullan"
+
+#~ msgid "Enter"
+#~ msgstr "Enter"
+
+#~ msgid "Tab"
+#~ msgstr "Tab"
+
+#~ msgid "Backspace"
+#~ msgstr "Backspace"
+
+#~ msgid "Slash"
+#~ msgstr "Eğik çizgi"
+
+#~ msgid "Backslash"
+#~ msgstr "Ters eğik çizgi"
+
+#~ msgid "Colon"
+#~ msgstr "İki nokta üst üste"
+
+#~ msgid "Semicolon"
+#~ msgstr "Noktalı virgül"
+
+#~ msgid "Shift"
+#~ msgstr "Shift"
+
+#~ msgid "Less"
+#~ msgstr "Küçüktür"
+
+#~ msgid "Equal"
+#~ msgstr "Eşittir"
+
+#~ msgid "Greater"
+#~ msgstr "Büyüktür"
+
+#~ msgid "Minus"
+#~ msgstr "Eksi"
+
+#~ msgid "Asterisk"
+#~ msgstr "Yıldız işareti"
+
+#~ msgid "Left"
+#~ msgstr "Sol"
+
+#~ msgid "Up"
+#~ msgstr "Yukarı"
+
+#~ msgid "Down"
+#~ msgstr "Aşağı"
+
+#~ msgid "Right"
+#~ msgstr "Sağ"
+
+#~ msgid "LINE 1"
+#~ msgstr "SATIR 1"
+
+#~ msgid "LINE 2"
+#~ msgstr "SATIR 2"
 
 #~ msgid "Dummy"
-#~ msgstr "Mannequin"
-
-#~ msgid "Overworld Grass"
-#~ msgstr "Herbe des Plaines"
+#~ msgstr "Aptal......"

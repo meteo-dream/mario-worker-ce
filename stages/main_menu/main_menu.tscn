@@ -165,7 +165,7 @@ text = "ES"
 
 [node name="Lang_de" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
-tooltip_text = "German (Germany)"
+tooltip_text = "German"
 theme_override_constants/outline_size = 8
 disabled = true
 button_group = SubResource("ButtonGroup_phs36")
@@ -173,14 +173,14 @@ text = "DE"
 
 [node name="Lang_fr" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
-tooltip_text = "French (France)"
+tooltip_text = "French"
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "FR"
 
 [node name="Lang_pl" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
-tooltip_text = "Polish (Poland)"
+tooltip_text = "Polish"
 theme_override_constants/outline_size = 8
 disabled = true
 button_group = SubResource("ButtonGroup_phs36")
@@ -195,22 +195,21 @@ text = "PT"
 
 [node name="Lang_ru" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
-tooltip_text = "Russian (Russia)"
+tooltip_text = "Russian"
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "RU"
 
 [node name="Lang_tr" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
-tooltip_text = "Turkish (Turkey)"
+tooltip_text = "Turkish"
 theme_override_constants/outline_size = 8
-disabled = true
 button_group = SubResource("ButtonGroup_phs36")
 text = "TR"
 
 [node name="Lang_vi" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2" groups=["menu_lang"]]
 layout_mode = 2
-tooltip_text = "Vietnamese (Vietnam)"
+tooltip_text = "Vietnamese"
 theme_override_constants/outline_size = 8
 button_group = SubResource("ButtonGroup_phs36")
 text = "VI"
