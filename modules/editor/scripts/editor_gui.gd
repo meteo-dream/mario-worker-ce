@@ -56,6 +56,7 @@ func apply_level_properties() -> void:
 		Editor.current_level_properties = LevelProperties.new()
 	# Main
 	Editor.current_level.time = properties_tabs.time_limit.value
+	if Editor.current_level.time == 0: Editor.current_level.time = -1
 	Editor.current_level_properties.level_name = properties_tabs.level_name.text
 	Editor.current_level_properties.level_display_name_1 = properties_tabs.display_name_1.text
 	Editor.current_level_properties.level_display_name_2 = properties_tabs.display_name_2.text

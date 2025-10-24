@@ -26,7 +26,8 @@ func _ready() -> void:
 		hud.offset.y = 56
 		hud.reset_physics_interpolation()
 	
-	
+	if time <= 100:
+		hud.timer_hurry()
 	
 
 func get_section(section_index: int) -> Node2D:
