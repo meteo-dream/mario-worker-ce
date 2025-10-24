@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #: stages/main_menu/prototype_menu.gd modules/editor/classes/LevelEditor.gd
 msgid "Failed to load: Data is corrupted"
@@ -70,9 +70,9 @@ msgid ""
 "presented prototype may significantly differ from the final version.\n"
 "levels created in this build will not load in other versions."
 msgstr ""
-"bu, bölüm editörünün herkese açık tamamlanmamış bir ön izleme sürümüdür.\n"
-"sunulan prototip, son sürüme göre önemli ölçüde farklılık gösterebilir.\n"
-"bu sürümde oluşturulan bölümler diğer sürümlerde yüklenmeyecektir."
+"BU, BÖLÜM EDİTÖRÜNÜN HERKESE AÇIK TAMAMLANMAMIŞ BİR ÖN İZLEME SÜRÜMÜDÜR.\n"
+"SUNULAN PROTOTİP, SON SÜRÜME GÖRE ÖNEMLİ ÖLÇÜDE FARKLILIK GÖSTEREBİLİR.\n"
+"BU SÜRÜMDE OLUŞTURULAN BÖLÜMLER DİĞER SÜRÜMLERDE YÜKLENMEYECEKTİR."
 
 #: stages/main_menu/main_menu.tscn
 msgid "Go to level editor"
@@ -127,7 +127,7 @@ msgstr "Kaydedilemedi."
 msgid ""
 "This button is unimplemented for now, use 'Play Level' from the title screen"
 msgstr ""
-"Bu buton henüz kullanılabilir değil, başlık ekranından 'Bölümü Oyna'yı seç"
+"Bu buton henüz kullanılabilir değil, başlık ekranından 'Bölüm Oyna'yı seç"
 
 #: modules/editor/scripts/editor_gui.gd
 msgctxt "Grid value suffix"
