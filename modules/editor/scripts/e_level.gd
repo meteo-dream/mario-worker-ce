@@ -26,7 +26,7 @@ func _ready() -> void:
 		hud.offset.y = 56
 		hud.reset_physics_interpolation()
 	
-	if time <= 100:
+	if time <= 100 && time > 1:
 		hud.timer_hurry()
 	
 

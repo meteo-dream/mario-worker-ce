@@ -60,6 +60,7 @@ thunder_settings/tweaks/no_audio_effects=false
 thunder_settings/version=1
 thunder_settings/major_version=1
 thunder_settings/custom_root_window_path=NodePath("/root/GlobalViewport")
+thunder_settings/tweaks/console_enabled=true
 
 [autoload]
 
