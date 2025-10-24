@@ -38,7 +38,8 @@ func setup_object() -> Node:
 @abstract func _install_icon() -> void
 
 func _on_editor_object_selected(category_name: String) -> void:
-	Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
+	if !Editor.scene.is_paint_tool():
+		Editor.scene.tool_mode = LevelEditor.TOOL_MODES.PAINT
 	Editor.scene.editing_sel = LevelEditor._edit_sel_to_enum(category_name)
 	Editor.scene.apply_stored_selection_object(self)
 	Editor.scene.selected_object = self

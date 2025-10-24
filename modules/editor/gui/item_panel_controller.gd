@@ -8,11 +8,16 @@ const ITEM_FOLDABLE_CONTAINER = preload("uid://dhjqv7n6lq15x")
 
 @export var category_name: String = ""
 @export var buttons_size: int = 48
+## Used for tiles
 @export var json_mode: bool = false
 @export var descriptions: bool = false
 
+## Parent of foldable containers
 @onready var container: GridContainer = %VBoxContainer
+## List of all foldable containers
 var subcategories: Array[Container]
+## List of all objects that can be selected (created on deferred)
+var object_arr: Array
 
 func _ready() -> void:
 	if category_name.is_empty():
@@ -24,25 +29,41 @@ func _ready() -> void:
 	else:
 		load_tileset_items(items)
 	
+	if len(subcategories) == 0: return
+	
 	# Sorting subcategories by name
-	if len(subcategories) > 0:
-		subcategories.sort_custom(func(a, b):
-			return a.title.naturalnocasecmp_to(b.title) < 0
-		)
+	subcategories.sort_custom(func(a, b):
+		return a.title.naturalnocasecmp_to(b.title) < 0
+	)
+	
+	# Adding loaded subcategories to the scene tree
+	for i in subcategories:
+		i.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		container.add_child(i)
+	
+	# Adaptive column width on window resizing
+	_on_grid_container_resized()
+	container.resized.connect(_on_grid_container_resized)
+	
+	(func():
 		for i in subcategories:
-			i.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			container.add_child(i)
+			if i.get_child(0).get_child_count() == 0:
+				i.queue_free()
+				prints("Removed empty subcat", i.name)
+				continue
+			if json_mode:
+				continue
+			
+			# Adding objects to object_arr for quick next/prev selection
+			var buttons_arr = i.get_child(0).get_children().filter(func(b): return b is Button)
+			var index_offset := object_arr.size()
+			object_arr.resize(object_arr.size() + buttons_arr.size())
+			for j in len(buttons_arr):
+				object_arr[index_offset + j] = buttons_arr[j].get_child(0)
 		
-		_on_grid_container_resized()
-		container.resized.connect(_on_grid_container_resized)
-		
-		(func():
-			for i in subcategories:
-				if i.get_child(0).get_child_count() == 0:
-					i.queue_free()
-					prints("Removed empty subcat", i.name)
-					continue
-		).call_deferred()
+		Editor.scene.obj_list_ptr[category_name] = object_arr
+		prints(category_name, object_arr)
+	).call_deferred()
 
 
 func load_scene_items(items: PackedStringArray):

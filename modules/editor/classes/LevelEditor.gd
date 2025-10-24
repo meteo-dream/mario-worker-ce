@@ -96,6 +96,7 @@ var selected_tileset: Dictionary
 var selected_tile_holder: TileHolder
 var selected: Array[Node2D]
 var section: int = 1
+var obj_list_ptr: Dictionary[String, Array]
 
 var changes_after_save: bool = false:
 	set(to):
@@ -403,7 +404,7 @@ func tileset_selected() -> void:
 		old_tiles = _tilemap.tile_map_data
 		_tilemap.free.call_deferred()
 	# Creating new tilemap
-	var _new_tilemap = E_TILEMAP.instantiate()
+	var _new_tilemap := E_TILEMAP.instantiate()
 	_new_tilemap.tile_set = selected_tileset.tileset
 	_new_tilemap.name = selected_tileset.name_id
 	if old_tiles:
@@ -431,9 +432,12 @@ func select_paint(category_name: String, from_menu: bool = true) -> void:
 func switch_tile_by(amount: int) -> void:
 	var play_sound: bool
 	match editing_sel:
+		EDIT_SEL.NONE:
+			return
 		EDIT_SEL.TILE:
+			if !selected_tile_holder: return
 			var tile_index: int = selected_tile_holder.tiles.find(selected_tile_holder.id)
-			var old_index = tile_index
+			var old_index := tile_index
 			
 			tile_index = clampi(tile_index + amount, 0, len(selected_tile_holder.tiles) - 1)
 			if old_index != tile_index:
@@ -441,11 +445,23 @@ func switch_tile_by(amount: int) -> void:
 				selected_tile_holder.terrain_set = -1
 				selected_tile_holder.id = selected_tile_holder.tiles[tile_index]
 				play_sound = true
+		_:
+			var _current_edit_sel := _enum_to_edit_sel(editing_sel)
+			if !_current_edit_sel in obj_list_ptr: return
+			var _obj_index := obj_list_ptr[_current_edit_sel].find(selected_object)
+			if _obj_index < 0: return
+			var old_index := _obj_index
+			
+			_obj_index = clampi(_obj_index + amount, 0, len(obj_list_ptr[_current_edit_sel]) - 1)
+			if old_index != _obj_index:
+				selected_object = obj_list_ptr[_current_edit_sel][_obj_index]
+				selected_object._on_editor_object_selected(_current_edit_sel)
+				stash_selected_object(false)
+				play_sound = true
 	
 	if play_sound:
 		EditorAudio.menu_accept()
 		apply_stored_selection_object()
-		#tool_mode = TOOL_MODES.PAINT
 
 
 func section_switched(to: int) -> void:
@@ -453,7 +469,7 @@ func section_switched(to: int) -> void:
 	EditorAudio.kick(0)
 	editor_cache.section_camera_pos[section] = Editor.camera.global_position
 	section = to
-	var section_node = Editor.current_level.get_section(to)
+	var section_node := Editor.current_level.get_section(to)
 	section_switched_to.emit(to)
 	if editor_cache.section_camera_pos.has(to):
 		Editor.camera.global_position = editor_cache.section_camera_pos[to]
@@ -467,7 +483,7 @@ func section_switched(to: int) -> void:
 func get_pos_on_grid(forced_grid: bool = false) -> Vector2:
 	#var _offset: Vector2 = %SelectedObjTexture.size / 2.0
 	var _offset: Vector2 = Editor.grid_offset + Vector2.ONE * 16
-	var _grid_pos = Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
+	var _grid_pos := Vector2( (get_global_mouse_position().round() - _offset) / Editor.grid_size ).round() * Editor.grid_size
 	var _res: Vector2 = _grid_pos + _offset if Editor.grid_shown || forced_grid else get_global_mouse_position().round()
 	return _res
 
@@ -1084,6 +1100,17 @@ static func _edit_sel_to_enum(edit_sel_string: String) -> EDIT_SEL:
 		"misc": return EDIT_SEL.MISC
 		"special": return EDIT_SEL.SPECIAL
 	return EDIT_SEL.MISC
+
+static func _enum_to_edit_sel(edit_sel_enum: EDIT_SEL) -> String:
+	match edit_sel_enum:
+		EDIT_SEL.NONE: return "none"
+		EDIT_SEL.TILE: return "tile"
+		EDIT_SEL.SCENERY: return "scenery"
+		EDIT_SEL.ENEMY: return "enemy"
+		EDIT_SEL.BONUS: return "bonus"
+		EDIT_SEL.MISC: return "misc"
+		EDIT_SEL.SPECIAL: return "special"
+	return "misc"
 
 
 func restart() -> void:

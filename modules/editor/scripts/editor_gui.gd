@@ -106,10 +106,7 @@ func _on_button_group_pressed(button: BaseButton) -> void:
 
 
 func _on_menu_button_item_selected(index: int) -> void:
-	Editor.scene.stash_selected_object(true)
-	Editor.scene.editing_sel = index
-	Editor.scene.apply_stored_selection_object()
-	EditorAudio.menu_hover()
+	%TabContainer.current_tab = index - 1
 
 
 var window_old_size: Vector2i

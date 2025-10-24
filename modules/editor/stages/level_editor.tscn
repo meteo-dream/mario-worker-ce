@@ -1140,10 +1140,12 @@ script = ExtResource("4_w7m60")
 color = Color(0.411765, 0.411765, 0.411765, 0.403922)
 
 [node name="EditorGridExtra" type="Node2D" parent="EditorNodes"]
+z_index = 1
 script = ExtResource("27_bu24i")
 
 [node name="EditorGridSelection" type="Node2D" parent="EditorNodes"]
 unique_name_in_owner = true
+z_index = 1
 script = ExtResource("25_3f3hp")
 
 [node name="AudioBlockErase" type="AudioStreamPlayer" parent="EditorNodes"]

@@ -23,10 +23,7 @@ func _draw() -> void:
 		
 		var c := Color.CORAL
 		var xform: Transform2D = j.global_transform
-		#var unscaled_transform: Transform2D = (xform * j.global_transform.affine_inverse() * j.global_transform).orthonormalized();
-		#draw_set_transform(xform.get_origin(), 0.0, get_viewport_transform().affine_inverse().get_scale())
 		draw_set_transform_matrix(xform)
-		#print(xform)
 		var rect = j.shape.get_rect()
 		var endpoints: Array[Vector2] = [
 			xform.basis_xform(rect.position),
