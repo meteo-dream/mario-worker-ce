@@ -1033,13 +1033,33 @@ func _tool_erase_process() -> void:
 	selected_obj_sprite.global_position = get_pos_on_grid()
 	selected_obj_sprite.offset = Vector2.ZERO
 	selected_obj_sprite.reset_physics_interpolation()
+	var _col: bool
 	if editing_sel > EDIT_SEL.NONE:
 		%SelectedObjLabel.text = tr("Erasing: %s Category") % tr(%EditingMenuButton.get_item_text(editing_sel))
 	if editing_sel == EDIT_SEL.TILE:
 		# TODO: Tile erasing
+		if !can_draw_not_blocked(): return
+		var _section_node = Editor.current_level.get_section(section)
+		var _detected_tilemaps: Array[TileMapLayer]
+		for i in _section_node.get_node("tile").get_children():
+			if !i is TileMapLayer: continue
+			var local_pos: Vector2i = _section_node.to_local(i.local_to_map(get_tile_pos_on_grid(true)))
+			if i.get_cell_tile_data(local_pos):
+				_detected_tilemaps.append(i)
+		
+		_col = _detected_tilemaps.size() > 0
+		control.set_default_cursor_shape(Control.CURSOR_FORBIDDEN if _col else Control.CURSOR_ARROW)
+		if _col && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			for i in _detected_tilemaps:
+				var local_pos: Vector2i = _section_node.to_local(i.local_to_map(get_tile_pos_on_grid(true)))
+				i.erase_cell(local_pos)
+			
+			%AudioBlockErase.play()
+			changes_after_save = true
 		return
+	
 	%ShapeCastPoint.force_shapecast_update()
-	var _col = %ShapeCastPoint.is_colliding()
+	_col = %ShapeCastPoint.is_colliding()
 	control.set_default_cursor_shape(Control.CURSOR_FORBIDDEN if _col else Control.CURSOR_ARROW)
 	if can_draw_not_blocked() && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		for i in %ShapeCastPoint.get_collision_count():
