@@ -11,6 +11,7 @@ func _ready() -> void:
 	
 	if Editor.config.lang == "":
 		for i in get_tree().get_nodes_in_group(&"menu_lang"):
+			if i.disabled: continue
 			i.button_pressed = OS.get_locale_language() == i.name.trim_prefix("Lang_")
 	else:
 		for i in get_tree().get_nodes_in_group(&"menu_lang"):

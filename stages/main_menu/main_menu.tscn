@@ -121,6 +121,7 @@ text = "Browse level files"
 
 [node name="Credits" type="Button" parent="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer2/Exit")
 text = "About"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
@@ -139,6 +140,7 @@ text = "Feedback"
 
 [node name="Exit" type="Button" parent="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer/Credits")
 text = "Exit"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
@@ -255,6 +257,25 @@ recent_list_enabled = false
 unique_name_in_owner = true
 visible = false
 force_native = true
+
+[node name="Label" type="Label" parent="."]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -335.0
+offset_top = -33.0
+offset_right = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 20
+text = "v0.1.0"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Gotoleveleditor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/BrowseFiles" to="." method="_on_browse_files_pressed"]
