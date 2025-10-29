@@ -66,26 +66,38 @@ func _prepare_editor(is_new: bool = true) -> void:
 	var _col = CollisionShape2D.new()
 	_shape = RectangleShape2D.new()
 	_col.shape = _shape
-	_shape.size = Vector2.ONE * 32
+	_shape.size = get_editor_collision_rect().size
 	_area.add_child(_col)
 	
 	_editor_ready = true
 	queue_redraw()
 	
-	prints(name, global_position)
+	print_verbose(name, " ", global_position)
 
 @abstract func _prepare_gameplay() -> Node
 
 func _paint_object(_section_node: Node2D, mouse_clicked_once: bool) -> Node2D:
+	var _new_pos: Vector2 = Editor.scene.get_pos_on_grid() - _section_node.global_position
+	for i in Editor.scene.paint_buffer:
+		print_verbose("Checking pos ", _new_pos)
+		if i.has_point(_new_pos):
+			return
+	
 	var obj = Editor.scene.selected_object.duplicate()
 	obj.process_mode = Node.PROCESS_MODE_INHERIT
-	obj.position = Editor.scene.get_pos_on_grid() - _section_node.global_position
+	obj.position = _new_pos
 	var _node_folder = obj.category
 	if !_section_node.has_node(_node_folder):
 		printerr("Section %d: Node %s doesn't exist" % [Editor.scene.section, obj.category])
 		return null
 	_section_node.get_node(_node_folder).add_child(obj, true)
 	obj.owner = Editor.current_level
+	
+	var _rect_buffer: Rect2 = get_editor_collision_rect()
+	_rect_buffer.position += _new_pos
+	Editor.scene.paint_buffer.append(_rect_buffer)
+	print_verbose(Editor.scene.paint_buffer)
+	
 	Editor.scene.changes_after_save = true
 	EditorAudio.place_object()
 	obj._prepare_editor(true)
@@ -101,6 +113,10 @@ func _hovered() -> void:
 
 func get_editor_sprite_pos() -> Vector2:
 	return offset
+
+
+func get_editor_collision_rect() -> Rect2:
+	return Rect2(Vector2.ZERO, Vector2.ONE * 32)
 
 
 func _draw() -> void:

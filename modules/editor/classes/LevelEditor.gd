@@ -107,14 +107,13 @@ var mouse_blocked: bool
 var special_object_blocked: bool
 var mouse_clicked_once: bool
 var object_sprite_visible: bool
+var paint_buffer: Array[Rect2i]
 
 @onready var editor_options: Dictionary = Editor.config.editor_options.duplicate()
 var editor_cache := EditorCacheData.new()
 
 
 func _ready() -> void:
-	#if DisplayServer.window_get_mode(0) == DisplayServer.WINDOW_MODE_WINDOWED:
-	#	DisplayServer.window_set_size(Vector2i(1280, 720))
 	Editor.scene = self
 	Editor.mode = Editor.MODE.EDITOR
 	Data.reset_all_values()
@@ -166,6 +165,8 @@ func _physics_process(delta: float) -> void:
 	if special_object_blocked:
 		if Input.is_action_just_pressed(&"ui_cancel"):
 			special_object_blocked = false
+	
+	paint_buffer.clear()
 	
 	if mouse_blocked: return
 	
@@ -287,10 +288,8 @@ func _input_mouse_hold(event: InputEvent) -> void:
 		if is_instance_valid(selected_object):
 			selected_obj_sprite.global_position = get_pos_on_grid()
 			selected_obj_sprite.offset = selected_object.get_editor_sprite_pos()
-		%ShapeCast2D.force_update_transform()
+		
 		%ShapeCast2D.force_shapecast_update()
-		#prints(Time.get_ticks_msec(), %ShapeCast2D.is_colliding())
-		#var _sel_rect: Rect2 = %SelectedObjTexture.get_rect()
 		if %ShapeCast2D.is_colliding():
 			# Erasing the object by RMB
 			_input_paint_object_rmb(event)
