@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnpmlh30qealc"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_y3pje"]
+[ext_resource type="Texture2D" uid="uid://drurta6gsm0p" path="res://engine/objects/enemies/human_lab/piranha/texture.png" id="2_4huar"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpwgg"]
+atlas = ExtResource("2_4huar")
+region = Rect2(0, 0, 48, 48)
+
+[node name="Jaws Clone" type="Node2D"]
+script = ExtResource("1_y3pje")
+scene_path = "uid://tcf0l7fpwwp1"
+instance_offset = Vector2(0, 24)
+category = "enemy"
+subcategory = "Human Laboratory"
+offset = Vector2(16, -8)
+editor_icon = SubResource("AtlasTexture_hpwgg")

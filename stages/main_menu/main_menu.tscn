@@ -243,7 +243,6 @@ disable_3d = true
 title = "Open a File"
 initial_position = 2
 size = Vector2i(540, 420)
-popup_window = true
 ok_button_text = "Open"
 dialog_autowrap = true
 file_mode = 0

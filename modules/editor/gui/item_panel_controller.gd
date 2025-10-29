@@ -32,9 +32,9 @@ func _ready() -> void:
 	if len(subcategories) == 0: return
 	
 	# Sorting subcategories by name
-	subcategories.sort_custom(func(a, b):
-		return a.title.naturalnocasecmp_to(b.title) < 0
-	)
+	#subcategories.sort_custom(func(a, b):
+	#	return a.title.naturalnocasecmp_to(b.title) < 0
+	#)
 	
 	# Adding loaded subcategories to the scene tree
 	for i in subcategories:

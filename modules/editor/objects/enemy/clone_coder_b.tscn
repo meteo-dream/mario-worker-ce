@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ejvel7asbl4q"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_mpu3y"]
+[ext_resource type="Texture2D" uid="uid://b3vs8it84iaxo" path="res://engine/objects/enemies/human_lab/container/textures/clones/clone_coder.png" id="2_m2yvy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmo1o"]
+atlas = ExtResource("2_m2yvy")
+region = Rect2(0, 0, 34, 66)
+
+[node name="Coder Clone B" type="Node2D"]
+script = ExtResource("1_mpu3y")
+scene_path = "uid://clnvxc3co85ls"
+instance_offset = Vector2(0, 16)
+category = "enemy"
+subcategory = "Human Laboratory"
+offset = Vector2(0, -16)
+editor_icon = SubResource("AtlasTexture_xmo1o")

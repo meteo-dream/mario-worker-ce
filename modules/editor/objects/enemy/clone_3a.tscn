@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ulpfegmuuogk"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_lhe8f"]
+[ext_resource type="Texture2D" uid="uid://doakxepear2fk" path="res://engine/objects/enemies/human_lab/container/textures/clones/spiny.png" id="2_opf4l"]
+
+[node name="Clone 3-A" type="Node2D"]
+script = ExtResource("1_lhe8f")
+scene_path = "uid://dxqjmbtsadabq"
+instance_offset = Vector2(0, 8)
+category = "enemy"
+subcategory = "Human Laboratory"
+offset = Vector2(0, -8)
+editor_icon = ExtResource("2_opf4l")

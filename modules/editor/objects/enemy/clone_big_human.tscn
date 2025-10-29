@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://itx86er5p28c"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_x33wg"]
+[ext_resource type="Texture2D" uid="uid://hd10qceb1lo0" path="res://engine/objects/enemies/human_lab/container/textures/clones/big_clone_human_b.png" id="2_7g138"]
+
+[node name="Big Human Clone B" type="Node2D"]
+script = ExtResource("1_x33wg")
+scene_path = "uid://bpdl22ol10045"
+instance_offset = Vector2(0, 13)
+category = "enemy"
+subcategory = "Human Laboratory"
+offset = Vector2(0, -13)
+editor_icon = ExtResource("2_7g138")

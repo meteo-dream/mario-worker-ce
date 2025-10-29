@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dl2ynu3f1p4c2"]
+[gd_scene load_steps=3 format=3 uid="uid://dl2ynu3f1p4c2"]
 
 [ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_yoiix"]
+[ext_resource type="Texture2D" uid="uid://8516eatcpprk" path="res://modules/editor/gfx/object/lakitu_dark.png" id="2_nma6n"]
 
-[node name="Lakitu (Dark)" type="Node2D"]
+[node name="Lakitu (Spiny Gray)" type="Node2D"]
 script = ExtResource("1_yoiix")
 scene_path = "res://engine/objects/enemies/lakitus/dark_lakitu.tscn"
 category = "enemy"
 offset = Vector2(0, -8)
+editor_icon = ExtResource("2_nma6n")
 text_description = "Floats around the player, occasionally launching Gray Spiny Eggs."

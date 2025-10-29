@@ -19,3 +19,4 @@ internal_settings = Dictionary[String, Variant]({
 "set_max_items": 20
 })
 category = "bonus"
+subcategory = "Collectibles"

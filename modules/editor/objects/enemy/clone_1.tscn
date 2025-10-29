@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://l5k0xc75ry0"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_yarlo"]
+[ext_resource type="Texture2D" uid="uid://do6qdoyrmjh1t" path="res://engine/objects/enemies/human_lab/container/textures/clones/clone_01.png" id="2_72sqn"]
+
+[node name="Clone 01" type="Node2D"]
+script = ExtResource("1_yarlo")
+scene_path = "uid://bi2hg5giakfce"
+instance_offset = Vector2(0, 11)
+category = "enemy"
+subcategory = "Human Laboratory"
+offset = Vector2(2, -11)
+editor_icon = ExtResource("2_72sqn")

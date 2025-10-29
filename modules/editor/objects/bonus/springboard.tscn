@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyie5ilg7rw6u"]
+
+[ext_resource type="Script" uid="uid://cgqswsul8jthm" path="res://modules/editor/classes/editor_addable/EditorAddableScene.gd" id="1_myd1l"]
+
+[node name="Springboard" type="Node2D"]
+script = ExtResource("1_myd1l")
+scene_path = "res://engine/objects/springboard/springboard.tscn"
+instance_offset = Vector2(0, 8)
+category = "bonus"
+offset = Vector2(0, -8)
+text_description = "Used to jump higher."
