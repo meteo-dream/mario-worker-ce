@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ct3gjwv0cs6p"]
+[gd_scene load_steps=63 format=3 uid="uid://ct3gjwv0cs6p"]
 
 [ext_resource type="Script" uid="uid://4nevngh00vtd" path="res://modules/editor/classes/LevelEditor.gd" id="1_mqqp7"]
 [ext_resource type="Script" uid="uid://cwrgji2fg1e83" path="res://modules/editor/scripts/editor_gui.gd" id="3_7ryt0"]
@@ -60,6 +60,14 @@ unicode = 112
 
 [sub_resource type="Shortcut" id="Shortcut_ahe48"]
 events = [SubResource("InputEventKey_abl8s")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ahe48"]
+device = -1
+keycode = 75
+unicode = 1083
+
+[sub_resource type="Shortcut" id="Shortcut_fr2b1"]
+events = [SubResource("InputEventKey_ahe48")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_fr2b1"]
 device = -1
@@ -297,6 +305,7 @@ tooltip_text = "Picker Tool"
 focus_mode = 1
 toggle_mode = true
 button_group = ExtResource("4_rv8e0")
+shortcut = SubResource("Shortcut_fr2b1")
 icon = ExtResource("8_xb7r7")
 
 [node name="EraseMode" type="Button" parent="CanvasLayer/Control/VBoxContainer/PanelContainer/TopBoxContainer/TopBoxLeft"]

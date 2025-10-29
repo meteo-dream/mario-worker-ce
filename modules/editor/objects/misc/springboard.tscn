@@ -6,6 +6,6 @@
 script = ExtResource("1_myd1l")
 scene_path = "res://engine/objects/springboard/springboard.tscn"
 instance_offset = Vector2(0, 8)
-category = "bonus"
+category = "misc"
 offset = Vector2(0, -8)
 text_description = "Used to jump higher."
