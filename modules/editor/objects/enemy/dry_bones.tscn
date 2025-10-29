@@ -10,6 +10,7 @@ region = Rect2(0, 0, 32, 48)
 [node name="Dry Bones" type="Node2D"]
 script = ExtResource("1_8s5y2")
 scene_path = "uid://b4bjvmqtj8nv0"
+instance_offset = Vector2(0, 8)
 category = "enemy"
 offset = Vector2(0, -8)
 editor_icon = SubResource("AtlasTexture_yst3p")

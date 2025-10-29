@@ -12,4 +12,4 @@ internal_settings = Dictionary[String, Variant]({
 })
 category = "scenery"
 subcategory = "Overworld"
-offset = Vector2(0, -34)
+offset = Vector2(0, -33)

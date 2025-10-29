@@ -6,6 +6,7 @@
 [node name="Koopa Paratroopa Blue" type="Node2D"]
 script = ExtResource("1_lovjm")
 scene_path = "res://engine/objects/enemies/paratroopas/paratroopa_blue.tscn"
+instance_offset = Vector2(0, 8)
 category = "enemy"
 subcategory = "Koopa Troopas"
 offset = Vector2(0, -8)
